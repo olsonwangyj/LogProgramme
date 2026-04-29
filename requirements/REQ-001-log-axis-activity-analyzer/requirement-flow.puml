@@ -1,0 +1,14 @@
+@startuml
+start
+:Select Log File A;
+:Select Log File B;
+:Choose output workbook path;
+:Load files with encoding fallback;
+:Parse full Log A for axis activity lines;
+:Parse Log B for axis duty-cycle history;
+:Match start and end events per axis;
+:Associate duty cycle to each activity record;
+:Build detail and summary tables;
+:Write Excel workbook;
+stop
+@enduml

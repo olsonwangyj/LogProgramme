@@ -1,0 +1,43 @@
+@startuml
+class EventRule {
+  +rule_id: str
+  +start_label: str
+  +end_label: str
+}
+
+class AxisLogEvent {
+  +timestamp: datetime
+  +axis: str
+  +message: str
+  +inline_value: float
+}
+
+class DutyCycleEvent {
+  +timestamp: datetime
+  +axis: str
+  +duty_cycle: float
+}
+
+class ParseWarning {
+  +source_name: str
+  +axis: str
+  +message: str
+}
+
+class ActivityRecord {
+  +axis: str
+  +start_event: str
+  +end_event: str
+  +duration_ms: int
+  +status: str
+}
+
+class LogAnalysisService
+
+LogAnalysisService --> AxisLogEvent
+LogAnalysisService --> DutyCycleEvent
+LogAnalysisService --> ActivityRecord
+AxisLogEvent --> EventRule
+ActivityRecord --> DutyCycleEvent
+ParseWarning --> ActivityRecord
+@enduml

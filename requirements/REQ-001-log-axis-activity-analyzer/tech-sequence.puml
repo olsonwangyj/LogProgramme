@@ -1,0 +1,28 @@
+@startuml
+actor User
+participant "App Entry" as App
+participant "LogAnalysisService" as Service
+participant "MainLogParser" as MainParser
+participant "DutyCycleLogParser" as DutyParser
+participant "EventMatcher" as Matcher
+participant "DutyCycleAssociator" as Associator
+participant "SummaryGenerator" as Summary
+participant "ExcelExporter" as Exporter
+
+User -> App: Run tool with file paths
+App -> Service: run_analysis(...)
+Service -> MainParser: parse(log_a)
+MainParser --> Service: main events + warnings
+Service -> DutyParser: parse(log_b)
+DutyParser --> Service: duty events + warnings
+Service -> Matcher: build_activity_records(...)
+Matcher --> Service: detail records
+Service -> Associator: attach(records, duty events)
+Associator --> Service: enriched records
+Service -> Summary: build_report_frames(...)
+Summary --> Service: details + summary frames
+Service -> Exporter: export(...)
+Exporter --> Service: workbook path
+Service --> App: run result
+App --> User: console summary
+@enduml

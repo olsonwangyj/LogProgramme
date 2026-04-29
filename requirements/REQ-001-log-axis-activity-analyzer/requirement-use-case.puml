@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Test Engineer" as Engineer
+actor "QA Engineer" as QA
+
+rectangle "Log Axis Activity Analyzer" {
+  usecase "Select Log A and Log B" as UC1
+  usecase "Run Analysis" as UC2
+  usecase "Review Details Sheet" as UC3
+  usecase "Review Summary Sheet" as UC4
+  usecase "Extend Matching Rules" as UC5
+}
+
+Engineer --> UC1
+Engineer --> UC2
+Engineer --> UC3
+Engineer --> UC4
+QA --> UC2
+QA --> UC4
+Engineer --> UC5
+@enduml

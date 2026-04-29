@@ -1,0 +1,19 @@
+@startuml
+actor User
+participant "CLI/Desktop Entry" as App
+participant "Main Log Parser" as MainParser
+participant "Duty Log Parser" as DutyParser
+participant "Event Matcher" as Matcher
+participant "Excel Exporter" as Exporter
+
+User -> App: Select files and start run
+App -> MainParser: Parse Log A
+MainParser --> App: Activity events + warnings
+App -> DutyParser: Parse Log B
+DutyParser --> App: Duty history + warnings
+App -> Matcher: Match events per axis
+Matcher --> App: Detail records
+App -> Exporter: Write workbook
+Exporter --> App: Output path
+App --> User: Analysis summary
+@enduml

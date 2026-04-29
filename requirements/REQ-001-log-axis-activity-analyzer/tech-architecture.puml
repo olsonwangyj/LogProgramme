@@ -1,0 +1,33 @@
+@startuml
+skinparam componentStyle rectangle
+
+package "app" {
+  [log_activity_tool.py] as App
+}
+
+package "backend.log_axis_activity_analyzer" {
+  [service]
+  [config]
+  [models]
+  [file_loader]
+  [log_a_parser]
+  [log_b_parser]
+  [matcher]
+  [duty_cycle_associator]
+  [summary]
+  [excel_exporter]
+}
+
+App --> service
+service --> file_loader
+service --> log_a_parser
+service --> log_b_parser
+service --> matcher
+service --> duty_cycle_associator
+service --> summary
+service --> excel_exporter
+log_a_parser --> config
+log_b_parser --> config
+matcher --> config
+summary --> models
+@enduml
