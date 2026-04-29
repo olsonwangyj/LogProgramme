@@ -11,11 +11,23 @@ from .config import (
     DURATION_STATUS_TOO_LONG,
     DURATION_STATUS_VALID,
     MAX_EVENT_DURATION_MS,
+    OVERALL_STATUS_BOUNDARY_CLOSED,
+    OVERALL_STATUS_DIAGNOSTIC,
+    OVERALL_STATUS_DURATION_WARNING,
+    OVERALL_STATUS_INITIALIZATION_FAILED,
+    OVERALL_STATUS_OK,
+    OVERALL_STATUS_PARSE_WARNING,
+    OVERALL_STATUS_PWM_WARNING,
+    PWM_STATUS_CONFLICT,
+    PWM_STATUS_NO_PWM_FOUND_FOR_AXIS,
+    PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    STATUS_CLOSED_BY_BOUNDARY,
+    STATUS_DIAGNOSTIC,
+    STATUS_DURATION_TOO_LONG_CANDIDATE,
     STATUS_DURATION_TOO_LONG,
-    STATUS_DURATION_WARNING,
+    STATUS_INITIALIZATION_FAILED,
     STATUS_MATCHED,
     STATUS_PARSE_WARNING,
-    STATUS_PWM_WARNING,
 )
 from .models import ActivityRecord
 from .time_utils import calculate_duration_values
@@ -51,7 +63,11 @@ class ActivityValidator:
 
         self._logger.debug("Validating record for axis %s match status %s", record.axis, record.match_status)
         if record.match_status == STATUS_PARSE_WARNING:
-            record.status = STATUS_PARSE_WARNING
+            record.status = OVERALL_STATUS_PARSE_WARNING
+            record.duration_status = record.duration_status or DURATION_STATUS_NOT_APPLICABLE
+            return
+        if record.match_status == STATUS_DIAGNOSTIC:
+            record.status = OVERALL_STATUS_DIAGNOSTIC
             record.duration_status = record.duration_status or DURATION_STATUS_NOT_APPLICABLE
             return
         record.max_duration_ms = record.max_duration_ms or self._resolve_max_duration_ms(record.rule_id)
@@ -70,7 +86,7 @@ class ActivityValidator:
         self._logger.debug("Validating duration for axis %s", record.axis)
         if record.start_time is None or record.end_time is None:
             record.duration_warning = True
-            record.duration_status = STATUS_DURATION_WARNING
+            record.duration_status = DURATION_STATUS_NOT_APPLICABLE
             record.duration_ms = None
             record.duration_s = None
             record.notes = self._merge_notes(record.notes, "Matched record is missing a start or end timestamp.")
@@ -104,6 +120,9 @@ class ActivityValidator:
             record.duration_ms = None
             record.duration_s = None
             record.duration_status = record.duration_status or DURATION_STATUS_NOT_APPLICABLE
+        if record.match_status == STATUS_DURATION_TOO_LONG_CANDIDATE:
+            record.duration_ms = None
+            record.duration_s = None
         if record.match_status in {"Unmatched Start", "Closed By Boundary", "Initialization Failed"}:
             record.end_time = None if record.end_time is None else record.end_time
         if record.match_status == "Unmatched End":
@@ -114,10 +133,9 @@ class ActivityValidator:
 
         self._logger.debug("Validating PWM association for axis %s", record.axis)
         if record.pwm_match_status in {
-            "MatchedByNearestLogFile",
-            "PWMConflictInSourceFile",
-            "NoPWMFoundForAxisInRelevantFile",
-            "NoRelevantLogFileFound",
+            PWM_STATUS_CONFLICT,
+            PWM_STATUS_NO_PWM_FOUND_FOR_AXIS,
+            PWM_STATUS_NO_RELEVANT_LOG_FILE,
         }:
             record.pwm_warning = True
 
@@ -126,24 +144,33 @@ class ActivityValidator:
 
         self._logger.debug("Finalizing matched display status for axis %s", record.axis)
         if record.duration_warning:
-            if record.duration_status == DURATION_STATUS_TOO_LONG:
-                record.status = STATUS_DURATION_TOO_LONG
-                return
-            record.status = STATUS_DURATION_WARNING
+            record.status = OVERALL_STATUS_DURATION_WARNING
             return
         if record.pwm_warning:
-            record.status = STATUS_PWM_WARNING
+            record.status = OVERALL_STATUS_PWM_WARNING
             return
-        record.status = STATUS_MATCHED
+        record.status = OVERALL_STATUS_OK
 
     def _finalize_non_matched_status(self, record: ActivityRecord) -> None:
         """Choose the final display status for unmatched or boundary-closed records."""
 
         self._logger.debug("Finalizing non-matched display status for axis %s", record.axis)
-        if record.duration_warning and record.duration_status == DURATION_STATUS_TOO_LONG:
-            record.status = STATUS_DURATION_TOO_LONG
+        if record.match_status == STATUS_INITIALIZATION_FAILED:
+            record.status = OVERALL_STATUS_INITIALIZATION_FAILED
             return
-        record.status = record.match_status or record.status
+        if record.match_status == STATUS_CLOSED_BY_BOUNDARY:
+            record.status = OVERALL_STATUS_BOUNDARY_CLOSED
+            return
+        if record.match_status == STATUS_DURATION_TOO_LONG_CANDIDATE:
+            record.status = OVERALL_STATUS_DURATION_WARNING
+            return
+        if record.duration_warning and record.duration_status == DURATION_STATUS_TOO_LONG:
+            record.status = OVERALL_STATUS_DURATION_WARNING
+            return
+        if record.pwm_warning:
+            record.status = OVERALL_STATUS_PWM_WARNING
+            return
+        record.status = OVERALL_STATUS_DURATION_WARNING if record.match_status else record.status
 
     def _resolve_max_duration_ms(self, rule_id: str) -> int:
         """Return the configured max duration for one rule identifier."""

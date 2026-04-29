@@ -197,6 +197,7 @@ def _print_summary(result) -> None:
     print(f"Unmatched ends: {result.unmatched_end_count}")
     print(f"Closed by boundary: {result.closed_by_boundary_count}")
     print(f"Initialization failed rows: {result.initialization_failed_count}")
+    print(f"Diagnostics: {result.diagnostic_count}")
     print(f"Parse warnings: {result.parse_warning_count}")
     print(f"Duration warnings: {result.duration_warning_count}")
     print(f"PWM warnings: {result.pwm_warning_count}")

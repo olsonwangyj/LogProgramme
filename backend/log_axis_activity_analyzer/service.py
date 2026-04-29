@@ -8,6 +8,7 @@ from pathlib import Path
 from .config import (
     DEFAULT_EVENT_RULES,
     STATUS_CLOSED_BY_BOUNDARY,
+    STATUS_DURATION_TOO_LONG_CANDIDATE,
     STATUS_INITIALIZATION_FAILED,
     STATUS_MATCHED,
     STATUS_PARSE_WARNING,
@@ -21,7 +22,7 @@ from .log_a_parser import MainLogParser
 from .log_b_parser import DutyCycleLogParser
 from .log_folder_scanner import LogFolderScanner
 from .matcher import EventMatcher
-from .models import ActivityRecord, AnalysisRunResult, DutyCycleFolderParseResult, ParseWarning
+from .models import ActivityRecord, AnalysisRunResult, DiagnosticEvent, DutyCycleFolderParseResult, ParseWarning
 from .summary import SummaryGenerator
 from .validation import ActivityValidator
 
@@ -74,10 +75,15 @@ class LogAnalysisService:
         enriched_records = self._associator.attach(activity_records, folder_result.files, association_strategy)
         all_records = self._append_parse_warnings(enriched_records, main_result.warnings, folder_result)
         validated_records = self._validator.validate(all_records)
-        report_frames = self._summary_generator.build_report_frames(validated_records, folder_result.files)
+        report_frames = self._summary_generator.build_report_frames(
+            validated_records,
+            folder_result.files,
+            diagnostics=main_result.diagnostics,
+        )
         run_result = self._build_run_result(
             output_path=normalized_paths["output"],
             records=validated_records,
+            diagnostics=main_result.diagnostics,
             txt_encoding=main_result.encoding_used,
             txt_axis_event_count=len(main_result.events),
             boundary_event_count=len(main_result.boundary_events),
@@ -96,9 +102,13 @@ class LogAnalysisService:
                 "boundary_event_count": run_result.boundary_event_count,
                 "log_file_count": run_result.log_file_count,
                 "pwm_profile_count": run_result.pwm_profile_count,
+                "matched_count": run_result.matched_count,
+                "unmatched_start_count": run_result.unmatched_start_count,
+                "unmatched_end_count": run_result.unmatched_end_count,
                 "parse_warning_count": run_result.parse_warning_count,
                 "closed_by_boundary_count": run_result.closed_by_boundary_count,
                 "initialization_failed_count": run_result.initialization_failed_count,
+                "diagnostic_count": run_result.diagnostic_count,
                 "duration_warning_count": run_result.duration_warning_count,
                 "pwm_warning_count": run_result.pwm_warning_count,
             },
@@ -168,6 +178,7 @@ class LogAnalysisService:
         self,
         output_path: Path,
         records: list[ActivityRecord],
+        diagnostics: list[DiagnosticEvent],
         txt_encoding: str,
         txt_axis_event_count: int,
         boundary_event_count: int,
@@ -189,8 +200,12 @@ class LogAnalysisService:
             unmatched_end_count=sum(record.match_status == STATUS_UNMATCHED_END for record in records),
             closed_by_boundary_count=sum(record.match_status == STATUS_CLOSED_BY_BOUNDARY for record in records),
             initialization_failed_count=sum(record.match_status == STATUS_INITIALIZATION_FAILED for record in records),
+            diagnostic_count=len(diagnostics),
             parse_warning_count=sum(record.match_status == STATUS_PARSE_WARNING for record in records),
-            duration_warning_count=sum(record.duration_warning for record in records),
+            duration_warning_count=sum(
+                record.duration_warning or record.match_status == STATUS_DURATION_TOO_LONG_CANDIDATE
+                for record in records
+            ),
             pwm_warning_count=sum(record.pwm_warning for record in records),
             txt_encoding=txt_encoding,
         )

@@ -11,12 +11,15 @@ from .config import (
     BOUNDARY_AXIS_PATTERN,
     BOUNDARY_PATTERNS,
     BOUNDARY_RELEVANT_TOKENS,
+    DIAGNOSTIC_NODE_RESPONSE_TIMEOUT_PATTERN,
+    DIAGNOSTIC_SENSOR_CUT_PATTERN,
+    DIAGNOSTIC_SEVERITY_PATTERN,
     INLINE_VALUE_PATTERN,
     MAIN_LOG_AXIS_EVENT_PATTERN,
     MAIN_LOG_TIMESTAMP_PATTERN,
 )
 from .file_loader import TextFileLoader
-from .models import AxisLogEvent, BoundaryEvent, BoundaryRule, MainLogParseResult, ParseWarning
+from .models import AxisLogEvent, BoundaryEvent, DiagnosticEvent, MainLogParseResult, ParseWarning
 from .time_utils import parse_log_timestamp
 
 
@@ -51,17 +54,20 @@ class MainLogParser:
                 result.timeline.append(parsed_event)
                 if isinstance(parsed_event, AxisLogEvent):
                     result.events.append(parsed_event)
-                else:
+                elif isinstance(parsed_event, BoundaryEvent):
                     result.boundary_events.append(parsed_event)
+                else:
+                    result.diagnostics.append(parsed_event)
                 ordinal += 1
                 continue
             warning = self._build_parse_warning(path, line_number, line)
             if warning is not None:
                 result.warnings.append(warning)
         self._logger.info(
-            "Parsed %s axis events, %s boundary events, and %s warnings from %s",
+            "Parsed %s axis events, %s boundary events, %s diagnostics, and %s warnings from %s",
             len(result.events),
             len(result.boundary_events),
+            len(result.diagnostics),
             len(result.warnings),
             path,
         )
@@ -73,7 +79,7 @@ class MainLogParser:
         line_number: int,
         ordinal: int,
         line: str,
-    ) -> AxisLogEvent | BoundaryEvent | None:
+    ) -> AxisLogEvent | BoundaryEvent | DiagnosticEvent | None:
         """Convert one relevant line into either an axis event or a boundary event."""
 
         self._logger.debug("Parsing main TXT line %s", line_number)
@@ -91,6 +97,9 @@ class MainLogParser:
         boundary_event = self._build_boundary_event(path, line_number, ordinal, timestamp, content, line)
         if boundary_event is not None:
             return boundary_event
+        diagnostic_event = self._build_diagnostic_event(path, line_number, ordinal, timestamp, content, line)
+        if diagnostic_event is not None:
+            return diagnostic_event
         return None
 
     def _build_axis_event(
@@ -151,6 +160,73 @@ class MainLogParser:
             )
         return None
 
+    def _build_diagnostic_event(
+        self,
+        path: Path,
+        line_number: int,
+        ordinal: int,
+        timestamp,
+        content: str,
+        raw_line: str,
+    ) -> DiagnosticEvent | None:
+        """Convert recognized ERR/WRN/INFO diagnostic lines into structured records."""
+
+        node_timeout_match = DIAGNOSTIC_NODE_RESPONSE_TIMEOUT_PATTERN.search(content)
+        if node_timeout_match is not None:
+            severity = node_timeout_match.group("severity").upper()
+            return DiagnosticEvent(
+                source_path=path,
+                line_number=line_number,
+                ordinal=ordinal,
+                timestamp=timestamp,
+                severity=severity,
+                diagnostic_type="NodeResponseTimeout",
+                axis=None,
+                node_id=int(node_timeout_match.group("node_id")),
+                message=content,
+                raw_line=raw_line,
+            )
+
+        sensor_cut_match = DIAGNOSTIC_SENSOR_CUT_PATTERN.search(content)
+        if sensor_cut_match is not None:
+            severity = sensor_cut_match.group("severity").upper()
+            return DiagnosticEvent(
+                source_path=path,
+                line_number=line_number,
+                ordinal=ordinal,
+                timestamp=timestamp,
+                severity=severity,
+                diagnostic_type="SensorCut",
+                axis=sensor_cut_match.group("axis").upper(),
+                node_id=None,
+                message=content,
+                raw_line=raw_line,
+                flush_pending=True,
+                flush_scope="axis",
+            )
+
+        severity_match = DIAGNOSTIC_SEVERITY_PATTERN.search(content)
+        if severity_match is None:
+            return None
+        severity = severity_match.group("severity").upper()
+        diagnostic_type = {
+            "ERR": "GenericError",
+            "WRN": "GenericWarning",
+            "INFO": "GenericInfo",
+        }.get(severity, "GenericDiagnostic")
+        return DiagnosticEvent(
+            source_path=path,
+            line_number=line_number,
+            ordinal=ordinal,
+            timestamp=timestamp,
+            severity=severity,
+            diagnostic_type=diagnostic_type,
+            axis=self._extract_warning_axis(content) or None,
+            node_id=None,
+            message=content,
+            raw_line=raw_line,
+        )
+
     def _build_parse_warning(
         self,
         path: Path,
@@ -179,9 +255,13 @@ class MainLogParser:
     def _looks_relevant(self, content: str) -> bool:
         """Return whether a line is relevant enough to report when parsing fails."""
 
-        return AXIS_MARKER_PATTERN.search(content) is not None or any(
-            token in content
-            for token in BOUNDARY_RELEVANT_TOKENS
+        return (
+            AXIS_MARKER_PATTERN.search(content) is not None
+            or DIAGNOSTIC_SEVERITY_PATTERN.search(content) is not None
+            or any(
+                token in content
+                for token in BOUNDARY_RELEVANT_TOKENS
+            )
         )
 
     def _extract_warning_axis(self, content: str) -> str:

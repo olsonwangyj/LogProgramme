@@ -164,26 +164,39 @@ class DutyCycleLogParser:
             grouped_events[event.axis].append(event)
         for axis, events in grouped_events.items():
             raw_values = self._unique_raw_values(events)
+            percent_values = self._unique_percent_values(events)
+            direction_values = self._unique_direction_values(events)
             percent_counts = Counter(event.pwm_percent for event in events)
             selected_percent = percent_counts.most_common(1)[0][0] if percent_counts else None
-            conflict = len(raw_values) > 1
+            conflict = len(percent_values) > 1
+            direction_changed = len(direction_values) > 1
             notes = ""
+            conflict_reason = ""
             if conflict:
-                raw_values_text = ", ".join(
+                percent_values_text = ", ".join(
                     str(int(value)) if float(value).is_integer() else str(value)
-                    for value in raw_values
+                    for value in percent_values
                 )
-                notes = f"Conflicting PWM raw values in file for axis {axis}: {raw_values_text}"
+                conflict_reason = (
+                    f"Conflicting normalized PWM percentages in file for axis {axis}: {percent_values_text}"
+                )
+                notes = conflict_reason
+            elif direction_changed:
+                notes = "Direction changed within source file; normalized PWM percent is consistent."
             result.axis_profiles[axis] = AxisPWMProfile(
                 source_path=result.source_path,
                 axis=axis,
                 pwm_percent=selected_percent,
+                pwm_percent_values=percent_values,
                 pwm_raw_values=raw_values,
+                direction_values=direction_values,
                 first_seen_time=self._min_timestamp(events),
                 last_seen_time=self._max_timestamp(events),
                 source_lines=[event.line_number for event in events],
                 source_line_texts=[event.raw_line for event in events],
                 conflict=conflict,
+                direction_changed=direction_changed,
+                conflict_reason=conflict_reason,
                 notes=notes,
                 events=list(events),
             )
@@ -191,11 +204,17 @@ class DutyCycleLogParser:
     def _unique_raw_values(self, events: list[PWMEvent]) -> list[float]:
         """Return the stable unique list of raw PWM values for one axis profile."""
 
-        values: list[float] = []
-        for event in events:
-            if event.pwm_raw_value not in values:
-                values.append(event.pwm_raw_value)
-        return values
+        return sorted({event.pwm_raw_value for event in events})
+
+    def _unique_percent_values(self, events: list[PWMEvent]) -> list[float]:
+        """Return the sorted unique normalized PWM percentages for one axis profile."""
+
+        return sorted({event.pwm_percent for event in events})
+
+    def _unique_direction_values(self, events: list[PWMEvent]) -> list[str]:
+        """Return the sorted unique PWM directions for one axis profile."""
+
+        return sorted({event.direction for event in events})
 
     def _min_timestamp(self, events: list[PWMEvent]):
         """Return the earliest timestamp among the timed PWM events."""

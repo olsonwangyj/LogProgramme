@@ -2,58 +2,24 @@
 
 ## Project Overview
 
-This project analyzes:
+LogProgramme analyzes one main UroBiopsy TXT log together with one folder of robot control `.log` files, then exports an Excel workbook for axis activity review.
 
-- one main UroBiopsy TXT log
-- one folder containing multiple robot control `.log` files
+The workbook is designed to answer four questions:
 
-It exports an Excel workbook that shows:
+- Which axis activity starts and ends matched correctly?
+- Which starts were closed by workflow boundaries such as initialization failure, abort, stop, or exit?
+- Which PWM duty cycle was safely associated by axis and time?
+- Which ERR/WRN diagnostic lines were observed without mixing them into parse errors?
 
-- axis activity start and end events
-- duration in milliseconds and seconds
-- source TXT lines
-- PWM or duty-cycle information matched by axis and time
-- workflow-boundary diagnostics such as initialization failures and boundary-closed starts
+## Input Model
 
-The tool is designed to be reusable for future TXT files and future log folders that follow the same general log structure.
+The command requires:
 
-## Input Requirements
+- one main TXT file, for example `Log\UroBiopsy_20260410.txt`
+- one folder containing `.log` files, for example `Log\RobotMovingValues\20260410`
+- one output Excel path
 
-### Main TXT File
-
-The main TXT file contains runtime activity lines such as:
-
-```text
-@[Y] start clearing: -19.50
-@[Y] motor cleared
-@[Z] start moving to home: -30.10
-@[X] reference found (SENSOR)
-```
-
-It can also contain workflow-boundary lines such as:
-
-```text
-User  @on_startInitRobot_clicked
-MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
-MCU   @robot initialization done (69687ms)
-Info  @UroBiopsy exited
-MCU   @mcu controller stopped
-```
-
-### Log Folder
-
-The log folder contains multiple robot control `.log` files. Typical examples include:
-
-- initialization logs
-- finalization logs
-- relative logs
-- absolute logs
-- idle or scanning logs
-- other robot control logs
-
-The program parses `.log` files by default.
-
-`.csv` files are ignored unless support is explicitly added later.
+`.log` files are parsed from the selected folder. Use `--recursive` only when the `.log` files are in subfolders.
 
 ## Installation
 
@@ -65,35 +31,22 @@ pip install -r requirements.txt
 
 ## CLI Usage
 
-### Windows Example
-
 ```powershell
 python -m app.log_activity_tool ^
   --txt-file "D:\LogProgramme\Log\UroBiopsy_20260410.txt" ^
   --log-folder "D:\LogProgramme\Log\RobotMovingValues\20260410" ^
-  --output "D:\LogProgramme\output\april10-analysis-fixed.xlsx" ^
+  --output "D:\LogProgramme\output\april10-analysis-reviewed.xlsx" ^
   --no-gui ^
   --verbose
 ```
 
-### Unix or macOS Example
-
-```bash
-python -m app.log_activity_tool \
-  --txt-file ./Log/UroBiopsy_20260410.txt \
-  --log-folder ./Log/RobotMovingValues/20260410 \
-  --output ./output/april10-analysis-fixed.xlsx \
-  --no-gui \
-  --verbose
-```
-
-### Required Arguments
+Required arguments:
 
 - `--txt-file`
 - `--log-folder`
 - `--output`
 
-### Optional Arguments
+Useful optional arguments:
 
 - `--encoding-txt`
 - `--encoding-logs`
@@ -102,26 +55,106 @@ python -m app.log_activity_tool \
 - `--no-gui`
 - `--verbose`
 
-### Backward-Compatible Aliases
+Backward-compatible aliases:
 
 - `--log-a` maps to `--txt-file`
-- `--log-b` is treated as a legacy input
-  - if a `.log` file is passed, the tool uses its parent folder and logs a warning
-  - if a folder is passed, that folder is used directly
+- `--log-b` is treated as a legacy control-log input; if a file is passed, its parent folder is scanned
 
-## GUI Usage
+## Duration Matching
 
-If you run the tool without `--no-gui`, it can open file and folder pickers for missing paths:
+Duration matching is conservative and axis-local:
 
-```powershell
-python -m app.log_activity_tool
+- starts and ends must be on the same axis
+- starts and ends must belong to the same configured rule
+- stale starts are closed when a newer same-axis same-rule start appears
+- initialization failure closes pending starts
+- abort, robot stopped, system exit, MCU stopped, and application exit close pending starts
+- max duration protection rejects unrealistic candidate pairs
+
+Duration is calculated as:
+
+```text
+End Time - Start Time
 ```
 
-The GUI flow is:
+### April 10 Known Issue
 
-1. Select the main TXT file
-2. Select the log folder
-3. Select the output Excel path
+The old bug matched a failed Z start from `2026-04-10 08:37:43:959` to a much later Z end at `2026-04-10 09:20:46:317`, producing `2582358 ms`.
+
+The fixed behavior is:
+
+- the `08:37:43:959` Z start is closed by `InitializationFailed` at `2026-04-10 08:38:14:121`
+- the correct later pair is matched:
+
+```text
+Start:    2026-04-10 09:20:23:541 MCU @[Z] start clearing: -50.00
+End:      2026-04-10 09:20:46:317 MCU @[Z] motor cleared
+Duration: 22776 ms / 22.776 s
+```
+
+Rejected long candidates are shown with:
+
+- `Match Status = Duration Too Long Candidate`
+- `Duration Status = Duration Too Long`
+- `Candidate Duration (ms)`
+- `Candidate Duration (s)`
+- `Max Duration (ms)`
+
+Rejected candidate durations are not included in normal duration summary statistics.
+
+## PWM Matching
+
+PWM is parsed from all `.log` files in the selected folder and grouped by:
+
+- source log file
+- axis
+- source time range
+
+One log file may have one PWM profile per axis. Different files may legitimately contain different PWM values.
+
+Matching order for each activity:
+
+1. containing log files that have the same-axis PWM profile
+2. nearby log files within the nearness threshold that have the same-axis PWM profile
+3. latest same-axis PWM before the activity, only within the safe max delta threshold
+4. no PWM attached, with a clear `PWM Match Status` and note
+
+The tool does not stop at a containing file if that file lacks the target axis. It searches for a same-axis profile before falling back.
+
+### Signed PWM Normalization
+
+Signed raw PWM stores direction. Duty cycle uses the absolute value:
+
+```text
+raw -80 => PWM (%) 80, Direction Reverse
+raw  80 => PWM (%) 80, Direction Forward
+```
+
+`-80` and `80` are not a PWM conflict when the normalized PWM percent is the same. The workbook records this as direction-change metadata, for example:
+
+- `PWM Direction Changed = TRUE`
+- `PWM Match Status = DirectionChangedOnly`
+- no `PWM Warning` unless the normalized PWM percent actually conflicts
+
+A real PWM conflict means normalized values differ, for example `60` and `80` in the same source file for the same axis.
+
+## Diagnostics
+
+Known ERR/WRN lines are parsed as diagnostics, not malformed parse warnings. Examples include:
+
+```text
+@[WRN] Node 3 (GETVER) response timeout (2016). Try again.
+@[ERR] Node 3 (GETVER) response timeout (2015). Check connection.
+@[ERR] motor Z RIGHT sensor cut
+```
+
+Initialization failure remains a boundary event because it closes pending starts:
+
+```text
+@[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+```
+
+Only truly malformed relevant lines become `Parse Warning` rows.
 
 ## Output Workbook
 
@@ -130,256 +163,123 @@ The workbook contains:
 - `Details`
 - `Summary`
 - `PWM Sources`
+- `Diagnostics`
 
 ### Details
 
-The `Details` sheet contains one row per matched activity, unmatched event, boundary-closed event, or parse warning.
-
 Important columns include:
 
-- `Axis`
-- `Rule ID`
-- `Start Event`
-- `End Event`
-- `Start Time`
-- `End Time`
-- `Duration (ms)`
-- `Duration (s)`
-- `PWM (%)`
-- `PWM Raw Value`
-- `PWM Direction`
-- `PWM Source File`
-- `PWM Match Status`
 - `Match Status`
 - `Duration Status`
-- `Boundary Close Reason`
-- `Notes`
+- `PWM Match Status`
+- `Overall Status`
+- `Source TXT Start Line Number`
+- `Source TXT Start Line Text`
+- `Source TXT End Line Number`
+- `Source TXT End Line Text`
+- `Boundary Line Number`
+- `Boundary Line Text`
+- `PWM Source Line Number`
+- `PWM Source Line Text`
+- `Candidate Duration (ms)`
+- `Candidate Duration (s)`
+
+Status columns have separate meanings:
+
+- `Match Status`: whether activity pairing itself matched, was unmatched, was boundary-closed, or was rejected
+- `Duration Status`: whether duration is valid, not applicable, too long, missing, or time-ordered incorrectly
+- `PWM Match Status`: how PWM was selected or why it was not reliable
+- `Overall Status`: top-level review state such as `OK`, `PWM Warning`, `Duration Warning`, `Boundary Closed`, `Initialization Failed`, `Diagnostic`, or `Parse Warning`
+
+A valid duration row remains `Match Status = Matched` and `Duration Status = Valid` even when `Overall Status = PWM Warning`.
 
 ### Summary
 
-The `Summary` sheet contains:
+Summary duration statistics use only:
 
-1. a metadata block
-2. summary by axis and event type
-3. summary by axis only
+- `Match Status = Matched`
+- `Duration Status = Valid`
 
-Summary metrics include:
+They exclude:
 
-- average duration
-- min and max duration
-- median duration
-- most common PWM (%)
-- number of matched records
-- number of unmatched starts
-- number of unmatched ends
-- number of boundary-closed records
-- number of initialization-failed records
-- number of duration warnings
-- number of PWM warnings
+- boundary-closed rows
+- initialization-failed rows
+- unmatched starts or ends
+- duration-too-long candidates
+- diagnostics
+- parse warnings
+- PWM source-only rows
+
+Summary counts include matched rows, unmatched starts and ends, boundary closures, initialization failures, diagnostics, parse warnings, duration warnings, and PWM warnings.
+
+`Most Common PWM (%)` uses normalized PWM percent, so `-80` and `80` both contribute to `80`.
 
 ### PWM Sources
 
-The `PWM Sources` sheet lists parsed PWM records from all scanned log files.
+The `PWM Sources` sheet lists parsed PWM records with raw value, normalized percent, direction, direction-change flag, conflict flag, source line number, source line text, and notes.
 
-Important columns include:
+### Diagnostics
 
-- `Log File`
-- `Log File Start Time`
-- `Log File End Time`
-- `Axis`
-- `PWM (%)`
-- `PWM Raw Value`
-- `Direction`
-- `Command Type`
-- `PWM Source Time`
-- `PWM Source Line`
-- `Is Status Confirmation`
-- `Conflict`
-- `Notes`
+The `Diagnostics` sheet lists structured main-log diagnostics with:
 
-## Duration Matching Logic
-
-The matcher is intentionally conservative.
-
-Rules:
-
-- matching is axis-local
-- start and end must belong to the same configured rule
-- stale starts are not kept forever
-- a new start for the same axis and rule replaces the older pending start
-- initialization failure closes pending starts
-- a new initialization closes pending starts
-- long durations are rejected instead of being silently accepted
-
-Duration is always calculated as:
-
-```text
-End Time - Start Time
-```
-
-Known correct example:
-
-```text
-Start: 2026-03-31 09:39:40:554
-End:   2026-03-31 09:39:47:373
-
-Duration:
-6819 ms
-6.819 s
-```
-
-### April 10 Bug Explanation
-
-The old bug was not the subtraction formula itself. The real problem was stale event matching.
-
-Wrong old behavior:
-
-```text
-08:37:43.959 Z start clearing
-matched to
-09:20:46.317 Z motor cleared
-```
-
-That produced an unrealistic multi-minute duration because a failed initialization left the old start pending.
-
-The fixed version closes the stale start when initialization failed and correctly matches:
-
-```text
-Start: 2026-04-10 09:20:23:541
-End:   2026-04-10 09:20:46:317
-
-Duration:
-22776 ms
-22.776 s
-```
-
-## PWM Matching Logic
-
-PWM is parsed from all `.log` files in the selected folder.
-
-The tool tracks PWM per:
-
-- log file
+- time
+- severity
+- diagnostic type
 - axis
-- time range
+- node ID
+- source TXT line number
+- source TXT line text
+- notes
 
-It does not use one unsafe global latest PWM per axis.
+## Troubleshooting
 
-Matching logic:
+### Row Is Closed By Boundary
 
-1. Find log files whose time range contains the activity time
-2. If none contain it, find nearby files within a configurable threshold
-3. Within the relevant files, select the same-axis PWM profile
-4. Prefer the latest PWM command at or before the activity time
-5. If the match is weak or conflicting, keep the note and warning visible
+Check `Closed By Boundary Type`, `Closed By Boundary Time`, `Boundary Line Number`, and `Boundary Line Text`. Common boundary types include `InitializationFailed`, `MotorAbortClicked`, `RobotMovingStopped`, `SystemExitSelected`, `McuControllerStopped`, and `ApplicationExited`.
 
-Signed raw PWM is normalized so the workbook keeps both:
+### PWM Is Blank
 
-- positive PWM magnitude
-- original signed raw value
-- direction
+PWM is left blank when no same-axis profile can be attached safely. Check `PWM Match Status` and `Notes`; the tool prefers leaving PWM empty over attaching an old unrelated value.
 
-Example:
+### Row Has PWM Warning
 
-```text
-[N6:H] RUN 255 176 (-80)
-```
+PWM warnings are used for normalized PWM conflicts or no reliable PWM match. Direction changes alone are not PWM conflicts.
 
-Becomes:
+### Diagnostics Are Not Parse Warnings
 
-- `PWM Raw Value = -80`
-- `PWM (%) = 80`
-- `Direction = Reverse`
-
-## Configuration
-
-Most of the matching behavior is centralized in:
-
-- `backend/log_axis_activity_analyzer/config.py`
-
-Key configuration areas:
-
-- event rules: `DEFAULT_EVENT_RULES`
-- max duration limits: `MAX_EVENT_DURATION_MS`
-- boundary patterns: `BOUNDARY_PATTERNS`
-- PWM file-distance thresholds:
-  - `PWM_FILE_NEARNESS_THRESHOLD_MS`
-  - `PWM_LATEST_BEFORE_MAX_DELTA_MS`
+Recognized ERR/WRN diagnostic lines go to `Diagnostics`. Parse warnings are reserved for relevant lines that could not be parsed into a known structure.
 
 ## Testing
 
-Build check:
-
 ```powershell
 python -m compileall app backend
-```
-
-Run automated tests:
-
-```powershell
 python -m pytest tests -v
 ```
 
-Helper scripts:
+If using the checked-in virtual environment:
 
-- `scripts/build.bat` and `scripts/build.sh`
-- `scripts/run.bat` and `scripts/run.sh`
-- `scripts/test.bat` and `scripts/test.sh`
+```powershell
+.\.venv\Scripts\python.exe -m compileall app backend
+.\.venv\Scripts\python.exe -m pytest tests -v
+```
 
 ## End-to-End Validation
 
-Run the tool on a real TXT file and a real log folder, then inspect the workbook with `openpyxl`.
-
-Example:
+Generate and inspect a real workbook:
 
 ```powershell
 python -m app.log_activity_tool ^
   --txt-file "D:\LogProgramme\Log\UroBiopsy_20260410.txt" ^
   --log-folder "D:\LogProgramme\Log\RobotMovingValues\20260410" ^
-  --output "D:\LogProgramme\output\april10-analysis-fixed.xlsx" ^
+  --output "D:\LogProgramme\output\april10-analysis-reviewed.xlsx" ^
   --no-gui ^
   --verbose
 ```
 
-Generated Excel files are usually verification artifacts and are normally not committed.
+Then verify with `openpyxl` that:
 
-## Troubleshooting
-
-### No `.log` Files Found
-
-- Confirm the selected folder is correct
-- Use `--recursive` if the files are in subfolders
-- The tool only scans `.log` files by default
-
-### PWM Not Matched
-
-- Check `PWM Match Status` and `Notes`
-- Review the `PWM Sources` sheet
-- Confirm the activity time overlaps the relevant control-log file time range
-
-### Duration Warning or Duration Too Long
-
-- Check whether the activity crossed a workflow boundary
-- Review `Boundary Close Reason`
-- Review the source TXT lines in `Details`
-
-### Initialization Failed
-
-- Look for `Initialization Failed` or `Closed By Boundary` in `Match Status`
-- Review the original error line recorded in `Notes`
-
-### GUI File Picker Not Opening
-
-- Run with full CLI arguments and `--no-gui`
-- Confirm the Python environment supports Tkinter
-
-### Encoding Problems
-
-- Try `--encoding-txt` or `--encoding-logs`
-- Supported fallback encodings are defined in `config.py`
-
-### Git Authentication Problems
-
-- Use existing local SSH authentication if available
-- If `git push` fails, do not expose credentials in the terminal output
-- Complete the local commits and rerun the push command manually once SSH access is working
+- the old April 10 bad Z row is not `Matched` + `Valid`
+- the `09:20:23:541` to `09:20:46:317` Z row is `Matched` + `Valid` with `22776 ms`
+- the `08:37:43:959` Z start is closed by `InitializationFailed`
+- node response timeouts and sensor cuts appear in `Diagnostics`, not as malformed parse warnings
+- line number columns contain numbers and line text columns contain raw log text

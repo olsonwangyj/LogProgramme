@@ -24,6 +24,20 @@ MAIN_LOG_AXIS_EVENT_PATTERN = re.compile(
 AXIS_MARKER_PATTERN = re.compile(r"@\[(?P<axis>[A-Z]+)\]")
 INLINE_VALUE_PATTERN = re.compile(r":\s*(?P<value>[-+]?\d+(?:\.\d+)?)\s*$")
 BOUNDARY_AXIS_PATTERN = re.compile(r"\[(?P<axis>[A-Z])\]")
+DIAGNOSTIC_NODE_RESPONSE_TIMEOUT_PATTERN = re.compile(
+    r"@\[(?P<severity>ERR|WRN|INFO)\]\s+Node\s+(?P<node_id>\d+)\s+"
+    r"\((?P<command>[^)]+)\)\s+response timeout\s+\((?P<timeout_code>\d+)\)\.\s*(?P<action>.*)$",
+    re.IGNORECASE,
+)
+DIAGNOSTIC_SENSOR_CUT_PATTERN = re.compile(
+    r"@\[(?P<severity>ERR|WRN)\]\s+motor\s+(?P<axis>[A-Z])\s+"
+    r"(?P<sensor>[A-Z]+)\s+sensor cut",
+    re.IGNORECASE,
+)
+DIAGNOSTIC_SEVERITY_PATTERN = re.compile(
+    r"@\[(?P<severity>ERR|WRN|INFO)\]\s+(?P<message>.+)$",
+    re.IGNORECASE,
+)
 
 CONTROL_TIMESTAMP_PATTERN = re.compile(
     r"^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}:\d{3})\s+\[(?P<direction>IN\s?|OUT)\s*\].*$"
@@ -102,6 +116,24 @@ BOUNDARY_PATTERNS = [
         flush_scope="all",
     ),
     BoundaryRule(
+        boundary_type="MotorAbortClicked",
+        pattern=r"@on_functionAbortMotor_clicked",
+        flush_pending=True,
+        flush_scope="all",
+    ),
+    BoundaryRule(
+        boundary_type="RobotMovingStopped",
+        pattern=r"@robot moving stopped",
+        flush_pending=True,
+        flush_scope="all",
+    ),
+    BoundaryRule(
+        boundary_type="SystemExitSelected",
+        pattern=r"@system menu selected \(Exit\)",
+        flush_pending=True,
+        flush_scope="all",
+    ),
+    BoundaryRule(
         boundary_type="McuControllerStopped",
         pattern=r"@mcu controller stopped",
         flush_pending=True,
@@ -130,8 +162,12 @@ BOUNDARY_PATTERNS = [
 BOUNDARY_RELEVANT_TOKENS = (
     "@on_startInitRobot_clicked",
     "@[ERR]",
+    "@[WRN]",
     "@robot initialization done",
     "@UroBiopsy exited",
+    "@on_functionAbortMotor_clicked",
+    "@robot moving stopped",
+    "@system menu selected (Exit)",
     "@mcu controller stopped",
     "@tool menu selected",
     "@factory menu selected",
@@ -148,12 +184,30 @@ STATUS_UNMATCHED_END = "Unmatched End"
 STATUS_INITIALIZATION_FAILED = "Initialization Failed"
 STATUS_CLOSED_BY_BOUNDARY = "Closed By Boundary"
 STATUS_CLOSED_BY_NEW_START = "Closed By New Start"
+STATUS_DURATION_TOO_LONG_CANDIDATE = "Duration Too Long Candidate"
 STATUS_DURATION_WARNING = "Duration Warning"
 STATUS_DURATION_TOO_LONG = "Duration Too Long"
 STATUS_PARSE_WARNING = "Parse Warning"
+STATUS_DIAGNOSTIC = "Diagnostic"
 STATUS_PWM_WARNING = "PWM Warning"
 STATUS_NO_PWM_FOUND = "No PWM Found"
 STATUS_NO_RELEVANT_LOG_FILE_FOUND = "No Relevant Log File Found"
+
+OVERALL_STATUS_OK = "OK"
+OVERALL_STATUS_DURATION_WARNING = "Duration Warning"
+OVERALL_STATUS_PWM_WARNING = "PWM Warning"
+OVERALL_STATUS_BOUNDARY_CLOSED = "Boundary Closed"
+OVERALL_STATUS_INITIALIZATION_FAILED = "Initialization Failed"
+OVERALL_STATUS_DIAGNOSTIC = "Diagnostic"
+OVERALL_STATUS_PARSE_WARNING = "Parse Warning"
+
+PWM_STATUS_MATCHED_CONTAINING = "MatchedByContainingLogFile"
+PWM_STATUS_MATCHED_NEAREST = "MatchedByNearestLogFile"
+PWM_STATUS_MATCHED_LATEST_BEFORE = "MatchedByLatestBeforeStartWithinThreshold"
+PWM_STATUS_NO_PWM_FOUND_FOR_AXIS = "NoPWMFoundForAxis"
+PWM_STATUS_NO_RELEVANT_LOG_FILE = "NoRelevantLogFileFound"
+PWM_STATUS_CONFLICT = "PWMConflictInSourceFile"
+PWM_STATUS_DIRECTION_CHANGED_ONLY = "DirectionChangedOnly"
 
 DURATION_STATUS_VALID = "Valid"
 DURATION_STATUS_NOT_APPLICABLE = "Not Applicable"
@@ -174,24 +228,33 @@ DETAIL_COLUMNS = [
     "PWM (%)",
     "PWM Raw Value",
     "PWM Direction",
+    "PWM Direction Changed",
+    "PWM Conflict",
+    "PWM Conflict Reason",
     "PWM Source File",
-    "PWM Source Line",
+    "PWM Source Line Number",
+    "PWM Source Line Text",
     "PWM Source Time",
     "PWM Match Method",
     "PWM Time Delta (ms)",
     "PWM Match Status",
-    "Source TXT Start Line",
-    "Source TXT End Line",
+    "Source TXT Start Line Number",
+    "Source TXT Start Line Text",
+    "Source TXT End Line Number",
+    "Source TXT End Line Text",
     "Match Status",
     "Duration Status",
     "Boundary Close Reason",
     "Closed By Boundary Type",
     "Closed By Boundary Time",
-    "Closed By Boundary Line",
+    "Boundary Line Number",
+    "Boundary Line Text",
+    "Candidate Duration (ms)",
+    "Candidate Duration (s)",
     "Max Duration (ms)",
     "Exceeded Max Duration",
     "Notes",
-    "Status",
+    "Overall Status",
 ]
 
 EVENT_SUMMARY_COLUMNS = [
@@ -204,13 +267,15 @@ EVENT_SUMMARY_COLUMNS = [
     "Max Duration (ms)",
     "Median Duration (ms)",
     "Most Common PWM (%)",
-    "Number of Matched records",
-    "Number of Unmatched Starts",
-    "Number of Unmatched Ends",
-    "Number of Closed By Boundary",
-    "Number of Initialization Failed records",
-    "Number of Duration Warnings",
-    "Number of PWM Warnings",
+    "Matched Count",
+    "Unmatched Start Count",
+    "Unmatched End Count",
+    "Closed By Boundary Count",
+    "Initialization Failed Count",
+    "Diagnostic Count",
+    "Parse Warning Count",
+    "Duration Warning Count",
+    "PWM Warning Count",
 ]
 
 AXIS_SUMMARY_COLUMNS = [
@@ -222,13 +287,15 @@ AXIS_SUMMARY_COLUMNS = [
     "Max Duration (ms)",
     "Median Duration (ms)",
     "Most Common PWM (%)",
-    "Number of Matched records",
-    "Number of Unmatched Starts",
-    "Number of Unmatched Ends",
-    "Number of Closed By Boundary",
-    "Number of Initialization Failed records",
-    "Number of Duration Warnings",
-    "Number of PWM Warnings",
+    "Matched Count",
+    "Unmatched Start Count",
+    "Unmatched End Count",
+    "Closed By Boundary Count",
+    "Initialization Failed Count",
+    "Diagnostic Count",
+    "Parse Warning Count",
+    "Duration Warning Count",
+    "PWM Warning Count",
 ]
 
 PWM_SOURCE_COLUMNS = [
@@ -239,10 +306,24 @@ PWM_SOURCE_COLUMNS = [
     "PWM (%)",
     "PWM Raw Value",
     "Direction",
+    "Direction Changed",
     "Command Type",
     "PWM Source Time",
-    "PWM Source Line",
+    "PWM Source Line Number",
+    "PWM Source Line Text",
     "Is Status Confirmation",
-    "Conflict",
+    "PWM Conflict",
+    "PWM Conflict Reason",
+    "Notes",
+]
+
+DIAGNOSTIC_COLUMNS = [
+    "Time",
+    "Severity",
+    "Diagnostic Type",
+    "Axis",
+    "Node ID",
+    "Source TXT Line Number",
+    "Source TXT Line Text",
     "Notes",
 ]

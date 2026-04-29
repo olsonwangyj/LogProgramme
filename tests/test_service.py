@@ -10,8 +10,21 @@ from openpyxl import load_workbook
 from backend.log_axis_activity_analyzer.config import (
     DEFAULT_EVENT_RULES,
     DETAIL_COLUMNS,
+    DURATION_STATUS_NOT_APPLICABLE,
+    DURATION_STATUS_TOO_LONG,
+    DURATION_STATUS_VALID,
+    OVERALL_STATUS_BOUNDARY_CLOSED,
+    OVERALL_STATUS_OK,
+    OVERALL_STATUS_PWM_WARNING,
+    PWM_STATUS_CONFLICT,
+    PWM_STATUS_DIRECTION_CHANGED_ONLY,
+    PWM_STATUS_MATCHED_CONTAINING,
+    PWM_STATUS_MATCHED_NEAREST,
+    PWM_STATUS_NO_RELEVANT_LOG_FILE,
     STATUS_INITIALIZATION_FAILED,
     STATUS_MATCHED,
+    STATUS_CLOSED_BY_BOUNDARY,
+    STATUS_DURATION_TOO_LONG_CANDIDATE,
     STATUS_UNMATCHED_END,
     STATUS_UNMATCHED_START,
 )
@@ -23,6 +36,7 @@ from backend.log_axis_activity_analyzer.log_folder_scanner import LogFolderScann
 from backend.log_axis_activity_analyzer.matcher import EventMatcher
 from backend.log_axis_activity_analyzer.models import ActivityRecord
 from backend.log_axis_activity_analyzer.service import LogAnalysisService
+from backend.log_axis_activity_analyzer.summary import SummaryGenerator
 from backend.log_axis_activity_analyzer.time_utils import calculate_duration_values, parse_log_timestamp
 from backend.log_axis_activity_analyzer.validation import ActivityValidator
 
@@ -70,6 +84,7 @@ def test_valid_same_axis_match_produces_expected_duration(tmp_path: Path) -> Non
             "2026-03-31 09:39:40:554 MCU   @[Y] start clearing: -19.50",
             "2026-03-31 09:39:47:373 MCU   @[Y] motor cleared",
             "2026-03-31 09:39:47:373 MCU   @[Y] min: -29.51",
+            "2026-03-31 09:39:48:000 MCU   @[WRN] Node 3 (GETVER) response timeout (2016). Try again.",
         ],
     )
 
@@ -83,7 +98,7 @@ def test_valid_same_axis_match_produces_expected_duration(tmp_path: Path) -> Non
     assert record.rule_id == "clear_motor"
     assert record.duration_ms == 6819
     assert record.duration_s == 6.819
-    assert record.status == STATUS_MATCHED
+    assert record.status == OVERALL_STATUS_OK
 
 
 def test_different_axis_events_do_not_match(tmp_path: Path) -> None:
@@ -152,6 +167,48 @@ def test_initialization_failure_closes_pending_start(tmp_path: Path) -> None:
     )
 
 
+def test_main_log_diagnostics_are_not_parse_warnings(tmp_path: Path) -> None:
+    """Known ERR/WRN diagnostic lines should be structured diagnostics, not malformed rows."""
+
+    parse_result = _parse_main_log(
+        tmp_path,
+        [
+            "2026-04-10 09:15:50:471 MCU   @[WRN] Node 3 (GETVER) response timeout (2016). Try again.",
+            "2026-04-10 09:15:52:494 MCU   @[ERR] Node 3 (GETVER) response timeout (2015). Check connection.",
+            "2026-04-10 09:05:44:965 MCU   @[ERR] motor Z RIGHT sensor cut",
+        ],
+    )
+
+    assert len(parse_result.warnings) == 0
+    assert [event.diagnostic_type for event in parse_result.diagnostics] == [
+        "NodeResponseTimeout",
+        "NodeResponseTimeout",
+        "SensorCut",
+    ]
+    assert parse_result.diagnostics[0].severity == "WRN"
+    assert parse_result.diagnostics[0].node_id == 3
+    assert parse_result.diagnostics[1].severity == "ERR"
+    assert parse_result.diagnostics[2].axis == "Z"
+    assert parse_result.diagnostics[2].flush_pending is True
+
+
+def test_initialization_failed_remains_boundary_not_diagnostic(tmp_path: Path) -> None:
+    """Initialization failure should still be a flushing boundary event."""
+
+    parse_result = _parse_main_log(
+        tmp_path,
+        [
+            "2026-04-10 08:38:14:121 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.",
+        ],
+    )
+
+    assert len(parse_result.boundary_events) == 1
+    assert parse_result.boundary_events[0].boundary_type == "InitializationFailed"
+    assert parse_result.boundary_events[0].axis == "Z"
+    assert len(parse_result.diagnostics) == 0
+    assert len(parse_result.warnings) == 0
+
+
 def test_new_initialization_closes_old_pending_start(tmp_path: Path) -> None:
     """A new initialization boundary must flush any pending starts from the prior attempt."""
 
@@ -168,7 +225,7 @@ def test_new_initialization_closes_old_pending_start(tmp_path: Path) -> None:
     records = ActivityValidator().validate(matcher.build_activity_records(parse_result.timeline))
 
     assert any(
-        record.match_status == "Closed By Boundary"
+        record.match_status == STATUS_CLOSED_BY_BOUNDARY
         and record.axis == "Z"
         and record.start_time == datetime(2026, 4, 10, 8, 37, 43, 959000)
         for record in records
@@ -179,6 +236,33 @@ def test_new_initialization_closes_old_pending_start(tmp_path: Path) -> None:
         and record.end_time == datetime(2026, 4, 10, 9, 20, 46, 317000)
         for record in records
     )
+
+
+def test_abort_stop_and_exit_boundaries_close_pending_start(tmp_path: Path) -> None:
+    """Workflow interruption boundaries should close pending starts immediately."""
+
+    cases = [
+        ("2026-04-10 09:16:55:572 User  @on_functionAbortMotor_clicked", "MotorAbortClicked"),
+        ("2026-04-10 09:16:55:586 MCU   @robot moving stopped", "RobotMovingStopped"),
+        ("2026-04-10 09:16:58:200 User  @system menu selected (Exit)", "SystemExitSelected"),
+    ]
+
+    for boundary_line, boundary_type in cases:
+        parse_result = _parse_main_log(
+            tmp_path,
+            [
+                "2026-04-10 09:16:54:000 MCU   @[Z] start clearing: -50.00",
+                boundary_line,
+            ],
+        )
+        records = ActivityValidator().validate(EventMatcher(DEFAULT_EVENT_RULES).build_activity_records(parse_result.timeline))
+
+        closed = next(record for record in records if record.axis == "Z")
+        assert closed.match_status == STATUS_CLOSED_BY_BOUNDARY
+        assert closed.duration_status == DURATION_STATUS_NOT_APPLICABLE
+        assert closed.closed_by_boundary_type == boundary_type
+        assert closed.closed_by_boundary_line_text == boundary_line
+        assert closed.status == OVERALL_STATUS_BOUNDARY_CLOSED
 
 
 def test_long_duration_is_rejected(tmp_path: Path) -> None:
@@ -196,8 +280,12 @@ def test_long_duration_is_rejected(tmp_path: Path) -> None:
     records = ActivityValidator().validate(matcher.build_activity_records(parse_result.timeline))
 
     assert not any(record.match_status == STATUS_MATCHED for record in records)
-    assert any(record.status == "Duration Too Long" for record in records)
-    assert not any(record.duration_ms == 2582358 and record.status == STATUS_MATCHED for record in records)
+    rejected = next(record for record in records if record.match_status == STATUS_DURATION_TOO_LONG_CANDIDATE)
+    assert rejected.duration_status == DURATION_STATUS_TOO_LONG
+    assert rejected.candidate_duration_ms == 2582358
+    assert rejected.candidate_duration_s == 2582.358
+    assert rejected.duration_ms is None
+    assert not any(record.duration_ms == 2582358 and record.match_status == STATUS_MATCHED for record in records)
 
 
 def test_pwm_signed_value_is_normalized(tmp_path: Path) -> None:
@@ -222,6 +310,129 @@ def test_pwm_signed_value_is_normalized(tmp_path: Path) -> None:
     assert event.pwm_percent == 80
     assert event.direction == "Reverse"
     assert event.is_confirmed_by_status_line is True
+
+
+def test_pwm_direction_change_is_not_a_conflict(tmp_path: Path) -> None:
+    """Raw -80 and 80 should be one normalized PWM profile with direction-change metadata."""
+
+    path = _write_lines(
+        tmp_path / "direction-change.log",
+        [
+            "2026-04-10 08:37:32:000 [OUT] sample",
+            "                              [N6:H] RUN 255 176 (-80)",
+            "2026-04-10 08:37:33:000 [IN ] sample",
+            "                              [N6:H] RUN 'S' 255 176 (-80)",
+            "2026-04-10 08:37:34:000 [OUT] sample",
+            "                              [N6:H] VEL 0 80 (80)",
+            "2026-04-10 08:37:35:000 [IN ] sample",
+            "                              [N6:H] VEL 'S' 0 80 (80)",
+        ],
+    )
+
+    result = DutyCycleLogParser(TextFileLoader()).parse(path)
+    profile = result.axis_profiles["H"]
+
+    assert profile.pwm_percent == 80
+    assert profile.pwm_percent_values == [80]
+    assert profile.pwm_raw_values == [-80, 80]
+    assert profile.direction_values == ["Forward", "Reverse"]
+    assert profile.conflict is False
+    assert profile.direction_changed is True
+    assert "Direction changed" in profile.notes
+
+
+def test_pwm_percent_change_is_a_conflict(tmp_path: Path) -> None:
+    """Different normalized PWM percentages in one source file should remain a conflict."""
+
+    path = _write_lines(
+        tmp_path / "percent-conflict.log",
+        [
+            "2026-04-10 08:37:32:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 60 (60)",
+            "2026-04-10 08:37:33:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 80 (80)",
+        ],
+    )
+
+    result = DutyCycleLogParser(TextFileLoader()).parse(path)
+    profile = result.axis_profiles["Y"]
+
+    assert profile.pwm_percent_values == [60, 80]
+    assert profile.conflict is True
+    assert profile.conflict_reason == "Conflicting normalized PWM percentages in file for axis Y: 60, 80"
+
+
+def test_direction_changed_profile_does_not_create_pwm_warning(tmp_path: Path) -> None:
+    """DirectionChangedOnly should be visible but should not turn the row into a PWM warning."""
+
+    folder = tmp_path / "logs"
+    folder.mkdir()
+    _write_lines(
+        folder / "direction-change.log",
+        [
+            "2026-04-10 08:37:32:000 [OUT] sample",
+            "                              [N6:H] RUN 255 176 (-80)",
+            "2026-04-10 08:37:33:000 [OUT] sample",
+            "                              [N6:H] VEL 0 80 (80)",
+            "2026-04-10 08:37:40:000 [OUT] sample",
+        ],
+    )
+    files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
+    record = ActivityRecord(
+        axis="H",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 4, 10, 8, 37, 35),
+        end_time=datetime(2026, 4, 10, 8, 37, 36),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
+
+    assert record.pwm_percent == 80
+    assert record.pwm_match_status == PWM_STATUS_DIRECTION_CHANGED_ONLY
+    assert record.pwm_direction_changed is True
+    assert record.pwm_conflict is False
+    assert record.pwm_warning is False
+    assert record.status == OVERALL_STATUS_OK
+
+
+def test_summary_uses_normalized_pwm_percent_for_mode() -> None:
+    """Summary PWM mode should not split signed raw values into separate duty categories."""
+
+    records = ActivityValidator().validate(
+        [
+            ActivityRecord(
+                axis="H",
+                rule_id="clear_motor",
+                event_type="start clearing",
+                start_event="start clearing",
+                end_event="motor cleared",
+                start_time=datetime(2026, 1, 1, 0, 0, 0),
+                end_time=datetime(2026, 1, 1, 0, 0, 1),
+                match_status=STATUS_MATCHED,
+                pwm_percent=80,
+                pwm_raw_value=-80,
+            ),
+            ActivityRecord(
+                axis="H",
+                rule_id="clear_motor",
+                event_type="start clearing",
+                start_event="start clearing",
+                end_event="motor cleared",
+                start_time=datetime(2026, 1, 1, 0, 0, 2),
+                end_time=datetime(2026, 1, 1, 0, 0, 3),
+                match_status=STATUS_MATCHED,
+                pwm_percent=80,
+                pwm_raw_value=80,
+            ),
+        ]
+    )
+
+    frames = SummaryGenerator().build_report_frames(records, [])
+
+    assert frames.axis_summary.iloc[0]["Most Common PWM (%)"] == 80
 
 
 def test_log_folder_scanner_keeps_per_file_pwm_profiles(tmp_path: Path) -> None:
@@ -300,7 +511,156 @@ def test_pwm_association_prefers_containing_log_file(tmp_path: Path) -> None:
 
     assert record.pwm_percent == 60
     assert record.pwm_source_file == "near.log"
-    assert record.pwm_match_status == "MatchedByContainingLogFile"
+    assert record.pwm_match_status == PWM_STATUS_MATCHED_CONTAINING
+
+
+def test_pwm_association_falls_back_when_containing_file_lacks_axis(tmp_path: Path) -> None:
+    """A containing file without the target axis should not block a nearby same-axis profile."""
+
+    folder = tmp_path / "logs"
+    folder.mkdir()
+    _write_lines(
+        folder / "contains-without-y.log",
+        [
+            "2026-01-01 00:00:00:000 [OUT] sample",
+            "                              [N1:X] RUN 0 50 (50)",
+            "2026-01-01 00:00:10:000 [OUT] sample",
+        ],
+    )
+    _write_lines(
+        folder / "near-y.log",
+        [
+            "2026-01-01 00:00:11:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 80 (80)",
+            "2026-01-01 00:00:12:000 [OUT] sample",
+        ],
+    )
+
+    files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 0, 0, 5),
+        end_time=datetime(2026, 1, 1, 0, 0, 6),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
+
+    assert record.pwm_percent == 80
+    assert record.pwm_source_file == "near-y.log"
+    assert record.pwm_match_status == PWM_STATUS_MATCHED_NEAREST
+    assert record.pwm_warning is False
+
+
+def test_pwm_association_does_not_attach_far_latest_before(tmp_path: Path) -> None:
+    """Latest-before fallback should stay blank when the same-axis source is too old."""
+
+    folder = tmp_path / "logs"
+    folder.mkdir()
+    _write_lines(
+        folder / "old-y.log",
+        [
+            "2026-01-01 00:00:01:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 80 (80)",
+            "2026-01-01 00:00:02:000 [OUT] sample",
+        ],
+    )
+
+    files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 0, 10, 0),
+        end_time=datetime(2026, 1, 1, 0, 10, 1),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
+
+    assert record.pwm_percent is None
+    assert record.pwm_source_file == ""
+    assert record.pwm_match_status == PWM_STATUS_NO_RELEVANT_LOG_FILE
+    assert record.pwm_warning is True
+    assert record.status == OVERALL_STATUS_PWM_WARNING
+
+
+def test_pwm_association_reports_normalized_conflict(tmp_path: Path) -> None:
+    """Only normalized percent conflicts should raise PWMConflictInSourceFile."""
+
+    folder = tmp_path / "logs"
+    folder.mkdir()
+    _write_lines(
+        folder / "conflict-y.log",
+        [
+            "2026-01-01 00:00:01:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 60 (60)",
+            "2026-01-01 00:00:02:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 80 (80)",
+            "2026-01-01 00:00:10:000 [OUT] sample",
+        ],
+    )
+
+    files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 0, 0, 5),
+        end_time=datetime(2026, 1, 1, 0, 0, 6),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
+
+    assert record.pwm_match_status == PWM_STATUS_CONFLICT
+    assert record.pwm_conflict is True
+    assert record.pwm_warning is True
+    assert record.status == OVERALL_STATUS_PWM_WARNING
+
+
+def test_overall_status_keeps_match_and_duration_status_separate() -> None:
+    """PWM warnings should not overwrite match or duration correctness."""
+
+    matched_with_pwm_warning = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_time=datetime(2026, 1, 1, 0, 0, 0),
+        end_time=datetime(2026, 1, 1, 0, 0, 1),
+        match_status=STATUS_MATCHED,
+        pwm_match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    )
+    matched_clean = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_time=datetime(2026, 1, 1, 0, 0, 0),
+        end_time=datetime(2026, 1, 1, 0, 0, 1),
+        match_status=STATUS_MATCHED,
+    )
+    boundary_closed = ActivityRecord(
+        axis="Z",
+        rule_id="clear_motor",
+        start_time=datetime(2026, 1, 1, 0, 0, 0),
+        match_status=STATUS_CLOSED_BY_BOUNDARY,
+        duration_status=DURATION_STATUS_NOT_APPLICABLE,
+    )
+
+    ActivityValidator().validate([matched_with_pwm_warning, matched_clean, boundary_closed])
+
+    assert matched_with_pwm_warning.match_status == STATUS_MATCHED
+    assert matched_with_pwm_warning.duration_status == DURATION_STATUS_VALID
+    assert matched_with_pwm_warning.status == OVERALL_STATUS_PWM_WARNING
+    assert matched_clean.match_status == STATUS_MATCHED
+    assert matched_clean.duration_status == DURATION_STATUS_VALID
+    assert matched_clean.status == OVERALL_STATUS_OK
+    assert boundary_closed.match_status == STATUS_CLOSED_BY_BOUNDARY
+    assert boundary_closed.duration_status == DURATION_STATUS_NOT_APPLICABLE
+    assert boundary_closed.status == OVERALL_STATUS_BOUNDARY_CLOSED
 
 
 def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> None:
@@ -312,6 +672,7 @@ def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> N
             "2026-03-31 09:39:40:554 MCU   @[Y] start clearing: -19.50",
             "2026-03-31 09:39:47:373 MCU   @[Y] motor cleared",
             "2026-03-31 09:39:47:373 MCU   @[Y] min: -29.51",
+            "2026-03-31 09:39:48:000 MCU   @[WRN] Node 3 (GETVER) response timeout (2016). Try again.",
         ],
     )
     log_folder = tmp_path / "logs"
@@ -340,7 +701,7 @@ def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> N
 
     assert result.detail_count > 0
     workbook = load_workbook(output_path, data_only=True)
-    assert {"Details", "Summary", "PWM Sources"} <= set(workbook.sheetnames)
+    assert {"Details", "Summary", "PWM Sources", "Diagnostics"} <= set(workbook.sheetnames)
 
     details_sheet = workbook["Details"]
     headers = [cell.value for cell in details_sheet[1]]
@@ -362,7 +723,14 @@ def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> N
     assert target_row[header_index["PWM (%)"]] == 80
     assert target_row[header_index["PWM Raw Value"]] == 80
     assert target_row[header_index["PWM Source File"]] == "initialization.log"
-    assert target_row[header_index["PWM Match Status"]] == "MatchedByContainingLogFile"
+    assert target_row[header_index["PWM Match Status"]] == PWM_STATUS_MATCHED_CONTAINING
+    assert isinstance(target_row[header_index["PWM Source Line Number"]], int)
+    assert "RUN" in target_row[header_index["PWM Source Line Text"]]
+    assert target_row[header_index["Source TXT Start Line Number"]] == 1
+    assert "start clearing" in target_row[header_index["Source TXT Start Line Text"]]
+    assert target_row[header_index["Source TXT End Line Number"]] == 2
+    assert "motor cleared" in target_row[header_index["Source TXT End Line Text"]]
+    assert target_row[header_index["Overall Status"]] == OVERALL_STATUS_OK
 
     pwm_sources_sheet = workbook["PWM Sources"]
     pwm_rows = list(pwm_sources_sheet.iter_rows(min_row=2, values_only=True))
@@ -370,3 +738,10 @@ def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> N
     assert negative_row[4] == 80
     assert negative_row[5] == -80
     assert negative_row[6] == "Reverse"
+
+    diagnostics_sheet = workbook["Diagnostics"]
+    diagnostic_rows = list(diagnostics_sheet.iter_rows(min_row=2, values_only=True))
+    assert len(diagnostic_rows) == 1
+    assert diagnostic_rows[0][1] == "WRN"
+    assert diagnostic_rows[0][2] == "NodeResponseTimeout"
+    assert diagnostic_rows[0][4] == 3

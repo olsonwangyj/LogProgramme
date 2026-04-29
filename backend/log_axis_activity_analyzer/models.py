@@ -67,7 +67,27 @@ class BoundaryEvent:
     is_boundary: bool = True
 
 
-MainTimelineEvent = AxisLogEvent | BoundaryEvent
+@dataclass(frozen=True)
+class DiagnosticEvent:
+    """Represents a structured diagnostic line from the main TXT log."""
+
+    source_path: Path
+    line_number: int
+    ordinal: int
+    timestamp: datetime
+    severity: str
+    diagnostic_type: str
+    axis: str | None
+    node_id: int | None
+    message: str
+    raw_line: str
+    flush_pending: bool = False
+    flush_scope: str = "all"
+    event_kind: str = "DiagnosticEvent"
+    is_boundary: bool = False
+
+
+MainTimelineEvent = AxisLogEvent | BoundaryEvent | DiagnosticEvent
 
 
 @dataclass
@@ -98,12 +118,16 @@ class AxisPWMProfile:
     source_path: Path
     axis: str
     pwm_percent: Optional[float] = None
+    pwm_percent_values: list[float] = field(default_factory=list)
     pwm_raw_values: list[float] = field(default_factory=list)
+    direction_values: list[str] = field(default_factory=list)
     first_seen_time: Optional[datetime] = None
     last_seen_time: Optional[datetime] = None
     source_lines: list[int] = field(default_factory=list)
     source_line_texts: list[str] = field(default_factory=list)
     conflict: bool = False
+    direction_changed: bool = False
+    conflict_reason: str = ""
     notes: str = ""
     events: list[PWMEvent] = field(default_factory=list)
 
@@ -127,6 +151,7 @@ class MainLogParseResult:
 
     events: list[AxisLogEvent] = field(default_factory=list)
     boundary_events: list[BoundaryEvent] = field(default_factory=list)
+    diagnostics: list[DiagnosticEvent] = field(default_factory=list)
     timeline: list[MainTimelineEvent] = field(default_factory=list)
     warnings: list[ParseWarning] = field(default_factory=list)
     encoding_used: str = ""
@@ -185,6 +210,9 @@ class ActivityRecord:
     pwm_percent: Optional[float] = None
     pwm_raw_value: Optional[float] = None
     pwm_direction: str = ""
+    pwm_direction_changed: bool = False
+    pwm_conflict: bool = False
+    pwm_conflict_reason: str = ""
     pwm_source_file: str = ""
     pwm_source_line: str = ""
     pwm_source_time: Optional[datetime] = None
@@ -199,6 +227,9 @@ class ActivityRecord:
     closed_by_boundary_type: str = ""
     closed_by_boundary_time: Optional[datetime] = None
     closed_by_boundary_line: int = 0
+    closed_by_boundary_line_text: str = ""
+    candidate_duration_ms: Optional[int] = None
+    candidate_duration_s: Optional[float] = None
     max_duration_ms: Optional[int] = None
     exceeded_max_duration: bool = False
     status: str = ""
@@ -228,6 +259,7 @@ class ReportFrames:
     event_summary: object
     axis_summary: object
     pwm_sources: object | None = None
+    diagnostics: object | None = None
 
 
 @dataclass
@@ -245,6 +277,7 @@ class AnalysisRunResult:
     unmatched_end_count: int
     closed_by_boundary_count: int
     initialization_failed_count: int
+    diagnostic_count: int
     parse_warning_count: int
     duration_warning_count: int
     pwm_warning_count: int

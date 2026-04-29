@@ -15,12 +15,14 @@ from .config import (
     DURATION_STATUS_VALID,
     MAX_EVENT_DURATION_MS,
     STATUS_CLOSED_BY_BOUNDARY,
+    STATUS_CLOSED_BY_NEW_START,
+    STATUS_DURATION_TOO_LONG_CANDIDATE,
     STATUS_INITIALIZATION_FAILED,
     STATUS_MATCHED,
     STATUS_UNMATCHED_END,
     STATUS_UNMATCHED_START,
 )
-from .models import ActivityRecord, AxisLogEvent, BoundaryEvent, EventRule, MainTimelineEvent
+from .models import ActivityRecord, AxisLogEvent, BoundaryEvent, DiagnosticEvent, EventRule, MainTimelineEvent
 from .time_utils import calculate_duration_values, format_log_timestamp
 
 
@@ -57,7 +59,7 @@ class EventMatcher:
         pending: dict[tuple[str, str], tuple[AxisLogEvent, EventRule]] = {}
         records: list[ActivityRecord] = []
         for index, item in enumerate(timeline):
-            if isinstance(item, BoundaryEvent):
+            if isinstance(item, BoundaryEvent) or isinstance(item, DiagnosticEvent):
                 records.extend(self._flush_pending_for_boundary(pending, item))
                 continue
             classification = self._classify_event(item.message)
@@ -102,6 +104,7 @@ class EventMatcher:
                     start_event=previous_event,
                     rule=previous_rule,
                     reason="Closed because a new start for the same axis/rule appeared before an end event.",
+                    match_status=STATUS_CLOSED_BY_NEW_START,
                     closing_time=event.timestamp,
                     closing_line=event.line_number,
                     closing_raw_line=event.raw_line,
@@ -151,7 +154,7 @@ class EventMatcher:
                     end_event=end_event,
                     duration_status=DURATION_STATUS_TOO_LONG,
                     max_duration_ms=max_duration_ms,
-                    reason=f"Candidate pair exceeded max duration: {duration_ms} ms > max {max_duration_ms} ms.",
+                    reason=f"Candidate pair exceeded max duration: {duration_ms} ms > {max_duration_ms} ms.",
                 ),
                 self._build_unmatched_end_record(
                     end_event,
@@ -164,12 +167,14 @@ class EventMatcher:
     def _flush_pending_for_boundary(
         self,
         pending: dict[tuple[str, str], tuple[AxisLogEvent, EventRule]],
-        boundary: BoundaryEvent,
+        boundary: BoundaryEvent | DiagnosticEvent,
     ) -> list[ActivityRecord]:
         """Flush pending starts when a boundary indicates the workflow moved on or failed."""
 
-        self._logger.debug("Handling boundary %s on line %s", boundary.boundary_type, boundary.line_number)
-        if not boundary.flush_pending and not boundary.close_pending_when_seen:
+        boundary_type = self._boundary_type(boundary)
+        self._logger.debug("Handling boundary %s on line %s", boundary_type, boundary.line_number)
+        close_pending_when_seen = getattr(boundary, "close_pending_when_seen", False)
+        if not boundary.flush_pending and not close_pending_when_seen:
             return []
         records: list[ActivityRecord] = []
         keys_to_close = [
@@ -239,6 +244,7 @@ class EventMatcher:
         start_event: AxisLogEvent,
         rule: EventRule,
         reason: str,
+        match_status: str = STATUS_UNMATCHED_START,
         closing_time=None,
         closing_line: int = 0,
         closing_raw_line: str = "",
@@ -261,11 +267,11 @@ class EventMatcher:
             start_time=start_event.timestamp,
             start_value=start_event.inline_value,
             source_txt_start_line=start_event.raw_line,
-            match_status=STATUS_UNMATCHED_START,
+            match_status=match_status,
             duration_status=DURATION_STATUS_NOT_APPLICABLE,
             boundary_close_reason=reason,
-            status=STATUS_UNMATCHED_START,
-            activity_status=STATUS_UNMATCHED_START,
+            status=match_status,
+            activity_status=match_status,
             notes=notes,
             max_duration_ms=self._resolve_max_duration_ms(rule.rule_id),
             start_line_number=start_event.line_number,
@@ -305,14 +311,15 @@ class EventMatcher:
         self,
         start_event: AxisLogEvent,
         rule: EventRule,
-        boundary: BoundaryEvent,
+        boundary: BoundaryEvent | DiagnosticEvent,
     ) -> ActivityRecord:
         """Create one start-closure row caused by a workflow boundary."""
 
-        self._logger.debug("Closing pending start for axis %s by boundary %s", start_event.axis, boundary.boundary_type)
+        boundary_type = self._boundary_type(boundary)
+        self._logger.debug("Closing pending start for axis %s by boundary %s", start_event.axis, boundary_type)
         match_status = (
             STATUS_INITIALIZATION_FAILED
-            if boundary.boundary_type == "InitializationFailed"
+            if boundary_type == "InitializationFailed"
             else STATUS_CLOSED_BY_BOUNDARY
         )
         reason = self._boundary_reason(boundary)
@@ -331,9 +338,10 @@ class EventMatcher:
             match_status=match_status,
             duration_status=DURATION_STATUS_NOT_APPLICABLE,
             boundary_close_reason=reason,
-            closed_by_boundary_type=boundary.boundary_type,
+            closed_by_boundary_type=boundary_type,
             closed_by_boundary_time=boundary.timestamp,
             closed_by_boundary_line=boundary.line_number,
+            closed_by_boundary_line_text=boundary.raw_line,
             status=match_status,
             activity_status=match_status,
             notes=notes,
@@ -356,21 +364,32 @@ class EventMatcher:
 
         self._logger.debug("Rejecting candidate duration for axis %s rule %s", start_event.axis, rule.rule_id)
         notes = self._merge_notes(reason, f"Rejected end raw line: {end_event.raw_line}")
+        candidate_duration_ms, candidate_duration_s = calculate_duration_values(start_event.timestamp, end_event.timestamp)
+        match_status = (
+            STATUS_DURATION_TOO_LONG_CANDIDATE
+            if duration_status == DURATION_STATUS_TOO_LONG
+            else STATUS_UNMATCHED_START
+        )
         return ActivityRecord(
             axis=start_event.axis,
             rule_id=rule.rule_id,
             event_type=rule.start_label,
             start_event=rule.start_label,
+            end_event=rule.end_label,
             start_time=start_event.timestamp,
+            end_time=end_event.timestamp,
             start_value=start_event.inline_value,
             source_txt_start_line=start_event.raw_line,
-            match_status=STATUS_UNMATCHED_START,
+            source_txt_end_line=end_event.raw_line,
+            match_status=match_status,
             duration_status=duration_status,
             boundary_close_reason=reason,
+            candidate_duration_ms=candidate_duration_ms,
+            candidate_duration_s=candidate_duration_s,
             max_duration_ms=max_duration_ms,
             exceeded_max_duration=duration_status == DURATION_STATUS_TOO_LONG,
             status=duration_status,
-            activity_status=STATUS_UNMATCHED_START,
+            activity_status=match_status,
             duration_warning=True,
             notes=notes,
             start_line_number=start_event.line_number,
@@ -414,24 +433,40 @@ class EventMatcher:
 
         return self._max_event_duration_ms.get(rule_id, self._default_max_event_duration_ms)
 
-    def _boundary_reason(self, boundary: BoundaryEvent) -> str:
+    def _boundary_type(self, boundary: BoundaryEvent | DiagnosticEvent) -> str:
+        """Return the boundary-like type for a real boundary or flushing diagnostic."""
+
+        if isinstance(boundary, BoundaryEvent):
+            return boundary.boundary_type
+        return boundary.diagnostic_type
+
+    def _boundary_reason(self, boundary: BoundaryEvent | DiagnosticEvent) -> str:
         """Return the human-readable close reason for a boundary event."""
 
-        if boundary.boundary_type == "InitializationStarted":
+        boundary_type = self._boundary_type(boundary)
+        if boundary_type == "InitializationStarted":
             return "Closed because a new initialization started."
-        if boundary.boundary_type == "InitializationFailed":
+        if boundary_type == "InitializationFailed":
             return "Closed because initialization failed."
-        if boundary.boundary_type == "RobotInitializationDone":
+        if boundary_type == "RobotInitializationDone":
             return "Still pending at robot initialization done."
-        if boundary.boundary_type == "ApplicationExited":
+        if boundary_type == "MotorAbortClicked":
+            return "Closed because motor abort was clicked."
+        if boundary_type == "RobotMovingStopped":
+            return "Closed because robot movement stopped."
+        if boundary_type == "SystemExitSelected":
+            return "Closed because system exit was selected."
+        if boundary_type == "ApplicationExited":
             return "Closed because the application exited."
-        if boundary.boundary_type == "McuControllerStopped":
+        if boundary_type == "McuControllerStopped":
             return "Closed because the MCU controller stopped."
-        if boundary.boundary_type in {"ToolMenuSelected", "FactoryMenuSelected"}:
+        if boundary_type in {"ToolMenuSelected", "FactoryMenuSelected"}:
             return "Closed because the workflow changed before the event finished."
-        if boundary.boundary_type == "FinalizationDone":
+        if boundary_type == "FinalizationDone":
             return "Closed because finalization completed."
-        return f"Closed by boundary {boundary.boundary_type}."
+        if boundary_type == "SensorCut":
+            return "Closed because a motor sensor cut diagnostic was reported."
+        return f"Closed by boundary {boundary_type}."
 
     def _merge_notes(self, existing: str, new_note: str) -> str:
         """Combine existing notes with a new note without duplicating separators."""
