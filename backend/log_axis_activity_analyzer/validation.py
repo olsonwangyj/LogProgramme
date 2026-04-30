@@ -12,22 +12,30 @@ from .config import (
     DURATION_STATUS_VALID,
     MAX_EVENT_DURATION_MS,
     OVERALL_STATUS_BOUNDARY_CLOSED,
+    OVERALL_STATUS_CLOSED_BY_NEW_START,
     OVERALL_STATUS_DIAGNOSTIC,
     OVERALL_STATUS_DURATION_WARNING,
     OVERALL_STATUS_INITIALIZATION_FAILED,
     OVERALL_STATUS_OK,
     OVERALL_STATUS_PARSE_WARNING,
     OVERALL_STATUS_PWM_WARNING,
+    OVERALL_STATUS_UNMATCHED,
     PWM_STATUS_CONFLICT,
-    PWM_STATUS_NO_PWM_FOUND_FOR_AXIS,
+    PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+    PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
     PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
+    PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
     STATUS_CLOSED_BY_BOUNDARY,
+    STATUS_CLOSED_BY_NEW_START,
     STATUS_DIAGNOSTIC,
     STATUS_DURATION_TOO_LONG_CANDIDATE,
     STATUS_DURATION_TOO_LONG,
     STATUS_INITIALIZATION_FAILED,
     STATUS_MATCHED,
     STATUS_PARSE_WARNING,
+    STATUS_UNMATCHED_END,
+    STATUS_UNMATCHED_START,
 )
 from .models import ActivityRecord
 from .time_utils import calculate_duration_values
@@ -123,9 +131,14 @@ class ActivityValidator:
         if record.match_status == STATUS_DURATION_TOO_LONG_CANDIDATE:
             record.duration_ms = None
             record.duration_s = None
-        if record.match_status in {"Unmatched Start", "Closed By Boundary", "Initialization Failed"}:
+        if record.match_status in {
+            STATUS_UNMATCHED_START,
+            STATUS_CLOSED_BY_BOUNDARY,
+            STATUS_CLOSED_BY_NEW_START,
+            STATUS_INITIALIZATION_FAILED,
+        }:
             record.end_time = None if record.end_time is None else record.end_time
-        if record.match_status == "Unmatched End":
+        if record.match_status == STATUS_UNMATCHED_END:
             record.start_time = None if record.start_time is None else record.start_time
 
     def _validate_pwm(self, record: ActivityRecord) -> None:
@@ -134,8 +147,11 @@ class ActivityValidator:
         self._logger.debug("Validating PWM association for axis %s", record.axis)
         if record.pwm_match_status in {
             PWM_STATUS_CONFLICT,
-            PWM_STATUS_NO_PWM_FOUND_FOR_AXIS,
+            PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+            PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
             PWM_STATUS_NO_RELEVANT_LOG_FILE,
+            PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
+            PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
         }:
             record.pwm_warning = True
 
@@ -160,6 +176,12 @@ class ActivityValidator:
             return
         if record.match_status == STATUS_CLOSED_BY_BOUNDARY:
             record.status = OVERALL_STATUS_BOUNDARY_CLOSED
+            return
+        if record.match_status == STATUS_CLOSED_BY_NEW_START:
+            record.status = OVERALL_STATUS_CLOSED_BY_NEW_START
+            return
+        if record.match_status in {STATUS_UNMATCHED_START, STATUS_UNMATCHED_END}:
+            record.status = OVERALL_STATUS_UNMATCHED
             return
         if record.match_status == STATUS_DURATION_TOO_LONG_CANDIDATE:
             record.status = OVERALL_STATUS_DURATION_WARNING

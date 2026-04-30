@@ -9,22 +9,32 @@ from openpyxl import load_workbook
 
 from backend.log_axis_activity_analyzer.config import (
     DEFAULT_EVENT_RULES,
+    DIAGNOSTIC_SUMMARY_COLUMNS,
     DETAIL_COLUMNS,
     DURATION_STATUS_NOT_APPLICABLE,
     DURATION_STATUS_TOO_LONG,
     DURATION_STATUS_VALID,
     OVERALL_STATUS_BOUNDARY_CLOSED,
+    OVERALL_STATUS_CLOSED_BY_NEW_START,
+    OVERALL_STATUS_INITIALIZATION_FAILED,
     OVERALL_STATUS_OK,
     OVERALL_STATUS_PWM_WARNING,
+    OVERALL_STATUS_UNMATCHED,
     PWM_STATUS_CONFLICT,
-    PWM_STATUS_DIRECTION_CHANGED_ONLY,
+    PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+    PWM_STATUS_MATCHED_CARRY_FORWARD,
     PWM_STATUS_MATCHED_CONTAINING,
     PWM_STATUS_MATCHED_NEAREST,
+    PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
     PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
+    PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
+    STATUS_CLOSED_BY_NEW_START,
     STATUS_INITIALIZATION_FAILED,
     STATUS_MATCHED,
     STATUS_CLOSED_BY_BOUNDARY,
     STATUS_DURATION_TOO_LONG_CANDIDATE,
+    STATUS_PARSE_WARNING,
     STATUS_UNMATCHED_END,
     STATUS_UNMATCHED_START,
 )
@@ -190,6 +200,44 @@ def test_main_log_diagnostics_are_not_parse_warnings(tmp_path: Path) -> None:
     assert parse_result.diagnostics[1].severity == "ERR"
     assert parse_result.diagnostics[2].axis == "Z"
     assert parse_result.diagnostics[2].flush_pending is True
+
+
+def test_amd_amx_partially_corrupted_is_diagnostic_not_parse_warning(tmp_path: Path) -> None:
+    """AMD AMX partially corrupted lines should be structured diagnostics."""
+
+    raw_line = "2026-04-23 12:34:39:688 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]"
+    parse_result = _parse_main_log(tmp_path, [raw_line])
+
+    assert len(parse_result.warnings) == 0
+    assert len(parse_result.diagnostics) == 1
+    diagnostic = parse_result.diagnostics[0]
+    assert diagnostic.severity == "AMD"
+    assert diagnostic.diagnostic_type == "AMXPartiallyCorrupted"
+    assert diagnostic.axis is None
+    assert diagnostic.node_id is None
+    assert diagnostic.message == "MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]"
+    assert diagnostic.raw_line == raw_line
+    assert diagnostic.flush_pending is False
+
+
+def test_amd_partial_amx_amended_maps_node_to_axis_and_is_not_parse_warning(tmp_path: Path) -> None:
+    """AMD partial AMX amended lines should capture node IDs and optional axis mapping."""
+
+    raw_line = (
+        "2026-04-23 12:34:39:711 MCU   @[AMD] [N12] partial AMX amended "
+        "[ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]"
+    )
+    parse_result = _parse_main_log(tmp_path, [raw_line])
+
+    assert len(parse_result.warnings) == 0
+    assert len(parse_result.diagnostics) == 1
+    diagnostic = parse_result.diagnostics[0]
+    assert diagnostic.severity == "AMD"
+    assert diagnostic.diagnostic_type == "PartialAMXAmended"
+    assert diagnostic.node_id == 12
+    assert diagnostic.axis == "Z"
+    assert diagnostic.raw_line == raw_line
+    assert diagnostic.flush_pending is False
 
 
 def test_initialization_failed_remains_boundary_not_diagnostic(tmp_path: Path) -> None:
@@ -363,7 +411,7 @@ def test_pwm_percent_change_is_a_conflict(tmp_path: Path) -> None:
 
 
 def test_direction_changed_profile_does_not_create_pwm_warning(tmp_path: Path) -> None:
-    """DirectionChangedOnly should be visible but should not turn the row into a PWM warning."""
+    """Direction changes should keep the real PWM match status and stay non-warning."""
 
     folder = tmp_path / "logs"
     folder.mkdir()
@@ -391,11 +439,12 @@ def test_direction_changed_profile_does_not_create_pwm_warning(tmp_path: Path) -
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
 
     assert record.pwm_percent == 80
-    assert record.pwm_match_status == PWM_STATUS_DIRECTION_CHANGED_ONLY
+    assert record.pwm_match_status == PWM_STATUS_MATCHED_CONTAINING
     assert record.pwm_direction_changed is True
     assert record.pwm_conflict is False
     assert record.pwm_warning is False
     assert record.status == OVERALL_STATUS_OK
+    assert "Direction changed within source file" in record.notes
 
 
 def test_summary_uses_normalized_pwm_percent_for_mode() -> None:
@@ -584,8 +633,136 @@ def test_pwm_association_does_not_attach_far_latest_before(tmp_path: Path) -> No
 
     assert record.pwm_percent is None
     assert record.pwm_source_file == ""
-    assert record.pwm_match_status == PWM_STATUS_NO_RELEVANT_LOG_FILE
+    assert record.pwm_match_status == PWM_STATUS_LATEST_BEFORE_TOO_FAR
+    assert record.pwm_missing_reason.startswith("The latest PWM record before the activity for axis Y was too far away")
+    assert record.pwm_time_delta_ms == 599000
     assert record.pwm_warning is True
+    assert record.status == OVERALL_STATUS_PWM_WARNING
+
+
+def test_pwm_carry_forward_is_explicit_and_warned_when_enabled(tmp_path: Path) -> None:
+    """Carry-forward PWM is opt-in and clearly marked as a warning source."""
+
+    folder = tmp_path / "logs"
+    folder.mkdir()
+    _write_lines(
+        folder / "old-y.log",
+        [
+            "2026-01-01 00:00:01:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 80 (80)",
+            "2026-01-01 00:00:02:000 [OUT] sample",
+        ],
+    )
+
+    files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 0, 10, 0),
+        end_time=datetime(2026, 1, 1, 0, 10, 1),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], files, allow_carry_forward=True))
+
+    assert record.pwm_percent == 80
+    assert record.pwm_match_status == PWM_STATUS_MATCHED_CARRY_FORWARD
+    assert record.pwm_match_method == "CarryForwardWithinSession"
+    assert record.pwm_warning is True
+    assert record.status == OVERALL_STATUS_PWM_WARNING
+
+
+def test_pwm_association_reports_no_control_logs_available() -> None:
+    """Missing control-log coverage should be distinguishable from axis-specific misses."""
+
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 0, 0, 5),
+        end_time=datetime(2026, 1, 1, 0, 0, 6),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], []))
+
+    assert record.pwm_match_status == PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE
+    assert record.pwm_match_method == "NoControlLogsAvailable"
+    assert record.pwm_missing_reason == "No control-log files were available for PWM matching."
+    assert record.status == OVERALL_STATUS_PWM_WARNING
+
+
+def test_pwm_association_reports_no_same_axis_pwm_in_folder(tmp_path: Path) -> None:
+    """A folder with control logs but no target-axis PWM should say so directly."""
+
+    folder = tmp_path / "logs"
+    folder.mkdir()
+    _write_lines(
+        folder / "x-only.log",
+        [
+            "2026-01-01 00:00:01:000 [OUT] sample",
+            "                              [N3:X] RUN 0 60 (60)",
+            "2026-01-01 00:00:10:000 [OUT] sample",
+        ],
+    )
+    files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 0, 0, 5),
+        end_time=datetime(2026, 1, 1, 0, 0, 6),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
+
+    assert record.pwm_match_status == PWM_STATUS_NO_SAME_AXIS_IN_FOLDER
+    assert record.pwm_match_method == "NoSameAxisPWMInFolder"
+    assert record.pwm_missing_reason == "No PWM profile was found for axis Y in the scanned control-log folder."
+    assert record.status == OVERALL_STATUS_PWM_WARNING
+
+
+def test_pwm_association_reports_containing_file_lacks_axis_when_no_safe_fallback(tmp_path: Path) -> None:
+    """A containing log without the target axis should be distinguishable when fallback fails."""
+
+    folder = tmp_path / "logs"
+    folder.mkdir()
+    _write_lines(
+        folder / "contains-without-y.log",
+        [
+            "2026-01-01 00:00:00:000 [OUT] sample",
+            "                              [N3:X] RUN 0 50 (50)",
+            "2026-01-01 00:00:10:000 [OUT] sample",
+        ],
+    )
+    _write_lines(
+        folder / "future-y.log",
+        [
+            "2026-01-01 00:20:00:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 80 (80)",
+            "2026-01-01 00:20:01:000 [OUT] sample",
+        ],
+    )
+    files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 0, 0, 5),
+        end_time=datetime(2026, 1, 1, 0, 0, 6),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
+
+    assert record.pwm_match_status == PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM
+    assert record.pwm_missing_reason.startswith("1 containing log file(s) lacked axis Y")
     assert record.status == OVERALL_STATUS_PWM_WARNING
 
 
@@ -648,9 +825,52 @@ def test_overall_status_keeps_match_and_duration_status_separate() -> None:
         start_time=datetime(2026, 1, 1, 0, 0, 0),
         match_status=STATUS_CLOSED_BY_BOUNDARY,
         duration_status=DURATION_STATUS_NOT_APPLICABLE,
+        pwm_match_status=PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
+    )
+    unmatched_start = ActivityRecord(
+        axis="Z",
+        rule_id="clear_motor",
+        start_time=datetime(2026, 1, 1, 0, 0, 0),
+        match_status=STATUS_UNMATCHED_START,
+        duration_status=DURATION_STATUS_NOT_APPLICABLE,
+        pwm_match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    )
+    unmatched_end = ActivityRecord(
+        axis="Z",
+        rule_id="clear_motor",
+        end_time=datetime(2026, 1, 1, 0, 0, 1),
+        match_status=STATUS_UNMATCHED_END,
+        duration_status=DURATION_STATUS_NOT_APPLICABLE,
+        pwm_match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    )
+    closed_by_new_start = ActivityRecord(
+        axis="Z",
+        rule_id="clear_motor",
+        start_time=datetime(2026, 1, 1, 0, 0, 0),
+        match_status=STATUS_CLOSED_BY_NEW_START,
+        duration_status=DURATION_STATUS_NOT_APPLICABLE,
+        pwm_match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    )
+    initialization_failed = ActivityRecord(
+        axis="Z",
+        rule_id="clear_motor",
+        start_time=datetime(2026, 1, 1, 0, 0, 0),
+        match_status=STATUS_INITIALIZATION_FAILED,
+        duration_status=DURATION_STATUS_NOT_APPLICABLE,
+        pwm_match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
     )
 
-    ActivityValidator().validate([matched_with_pwm_warning, matched_clean, boundary_closed])
+    ActivityValidator().validate(
+        [
+            matched_with_pwm_warning,
+            matched_clean,
+            boundary_closed,
+            unmatched_start,
+            unmatched_end,
+            closed_by_new_start,
+            initialization_failed,
+        ]
+    )
 
     assert matched_with_pwm_warning.match_status == STATUS_MATCHED
     assert matched_with_pwm_warning.duration_status == DURATION_STATUS_VALID
@@ -661,6 +881,68 @@ def test_overall_status_keeps_match_and_duration_status_separate() -> None:
     assert boundary_closed.match_status == STATUS_CLOSED_BY_BOUNDARY
     assert boundary_closed.duration_status == DURATION_STATUS_NOT_APPLICABLE
     assert boundary_closed.status == OVERALL_STATUS_BOUNDARY_CLOSED
+    assert unmatched_start.status == OVERALL_STATUS_UNMATCHED
+    assert unmatched_end.status == OVERALL_STATUS_UNMATCHED
+    assert closed_by_new_start.status == OVERALL_STATUS_CLOSED_BY_NEW_START
+    assert initialization_failed.status == OVERALL_STATUS_INITIALIZATION_FAILED
+
+
+def test_closed_by_new_start_is_counted_in_summary_and_run_result(tmp_path: Path) -> None:
+    """A replaced pending start should have its own summary and run-result count."""
+
+    txt_path = _write_lines(
+        tmp_path / "sample.txt",
+        [
+            "2026-01-01 00:00:01:000 MCU   @[Z] start clearing: -50.00",
+            "2026-01-01 00:00:02:000 MCU   @[Z] start clearing: -50.00",
+            "2026-01-01 00:00:03:000 MCU   @[Z] motor cleared",
+        ],
+    )
+    log_folder = tmp_path / "logs"
+    log_folder.mkdir()
+    _write_lines(
+        log_folder / "z.log",
+        [
+            "2026-01-01 00:00:00:000 [OUT] sample",
+            "                              [N12:Z] RUN 0 80 (80)",
+            "2026-01-01 00:00:10:000 [OUT] sample",
+        ],
+    )
+    output_path = tmp_path / "analysis.xlsx"
+
+    result = LogAnalysisService().run_analysis(txt_path, log_folder, output_path)
+
+    assert result.closed_by_new_start_count == 1
+    workbook = load_workbook(output_path, data_only=True)
+    details_sheet = workbook["Details"]
+    details_headers = [cell.value for cell in details_sheet[1]]
+    details_index = {header: index for index, header in enumerate(details_headers)}
+    detail_rows = list(details_sheet.iter_rows(min_row=2, values_only=True))
+    assert any(
+        row[details_index["Match Status"]] == STATUS_CLOSED_BY_NEW_START
+        and row[details_index["Overall Status"]] == OVERALL_STATUS_CLOSED_BY_NEW_START
+        for row in detail_rows
+    )
+    assert any(
+        row[details_index["Match Status"]] == STATUS_MATCHED
+        and row[details_index["Duration (ms)"]] == 1000
+        for row in detail_rows
+    )
+
+    summary_sheet = workbook["Summary"]
+    metadata = {
+        row[0]: row[1]
+        for row in summary_sheet.iter_rows(min_row=1, max_col=2, values_only=True)
+        if row[0]
+    }
+    assert metadata["Closed By New Start Count"] == 1
+
+    summary_rows = list(summary_sheet.iter_rows(values_only=True))
+    header_row = next(row for row in summary_rows if row and row[0] == "Axis")
+    header_index = {header: index for index, header in enumerate(header_row)}
+    z_summary = next(row for row in summary_rows if row and row[0] == "Z" and row[1] == "start clearing")
+    assert z_summary[header_index["Matched Count"]] == 1
+    assert z_summary[header_index["Closed By New Start Count"]] == 1
 
 
 def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> None:
@@ -673,6 +955,8 @@ def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> N
             "2026-03-31 09:39:47:373 MCU   @[Y] motor cleared",
             "2026-03-31 09:39:47:373 MCU   @[Y] min: -29.51",
             "2026-03-31 09:39:48:000 MCU   @[WRN] Node 3 (GETVER) response timeout (2016). Try again.",
+            "2026-03-31 09:39:49:000 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]",
+            "2026-03-31 09:39:49:100 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]",
         ],
     )
     log_folder = tmp_path / "logs"
@@ -700,8 +984,10 @@ def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> N
     )
 
     assert result.detail_count > 0
+    assert result.diagnostic_count == 3
+    assert result.parse_warning_count == 0
     workbook = load_workbook(output_path, data_only=True)
-    assert {"Details", "Summary", "PWM Sources", "Diagnostics"} <= set(workbook.sheetnames)
+    assert {"Details", "Summary", "PWM Sources", "Diagnostics", "Diagnostics Summary"} <= set(workbook.sheetnames)
 
     details_sheet = workbook["Details"]
     headers = [cell.value for cell in details_sheet[1]]
@@ -731,6 +1017,23 @@ def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> N
     assert target_row[header_index["Source TXT End Line Number"]] == 2
     assert "motor cleared" in target_row[header_index["Source TXT End Line Text"]]
     assert target_row[header_index["Overall Status"]] == OVERALL_STATUS_OK
+    assert not any(
+        row[header_index["Match Status"]] == STATUS_PARSE_WARNING
+        and (
+            "AMX partially corrupted" in str(row[header_index["Source TXT Start Line Text"]])
+            or "partial AMX amended" in str(row[header_index["Source TXT Start Line Text"]])
+        )
+        for row in rows
+    )
+
+    summary_sheet = workbook["Summary"]
+    summary_header_rows = [
+        row
+        for row in summary_sheet.iter_rows(values_only=True)
+        if row and row[0] == "Axis"
+    ]
+    assert summary_header_rows
+    assert all("Diagnostic Count" not in row for row in summary_header_rows)
 
     pwm_sources_sheet = workbook["PWM Sources"]
     pwm_rows = list(pwm_sources_sheet.iter_rows(min_row=2, values_only=True))
@@ -741,7 +1044,24 @@ def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> N
 
     diagnostics_sheet = workbook["Diagnostics"]
     diagnostic_rows = list(diagnostics_sheet.iter_rows(min_row=2, values_only=True))
-    assert len(diagnostic_rows) == 1
-    assert diagnostic_rows[0][1] == "WRN"
-    assert diagnostic_rows[0][2] == "NodeResponseTimeout"
-    assert diagnostic_rows[0][4] == 3
+    assert len(diagnostic_rows) == 3
+    diagnostics_by_type = {row[2]: row for row in diagnostic_rows}
+    assert diagnostics_by_type["NodeResponseTimeout"][1] == "WRN"
+    assert diagnostics_by_type["NodeResponseTimeout"][4] == 3
+    assert diagnostics_by_type["AMXPartiallyCorrupted"][1] == "AMD"
+    assert "AMX partially corrupted" in diagnostics_by_type["AMXPartiallyCorrupted"][6]
+    assert diagnostics_by_type["PartialAMXAmended"][1] == "AMD"
+    assert diagnostics_by_type["PartialAMXAmended"][3] == "Z"
+    assert diagnostics_by_type["PartialAMXAmended"][4] == 12
+
+    diagnostics_summary_sheet = workbook["Diagnostics Summary"]
+    diagnostics_summary_headers = [cell.value for cell in diagnostics_summary_sheet[1]]
+    assert diagnostics_summary_headers == DIAGNOSTIC_SUMMARY_COLUMNS
+    diagnostics_summary_rows = list(diagnostics_summary_sheet.iter_rows(min_row=2, values_only=True))
+    summary_by_type = {row[0]: row for row in diagnostics_summary_rows}
+    assert summary_by_type["AMXPartiallyCorrupted"][1] == "AMD"
+    assert summary_by_type["AMXPartiallyCorrupted"][4] == 1
+    assert summary_by_type["PartialAMXAmended"][1] == "AMD"
+    assert summary_by_type["PartialAMXAmended"][2] == "Z"
+    assert summary_by_type["PartialAMXAmended"][3] == 12
+    assert summary_by_type["PartialAMXAmended"][4] == 1

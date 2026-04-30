@@ -1,1102 +1,742 @@
 # Code Explanation
 
-This file explains the current implementation of the log analysis tool in `D:\LogProgramme` based on the code that exists in the repository now, after the TXT-plus-log-folder update.
+This document explains the current implementation of the LogProgramme log analysis tool. It is written for future maintainers who need to understand how the code fits together, where each feature lives, and which parts are risky to change.
 
-## 1. Project Overview
+## 1. What The Tool Does
 
-### What problem the tool solves
+LogProgramme analyzes one main UroBiopsy TXT log together with a folder of robot control `.log` files. It matches axis activity start/end events, calculates duration, attaches PWM evidence, derives movement distances, runs normal distribution analysis, generates chart PNGs, and exports an Excel workbook.
 
-The tool converts robot runtime logs into a structured Excel workbook so engineers do not have to manually trace axis activity durations and PWM settings.
+The workbook is meant to answer questions such as:
 
-It answers questions such as:
+- Which axis activities matched correctly?
+- How long did each movement take?
+- Which PWM source was attached to the movement?
+- What was the commanded target and, when available, the actual end position?
+- For the same TXT file, PWM, axis, movement distance, and action, how consistent are durations?
+- Does the control-log folder actually cover the TXT timeline well enough to trust PWM-based grouping?
 
-- When did axis `Y` start clearing?
-- When did it finish?
-- How long did it take, in milliseconds and seconds?
-- What numeric target or position value was present on the start or end side?
-- Which PWM setting most likely applied to that axis at that time?
+## 2. Inputs And Outputs
 
-### What the inputs are
+### Inputs
 
-The tool now works with two user-provided inputs:
+The CLI accepts:
 
-- Main TXT log:
-  - A UroBiopsy application log such as `Log/UroBiopsy_20260331.txt`
-  - Parsed by `backend/log_axis_activity_analyzer/log_a_parser.py`
-- Log folder:
-  - A folder containing multiple robot control `.log` files such as `Log/RobotMovingValues/20260331/`
-  - Scanned by `backend/log_axis_activity_analyzer/log_folder_scanner.py`
-  - Each file is parsed by `backend/log_axis_activity_analyzer/log_b_parser.py`
+- `--txt-file`: main UroBiopsy TXT file.
+- `--log-folder`: folder containing one or more robot control `.log` files.
+- `--output`: destination `.xlsx` workbook.
 
-### What the outputs are
+Optional inputs control encoding, recursive log scanning, PWM matching strategy, distribution options, chart limits, chart embedding, and logging verbosity.
 
-The primary output is one `.xlsx` workbook, for example:
+### Outputs
 
-- `output/sample-folder-analysis.xlsx`
-
-The workbook contains:
+The main output is an Excel workbook with these sheets:
 
 - `Details`
-  - One row per matched activity, unmatched event, or parse warning
 - `Summary`
-  - Aggregated metrics by axis and event type, plus a second aggregation by axis only
 - `PWM Sources`
-  - A trace sheet containing all parsed PWM records from the log folder
+- `Diagnostics`
+- `Diagnostics Summary`
+- `Distribution Summary`
+- `Distribution Raw Data`
+- `Distribution Exclusion Summary`
+- `Log Coverage Summary`
+- `Distribution Charts` when embedding is enabled
 
-## 2. Folder and File Structure
+Distribution chart PNG files are saved to a per-workbook folder by default:
 
-### Root-level structure
+```text
+<output workbook stem>_distribution_charts
+```
+
+## 3. Top-Level Architecture
+
+The project has three main layers:
 
 - `app/`
-  - Thin runtime entry layer
+  - CLI entrypoint and optional GUI path picking.
 - `backend/log_axis_activity_analyzer/`
-  - Reusable analysis package
-- `requirements/REQ-001-log-axis-activity-analyzer/`
-  - Requirement and technical design docs
+  - Reusable parsing, matching, analysis, summary, charting, and export code.
 - `tests/`
-  - Regression tests
-- `scripts/`
-  - Convenience wrappers for build, run, and test
-- `output/`
-  - Generated sample workbooks
-- `README.md`
-  - User-facing usage guide
-- `CODE_EXPLANATION.md`
-  - This developer-facing explanation
+  - Regression tests for matching, PWM association, distribution statistics, chart generation, Excel output, and coverage summaries.
 
-### Entrypoint
+The service layer is the best starting point:
+
+- `backend/log_axis_activity_analyzer/service.py`
+  - Orchestrates one full analysis run.
+
+## 4. End-To-End Flow
+
+When the tool runs:
+
+1. `app/log_activity_tool.py` parses CLI arguments.
+2. `LogAnalysisService.run_analysis()` validates paths.
+3. `MainLogParser.parse()` parses the main TXT file.
+4. `LogFolderScanner.scan()` discovers `.log` files.
+5. `DutyCycleLogParser.parse()` parses each control log into PWM events.
+6. `EventMatcher.build_activity_records()` matches TXT start/end events and derives movement context.
+7. `DutyCycleAssociator.attach()` attaches PWM evidence to each activity row.
+8. Parse warnings are appended as workbook rows.
+9. `ActivityValidator.validate()` recomputes durations and finalizes statuses.
+10. `DistributionAnalyzer.analyze()` filters valid rows, groups them, and computes statistics.
+11. `NormalDistributionChartGenerator.generate_charts()` writes chart PNGs.
+12. `LogAnalysisService._build_log_coverage_summary()` computes control-log coverage using interval union.
+13. `SummaryGenerator.build_report_frames()` converts objects into DataFrames.
+14. `ExcelExporter.export()` writes all workbook sheets and embeds charts when enabled.
+15. The CLI prints run counts.
+
+## 5. CLI Entrypoint
+
+File:
 
 - `app/log_activity_tool.py`
-  - Defines the CLI
-  - Provides optional Tkinter file/folder pickers
-  - Invokes the backend service
-  - Prints a short run summary
-
-### Backend package
-
-- `backend/log_axis_activity_analyzer/config.py`
-  - Centralized regex patterns, event rules, worksheet column definitions, and constants
-- `backend/log_axis_activity_analyzer/models.py`
-  - Dataclasses used across the pipeline
-- `backend/log_axis_activity_analyzer/file_loader.py`
-  - Shared text loading with encoding fallback
-- `backend/log_axis_activity_analyzer/time_utils.py`
-  - Timestamp parsing, formatting, duration calculation, and time-distance helpers
-- `backend/log_axis_activity_analyzer/log_a_parser.py`
-  - Parses the main TXT log into axis events
-- `backend/log_axis_activity_analyzer/log_b_parser.py`
-  - Parses one robot control `.log` file into PWM events
-- `backend/log_axis_activity_analyzer/log_folder_scanner.py`
-  - Finds and parses all `.log` files in a folder
-- `backend/log_axis_activity_analyzer/matcher.py`
-  - Matches start and end events within the same axis only
-- `backend/log_axis_activity_analyzer/duty_cycle_associator.py`
-  - Attaches the most relevant PWM record to each activity row
-- `backend/log_axis_activity_analyzer/validation.py`
-  - Recomputes durations and finalizes row status values
-- `backend/log_axis_activity_analyzer/summary.py`
-  - Builds `pandas` DataFrames for the Excel workbook
-- `backend/log_axis_activity_analyzer/excel_exporter.py`
-  - Writes the workbook with `pandas.ExcelWriter` and `openpyxl`
-- `backend/log_axis_activity_analyzer/service.py`
-  - Orchestrates the whole analysis run
-
-### Tests
-
-- `tests/test_service.py`
-  - Covers timestamp parsing, duration calculation, axis-local matching, log-folder parsing, PWM association, and a real end-to-end run
-
-### Scripts
-
-- `scripts/build.bat` and `scripts/build.sh`
-  - Run `python -m compileall app backend`
-- `scripts/run.bat` and `scripts/run.sh`
-  - Run the CLI entrypoint
-- `scripts/test.bat` and `scripts/test.sh`
-  - Run `pytest tests -v`
-
-### Requirement docs
-
-- `requirements/REQ-001-log-axis-activity-analyzer/requirement.md`
-  - Functional and non-functional expectations
-- `requirements/REQ-001-log-axis-activity-analyzer/technical.md`
-  - Architecture and design choices
-- `requirements/*.puml`
-  - PlantUML source diagrams
-
-## 3. End-to-End Execution Flow
-
-When the user runs the tool, the pipeline is:
-
-1. `app/log_activity_tool.py:main()` parses CLI arguments.
-2. `_resolve_paths()` determines the TXT file, log folder, and output workbook path.
-3. If required paths are missing and `--no-gui` was not used, `_prompt_for_missing_paths()` opens:
-   - a file picker for the TXT log
-   - a folder picker for the log folder
-   - a save dialog for the Excel output
-4. `LogAnalysisService.run_analysis()` in `service.py` validates the paths.
-5. `MainLogParser.parse()` parses the full TXT file into `AxisLogEvent` objects.
-6. `LogFolderScanner.scan()` finds every `.log` file in the selected folder.
-7. `DutyCycleLogParser.parse()` parses each individual `.log` file into `PWMEvent` objects and file-level metadata.
-8. `EventMatcher.build_activity_records()` matches configured start/end pairs within the same axis.
-9. `DutyCycleAssociator.attach()` chooses the most relevant PWM record for each activity row.
-10. `LogAnalysisService._append_parse_warnings()` adds parse warnings as `ActivityRecord` rows.
-11. `ActivityValidator.validate()` recomputes duration and assigns final statuses such as `Matched`, `PWM Warning`, or `Duration Warning`.
-12. `SummaryGenerator.build_report_frames()` converts records into workbook-ready `DataFrame` objects.
-13. `ExcelExporter.export()` writes `Details`, `Summary`, and `PWM Sources`.
-14. `main()` prints a concise console summary.
-
-## 4. File-by-File Code Explanation
-
-### `app/log_activity_tool.py`
-
-Why it exists:
-
-- It is the only executable entrypoint.
-- It keeps CLI and GUI behavior separate from the analysis logic.
 
 Important functions:
 
-- `main(argv=None) -> int`
-  - Top-level application flow
+- `main(argv=None)`
+  - Runs the whole command-line flow.
 - `_parse_arguments()`
-  - Defines the current CLI contract
-- `_configure_logging(verbose)`
-  - Configures console logging
+  - Defines the CLI contract.
+- `_configure_logging(verbose, trace_lines)`
+  - Enables stage-level debug logging with `--verbose`.
+  - Keeps per-line parser logs suppressed unless `--trace-lines` is also used.
 - `_resolve_paths(args)`
-  - Resolves preferred flags and legacy compatibility paths
-- `_resolve_legacy_log_folder(legacy_value)`
-  - Converts old `--log-b` input into the new folder-based model
-- `_prompt_for_missing_paths(missing_keys)`
-  - Opens Tkinter dialogs
+  - Resolves CLI paths and optional GUI fallbacks.
 - `_print_summary(result)`
-  - Prints workbook path and counts after a run
+  - Prints workbook path, row counts, distribution counts, and chart folder.
 
-Notable CLI flags:
+Important CLI distribution options:
 
-- `--txt-file`
-- `--log-folder`
-- `--output`
-- `--log-b`
-  - Legacy compatibility alias
-- `--association-strategy`
-- `--recursive-log-folder`
-- `--no-gui`
-- `--verbose`
+- `--no-distribution`
+- `--distribution-output-dir`
+- `--max-distribution-charts`
+- `--no-embed-distribution-charts`
+- `--distribution-distance-source actual_preferred|commanded_preferred|actual_only|commanded_only`
+- `--distribution-distance-grouping-mode exact|round_digits|bin`
+- `--movement-distance-round-digits`
+- `--movement-distance-bin-size`
+- `--distribution-allow-nearest-pwm`
+- `--distribution-allow-latest-before-pwm`
+- `--distribution-allow-carry-forward-pwm`
+- `--pwm-carry-forward`
 
-### `backend/log_axis_activity_analyzer/config.py`
+`--pwm-carry-forward` affects Details-level PWM association. The separate `--distribution-allow-carry-forward-pwm` flag controls whether those carry-forward rows may enter distribution groups.
 
-Why it exists:
+## 6. Configuration
 
-- It centralizes parsing rules and sheet schemas so they are not duplicated.
+File:
 
-Important contents:
+- `backend/log_axis_activity_analyzer/config.py`
 
-- `TIMESTAMP_FORMAT`
-  - `"%Y-%m-%d %H:%M:%S:%f"`
-- `SUPPORTED_ENCODINGS`
-  - `utf-8`, `utf-8-sig`, `cp1252`, `latin-1`
-- `MAIN_LOG_LINE_PATTERN`
-  - Matches lines such as `2026-03-31 09:39:40:554 MCU   @[Y] start clearing: -19.50`
+This file centralizes:
+
+- regex patterns
+- event rules
+- boundary rules
+- status strings
+- distribution defaults
+- workbook column order
+- chart defaults
+
+Important parser patterns:
+
+- `MAIN_LOG_TIMESTAMP_PATTERN`
+- `MAIN_LOG_AXIS_EVENT_PATTERN`
+- `INLINE_VALUE_PATTERN`
 - `CONTROL_TIMESTAMP_PATTERN`
-  - Matches timestamp-bearing lines inside robot control logs
 - `CONTROL_PWM_PATTERN`
-  - Matches PWM lines such as `RUN`, `RUN 'S'`, `VEL`, and `VEL 'S'`
-- `DEFAULT_EVENT_RULES`
-  - The central start/end matching rules
-- `PWM_FILE_NEARNESS_THRESHOLD_MS`
-  - Used by nearest-file PWM association
-- `DETAIL_COLUMNS`, `EVENT_SUMMARY_COLUMNS`, `AXIS_SUMMARY_COLUMNS`, `PWM_SOURCE_COLUMNS`
-  - Exact column order for workbook output
 
-### `backend/log_axis_activity_analyzer/models.py`
+Important movement and distribution options:
 
-Why it exists:
+- `END_VALUE_COMPANION_SEARCH_WINDOW_MS = 2000`
+- `HARD_POSITION_RESET_BOUNDARIES`
+- `SOFT_WORKFLOW_BOUNDARIES`
+- `RESET_POSITION_ON_SOFT_WORKFLOW_BOUNDARIES = False`
+- `DISTRIBUTION_DISTANCE_SOURCE = "actual_preferred"`
+- `DISTRIBUTION_DISTANCE_GROUPING_MODE = "bin"`
+- `MOVEMENT_DISTANCE_BIN_SIZE = 0.1`
+- `DISTRIBUTION_ALLOWED_PWM_MATCH_STATUSES = {"MatchedByContainingLogFile"}`
 
-- The analysis pipeline passes through several distinct data shapes.
-- Dataclasses make those shapes explicit and easier to test.
+Distribution is strict by default. Nearest-file, latest-before, and carry-forward PWM rows are not used for normal distribution grouping unless explicitly enabled.
+
+## 7. Data Models
+
+File:
+
+- `backend/log_axis_activity_analyzer/models.py`
 
 Important dataclasses:
 
 - `EventRule`
-  - One configurable start/end rule
+  - Defines one start/end activity rule.
+- `BoundaryRule`
+  - Defines workflow boundary behavior.
 - `AxisLogEvent`
-  - One parsed activity line from the TXT log
+  - One parsed axis event from the main TXT timeline.
+- `BoundaryEvent`
+  - One parsed workflow boundary from the main TXT timeline.
+- `DiagnosticEvent`
+  - One structured diagnostic from the TXT file.
 - `PWMEvent`
-  - One parsed PWM-related line from a robot control log
-- `ParseWarning`
-  - A recoverable parse issue that should still appear in output
+  - One parsed PWM line from a control log.
+- `AxisPWMProfile`
+  - Per-axis PWM summary for one control-log file.
 - `MainLogParseResult`
-  - Parsed TXT events plus warnings
+  - Parsed TXT events, boundaries, diagnostics, timeline, and warnings.
 - `DutyCycleLogFileResult`
-  - Parsed PWM events, file time range, and conflicts for one `.log` file
+  - Parsed data for one `.log` file.
 - `DutyCycleFolderParseResult`
-  - Aggregate result for an entire log folder
-- `PWMMatchSelection`
-  - Internal selection result used during PWM association
+  - Parsed data for the whole log folder.
 - `ActivityRecord`
-  - The main row model used before DataFrame creation
+  - The central intermediate row model.
 - `ReportFrames`
-  - Holds the `Details`, `Summary`, and `PWM Sources` DataFrames
+  - Holds all DataFrames used by the Excel exporter.
 - `AnalysisRunResult`
-  - The summary returned to the CLI entrypoint
+  - Counts and paths returned to the CLI.
 
-### `backend/log_axis_activity_analyzer/file_loader.py`
+`ActivityRecord` is the most important model. It stores:
 
-Why it exists:
+- activity identity
+- start/end times
+- duration fields
+- source TXT line numbers and text
+- PWM evidence and match status
+- movement start/target/end position fields
+- commanded distance
+- actual distance
+- selected movement distance
+- movement distance source/method/notes
+- validation and display statuses
 
-- Both TXT parsing and PWM log parsing need identical file-loading behavior.
+## 8. TXT Parsing
 
-Main role:
+File:
 
-- `TextFileLoader.iter_lines(...)`
-  - Opens the file with encoding fallback and preserves line numbers
+- `backend/log_axis_activity_analyzer/log_a_parser.py`
 
-### `backend/log_axis_activity_analyzer/time_utils.py`
+The main parser reads the TXT file line by line and builds a mixed timeline of:
 
-Why it exists:
+- `AxisLogEvent`
+- `BoundaryEvent`
+- `DiagnosticEvent`
 
-- Time parsing and duration calculation are critical and reused in multiple modules.
+It extracts:
 
-Important functions:
+- timestamp
+- axis
+- message text
+- raw source line
+- line number
+- optional inline numeric value
 
-- `parse_log_timestamp(text)`
-  - Parses `YYYY-MM-DD HH:MM:SS:ms`
-- `format_log_timestamp(dt)`
-  - Converts `datetime` back into workbook-friendly text
-- `calculate_duration_values(start_time, end_time)`
-  - Computes milliseconds and seconds
-- `compute_time_delta_ms(a, b)`
-  - Absolute delta between two timestamps
-- `compute_range_distance_ms(reference, start, end)`
-  - Distance from a timestamp to a file time window
+It also recognizes diagnostics such as node response timeout, sensor cut, and AMX corruption lines. Recognized diagnostics are structured diagnostics, not parse warnings.
 
-### `backend/log_axis_activity_analyzer/log_a_parser.py`
+## 9. Control Log Parsing
 
-Why it exists:
+Files:
 
-- It owns parsing of the main UroBiopsy TXT file.
+- `backend/log_axis_activity_analyzer/log_folder_scanner.py`
+- `backend/log_axis_activity_analyzer/log_b_parser.py`
 
-Main behavior:
+The scanner discovers `.log` files in the selected folder. Each file is parsed independently.
 
-- Reads the whole file, not just initialization
-- Uses `MAIN_LOG_LINE_PATTERN`
-- Extracts:
-  - timestamp
-  - axis
-  - raw message
-  - source line
-  - line number
-  - optional numeric value at the end of the line
-- Produces `AxisLogEvent` objects
-- Emits `ParseWarning` for malformed-but-relevant TXT lines
+The PWM parser handles timestamp-bearing transport lines and PWM command/status lines. It creates `PWMEvent` rows and builds `AxisPWMProfile` summaries.
 
-### `backend/log_axis_activity_analyzer/log_b_parser.py`
+PWM values are normalized:
 
-Why it exists:
+```text
+raw -80 -> PWM (%) 80, Direction Reverse
+raw  80 -> PWM (%) 80, Direction Forward
+```
 
-- It parses one robot control `.log` file at a time.
+Direction changes are recorded, but they are not conflicts when normalized PWM percentage is stable. A conflict means the same file has different normalized PWM percentages for the same axis.
 
-Important functions:
+## 10. Event Matching
 
-- `parse(file_path, preferred_encoding=None)`
-  - Main file parser
-- `_parse_control_timestamp(...)`
-  - Updates the most recent timestamp seen in the file
-- `_build_pwm_event(...)`
-  - Parses `RUN` and `VEL` PWM lines
-- `_build_parse_warning(...)`
-  - Emits warnings for malformed PWM-like lines
-- `_mark_confirmed_events(...)`
-  - Marks setting lines as confirmed when a matching `'S'` status line exists
-- `_annotate_axis_conflicts(...)`
-  - Records when one file contains multiple PWM values for the same axis
+File:
 
-Important detail:
+- `backend/log_axis_activity_analyzer/matcher.py`
 
-- PWM lines do not always carry their own timestamp.
-- The parser associates each PWM line with the latest preceding control-log timestamp line in the same file.
+The matcher converts parsed TXT timeline events into `ActivityRecord` objects.
 
-### `backend/log_axis_activity_analyzer/log_folder_scanner.py`
+Key ideas:
 
-Why it exists:
+- Matching is axis-local.
+- Matching is rule-local.
+- Pending starts are keyed by `(axis, rule_id)`.
+- Workflow boundaries close pending starts.
+- Long candidate durations are rejected instead of being treated as valid matches.
 
-- The new input model is a folder, not one single PWM file.
+Default event rules include:
 
-Important functions:
+- `search_reference`: `start searching reference` -> `reference found`
+- `clear_motor`: `start clearing` -> `motor cleared`
+- `move_to_max`: `start moving to max pos` -> `motor reached max pos`
+- `move_to_home`: `start moving to home` -> `motor homed`
 
-- `scan(folder_path, preferred_encoding=None, recursive=False)`
-  - Discovers and parses all `.log` files
-- `_discover_log_files(root, recursive)`
-  - Uses `glob("*.log")` or `rglob("*.log")`
-- `_parse_one_file(...)`
-  - Converts file-level parse failures into folder-level warnings
+### End Value Companion Search
 
-### `backend/log_axis_activity_analyzer/matcher.py`
+`_find_end_value()` looks for same-axis companion position lines after an end event, such as:
 
-Why it exists:
+```text
+@[Y] motor cleared
+@[Y] min: -29.51
+```
 
-- It turns parsed TXT events into activity records that can later receive duration and PWM data.
+It scans by time window and same-axis relevance. It stops when:
 
-Important functions:
+- a workflow boundary is reached
+- a new same-axis start event is reached
+- the timestamp delta exceeds `END_VALUE_COMPANION_SEARCH_WINDOW_MS`
+- the file ends
 
-- `build_activity_records(events)`
-  - Main matching loop
-- `_classify_event(message)`
-  - Maps a message to a configured start or end rule
-- `_register_start_event(...)`
-  - Queues a start event
-- `_resolve_end_event(...)`
-  - Matches an end event against a pending start on the same axis and same rule
-- `_build_matched_record(...)`
-  - Creates a `Matched` activity row
-- `_find_end_value(...)`
-  - Looks for a same-axis companion `min:` or `max:` value near the end event
-- `_build_unmatched_start_record(...)`
-  - Creates an `Unmatched Start` row
-- `_build_unmatched_end_record(...)`
-  - Creates an `Unmatched End` row
+Unrelated axis lines do not consume a small fixed search budget.
 
-Important implementation choice:
+### Position State
 
-- The pending queue key is `(axis, rule_id)`.
-- That is the main mechanism that enforces axis-local matching.
+The matcher keeps `last_known_position_by_axis`.
 
-### `backend/log_axis_activity_analyzer/duty_cycle_associator.py`
+It updates this state from:
 
-Why it exists:
-
-- PWM association is separate from event matching because it uses a different input source and its own selection rules.
+- `min:`
+- `max:`
+- `reset physical position to 0`
 
-Important functions:
+Hard workflow boundaries reset position state:
 
-- `attach(records, log_file_results, strategy="same_file_then_nearest")`
-  - Enriches each `ActivityRecord`
-- `_select_pwm_event(...)`
-  - Strategy dispatcher
-- `_select_same_file_time_window(...)`
-  - Best case: same axis, file time window overlaps reference time, latest PWM at or before start
-- `_select_nearest_log_file(...)`
-  - Fallback: closest relevant file by time range
-- `_select_latest_before_start(...)`
-  - Fallback: latest timestamped PWM before activity start across files
-- `_select_latest_known(...)`
-  - Looser fallback strategy
-- `_apply_selection(...)`
-  - Copies selected PWM fields into the record
-
-Important statuses it can produce:
+- initialization started
+- initialization failed
+- application exited
+- MCU controller stopped
+- system exit selected
+- finalization done
 
-- `MatchedBySameFileTimeWindow`
-- `MatchedByNearestLogFile`
-- `MatchedByLatestBeforeStart`
-- `NoPWMFoundForAxis`
-- `NoRelevantLogFileFound`
+Soft menu boundaries such as tool/factory menu selection close pending starts but do not reset physical positions by default.
 
-Important detail:
+## 11. Movement Distance Model
 
-- When selecting among multiple eligible events, the code prefers an actual setting command over a confirmation/status line.
+Movement distance is not simply `abs(start line number)`.
 
-### `backend/log_axis_activity_analyzer/validation.py`
+For a start line like:
 
-Why it exists:
+```text
+@[H] start moving to home: -25.16
+```
 
-- Duration calculation and final status handling are centralized here so they are easy to verify and change.
+the numeric value is a target position, not a distance.
 
-Important functions:
+The code tracks:
 
-- `validate(records)`
-  - Validates all rows in place
-- `_validate_duration(record)`
-  - Recomputes duration as `end_time - start_time`
-- `_validate_pwm(record)`
-  - Marks uncertain or missing PWM matches as warnings
-- `_finalize_status(record)`
-  - Chooses `Matched`, `PWM Warning`, or `Duration Warning`
+- `movement_start_position`
+- `movement_target_position`
+- `movement_end_position`
+- `movement_commanded_distance`
+- `movement_actual_distance`
+- `movement_distance`
+- `movement_distance_source`
+- `movement_distance_method`
 
-Important detail:
+Commanded distance:
 
-- This module is where the duration bug is prevented from reappearing.
-- Matched rows do not trust any preexisting text duration; they recompute duration from parsed timestamps.
+```text
+abs(movement_target_position - movement_start_position)
+```
 
-### `backend/log_axis_activity_analyzer/summary.py`
+Actual distance:
 
-Why it exists:
+```text
+abs(movement_end_position - movement_start_position)
+```
 
-- It converts record objects into workbook-ready tables and computes summary metrics.
+Default distribution source:
 
-Important functions:
-
-- `build_report_frames(records, log_file_results)`
-  - Produces all output tables
-- `_build_detail_row(record)`
-  - Shapes one row for `Details`
-- `_build_event_summary_rows(records)`
-  - Aggregates by `(axis, event type)`
-- `_build_axis_summary_rows(records)`
-  - Aggregates by `axis`
-- `_build_summary_metrics(group_records)`
-  - Computes averages, min, max, median, and counts
-- `_build_pwm_source_rows(log_file_results)`
-  - Builds the `PWM Sources` sheet
-
-Important detail:
-
-- Duration metrics are calculated from rows whose `activity_status` is `Matched` and that do not have a duration warning.
-- A row can still contribute valid duration statistics even if its final display status is `PWM Warning`.
-
-### `backend/log_axis_activity_analyzer/excel_exporter.py`
-
-Why it exists:
-
-- It isolates workbook writing and formatting from parsing logic.
-
-Important functions:
-
-- `export(output_path, report_frames, metadata)`
-  - Main workbook writer
-- `_write_summary_sheet(...)`
-  - Writes metadata plus both summary blocks
-- `_write_pwm_sources_sheet(...)`
-  - Writes optional PWM trace rows
-- `_format_details_sheet(...)`
-  - Freeze panes, auto-filter, and auto-fit
-- `_format_summary_sheet(...)`
-  - Freeze panes and auto-fit
-- `_format_pwm_sources_sheet(...)`
-  - Freeze panes, auto-filter, and auto-fit
-
-### `backend/log_axis_activity_analyzer/service.py`
-
-Why it exists:
-
-- It is the high-level orchestration layer and the cleanest place to understand the overall pipeline.
-
-Important methods:
-
-- `run_analysis(...)`
-  - Main end-to-end service method
-- `_validate_paths(...)`
-  - Verifies TXT file, log folder, and output path
-- `_append_parse_warnings(...)`
-  - Converts warnings into detail rows
-- `_build_warning_record(...)`
-  - Shapes one warning row
-- `_build_run_result(...)`
-  - Produces the summary returned to the CLI
-
-## 5. Core Logic Explanation
-
-### Timestamp parsing
-
-All timestamps use the form:
-
-- `YYYY-MM-DD HH:MM:SS:milliseconds`
-
-Example:
-
-- `2026-03-31 09:39:40:554`
-
-The code parses this with `parse_log_timestamp()` in `time_utils.py`, which uses:
-
-- `TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S:%f"`
-
-That format preserves millisecond precision because `%f` reads microseconds and the three-digit millisecond value is interpreted as `554000` microseconds.
-
-### Regex parsing approach
-
-The tool uses compiled regex patterns from `config.py`.
-
-For TXT activity lines:
-
-- `MAIN_LOG_LINE_PATTERN`
-  - Extracts timestamp, axis, and message
-
-For control log timestamps:
-
-- `CONTROL_TIMESTAMP_PATTERN`
-  - Detects timestamp-bearing transport lines
-
-For PWM lines:
-
-- `CONTROL_PWM_PATTERN`
-  - Extracts:
-    - node id such as `N4`
-    - axis such as `Y` or `NG`
-    - command `RUN` or `VEL`
-    - optional `'S'` marker
-    - final parenthesized PWM value
-
-### Axis extraction
-
-Axis extraction is done from:
-
-- TXT lines via `@[Y]` inside `MAIN_LOG_LINE_PATTERN`
-- PWM lines via `[N4:Y]` inside `CONTROL_PWM_PATTERN`
-
-The TXT regex currently expects a single uppercase axis letter. The PWM regex allows one or more uppercase letters for cases like `NG`.
-
-### Start/end event rule matching
-
-Event matching is driven by `DEFAULT_EVENT_RULES` in `config.py`. Each rule has:
-
-- `rule_id`
-- `start_label`
-- `end_label`
-- `start_pattern`
-- `end_pattern`
-
-The matcher does not hardcode message strings in the loop. It classifies each TXT event by checking the configured regexes.
-
-### Why matching is axis-local
-
-Matching is intentionally local to the same axis because identical event phrases can appear on multiple axes in overlapping time windows.
-
-The matcher stores pending starts in:
-
-- `pending[(axis, rule_id)]`
+```text
+actual_preferred
+```
 
 That means:
 
-- `@[X] start clearing` can only match `@[X] motor cleared`
-- It cannot be consumed by a `Y` or `Z` end event
-
-### How unmatched starts and unmatched ends are handled
-
-If the file ends and a queued start still exists:
-
-- the matcher creates an `Unmatched Start` record
-
-If an end event appears and there is no pending start for `(axis, rule_id)`:
-
-- the matcher creates an `Unmatched End` record
-
-These rows are preserved in `Details` rather than being discarded.
-
-### Duration calculation
-
-Duration is not derived from row positions or string manipulation.
-
-It is recomputed in `ActivityValidator._validate_duration()` using:
-
-- `calculate_duration_values(record.start_time, record.end_time)`
-
-That function returns:
-
-- `Duration (ms)` as an integer-like millisecond count
-- `Duration (s)` as a numeric seconds value with millisecond precision
-
-If the end time is earlier than the start time:
-
-- the record becomes a `Duration Warning`
-- duration fields are left empty
-
-### How duty cycle is associated
-
-PWM association uses both axis and time.
-
-For each activity row:
-
-1. Choose the reference time:
-   - `start_time` if present
-   - otherwise `end_time`
-2. Keep only log files that contain at least one PWM event for the same axis.
-3. Apply the selected strategy.
-
-Default strategy:
-
-- `same_file_then_nearest`
-
-This does:
-
-1. Same-file time window
-   - If the activity time falls inside a control log file's `[file_start_time, file_end_time]`, choose the latest same-axis PWM at or before the activity start.
-2. Nearest relevant log file
-   - If no same-window match exists, choose the closest file within `PWM_FILE_NEARNESS_THRESHOLD_MS`.
-3. Latest before start across files
-   - If still unresolved, choose the latest timestamped same-axis PWM before the activity start.
-4. Otherwise emit a no-match status.
-
-Fallback strategies also exist:
-
-- `latest_before_start`
-- `latest_known`
-
-### How uncertain PWM matches are handled
-
-The code does not silently treat all matches as equally reliable.
-
-Examples:
-
-- `MatchedBySameFileTimeWindow`
-  - Considered the strongest default match
-- `MatchedByNearestLogFile`
-  - Marked as `PWM Warning` because the file is only a nearest-time fallback
-- `NoPWMFoundForAxis`
-  - Marked as `PWM Warning`
-- `NoRelevantLogFileFound`
-  - Marked as `PWM Warning`
-
-The chosen source file, line, time, method, delta, and notes are all written into the workbook so a human reviewer can judge the result.
-
-### How summary metrics are computed
-
-`SummaryGenerator._build_summary_metrics()` computes:
-
-- `Count`
-- `Avg Duration (ms)`
-- `Avg Duration (s)`
-- `Min Duration (ms)`
-- `Max Duration (ms)`
-- `Median Duration (ms)`
-- `Most Common PWM (%)`
-- `Number of Matched records`
-- `Number of Unmatched Starts`
-- `Number of Unmatched Ends`
-- `Number of Duration Warnings`
-- `Number of PWM Warnings`
-
-Duration-based statistics only use rows that were actual matched activities and did not fail duration validation.
-
-## 6. Configuration Explanation
-
-### `DEFAULT_EVENT_RULES`
-
-`DEFAULT_EVENT_RULES` is a list of `EventRule` objects in `config.py`.
-
-Current defaults include:
-
-- `start searching reference` -> `reference found`
-- `start clearing` -> `motor cleared`
-- `start moving to max pos` -> `motor reached max pos`
-- `start moving to home` -> `motor homed`
-
-Each rule carries both a user-facing label and the regex used to identify the message.
-
-### Other important config values
-
-- `MAIN_LOG_LINE_PATTERN`
-  - TXT activity parser
-- `CONTROL_TIMESTAMP_PATTERN`
-  - Control-log time parser
-- `CONTROL_PWM_PATTERN`
-  - PWM parser for `RUN` and `VEL`
-- `COMPANION_VALUE_PREFIXES`
-  - Prefixes used when looking for end-side `min:` or `max:` values
-- `PWM_FILE_NEARNESS_THRESHOLD_MS`
-  - Maximum distance for nearest-log-file fallback
-
-### How to add a new motion pattern
-
-To support a new event pair:
-
-1. Open `backend/log_axis_activity_analyzer/config.py`.
-2. Add a new `EventRule(...)` to `DEFAULT_EVENT_RULES`.
-3. Provide:
-   - a unique `rule_id`
-   - a readable `start_label`
-   - a readable `end_label`
-   - a `start_pattern`
-   - an `end_pattern`
-4. Add a test in `tests/test_service.py` or a new test module.
+1. Use actual end distance when available.
+2. Otherwise use commanded target distance.
 
 Example:
 
-```python
-EventRule(
-    rule_id="move_to_safe",
-    start_label="start moving to safe pos",
-    end_label="motor reached safe pos",
-    start_pattern=r"^start moving to safe pos(?:\s*:\s*[-+]?\d+(?:\.\d+)?)?$",
-    end_pattern=r"^motor reached safe pos$",
-)
+```text
+@[Y] max: 0.00
+@[Y] start clearing: -19.50
+@[Y] motor cleared
+@[Y] min: -29.51
 ```
 
-## 7. Data Model / Important Objects
+The commanded distance is `19.50`, but the actual distance is `29.51`. For `clear_motor`, actual end position is usually the correct grouping distance when available.
 
-### `AxisLogEvent`
-
-Used after TXT parsing.
-
-Important fields:
-
-- `timestamp`
-- `axis`
-- `message`
-- `raw_line`
-- `inline_value`
-- `line_number`
-- `ordinal`
-
-### `PWMEvent`
-
-Used after parsing one control log file.
-
-Important fields:
-
-- `timestamp`
-- `axis`
-- `pwm_value`
-- `command_type`
-- `is_confirmation_line`
-- `is_confirmed_by_status_line`
-- `raw_line`
-- `notes`
-
-### `DutyCycleLogFileResult`
-
-Represents one parsed `.log` file.
-
-Important fields:
-
-- `source_path`
-- `file_start_time`
-- `file_end_time`
-- `pwm_events`
-- `warnings`
-- `axis_conflicts`
-
-### `ActivityRecord`
-
-This is the most important intermediate object because it maps closely to the `Details` sheet.
-
-Important fields:
-
-- Activity identity:
-  - `axis`
-  - `event_type`
-  - `start_event`
-  - `end_event`
-- Timing:
-  - `start_time`
-  - `end_time`
-  - `duration_ms`
-  - `duration_s`
-- Numeric values:
-  - `start_value`
-  - `end_value`
-- PWM traceability:
-  - `pwm_value`
-  - `pwm_source_file`
-  - `pwm_source_line`
-  - `pwm_source_time`
-  - `pwm_match_method`
-  - `pwm_time_delta_ms`
-  - `pwm_match_status`
-- Source traceability:
-  - `source_txt_start_line`
-  - `source_txt_end_line`
-- Validation state:
-  - `activity_status`
-  - `status`
-  - `duration_warning`
-  - `pwm_warning`
-- Ordering:
-  - `sort_time`
-  - `sort_index`
-
-### How the data shape changes through the pipeline
-
-The pipeline changes shape in this order:
-
-1. Raw file lines
-2. `AxisLogEvent` and `PWMEvent`
-3. `DutyCycleLogFileResult` and `DutyCycleFolderParseResult`
-4. `ActivityRecord`
-5. `pandas.DataFrame` objects inside `ReportFrames`
-6. Excel worksheets
-
-## 8. Example Walkthrough
-
-Consider these lines from the sample data.
-
-### TXT start line
+For home/max moves, there is often no explicit end position line, so commanded target distance is the fallback:
 
 ```text
-2026-03-31 09:39:40:554 MCU   @[Y] start clearing: -19.50
+@[H] min: -49.03
+@[H] start moving to home: -25.16
 ```
 
-Parsed as:
-
-- `AxisLogEvent.axis = "Y"`
-- `AxisLogEvent.timestamp = 2026-03-31 09:39:40.554`
-- `AxisLogEvent.message = "start clearing: -19.50"`
-- `AxisLogEvent.inline_value = -19.50`
-
-### TXT end line
+Distance:
 
 ```text
-2026-03-31 09:39:47:373 MCU   @[Y] motor cleared
+abs(-25.16 - (-49.03)) = 23.87
 ```
 
-Matched by `EventMatcher` against the pending `Y + clear_motor` start event.
+## 12. PWM Association
 
-### PWM source line
-
-```text
-[N4:Y] RUN 0 80 (80)
-```
-
-Within `20260331_093930697_initialization.log`, the parser associates that PWM line with the latest preceding timestamp line in the same file and creates a `PWMEvent` for axis `Y` with value `80`.
-
-### Final `Details` row
-
-After matching, PWM association, and validation, the row contains:
-
-- `Axis = Y`
-- `Start Event = start clearing`
-- `End Event = motor cleared`
-- `Start Time = 2026-03-31 09:39:40:554`
-- `End Time = 2026-03-31 09:39:47:373`
-- `Duration (ms) = 6819`
-- `Duration (s) = 6.819`
-- `Start Value = -19.5`
-- `PWM (%) = 80`
-- `PWM Source File = 20260331_093930697_initialization.log`
-- `PWM Match Status = MatchedBySameFileTimeWindow`
-- `Status = Matched`
-
-## 9. Excel Output Explanation
-
-### `Details` sheet
-
-Built by `SummaryGenerator._build_detail_row()` using `DETAIL_COLUMNS` from `config.py`.
-
-Current columns are:
-
-- `Axis`
-- `Start Event`
-- `End Event`
-- `Start Time`
-- `End Time`
-- `Duration (ms)`
-- `Duration (s)`
-- `Start Value`
-- `End Value`
-- `PWM (%)`
-- `PWM Source File`
-- `PWM Source Line`
-- `PWM Source Time`
-- `PWM Match Method`
-- `PWM Time Delta (ms)`
-- `PWM Match Status`
-- `Source TXT Start Line`
-- `Source TXT End Line`
-- `Status`
-- `Notes`
-
-### `Summary` sheet
-
-Written by `ExcelExporter._write_summary_sheet()`.
-
-It contains:
-
-1. Metadata block
-   - TXT file path
-   - log folder path
-   - generated workbook path
-   - association strategy
-   - log files scanned
-   - parse warning count
-   - duration warning count
-   - PWM warning count
-2. Summary by axis and event type
-3. Summary by axis only
-
-### `PWM Sources` sheet
-
-Built from all parsed PWM events across the scanned folder.
-
-Important columns:
-
-- `Log File`
-- `Log File Start Time`
-- `Log File End Time`
-- `Axis`
-- `PWM (%)`
-- `PWM Command Type`
-- `PWM Source Time`
-- `PWM Source Line`
-- `Is Confirmed By Status Line`
-- `Notes`
-
-This sheet is mainly for debugging PWM association decisions.
-
-## 10. Tests and Validation
-
-### What tests exist
-
-`tests/test_service.py` currently contains:
-
-1. `test_parse_log_timestamp_preserves_milliseconds`
-2. `test_calculate_duration_values_returns_expected_result`
-3. `test_event_matcher_is_axis_local`
-4. `test_log_folder_scanner_parses_multiple_log_files_and_pwm_patterns`
-5. `test_pwm_associator_uses_time_and_axis_without_blind_guessing`
-6. `test_service_end_to_end_with_real_txt_and_log_folder`
-
-### What they validate
-
-- Timestamp parsing keeps millisecond precision
-- Duration is computed as `end - start`
-- Same-axis matching works and cross-axis matching does not
-- Multiple `.log` files in a folder are parsed
-- `RUN`, `RUN 'S'`, `VEL`, and multi-letter axes are supported
-- PWM association uses axis and time instead of a global last-known value
-- Workbook output contains expected sheets and columns
-- A known sample pair produces `6819 ms` and `6.819 s`
-
-### Verification commands used
-
-The implementation was verified with:
-
-```powershell
-.\.venv\Scripts\python -m compileall app backend
-.\.venv\Scripts\python -m pytest tests -v
-.\.venv\Scripts\python -m app.log_activity_tool --txt-file "Log\UroBiopsy_20260331.txt" --log-folder "Log\RobotMovingValues\20260331" --output "output\sample-folder-analysis.xlsx" --no-gui
-```
-
-### What confidence these checks provide
-
-- The core parsing and matching logic is exercised both synthetically and with the real sample data in the repository.
-- The workbook is inspected programmatically with `openpyxl` in the end-to-end test.
-
-### What is still not covered
-
-- No performance benchmark test for very large folders
-- No GUI automation test for Tkinter dialogs
-- No recursive folder scan test yet
-- No dedicated test for malformed encodings or severely corrupted files
-
-## 11. Design Decisions
-
-### Why Python was chosen
-
-- Fast to iterate on
-- Good standard library for regex, datetime, and CLI work
-- Strong ecosystem support for Excel and tabular reporting
-
-### Why regex was used
-
-- The log formats are line-oriented and pattern-based
-- Regex is a practical fit for extracting timestamps, axes, and PWM values without a heavier parser framework
-
-### Why `pandas` was used
-
-- It simplifies DataFrame creation and worksheet export
-- It makes column ordering and summary-table creation straightforward
-
-### Why `openpyxl` was used
-
-- It integrates cleanly with `pandas.ExcelWriter`
-- It supports formatting steps like freeze panes, filters, and column widths
-
-### Why rules are centralized in config
-
-- New event patterns and log syntax changes should not require edits across many files
-- Centralization reduces duplication and makes extension safer
-
-### Why the code is modular
-
-- TXT parsing, PWM parsing, matching, validation, and export each change for different reasons
-- Keeping them separate makes the system easier to test and modify without accidental regressions
-
-## 12. Known Limitations
-
-- `MAIN_LOG_LINE_PATTERN` currently expects single-letter axes in the main TXT file.
-- PWM association uses heuristics and can still produce a `PWM Warning` when only a near-time fallback is available.
-- The code preserves conflict context when one file has multiple PWM values for the same axis, but it still must choose one deterministic value.
-- The GUI is intentionally minimal and only covers file/folder selection.
-- The `Summary` sheet is useful for analysis, but it is not intended to be a full audit log; the `Details` and `PWM Sources` sheets provide the deeper traceability.
-
-## 13. How to Extend the Tool
-
-### Add a new event pair
-
-Edit:
-
-- `backend/log_axis_activity_analyzer/config.py`
-
-Then add a new `EventRule` to `DEFAULT_EVENT_RULES` and add a regression test.
-
-### Support a new log pattern
-
-If the new pattern is in the main TXT file:
-
-- update `MAIN_LOG_LINE_PATTERN`
-- or extend `log_a_parser.py`
-
-If the new pattern is in robot control logs:
-
-- update `CONTROL_TIMESTAMP_PATTERN` or `CONTROL_PWM_PATTERN`
-- or extend `log_b_parser.py`
-
-### Change PWM matching behavior
-
-Edit:
+File:
 
 - `backend/log_axis_activity_analyzer/duty_cycle_associator.py`
 
-Most likely change points are:
+The associator attaches PWM evidence to each `ActivityRecord`.
 
-- `_select_pwm_event(...)`
-- `_select_same_file_time_window(...)`
-- `_select_nearest_log_file(...)`
-- `_select_latest_before_start(...)`
-- `PWM_FILE_NEARNESS_THRESHOLD_MS` in `config.py`
+Default strategy:
 
-### Add new summary columns
+```text
+same_file_then_nearest
+```
+
+Selection order:
+
+1. containing log file with same-axis PWM
+2. nearest same-axis log file inside the configured nearness threshold
+3. latest same-axis PWM before start within the safe time threshold
+4. no PWM match
+
+Optional carry-forward:
+
+- enabled by `--pwm-carry-forward`
+- produces `PWM Match Status = MatchedByCarryForward`
+- sets a PWM warning
+- remains excluded from distribution groups unless distribution carry-forward is explicitly allowed
+
+PWM match statuses are written to Details so users can audit how PWM was attached.
+
+## 13. Validation
+
+File:
+
+- `backend/log_axis_activity_analyzer/validation.py`
+
+The validator recomputes duration and finalizes row status.
+
+It protects the old duration bug by ensuring a matched row must have a valid same-axis start/end pair and a valid duration. Rejected long-duration candidates are not allowed into normal duration statistics.
+
+Important statuses:
+
+- `Matched`
+- `Unmatched Start`
+- `Unmatched End`
+- `Closed By Boundary`
+- `Closed By New Start`
+- `Initialization Failed`
+- `Duration Too Long Candidate`
+- `Parse Warning`
+- `Diagnostic`
+
+Overall display statuses are separate from match/duration status. A row can have a valid duration but still show `PWM Warning` if PWM evidence is not reliable.
+
+## 14. Distribution Analysis
+
+File:
+
+- `backend/log_axis_activity_analyzer/distribution.py`
+
+Distribution analysis filters valid matched activity rows, groups them, and computes duration statistics.
+
+Default grouping key:
+
+- TXT source file
+- normalized PWM percent
+- axis
+- movement distance group value
+- rule/action type
+
+Only rows with valid duration, accepted PWM, and true movement distance are included.
+
+Default accepted PWM status:
+
+- `MatchedByContainingLogFile`
+
+Nearest, latest-before, and carry-forward PWM can be enabled separately from the CLI.
+
+### Distance Grouping
+
+The raw selected movement distance is preserved in `Distribution Raw Data`.
+
+The grouping value is controlled by:
+
+- `exact`
+- `round_digits`
+- `bin`
+
+Default:
+
+```text
+bin with MOVEMENT_DISTANCE_BIN_SIZE = 0.1
+```
+
+So `23.86` and `23.87` group together as `23.9`.
+
+### Statistics
+
+For each group, the analyzer computes:
+
+- count
+- mean
+- median
+- min
+- max
+- range
+- sample standard deviation
+- sample variance
+- population standard deviation
+- population variance
+- coefficient of variation
+- P05/P25/P75/P95
+- normal-fit fields
+- distribution status
+
+Sample standard deviation and sample variance use `ddof=1`.
+
+Small-sample and zero-variance cases are handled explicitly:
+
+- one sample: sample SD/variance are blank
+- fewer than normal-fit minimum: no fitted normal curve
+- zero variance: chart can be generated, but normal curve is not drawn
+
+### Exclusions
+
+Rows excluded from distribution are tracked as `DistributionExclusion` records. The workbook aggregates them in `Distribution Exclusion Summary` by:
+
+- exclusion reason
+- rule ID
+- axis
+- count
+- example start line
+- example notes
+
+This helps distinguish expected exclusions such as `search_reference` missing true movement distance from real data problems.
+
+## 15. Chart Generation
+
+File:
+
+- `backend/log_axis_activity_analyzer/chart_generator.py`
+
+Charts are generated with matplotlib, not seaborn.
+
+Each eligible group gets a PNG chart:
+
+- histogram of duration in seconds
+- fitted normal curve when sample count and variance allow it
+- source-aware title, for example:
+
+```text
+Axis Y | PWM 80% | Distance 29.50 (ActualEndPosition) | clear_motor
+```
+
+The chart title and chart metadata use `Movement Distance Group Value`, not raw example distance. Raw exact distances stay in `Distribution Raw Data` and min/max fields.
+
+## 16. Log Coverage Summary
+
+Implemented in:
+
+- `LogAnalysisService._build_log_coverage_summary()`
+
+The coverage calculation uses the union of actual control-log intervals. It does not assume that earliest control-log time through latest control-log time is continuously covered.
+
+The sheet reports:
+
+- TXT start/end time
+- control-log earliest/latest time
+- control-log file count
+- merged interval count
+- covered duration
+- uncovered duration
+- coverage gap count
+- coverage ratio
+- rows with distribution-accepted PWM
+- rows by PWM match type
+- rows excluded due to PWM reliability
+- notes/warnings
+
+This is important for partial log folders. A folder can have early and late logs with a large gap; that gap should remain visible.
+
+## 17. Summary And Excel Export
+
+Files:
+
+- `backend/log_axis_activity_analyzer/summary.py`
+- `backend/log_axis_activity_analyzer/excel_exporter.py`
+
+`SummaryGenerator` converts domain objects into DataFrames:
+
+- Details rows
+- event summary
+- axis summary
+- PWM sources
+- diagnostics
+- diagnostic summary
+- distribution summary
+- distribution raw data
+- distribution exclusion summary
+- distribution chart metadata
+- log coverage summary
+
+`ExcelExporter` writes those DataFrames to sheets and applies basic formatting:
+
+- freeze panes
+- auto filters
+- auto-fit columns
+- chart image embedding
+
+The chart sheet contains metadata blocks plus embedded PNGs when embedding is enabled.
+
+## 18. Service Layer
+
+File:
+
+- `backend/log_axis_activity_analyzer/service.py`
+
+This is the orchestration layer. It owns:
+
+- path validation
+- parser/scanner calls
+- matching
+- PWM association
+- validation
+- distribution analysis
+- chart generation
+- coverage summary generation
+- run-result counts
+- workbook export
+
+If you need to understand how a run works end to end, start here.
+
+## 19. Tests
+
+Main test files:
+
+- `tests/test_service.py`
+- `tests/test_distribution.py`
+
+The tests cover:
+
+- timestamp parsing
+- duration calculation
+- same-axis matching
+- boundary handling
+- old April 10 duration bug
+- diagnostic parsing
+- PWM parsing and conflicts
+- PWM association statuses
+- carry-forward PWM behavior
+- movement distance derivation
+- actual-vs-commanded clearing distance
+- delayed/interleaved companion min/max lines
+- position state reset rules
+- distance binning
+- distribution statistics
+- chart generation
+- Excel distribution sheets
+- log coverage union behavior
+- distribution exclusion summary
+
+Useful commands:
+
+```powershell
+.\.venv\Scripts\python.exe -m compileall app backend
+.\.venv\Scripts\python.exe -m pytest tests -v
+```
+
+## 20. Common Maintenance Tasks
+
+### Add a new activity rule
 
 Edit:
 
 - `backend/log_axis_activity_analyzer/config.py`
-- `backend/log_axis_activity_analyzer/summary.py`
 
-You must update both the column list and the row-building logic.
+Add a new `EventRule` to `DEFAULT_EVENT_RULES`, then add tests in `tests/`.
 
-### Add new output sheets
+### Change a workbook column
 
-Edit:
+Update both:
 
-- `backend/log_axis_activity_analyzer/summary.py`
-  - create a new DataFrame in `ReportFrames`
-- `backend/log_axis_activity_analyzer/models.py`
-  - extend `ReportFrames`
-- `backend/log_axis_activity_analyzer/excel_exporter.py`
-  - write and format the new sheet
+- the column list in `config.py`
+- the row-building logic in `summary.py`
 
-## 14. Quick Maintenance Guide
+If it is a new sheet, also update:
 
-When something breaks, the safest order to inspect is:
+- `ReportFrames` in `models.py`
+- `ExcelExporter` in `excel_exporter.py`
 
-1. `backend/log_axis_activity_analyzer/service.py`
-   - Best top-level view of the workflow
-2. `backend/log_axis_activity_analyzer/config.py`
-   - First place to check when formats or event phrases change
-3. `backend/log_axis_activity_analyzer/log_a_parser.py`
-   - If TXT events are missing
-4. `backend/log_axis_activity_analyzer/log_b_parser.py`
-   - If PWM rows are missing or malformed
-5. `backend/log_axis_activity_analyzer/duty_cycle_associator.py`
-   - If PWM values are present but attached incorrectly
-6. `backend/log_axis_activity_analyzer/validation.py`
-   - If durations or statuses look wrong
-7. `backend/log_axis_activity_analyzer/summary.py`
-   - If workbook tables or counts are wrong
-8. `tests/test_service.py`
-   - Fastest place to understand existing expected behavior
+### Change distribution grouping
 
-Safest code paths to modify first:
+Start with:
 
-- `config.py` for new regexes or event rules
-- `summary.py` for output-only changes
-- `README.md` and this file for documentation changes
+- `DistributionAnalyzer.build_input_rows()`
+- `DistributionAnalyzer.build_group_id()`
+- `DistributionAnalyzer._group_distance_value()`
 
-Higher-risk code paths:
+Then check:
 
-- `duty_cycle_associator.py`
-  - Small changes can alter many PWM matches
-- `validation.py`
-  - Small changes can affect row status and summary counts
+- chart title and metadata
+- `Distribution Summary`
+- `Distribution Raw Data`
+- tests for grouping and workbook output
+
+### Change PWM reliability rules
+
+Start with:
+
+- `config.py`
+- `LogAnalysisService._build_distribution_allowed_pwm_statuses()`
+- `DistributionAnalyzer._is_reliable_pwm()`
+
+Remember that Details-level PWM matching and Distribution-level PWM acceptance are intentionally separate.
+
+### Change movement distance behavior
+
+Start with:
+
 - `matcher.py`
-  - Small changes can alter which starts and ends pair together
+- `distribution.py`
+
+Be careful to preserve all distance fields:
+
+- start position
+- target position
+- end position
+- commanded distance
+- actual distance
+- selected distance
+- source
+- method
+- notes
+
+The raw data sheet should make every grouping decision auditable.
+
+## 21. Risk Notes
+
+Higher-risk files:
+
+- `matcher.py`
+  - Small changes can change which starts and ends pair together.
+- `duty_cycle_associator.py`
+  - Small changes can alter PWM evidence for many rows.
+- `distribution.py`
+  - Small changes can alter group counts and statistics.
+- `validation.py`
+  - Small changes can alter row statuses and summary inclusion.
+- `service.py`
+  - Orchestration changes can affect multiple output sheets at once.
+
+Lower-risk files:
+
+- `README.md`
+- `CODE_EXPLANATION.md`
+- chart styling in `chart_generator.py`, if data fields are unchanged
+
+When changing behavior, run both compile and tests, then inspect a generated workbook with `openpyxl` if the change affects Excel output.

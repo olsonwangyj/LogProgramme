@@ -189,6 +189,7 @@ class PWMMatchSelection:
     match_method: str = ""
     match_status: str = ""
     time_delta_ms: Optional[int] = None
+    missing_reason: str = ""
     notes: str = ""
 
 
@@ -207,6 +208,15 @@ class ActivityRecord:
     duration_s: Optional[float] = None
     start_value: Optional[float] = None
     end_value: Optional[float] = None
+    movement_start_position: Optional[float] = None
+    movement_target_position: Optional[float] = None
+    movement_end_position: Optional[float] = None
+    movement_commanded_distance: Optional[float] = None
+    movement_actual_distance: Optional[float] = None
+    movement_distance: Optional[float] = None
+    movement_distance_source: str = ""
+    movement_distance_method: str = ""
+    movement_distance_notes: str = ""
     pwm_percent: Optional[float] = None
     pwm_raw_value: Optional[float] = None
     pwm_direction: str = ""
@@ -219,6 +229,7 @@ class ActivityRecord:
     pwm_match_method: str = ""
     pwm_time_delta_ms: Optional[int] = None
     pwm_match_status: str = ""
+    pwm_missing_reason: str = ""
     source_txt_start_line: str = ""
     source_txt_end_line: str = ""
     match_status: str = ""
@@ -260,6 +271,12 @@ class ReportFrames:
     axis_summary: object
     pwm_sources: object | None = None
     diagnostics: object | None = None
+    diagnostics_summary: object | None = None
+    distribution_summary: object | None = None
+    distribution_raw_data: object | None = None
+    distribution_chart_metadata: object | None = None
+    distribution_exclusion_summary: object | None = None
+    log_coverage_summary: object | None = None
 
 
 @dataclass
@@ -276,9 +293,19 @@ class AnalysisRunResult:
     unmatched_start_count: int
     unmatched_end_count: int
     closed_by_boundary_count: int
+    closed_by_new_start_count: int
     initialization_failed_count: int
     diagnostic_count: int
     parse_warning_count: int
     duration_warning_count: int
     pwm_warning_count: int
     txt_encoding: str
+    distribution_enabled: bool = False
+    distribution_group_count: int = 0
+    distribution_raw_row_count: int = 0
+    distribution_chart_count: int = 0
+    distribution_output_dir: Path | None = None
+    distribution_excluded_missing_pwm_count: int = 0
+    distribution_excluded_missing_distance_count: int = 0
+    distribution_excluded_missing_true_distance_count: int = 0
+    distribution_excluded_unreliable_pwm_count: int = 0

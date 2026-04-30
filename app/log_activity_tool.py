@@ -19,7 +19,7 @@ def main(argv: list[str] | None = None) -> int:
     """Parse user input, run the analysis service, and return a process exit code."""
 
     args = _parse_arguments(argv)
-    _configure_logging(args.verbose)
+    _configure_logging(args.verbose, args.trace_lines)
     if IMPORT_ERROR is not None or LogAnalysisService is None:
         logging.getLogger("log_activity_tool").error(
             "Missing dependency %s. Install packages with `pip install -r requirements.txt`.",
@@ -37,6 +37,18 @@ def main(argv: list[str] | None = None) -> int:
             encoding_logs=args.encoding_logs,
             association_strategy=args.association_strategy,
             recursive=args.recursive,
+            enable_distribution_analysis=not args.no_distribution,
+            distribution_output_dir=args.distribution_output_dir,
+            max_distribution_charts=args.max_distribution_charts,
+            embed_distribution_charts=not args.no_embed_distribution_charts,
+            movement_distance_round_digits=args.movement_distance_round_digits,
+            distribution_distance_source=args.distribution_distance_source,
+            distribution_distance_grouping_mode=args.distribution_distance_grouping_mode,
+            movement_distance_bin_size=args.movement_distance_bin_size,
+            distribution_allow_nearest_pwm=args.distribution_allow_nearest_pwm,
+            distribution_allow_latest_before_pwm=args.distribution_allow_latest_before_pwm,
+            distribution_allow_carry_forward_pwm=args.distribution_allow_carry_forward_pwm,
+            allow_pwm_carry_forward=args.pwm_carry_forward,
         )
         _print_summary(result)
         return 0
@@ -65,7 +77,10 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--log-b",
         dest="legacy_log_b",
-        help="Backward-compatible legacy control-log input. If a file is provided, its parent folder is used and a warning is logged.",
+        help=(
+            "Backward-compatible legacy control-log input. If a .log file is provided, "
+            "its parent folder is scanned for all .log files and a warning is logged."
+        ),
     )
     parser.add_argument("--output", help="Destination .xlsx workbook path.")
     parser.add_argument(
@@ -99,18 +114,97 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
         help="Disable file-picker dialogs and require all three paths on the command line.",
     )
     parser.add_argument(
+        "--no-distribution",
+        action="store_true",
+        help="Disable normal distribution analysis and chart generation.",
+    )
+    parser.add_argument(
+        "--distribution-output-dir",
+        help="Optional folder where normal distribution chart PNG files are saved.",
+    )
+    parser.add_argument(
+        "--max-distribution-charts",
+        type=int,
+        default=200,
+        help="Maximum number of distribution charts to generate. Largest groups are charted first.",
+    )
+    parser.add_argument(
+        "--no-embed-distribution-charts",
+        action="store_true",
+        help="Save chart PNG files externally but do not embed them in the Excel workbook.",
+    )
+    parser.add_argument(
+        "--movement-distance-round-digits",
+        type=int,
+        default=2,
+        help="Decimal places used when grouping movement distances.",
+    )
+    parser.add_argument(
+        "--distribution-distance-source",
+        choices=["actual_preferred", "commanded_preferred", "actual_only", "commanded_only"],
+        default="actual_preferred",
+        help="Movement distance source used for distribution grouping.",
+    )
+    parser.add_argument(
+        "--distribution-distance-grouping-mode",
+        choices=["exact", "round_digits", "bin"],
+        default="bin",
+        help="How selected movement distances are grouped for distribution analysis.",
+    )
+    parser.add_argument(
+        "--movement-distance-bin-size",
+        type=float,
+        default=0.1,
+        help="Distance bin size used when --distribution-distance-grouping-mode bin is active.",
+    )
+    parser.add_argument(
+        "--distribution-allow-nearest-pwm",
+        action="store_true",
+        help="Allow nearest-file PWM matches in distribution groups.",
+    )
+    parser.add_argument(
+        "--distribution-allow-latest-before-pwm",
+        action="store_true",
+        help="Allow latest-before-start PWM matches in distribution groups.",
+    )
+    parser.add_argument(
+        "--distribution-allow-carry-forward-pwm",
+        action="store_true",
+        help="Allow carry-forward PWM matches in distribution groups.",
+    )
+    parser.add_argument(
+        "--pwm-carry-forward",
+        action="store_true",
+        help="Allow same-axis PWM values to carry forward when strict time matching cannot find reliable evidence.",
+    )
+    parser.add_argument(
         "--verbose",
         action="store_true",
         help="Enable debug logging.",
     )
+    parser.add_argument(
+        "--trace-lines",
+        action="store_true",
+        help="Include per-line parser debug logging when --verbose is enabled.",
+    )
     return parser.parse_args(argv)
 
 
-def _configure_logging(verbose: bool) -> None:
+def _configure_logging(verbose: bool, trace_lines: bool = False) -> None:
     """Initialize application logging with a simple console format."""
 
     level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(level=level, format="%(asctime)s %(levelname)s %(name)s - %(message)s")
+    if verbose and not trace_lines:
+        for logger_name in (
+            "log_activity_tool.service.loader",
+            "log_activity_tool.service.main_log_parser",
+            "log_activity_tool.service.pwm_log_parser",
+        ):
+            logging.getLogger(logger_name).setLevel(logging.INFO)
+    logging.getLogger("PIL").setLevel(logging.WARNING)
+    logging.getLogger("PIL.PngImagePlugin").setLevel(logging.WARNING)
+    logging.getLogger("matplotlib").setLevel(logging.WARNING)
 
 
 def _resolve_paths(args: argparse.Namespace) -> dict[str, Path]:
@@ -196,11 +290,24 @@ def _print_summary(result) -> None:
     print(f"Unmatched starts: {result.unmatched_start_count}")
     print(f"Unmatched ends: {result.unmatched_end_count}")
     print(f"Closed by boundary: {result.closed_by_boundary_count}")
+    print(f"Closed by new start: {result.closed_by_new_start_count}")
     print(f"Initialization failed rows: {result.initialization_failed_count}")
     print(f"Diagnostics: {result.diagnostic_count}")
     print(f"Parse warnings: {result.parse_warning_count}")
     print(f"Duration warnings: {result.duration_warning_count}")
     print(f"PWM warnings: {result.pwm_warning_count}")
+    if getattr(result, "distribution_enabled", False):
+        print(f"Distribution groups: {result.distribution_group_count}")
+        print(f"Distribution raw rows: {result.distribution_raw_row_count}")
+        print(f"Distribution charts: {result.distribution_chart_count}")
+        print(f"Distribution chart folder: {result.distribution_output_dir}")
+        print(f"Distribution rows excluded missing PWM: {result.distribution_excluded_missing_pwm_count}")
+        print(f"Distribution rows excluded missing movement distance: {result.distribution_excluded_missing_distance_count}")
+        print(
+            "Distribution rows excluded missing true movement distance: "
+            f"{result.distribution_excluded_missing_true_distance_count}"
+        )
+        print(f"Distribution rows excluded unreliable PWM: {result.distribution_excluded_unreliable_pwm_count}")
     print(f"TXT encoding: {result.txt_encoding}")
 
 

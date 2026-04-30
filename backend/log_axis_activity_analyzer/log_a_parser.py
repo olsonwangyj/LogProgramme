@@ -11,12 +11,15 @@ from .config import (
     BOUNDARY_AXIS_PATTERN,
     BOUNDARY_PATTERNS,
     BOUNDARY_RELEVANT_TOKENS,
+    DIAGNOSTIC_AMX_PARTIALLY_CORRUPTED_PATTERN,
     DIAGNOSTIC_NODE_RESPONSE_TIMEOUT_PATTERN,
+    DIAGNOSTIC_PARTIAL_AMX_AMENDED_PATTERN,
     DIAGNOSTIC_SENSOR_CUT_PATTERN,
     DIAGNOSTIC_SEVERITY_PATTERN,
     INLINE_VALUE_PATTERN,
     MAIN_LOG_AXIS_EVENT_PATTERN,
     MAIN_LOG_TIMESTAMP_PATTERN,
+    NODE_TO_AXIS,
 )
 from .file_loader import TextFileLoader
 from .models import AxisLogEvent, BoundaryEvent, DiagnosticEvent, MainLogParseResult, ParseWarning
@@ -170,6 +173,37 @@ class MainLogParser:
         raw_line: str,
     ) -> DiagnosticEvent | None:
         """Convert recognized ERR/WRN/INFO diagnostic lines into structured records."""
+
+        amx_corrupted_match = DIAGNOSTIC_AMX_PARTIALLY_CORRUPTED_PATTERN.search(content)
+        if amx_corrupted_match is not None:
+            return DiagnosticEvent(
+                source_path=path,
+                line_number=line_number,
+                ordinal=ordinal,
+                timestamp=timestamp,
+                severity="AMD",
+                diagnostic_type="AMXPartiallyCorrupted",
+                axis=None,
+                node_id=None,
+                message=content,
+                raw_line=raw_line,
+            )
+
+        partial_amx_match = DIAGNOSTIC_PARTIAL_AMX_AMENDED_PATTERN.search(content)
+        if partial_amx_match is not None:
+            node_id = int(partial_amx_match.group("node_id"))
+            return DiagnosticEvent(
+                source_path=path,
+                line_number=line_number,
+                ordinal=ordinal,
+                timestamp=timestamp,
+                severity="AMD",
+                diagnostic_type="PartialAMXAmended",
+                axis=NODE_TO_AXIS.get(node_id),
+                node_id=node_id,
+                message=content,
+                raw_line=raw_line,
+            )
 
         node_timeout_match = DIAGNOSTIC_NODE_RESPONSE_TIMEOUT_PATTERN.search(content)
         if node_timeout_match is not None:

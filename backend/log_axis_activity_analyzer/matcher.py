@@ -4,16 +4,23 @@ from __future__ import annotations
 
 import logging
 import re
+from dataclasses import dataclass
 from typing import Iterable
 
 from .config import (
     COMPANION_VALUE_PREFIXES,
     DEFAULT_MAX_EVENT_DURATION_MS,
+    DISTRIBUTION_DISTANCE_SOURCE,
     DURATION_STATUS_END_BEFORE_START,
     DURATION_STATUS_NOT_APPLICABLE,
     DURATION_STATUS_TOO_LONG,
     DURATION_STATUS_VALID,
+    END_VALUE_COMPANION_SEARCH_WINDOW_MS,
+    HARD_POSITION_RESET_BOUNDARIES,
     MAX_EVENT_DURATION_MS,
+    RESET_POSITION_ON_SOFT_WORKFLOW_BOUNDARIES,
+    RESET_PHYSICAL_POSITION_TO_ZERO_PATTERN,
+    SOFT_WORKFLOW_BOUNDARIES,
     STATUS_CLOSED_BY_BOUNDARY,
     STATUS_CLOSED_BY_NEW_START,
     STATUS_DURATION_TOO_LONG_CANDIDATE,
@@ -24,6 +31,26 @@ from .config import (
 )
 from .models import ActivityRecord, AxisLogEvent, BoundaryEvent, DiagnosticEvent, EventRule, MainTimelineEvent
 from .time_utils import calculate_duration_values, format_log_timestamp
+
+
+@dataclass(frozen=True)
+class MovementContext:
+    """Physical movement context captured at the moment a start event is seen."""
+
+    start_position: float | None = None
+    target_position: float | None = None
+    distance: float | None = None
+    method: str = ""
+    notes: str = ""
+
+
+@dataclass(frozen=True)
+class PendingActivity:
+    """One pending start event plus the position context attached to it."""
+
+    start_event: AxisLogEvent
+    rule: EventRule
+    movement_context: MovementContext
 
 
 class EventMatcher:
@@ -56,20 +83,24 @@ class EventMatcher:
         """Match start and end events on the mixed axis-plus-boundary timeline."""
 
         self._logger.info("Matching %s parsed TXT timeline events", len(timeline))
-        pending: dict[tuple[str, str], tuple[AxisLogEvent, EventRule]] = {}
+        pending: dict[tuple[str, str], PendingActivity] = {}
+        last_known_position_by_axis: dict[str, float] = {}
         records: list[ActivityRecord] = []
         for index, item in enumerate(timeline):
             if isinstance(item, BoundaryEvent) or isinstance(item, DiagnosticEvent):
                 records.extend(self._flush_pending_for_boundary(pending, item))
+                self._reset_position_state_for_boundary(item, last_known_position_by_axis)
                 continue
             classification = self._classify_event(item.message)
             if classification is None:
+                self._update_last_known_position(item, last_known_position_by_axis)
                 continue
             kind, rule = classification
             if kind == "start":
-                records.extend(self._register_start_event(pending, item, rule))
+                movement_context = self._build_movement_context(item, rule, last_known_position_by_axis)
+                records.extend(self._register_start_event(pending, item, rule, movement_context))
                 continue
-            records.extend(self._resolve_end_event(pending, timeline, index, item, rule))
+            records.extend(self._resolve_end_event(pending, timeline, index, item, rule, last_known_position_by_axis))
         records.extend(self._close_remaining_pending(pending))
         self._logger.info("Built %s activity records", len(records))
         return records
@@ -87,9 +118,10 @@ class EventMatcher:
 
     def _register_start_event(
         self,
-        pending: dict[tuple[str, str], tuple[AxisLogEvent, EventRule]],
+        pending: dict[tuple[str, str], PendingActivity],
         event: AxisLogEvent,
         rule: EventRule,
+        movement_context: MovementContext,
     ) -> list[ActivityRecord]:
         """Register one start event, replacing an older stale start for the same axis/rule."""
 
@@ -98,11 +130,11 @@ class EventMatcher:
         records: list[ActivityRecord] = []
         previous_pending = pending.get(key)
         if previous_pending is not None:
-            previous_event, previous_rule = previous_pending
             records.append(
                 self._build_unmatched_start_record(
-                    start_event=previous_event,
-                    rule=previous_rule,
+                    start_event=previous_pending.start_event,
+                    rule=previous_pending.rule,
+                    movement_context=previous_pending.movement_context,
                     reason="Closed because a new start for the same axis/rule appeared before an end event.",
                     match_status=STATUS_CLOSED_BY_NEW_START,
                     closing_time=event.timestamp,
@@ -110,16 +142,17 @@ class EventMatcher:
                     closing_raw_line=event.raw_line,
                 )
             )
-        pending[key] = (event, rule)
+        pending[key] = PendingActivity(event, rule, movement_context)
         return records
 
     def _resolve_end_event(
         self,
-        pending: dict[tuple[str, str], tuple[AxisLogEvent, EventRule]],
+        pending: dict[tuple[str, str], PendingActivity],
         timeline: list[MainTimelineEvent],
         end_index: int,
         end_event: AxisLogEvent,
         rule: EventRule,
+        last_known_position_by_axis: dict[str, float],
     ) -> list[ActivityRecord]:
         """Resolve one end event against a pending same-axis same-rule start."""
 
@@ -127,7 +160,9 @@ class EventMatcher:
         key = (end_event.axis, rule.rule_id)
         if key not in pending:
             return [self._build_unmatched_end_record(end_event, rule)]
-        start_event, pending_rule = pending.pop(key)
+        pending_activity = pending.pop(key)
+        start_event = pending_activity.start_event
+        pending_rule = pending_activity.rule
         max_duration_ms = self._resolve_max_duration_ms(rule.rule_id)
         duration_ms, _ = calculate_duration_values(start_event.timestamp, end_event.timestamp)
         if duration_ms < 0:
@@ -135,6 +170,7 @@ class EventMatcher:
                 self._build_rejected_duration_record(
                     start_event=start_event,
                     rule=pending_rule,
+                    movement_context=pending_activity.movement_context,
                     end_event=end_event,
                     duration_status=DURATION_STATUS_END_BEFORE_START,
                     max_duration_ms=max_duration_ms,
@@ -151,6 +187,7 @@ class EventMatcher:
                 self._build_rejected_duration_record(
                     start_event=start_event,
                     rule=pending_rule,
+                    movement_context=pending_activity.movement_context,
                     end_event=end_event,
                     duration_status=DURATION_STATUS_TOO_LONG,
                     max_duration_ms=max_duration_ms,
@@ -162,11 +199,21 @@ class EventMatcher:
                     reason=f"End event was not matched because the pending start exceeded the configured max duration of {max_duration_ms} ms.",
                 ),
             ]
-        return [self._build_matched_record(timeline, end_index, start_event, end_event, pending_rule, max_duration_ms)]
+        record = self._build_matched_record(
+            timeline,
+            end_index,
+            start_event,
+            end_event,
+            pending_rule,
+            pending_activity.movement_context,
+            max_duration_ms,
+        )
+        self._update_last_known_position_from_activity(record, last_known_position_by_axis)
+        return [record]
 
     def _flush_pending_for_boundary(
         self,
-        pending: dict[tuple[str, str], tuple[AxisLogEvent, EventRule]],
+        pending: dict[tuple[str, str], PendingActivity],
         boundary: BoundaryEvent | DiagnosticEvent,
     ) -> list[ActivityRecord]:
         """Flush pending starts when a boundary indicates the workflow moved on or failed."""
@@ -183,24 +230,32 @@ class EventMatcher:
             if boundary.flush_scope != "axis" or not boundary.axis or key[0] == boundary.axis
         ]
         for key in keys_to_close:
-            start_event, rule = pending.pop(key)
-            records.append(self._build_boundary_closed_record(start_event, rule, boundary))
+            pending_activity = pending.pop(key)
+            records.append(
+                self._build_boundary_closed_record(
+                    pending_activity.start_event,
+                    pending_activity.rule,
+                    pending_activity.movement_context,
+                    boundary,
+                )
+            )
         return records
 
     def _close_remaining_pending(
         self,
-        pending: dict[tuple[str, str], tuple[AxisLogEvent, EventRule]],
+        pending: dict[tuple[str, str], PendingActivity],
     ) -> list[ActivityRecord]:
         """Close any starts that survived to the end of the TXT file."""
 
         self._logger.debug("Closing %s pending starts at end of TXT file", len(pending))
         return [
             self._build_unmatched_start_record(
-                start_event=start_event,
-                rule=rule,
+                start_event=pending_activity.start_event,
+                rule=pending_activity.rule,
+                movement_context=pending_activity.movement_context,
                 reason="Still pending at end of TXT file.",
             )
-            for start_event, rule in pending.values()
+            for pending_activity in pending.values()
         ]
 
     def _build_matched_record(
@@ -210,12 +265,14 @@ class EventMatcher:
         start_event: AxisLogEvent,
         end_event: AxisLogEvent,
         rule: EventRule,
+        movement_context: MovementContext,
         max_duration_ms: int,
     ) -> ActivityRecord:
         """Create one matched detail row from a start/end pair."""
 
         self._logger.debug("Building matched record for axis %s rule %s", start_event.axis, rule.rule_id)
         end_value, note = self._find_end_value(timeline, end_index, end_event)
+        movement_kwargs = self._movement_fields(movement_context, end_value)
         return ActivityRecord(
             axis=start_event.axis,
             rule_id=rule.rule_id,
@@ -226,6 +283,7 @@ class EventMatcher:
             end_time=end_event.timestamp,
             start_value=start_event.inline_value,
             end_value=end_value,
+            **movement_kwargs,
             source_txt_start_line=start_event.raw_line,
             source_txt_end_line=end_event.raw_line,
             match_status=STATUS_MATCHED,
@@ -243,6 +301,7 @@ class EventMatcher:
         self,
         start_event: AxisLogEvent,
         rule: EventRule,
+        movement_context: MovementContext | None,
         reason: str,
         match_status: str = STATUS_UNMATCHED_START,
         closing_time=None,
@@ -259,6 +318,7 @@ class EventMatcher:
             notes = self._merge_notes(notes, f"Closing context line: {closing_line}.")
         if closing_raw_line:
             notes = self._merge_notes(notes, f"Closing context raw line: {closing_raw_line}")
+        movement_kwargs = self._movement_fields(movement_context) if movement_context is not None else {}
         return ActivityRecord(
             axis=start_event.axis,
             rule_id=rule.rule_id,
@@ -266,6 +326,7 @@ class EventMatcher:
             start_event=rule.start_label,
             start_time=start_event.timestamp,
             start_value=start_event.inline_value,
+            **movement_kwargs,
             source_txt_start_line=start_event.raw_line,
             match_status=match_status,
             duration_status=DURATION_STATUS_NOT_APPLICABLE,
@@ -311,6 +372,7 @@ class EventMatcher:
         self,
         start_event: AxisLogEvent,
         rule: EventRule,
+        movement_context: MovementContext,
         boundary: BoundaryEvent | DiagnosticEvent,
     ) -> ActivityRecord:
         """Create one start-closure row caused by a workflow boundary."""
@@ -334,6 +396,7 @@ class EventMatcher:
             start_event=rule.start_label,
             start_time=start_event.timestamp,
             start_value=start_event.inline_value,
+            **self._movement_fields(movement_context),
             source_txt_start_line=start_event.raw_line,
             match_status=match_status,
             duration_status=DURATION_STATUS_NOT_APPLICABLE,
@@ -355,6 +418,7 @@ class EventMatcher:
         self,
         start_event: AxisLogEvent,
         rule: EventRule,
+        movement_context: MovementContext,
         end_event: AxisLogEvent,
         duration_status: str,
         max_duration_ms: int,
@@ -379,6 +443,7 @@ class EventMatcher:
             start_time=start_event.timestamp,
             end_time=end_event.timestamp,
             start_value=start_event.inline_value,
+            **self._movement_fields(movement_context),
             source_txt_start_line=start_event.raw_line,
             source_txt_end_line=end_event.raw_line,
             match_status=match_status,
@@ -409,24 +474,170 @@ class EventMatcher:
         self._logger.debug("Resolving end value for axis %s line %s", end_event.axis, end_event.line_number)
         if end_event.inline_value is not None:
             return end_event.inline_value, ""
-        axis_events_checked = 0
         for candidate in timeline[end_index + 1 :]:
+            if isinstance(candidate, BoundaryEvent) or isinstance(candidate, DiagnosticEvent):
+                break
             if not isinstance(candidate, AxisLogEvent):
                 continue
-            axis_events_checked += 1
-            if axis_events_checked > 4:
+            delta_ms = (candidate.timestamp - end_event.timestamp).total_seconds() * 1000.0
+            if delta_ms < 0:
+                continue
+            if delta_ms > END_VALUE_COMPANION_SEARCH_WINDOW_MS:
                 break
             if candidate.axis != end_event.axis:
                 continue
+            classification = self._classify_event(candidate.message)
+            if classification is not None and classification[0] == "start":
+                break
             if candidate.inline_value is None:
                 continue
             if not candidate.message.lower().startswith(COMPANION_VALUE_PREFIXES):
                 continue
-            if candidate.timestamp != end_event.timestamp:
-                continue
             note = f"End value taken from companion line: {candidate.message}"
             return candidate.inline_value, note
         return None, ""
+
+    def _update_last_known_position(
+        self,
+        event: AxisLogEvent,
+        last_known_position_by_axis: dict[str, float],
+    ) -> None:
+        """Update axis position state from `min:` and `max:` companion lines."""
+
+        if event.inline_value is None:
+            if RESET_PHYSICAL_POSITION_TO_ZERO_PATTERN.search(event.message):
+                last_known_position_by_axis[event.axis] = 0.0
+            return
+        if not event.message.lower().startswith(COMPANION_VALUE_PREFIXES):
+            return
+        last_known_position_by_axis[event.axis] = event.inline_value
+
+    def _reset_position_state_for_boundary(
+        self,
+        boundary: BoundaryEvent | DiagnosticEvent,
+        last_known_position_by_axis: dict[str, float],
+    ) -> None:
+        """Clear remembered axis positions at hard workflow boundaries."""
+
+        boundary_type = self._boundary_type(boundary)
+        if not self._should_reset_position_state(boundary_type):
+            return
+        if boundary.flush_scope == "axis" and boundary.axis:
+            last_known_position_by_axis.pop(boundary.axis, None)
+            return
+        last_known_position_by_axis.clear()
+
+    def _should_reset_position_state(self, boundary_type: str) -> bool:
+        """Return whether a boundary invalidates remembered physical positions."""
+
+        if boundary_type in HARD_POSITION_RESET_BOUNDARIES:
+            return True
+        return RESET_POSITION_ON_SOFT_WORKFLOW_BOUNDARIES and boundary_type in SOFT_WORKFLOW_BOUNDARIES
+
+    def _update_last_known_position_from_activity(
+        self,
+        record: ActivityRecord,
+        last_known_position_by_axis: dict[str, float],
+    ) -> None:
+        """Advance axis position state after a successfully completed movement."""
+
+        if record.movement_end_position is not None:
+            last_known_position_by_axis[record.axis] = record.movement_end_position
+            return
+        if record.movement_target_position is not None:
+            last_known_position_by_axis[record.axis] = record.movement_target_position
+
+    def _build_movement_context(
+        self,
+        start_event: AxisLogEvent,
+        rule: EventRule,
+        last_known_position_by_axis: dict[str, float],
+    ) -> MovementContext:
+        """Capture true movement distance inputs at a start event."""
+
+        target_position = start_event.inline_value
+        if target_position is None:
+            return MovementContext(
+                method="MissingValue",
+                notes="No numeric target was available on the start line.",
+            )
+        start_position = last_known_position_by_axis.get(start_event.axis)
+        if start_position is None:
+            return MovementContext(
+                target_position=target_position,
+                method="MissingStartPosition",
+                notes="No previous min/max position was available before the movement start.",
+            )
+        distance = abs(target_position - start_position)
+        return MovementContext(
+            start_position=start_position,
+            target_position=target_position,
+            distance=distance,
+            method="KnownStartPositionToTarget",
+        )
+
+    def _movement_fields(
+        self,
+        movement_context: MovementContext,
+        end_position: float | None = None,
+    ) -> dict[str, object]:
+        """Convert movement context into `ActivityRecord` keyword fields."""
+
+        commanded_distance = (
+            abs(movement_context.target_position - movement_context.start_position)
+            if movement_context.start_position is not None and movement_context.target_position is not None
+            else None
+        )
+        actual_distance = (
+            abs(end_position - movement_context.start_position)
+            if movement_context.start_position is not None and end_position is not None
+            else None
+        )
+        distance, method, source = self._select_movement_distance(
+            commanded_distance=commanded_distance,
+            actual_distance=actual_distance,
+            fallback_method=movement_context.method,
+        )
+        notes = movement_context.notes
+        return {
+            "movement_start_position": movement_context.start_position,
+            "movement_target_position": movement_context.target_position,
+            "movement_end_position": end_position,
+            "movement_commanded_distance": commanded_distance,
+            "movement_actual_distance": actual_distance,
+            "movement_distance": distance,
+            "movement_distance_source": source,
+            "movement_distance_method": method,
+            "movement_distance_notes": notes,
+        }
+
+    def _select_movement_distance(
+        self,
+        commanded_distance: float | None,
+        actual_distance: float | None,
+        fallback_method: str,
+    ) -> tuple[float | None, str, str]:
+        """Choose the display/default movement distance according to configured source policy."""
+
+        if DISTRIBUTION_DISTANCE_SOURCE == "actual_only":
+            if actual_distance is not None:
+                return actual_distance, "KnownStartPositionToActualEnd", "ActualEndPosition"
+            return None, "MissingStartOrEndPosition", ""
+        if DISTRIBUTION_DISTANCE_SOURCE == "commanded_only":
+            if commanded_distance is not None:
+                return commanded_distance, "KnownStartPositionToTarget", "CommandTargetPosition"
+            return None, "MissingStartOrTargetPosition", ""
+        if DISTRIBUTION_DISTANCE_SOURCE == "commanded_preferred":
+            if commanded_distance is not None:
+                return commanded_distance, "KnownStartPositionToTarget", "CommandTargetPosition"
+            if actual_distance is not None:
+                return actual_distance, "KnownStartPositionToActualEnd", "ActualEndPosition"
+        else:
+            if actual_distance is not None:
+                return actual_distance, "KnownStartPositionToActualEnd", "ActualEndPosition"
+            if commanded_distance is not None:
+                return commanded_distance, "KnownStartPositionToTarget", "CommandTargetPosition"
+        return None, fallback_method or "MissingStartOrEndPosition", ""
 
     def _resolve_max_duration_ms(self, rule_id: str) -> int:
         """Return the configured max duration for one rule identifier."""

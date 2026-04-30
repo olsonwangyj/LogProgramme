@@ -5,15 +5,19 @@ from __future__ import annotations
 import logging
 
 from .config import (
+    ALLOW_PWM_CARRY_FORWARD_ACROSS_SESSION,
     PWM_FILE_NEARNESS_THRESHOLD_MS,
     PWM_LATEST_BEFORE_MAX_DELTA_MS,
     PWM_STATUS_CONFLICT,
-    PWM_STATUS_DIRECTION_CHANGED_ONLY,
+    PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+    PWM_STATUS_MATCHED_CARRY_FORWARD,
     PWM_STATUS_MATCHED_CONTAINING,
     PWM_STATUS_MATCHED_LATEST_BEFORE,
     PWM_STATUS_MATCHED_NEAREST,
-    PWM_STATUS_NO_PWM_FOUND_FOR_AXIS,
+    PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
     PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
+    PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
 )
 from .models import ActivityRecord, AxisPWMProfile, DutyCycleLogFileResult, PWMEvent, PWMMatchSelection
 from .time_utils import compute_range_distance_ms, compute_time_delta_ms, format_log_timestamp
@@ -32,6 +36,7 @@ class DutyCycleAssociator:
         records: list[ActivityRecord],
         log_file_results: list[DutyCycleLogFileResult],
         strategy: str = "same_file_then_nearest",
+        allow_carry_forward: bool = ALLOW_PWM_CARRY_FORWARD_ACROSS_SESSION,
     ) -> list[ActivityRecord]:
         """Attach PWM history to activity records using the selected strategy."""
 
@@ -41,7 +46,7 @@ class DutyCycleAssociator:
             strategy,
         )
         for record in records:
-            self._attach_record_pwm(record, log_file_results, strategy)
+            self._attach_record_pwm(record, log_file_results, strategy, allow_carry_forward)
         return records
 
     def _attach_record_pwm(
@@ -49,6 +54,7 @@ class DutyCycleAssociator:
         record: ActivityRecord,
         log_file_results: list[DutyCycleLogFileResult],
         strategy: str,
+        allow_carry_forward: bool,
     ) -> None:
         """Resolve and attach one PWM source to an activity record."""
 
@@ -56,7 +62,13 @@ class DutyCycleAssociator:
         if not record.axis or record.match_status in {"Parse Warning", "Diagnostic"}:
             return
         reference_time = record.start_time or record.end_time
-        selection = self._select_pwm_event(record.axis, reference_time, log_file_results, strategy)
+        selection = self._select_pwm_event(
+            record.axis,
+            reference_time,
+            log_file_results,
+            strategy,
+            allow_carry_forward,
+        )
         self._apply_selection(record, selection)
 
     def _select_pwm_event(
@@ -65,6 +77,7 @@ class DutyCycleAssociator:
         reference_time,
         log_file_results: list[DutyCycleLogFileResult],
         strategy: str,
+        allow_carry_forward: bool = ALLOW_PWM_CARRY_FORWARD_ACROSS_SESSION,
     ) -> PWMMatchSelection:
         """Select the best PWM event for one axis and reference time."""
 
@@ -72,7 +85,8 @@ class DutyCycleAssociator:
         if not log_file_results:
             return PWMMatchSelection(
                 match_method="NoControlLogsAvailable",
-                match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
+                match_status=PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
+                missing_reason="No control-log files were available for PWM matching.",
                 notes="No control-log files were available for PWM matching.",
             )
         axis_files = [
@@ -82,8 +96,9 @@ class DutyCycleAssociator:
         ]
         if not axis_files:
             return PWMMatchSelection(
-                match_method="NoAxisPWMProfileInFolder",
-                match_status=PWM_STATUS_NO_PWM_FOUND_FOR_AXIS,
+                match_method="NoSameAxisPWMInFolder",
+                match_status=PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
+                missing_reason=f"No PWM profile was found for axis {axis} in the scanned control-log folder.",
                 notes=f"No PWM profile was found for axis {axis} in the scanned control-log folder.",
             )
         containing_files = [
@@ -134,7 +149,9 @@ class DutyCycleAssociator:
 
         if strategy in {"same_file_then_nearest", "latest_before_start"}:
             selection = self._select_latest_before_start(axis, reference_time, log_file_results)
-            if selection.event is not None:
+            if selection.match_status:
+                if allow_carry_forward and selection.match_status == PWM_STATUS_LATEST_BEFORE_TOO_FAR:
+                    return self._select_carry_forward(axis, reference_time, log_file_results)
                 if containing_without_axis_count:
                     selection.notes = self._merge_notes(
                         selection.notes,
@@ -146,12 +163,70 @@ class DutyCycleAssociator:
                 return selection
         if strategy == "latest_known":
             selection = self._select_latest_known(axis, reference_time, log_file_results)
-            if selection.event is not None:
+            if selection.match_status:
+                if allow_carry_forward and selection.match_status == PWM_STATUS_LATEST_BEFORE_TOO_FAR:
+                    return self._select_carry_forward(axis, reference_time, log_file_results)
                 return selection
+        if allow_carry_forward:
+            selection = self._select_carry_forward(axis, reference_time, log_file_results)
+            if selection.match_status:
+                return selection
+        final_status = (
+            PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM
+            if containing_without_axis_count
+            else PWM_STATUS_NO_RELEVANT_LOG_FILE
+        )
         return PWMMatchSelection(
-            match_method="NoRelevantLogFile",
-            match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
+            match_method=final_status,
+            match_status=final_status,
+            missing_reason=self._no_relevant_pwm_note(axis, containing_without_axis_count),
             notes=self._no_relevant_pwm_note(axis, containing_without_axis_count),
+        )
+
+    def _select_carry_forward(
+        self,
+        axis: str,
+        reference_time,
+        log_file_results: list[DutyCycleLogFileResult],
+    ) -> PWMMatchSelection:
+        """Optionally select the latest same-axis PWM before the activity without the strict time threshold."""
+
+        self._logger.debug("Selecting carry-forward PWM for axis %s", axis)
+        if reference_time is None:
+            return PWMMatchSelection()
+        candidates: list[tuple[PWMEvent, AxisPWMProfile, DutyCycleLogFileResult]] = []
+        for file_result in log_file_results:
+            profile = file_result.axis_profiles.get(axis)
+            if profile is None:
+                continue
+            eligible = [
+                event
+                for event in profile.events
+                if event.timestamp is not None and event.timestamp <= reference_time
+            ]
+            if not eligible:
+                continue
+            candidates.append((self._prefer_setting_event(eligible), profile, file_result))
+        if not candidates:
+            return PWMMatchSelection()
+        selected_event, selected_profile, selected_file = max(
+            candidates,
+            key=lambda item: (item[0].timestamp, item[0].line_number),
+        )
+        time_delta_ms = compute_time_delta_ms(selected_event.timestamp, reference_time)
+        notes = self._build_selection_note(selected_profile, selected_file, selected_event, "CarryForwardWithinSession")
+        notes = self._merge_notes(
+            notes,
+            "PWM was carried forward from the latest same-axis source because strict time matching did not find reliable evidence.",
+        )
+        match_status = PWM_STATUS_CONFLICT if selected_profile.conflict else PWM_STATUS_MATCHED_CARRY_FORWARD
+        return PWMMatchSelection(
+            event=selected_event,
+            profile=selected_profile,
+            match_method="CarryForwardWithinSession",
+            match_status=match_status,
+            time_delta_ms=time_delta_ms,
+            notes=notes,
         )
 
     def _select_from_files(
@@ -195,8 +270,6 @@ class DutyCycleAssociator:
         notes = self._build_selection_note(selected_profile, selected_file, selected_event, context)
         if selected_profile.conflict:
             match_status = PWM_STATUS_CONFLICT
-        elif selected_profile.direction_changed:
-            match_status = PWM_STATUS_DIRECTION_CHANGED_ONLY
         return PWMMatchSelection(
             event=selected_event,
             profile=selected_profile,
@@ -241,7 +314,12 @@ class DutyCycleAssociator:
         if time_delta_ms is not None and time_delta_ms > PWM_LATEST_BEFORE_MAX_DELTA_MS:
             return PWMMatchSelection(
                 match_method="LatestBeforeStartWithinFolder",
-                match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
+                match_status=PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+                time_delta_ms=time_delta_ms,
+                missing_reason=(
+                    f"The latest PWM record before the activity for axis {axis} was too far away "
+                    f"({time_delta_ms} ms > max {PWM_LATEST_BEFORE_MAX_DELTA_MS} ms)."
+                ),
                 notes=(
                     f"The latest PWM record before the activity for axis {axis} was too far away "
                     f"({time_delta_ms} ms > max {PWM_LATEST_BEFORE_MAX_DELTA_MS} ms)."
@@ -250,8 +328,6 @@ class DutyCycleAssociator:
         notes = self._build_selection_note(selected_profile, selected_file, selected_event, "LatestBeforeStart")
         if selected_profile.conflict:
             match_status = PWM_STATUS_CONFLICT
-        elif selected_profile.direction_changed:
-            match_status = PWM_STATUS_DIRECTION_CHANGED_ONLY
         else:
             match_status = PWM_STATUS_MATCHED_LATEST_BEFORE
         return PWMMatchSelection(
@@ -293,7 +369,12 @@ class DutyCycleAssociator:
         if time_delta_ms is not None and time_delta_ms > PWM_LATEST_BEFORE_MAX_DELTA_MS:
             return PWMMatchSelection(
                 match_method="LatestKnownAcrossFolder",
-                match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
+                match_status=PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+                time_delta_ms=time_delta_ms,
+                missing_reason=(
+                    f"The latest known PWM record for axis {axis} was too far away "
+                    f"({time_delta_ms} ms > max {PWM_LATEST_BEFORE_MAX_DELTA_MS} ms)."
+                ),
                 notes=(
                     f"The latest known PWM record for axis {axis} was too far away "
                     f"({time_delta_ms} ms > max {PWM_LATEST_BEFORE_MAX_DELTA_MS} ms)."
@@ -302,8 +383,6 @@ class DutyCycleAssociator:
         notes = self._build_selection_note(selected_profile, selected_file, selected_event, "LatestKnown")
         if selected_profile.conflict:
             match_status = PWM_STATUS_CONFLICT
-        elif selected_profile.direction_changed:
-            match_status = PWM_STATUS_DIRECTION_CHANGED_ONLY
         else:
             match_status = PWM_STATUS_MATCHED_LATEST_BEFORE
         return PWMMatchSelection(
@@ -366,11 +445,16 @@ class DutyCycleAssociator:
         record.pwm_match_method = selection.match_method
         record.pwm_match_status = selection.match_status
         record.pwm_time_delta_ms = selection.time_delta_ms
+        record.pwm_missing_reason = selection.missing_reason
         record.notes = self._merge_notes(record.notes, selection.notes)
         if selection.match_status in {
             PWM_STATUS_CONFLICT,
-            PWM_STATUS_NO_PWM_FOUND_FOR_AXIS,
+            PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+            PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
             PWM_STATUS_NO_RELEVANT_LOG_FILE,
+            PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
+            PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
+            PWM_STATUS_MATCHED_CARRY_FORWARD,
         }:
             record.pwm_warning = True
         if selection.event is None:
