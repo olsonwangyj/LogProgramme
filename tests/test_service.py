@@ -8,6 +8,7 @@ from pathlib import Path
 from openpyxl import load_workbook
 
 from backend.log_axis_activity_analyzer.config import (
+    CONTROL_PWM_COMMANDS,
     DEFAULT_EVENT_RULES,
     DIAGNOSTIC_SUMMARY_COLUMNS,
     DETAIL_COLUMNS,
@@ -24,7 +25,10 @@ from backend.log_axis_activity_analyzer.config import (
     PWM_STATUS_LATEST_BEFORE_TOO_FAR,
     PWM_STATUS_MATCHED_CARRY_FORWARD,
     PWM_STATUS_MATCHED_CONTAINING,
+    PWM_STATUS_MATCHED_LATEST_BEFORE,
     PWM_STATUS_MATCHED_NEAREST,
+    PWM_STATUS_MATCHED_NEAREST_FUTURE,
+    PWM_STATUS_NO_EARLIER_PWM_FOR_AXIS,
     PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
     PWM_STATUS_NO_RELEVANT_LOG_FILE,
     PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
@@ -37,7 +41,9 @@ from backend.log_axis_activity_analyzer.config import (
     STATUS_PARSE_WARNING,
     STATUS_UNMATCHED_END,
     STATUS_UNMATCHED_START,
+    build_control_pwm_pattern,
 )
+import backend.log_axis_activity_analyzer.log_b_parser as log_b_parser
 from backend.log_axis_activity_analyzer.duty_cycle_associator import DutyCycleAssociator
 from backend.log_axis_activity_analyzer.file_loader import TextFileLoader
 from backend.log_axis_activity_analyzer.log_a_parser import MainLogParser
@@ -360,6 +366,62 @@ def test_pwm_signed_value_is_normalized(tmp_path: Path) -> None:
     assert event.is_confirmed_by_status_line is True
 
 
+def test_pwm_command_types_are_configurable_defaults(tmp_path: Path) -> None:
+    """Default PWM command parsing should be driven by the configured command set."""
+
+    assert {"RUN", "VEL"} <= CONTROL_PWM_COMMANDS
+    path = _write_lines(
+        tmp_path / "commands.log",
+        [
+            "2026-04-10 08:37:32:000 [OUT] sample",
+            "                              [N6:H] RUN 255 176 (-80)",
+            "2026-04-10 08:37:33:000 [OUT] sample",
+            "                              [N6:H] VEL 0 80 (80)",
+        ],
+    )
+
+    result = DutyCycleLogParser(TextFileLoader()).parse(path)
+
+    assert [event.command_type for event in result.pwm_events] == ["RUN", "VEL"]
+
+
+def test_pwm_command_type_extension_parses_without_parser_rewrite(tmp_path: Path, monkeypatch) -> None:
+    """Extending CONTROL_PWM_COMMANDS should be enough for new PWM command names."""
+
+    monkeypatch.setattr(log_b_parser, "CONTROL_PWM_COMMANDS", {"RUN", "VEL", "PWM"})
+    monkeypatch.setattr(log_b_parser, "CONTROL_PWM_PATTERN", build_control_pwm_pattern({"RUN", "VEL", "PWM"}))
+    path = _write_lines(
+        tmp_path / "extended-command.log",
+        [
+            "2026-04-10 08:37:32:000 [OUT] sample",
+            "                              [N6:H] PWM 0 80 (80)",
+        ],
+    )
+
+    result = DutyCycleLogParser(TextFileLoader()).parse(path)
+
+    assert len(result.pwm_events) == 1
+    assert result.pwm_events[0].command_type == "PWM"
+    assert result.pwm_events[0].pwm_percent == 80
+
+
+def test_unsupported_pwm_command_is_ignored_without_warning(tmp_path: Path) -> None:
+    """Unknown command names should not be treated as malformed configured PWM commands."""
+
+    path = _write_lines(
+        tmp_path / "unsupported-command.log",
+        [
+            "2026-04-10 08:37:32:000 [OUT] sample",
+            "                              [N6:H] SPEED 0 80 (80)",
+        ],
+    )
+
+    result = DutyCycleLogParser(TextFileLoader()).parse(path)
+
+    assert result.pwm_events == []
+    assert result.warnings == []
+
+
 def test_pwm_direction_change_is_not_a_conflict(tmp_path: Path) -> None:
     """Raw -80 and 80 should be one normalized PWM profile with direction-change metadata."""
 
@@ -600,8 +662,9 @@ def test_pwm_association_falls_back_when_containing_file_lacks_axis(tmp_path: Pa
 
     assert record.pwm_percent == 80
     assert record.pwm_source_file == "near-y.log"
-    assert record.pwm_match_status == PWM_STATUS_MATCHED_NEAREST
-    assert record.pwm_warning is False
+    assert record.pwm_match_status == PWM_STATUS_MATCHED_NEAREST_FUTURE
+    assert record.pwm_warning is True
+    assert record.status == OVERALL_STATUS_PWM_WARNING
 
 
 def test_pwm_association_does_not_attach_far_latest_before(tmp_path: Path) -> None:
@@ -638,6 +701,80 @@ def test_pwm_association_does_not_attach_far_latest_before(tmp_path: Path) -> No
     assert record.pwm_time_delta_ms == 599000
     assert record.pwm_warning is True
     assert record.status == OVERALL_STATUS_PWM_WARNING
+
+
+def test_latest_before_strategy_does_not_attach_future_pwm(tmp_path: Path) -> None:
+    """Latest-before semantics must never relabel a future PWM as prior evidence."""
+
+    folder = tmp_path / "logs"
+    folder.mkdir()
+    _write_lines(
+        folder / "future-y.log",
+        [
+            "2026-01-01 00:05:00:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 80 (80)",
+            "2026-01-01 00:05:01:000 [OUT] sample",
+        ],
+    )
+
+    files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 0, 0, 0),
+        end_time=datetime(2026, 1, 1, 0, 0, 1),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], files, strategy="latest_before_start"))
+
+    assert record.pwm_percent is None
+    assert record.pwm_source_file == ""
+    assert record.pwm_match_status == PWM_STATUS_NO_EARLIER_PWM_FOR_AXIS
+    assert record.pwm_warning is True
+
+
+def test_latest_known_strategy_uses_only_prior_pwm(tmp_path: Path) -> None:
+    """Latest-known should select earlier PWM and ignore future-only evidence."""
+
+    folder = tmp_path / "logs"
+    folder.mkdir()
+    _write_lines(
+        folder / "past-y.log",
+        [
+            "2026-01-01 00:00:59:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 80 (80)",
+            "2026-01-01 00:01:00:000 [OUT] sample",
+        ],
+    )
+    _write_lines(
+        folder / "future-y.log",
+        [
+            "2026-01-01 00:05:00:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 60 (60)",
+            "2026-01-01 00:05:01:000 [OUT] sample",
+        ],
+    )
+
+    files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 0, 1, 30),
+        end_time=datetime(2026, 1, 1, 0, 1, 31),
+        match_status=STATUS_MATCHED,
+    )
+
+    ActivityValidator().validate(DutyCycleAssociator().attach([record], files, strategy="latest_known"))
+
+    assert record.pwm_percent == 80
+    assert record.pwm_source_file == "past-y.log"
+    assert record.pwm_match_status == PWM_STATUS_MATCHED_LATEST_BEFORE
+    assert record.pwm_time_delta_ms == 31000
 
 
 def test_pwm_carry_forward_is_explicit_and_warned_when_enabled(tmp_path: Path) -> None:

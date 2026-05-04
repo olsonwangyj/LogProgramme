@@ -221,7 +221,7 @@ The workbook keeps commanded and actual distance separate:
 - `Movement Commanded Distance = abs(Movement Target Position - Movement Start Position)`
 - `Movement Actual Distance = abs(Movement End Position - Movement Start Position)`
 
-The selected `Movement Distance` used for distribution grouping is controlled by `--distribution-distance-source` or `DISTRIBUTION_DISTANCE_SOURCE` in `config.py`:
+These two columns are stable audit fields. The `Selected Movement Distance` shown in `Details` and `Distribution Raw Data` is runtime-configurable, so it can change when the same workbook is regenerated with a different `--distribution-distance-source` option:
 
 - `actual_preferred` (default): use actual distance when available, otherwise commanded distance.
 - `commanded_preferred`: use commanded distance when available, otherwise actual distance.
@@ -256,9 +256,9 @@ Distribution distance grouping is configurable from the CLI or `config.py`:
 - `DISTRIBUTION_DISTANCE_GROUPING_MODE = "bin"` by default.
 - `MOVEMENT_DISTANCE_BIN_SIZE = 0.1` by default, so `23.86` and `23.87` group as `23.9`.
 - `round_digits` groups by `MOVEMENT_DISTANCE_ROUND_DIGITS`.
-- `exact` uses the exact selected movement distance.
+- `exact` uses the exact selected movement distance. Exact grouping uses the raw numeric value as the grouping key, so `23.861` and `23.862` remain separate groups.
 
-The raw exact distance remains visible in `Distribution Raw Data`, while `Distribution Summary` shows the grouping value plus min/max and mixed-position indicators.
+The raw exact distance remains visible in `Distribution Raw Data`, while `Distribution Summary`, chart metadata, chart titles, and chart file names use the configured group value consistently. The workbook also includes a text display column so bin sizes such as `0.1` and `0.05` are not forced into a fixed two-decimal format.
 
 For each group, the `Distribution Summary` sheet reports count, mean, median, min, max, range, sample standard deviation, sample variance, population standard deviation, population variance, coefficient of variation, P05/P25/P75/P95 percentiles, fit status, chart status, and chart file path. Sample standard deviation and sample variance are the primary SD/variance values. With one sample, they are blank and the status is `InsufficientSamples`.
 
@@ -270,15 +270,17 @@ Charts are saved as PNG files in a workbook-specific folder by default:
 
 For example, `april10-analysis.xlsx` writes charts under `april10-analysis_distribution_charts`. Use `--distribution-output-dir` to override this. The default run folder is cleaned of old PNG files before new charts are generated, so chart paths in Excel point to the current run.
 
-Each eligible group can get a histogram of `Duration (s)` with a fitted normal curve when there are at least three samples and non-zero variance. Small-sample and zero-variance groups are handled safely: the workbook still reports statistics, and charts either show a simple histogram/marker or explain why the normal curve was not drawn. `--max-distribution-charts` prevents generating thousands of PNGs; largest groups are charted first.
+Each eligible group can get a histogram of `Duration (s)` when there are at least `MIN_SAMPLES_FOR_DISTRIBUTION_CHART` samples. A fitted normal curve requires at least `MIN_SAMPLES_FOR_NORMAL_FIT` samples and non-zero variance. Single-sample groups still appear in `Distribution Summary`, but no chart is generated. If no group reaches the chart threshold, the `Distribution Charts` sheet explains that all valid groups had too few samples. `--max-distribution-charts` prevents generating thousands of PNGs; largest groups are charted first.
 
 New workbook sheets:
 
 - `Distribution Summary`: one row per group.
 - `Distribution Raw Data`: one row per activity record used by distribution analysis.
+- `Distribution Eligibility`: rows that never became distribution candidates, such as unmatched rows, diagnostics, parse warnings, and invalid durations.
 - `Distribution Exclusion Summary`: grouped reasons for records excluded from distribution analysis.
 - `Distribution Charts`: embedded PNG charts and group metadata when chart embedding is enabled.
 - `Log Coverage Summary`: TXT/control-log time coverage and PWM evidence counts.
+- `Log Coverage Gaps`: every uncovered TXT interval after merging real control-log intervals.
 
 Disable the feature with:
 
@@ -293,7 +295,24 @@ python -m app.log_activity_tool ^
 
 Save external chart files without embedding them in Excel with `--no-embed-distribution-charts`.
 
-Strict distribution PWM matching is the default. `--pwm-carry-forward` can attach the latest same-axis PWM when strict time matching cannot find reliable evidence, but those rows are marked with `PWM Match Status = MatchedByCarryForward`, `PWM Match Method = CarryForwardWithinSession`, and a PWM warning. Distribution analysis still excludes carry-forward PWM by default unless `--distribution-allow-carry-forward-pwm` is supplied.
+Strict distribution PWM matching is the default. Distribution groups accept only `PWM Match Status = MatchedByContainingLogFile` unless you explicitly opt in to looser evidence with `--distribution-allow-nearest-pwm`, `--distribution-allow-latest-before-pwm`, or `--distribution-allow-carry-forward-pwm`.
+
+`--pwm-carry-forward` can attach the latest same-axis PWM when strict time matching cannot find reliable evidence, but those rows are marked with `PWM Match Status = MatchedByCarryForward`, `PWM Match Method = CarryForwardWithinSession`, and a PWM warning. Distribution analysis still excludes carry-forward PWM by default unless `--distribution-allow-carry-forward-pwm` is supplied. The Summary and Log Coverage sheets show both settings separately:
+
+- `PWM Carry Forward Enabled`
+- `Distribution Allows Carry Forward PWM`
+
+Latest-before and latest-known strategies only use PWM events at or before the activity time. If only future PWM exists, the row is marked `NoEarlierPWMForAxis`; nearest future evidence is labeled separately as `MatchedByNearestFutureLogFile`.
+
+Common PWM categories are intentionally separate:
+
+- `NoControlLogsAvailable`: no control logs were scanned.
+- `NoRelevantLogFileFound`: logs exist, but none are close enough to the activity time.
+- `NoSameAxisPWMInFolder`: logs exist, but no PWM profile was found for that axis.
+- `RelevantLogFileLacksAxisPWM`: a containing log exists but lacks the requested axis.
+- `LatestBeforeStartTooFar`: the latest earlier PWM is outside the allowed time window.
+- `MatchedByNearestFutureLogFile`: nearest-file fallback selected future PWM evidence.
+- `PWMConflictInSourceFile`: a source file has conflicting normalized PWM percentages.
 
 `--verbose` shows stage-level debug logging. Use `--trace-lines` with `--verbose` only when you need per-line parser logs.
 
@@ -330,8 +349,10 @@ The workbook contains:
 - `Diagnostics Summary`
 - `Distribution Summary`
 - `Distribution Raw Data`
+- `Distribution Eligibility`
 - `Distribution Exclusion Summary`
 - `Log Coverage Summary`
+- `Log Coverage Gaps`
 - `Distribution Charts` when chart embedding is enabled
 
 ### Details
@@ -358,6 +379,7 @@ Important columns include:
 - `Movement End Position`
 - `Movement Commanded Distance`
 - `Movement Actual Distance`
+- `Selected Movement Distance`
 - `Movement Distance Source`
 - `Movement Distance Method`
 
@@ -431,19 +453,39 @@ Movement Distance = 50.00
 Action = clear_motor
 ```
 
-The row contains all valid matched records in that group and shows duration statistics in milliseconds and seconds. It includes example movement positions, commanded/actual distances, selected distance source, grouped distance value, grouping mode, min/max movement values, unique position-combination count, and a `Position Values Mixed` flag. `Distribution Status` explains whether a normal fit was possible, whether the sample count was too small, or whether variance was zero. `Chart File` points to the generated PNG.
+The row contains all valid matched records in that group and shows duration statistics in milliseconds and seconds. It includes example movement positions, commanded/actual distances, selected distance source, grouped distance value, grouping mode, min/max movement values, unique position-combination count, and a `Position Values Mixed` flag.
+
+Distance columns in this sheet have different meanings:
+
+- `Movement Distance Raw Example`: one selected raw distance from the group.
+- `Movement Distance Min` / `Movement Distance Max`: original selected distances inside the group.
+- `Movement Distance Group Value`: the exact value used as the grouping key after `exact`, `round_digits`, or `bin` grouping.
+- `Movement Distance Group Display`: text rendering of that group value using the configured grouping precision.
+- `Selected Group Distance`: the grouped selected distance used for statistics; it intentionally duplicates the numeric group value with a clearer name.
+
+With the default `bin` mode and bin size `0.1`, raw distances such as `49.03` group as `49.0`. The raw values remain visible in `Distribution Raw Data`.
+
+`Distribution Status` explains whether a normal fit was possible, whether the sample count was too small, or whether variance was zero. `Chart File` points to the generated PNG when one was generated.
 
 ### Distribution Raw Data
 
 This sheet lists each activity row used in distribution analysis, including group ID, source TXT line numbers and text, PWM raw value, PWM direction, PWM conflict data, PWM match method/status, PWM source line number and text, duration, movement start/target/end positions, commanded distance, actual distance, selected movement distance, grouping value, distance source, method, and notes. It is the fastest way to audit why a group has its statistics.
 
+### Distribution Eligibility
+
+This sheet groups records that did not meet basic distribution eligibility before PWM or movement-distance checks were applied. Typical reasons include `NotMatched`, `DurationInvalid`, `Diagnostic`, and `ParseWarning`. Keeping these separate prevents expected non-candidate rows from drowning out real distribution-specific exclusions.
+
 ### Distribution Exclusion Summary
 
-This sheet groups distribution exclusions by reason, rule, and axis. It helps separate expected exclusions, such as `search_reference` rows with no physical travel distance, from data quality problems such as missing PWM or unreliable PWM evidence.
+This sheet includes only valid matched duration rows that were excluded from distribution analysis after eligibility checks. It records a primary reason plus secondary, PWM-specific, and movement-distance-specific reasons, so rows with multiple problems do not lose important context. Typical reasons include `MissingTrueMovementDistance`, `LatestBeforeStartTooFar`, `NoRelevantLogFileFound`, `NoControlLogsAvailable`, `NoSameAxisPWMInFolder`, `RelevantLogFileLacksAxisPWM`, `NearestLogFilePWMNotAllowedForDistribution`, `NearestFuturePWMNotAllowedForDistribution`, `LatestBeforePWMNotAllowedForDistribution`, `CarryForwardPWMNotAllowedForDistribution`, `PWMConflictInSourceFile`, `MissingPWM`, and `MissingGroupField`. It also shows the example row's `PWM Match Status`, `PWM Missing Reason`, `PWM Time Delta (ms)`, and source file so PWM coverage problems are not hidden behind a generic label.
 
 ### Log Coverage Summary
 
-This sheet compares the TXT time span with the union of scanned control-log intervals. Separate log files with gaps are not treated as one continuous covered range. It reports merged interval count, covered duration, uncovered duration, gap count, coverage ratio, distribution-accepted PWM counts, containing/nearest/latest-before/carry-forward PWM counts, rows without PWM, and rows excluded because PWM reliability was not acceptable for distribution grouping. If coverage is low, the notes warn that many TXT activities may be excluded from PWM-based distribution analysis.
+This sheet compares the TXT time span with the union of scanned control-log intervals. Separate log files with gaps are not treated as one continuous covered range. It reports merged interval count, covered duration, uncovered duration, gap count, coverage ratio, distribution-accepted PWM counts, containing/nearest/future-nearest/latest-before/carry-forward PWM counts, rows without PWM, specific PWM warning categories, and rows excluded because PWM reliability was not acceptable for distribution grouping. If coverage is low, the notes warn that many TXT activities may be excluded from PWM-based distribution analysis.
+
+### Log Coverage Gaps
+
+This sheet lists every uncovered TXT interval with gap index, start time, end time, duration, gap type, nearest previous control log, and nearest next control log. Gap types include `BeforeFirstControlLog`, `BetweenControlLogs`, `AfterLastControlLog`, and `NoControlLogsAvailable`. Use it when the coverage summary reports multiple gaps; the representative gap in `Log Coverage Summary` is only the first uncovered span.
 
 ### Distribution Charts
 
@@ -457,13 +499,13 @@ Check `Closed By Boundary Type`, `Closed By Boundary Time`, `Boundary Line Numbe
 
 ### PWM Is Blank
 
-PWM is left blank when no same-axis profile can be attached safely. Check `PWM Match Status`, `PWM Missing Reason`, `Notes`, and `Log Coverage Summary`; the tool prefers leaving PWM empty over attaching an old unrelated value. In incomplete log folders, `NoRelevantLogFileFound` or `LatestBeforeStartTooFar` usually means the duration is still valid but PWM evidence is missing.
+PWM is left blank when no same-axis profile can be attached safely. Check `PWM Match Status`, `PWM Missing Reason`, `Notes`, `Distribution Exclusion Summary`, and `Log Coverage Summary`; the tool prefers leaving PWM empty over attaching an old unrelated value. In incomplete log folders, `NoRelevantLogFileFound`, `NoSameAxisPWMInFolder`, `RelevantLogFileLacksAxisPWM`, or `LatestBeforeStartTooFar` usually means the duration is still valid but PWM evidence is missing.
 
 Use `--pwm-carry-forward` only when you deliberately want to assume same-axis PWM settings persist beyond strict log coverage. Carry-forward rows are marked as warnings and are not used for distribution grouping by default.
 
 ### Row Has PWM Warning
 
-PWM warnings are used for normalized PWM conflicts or no reliable PWM match. Direction changes alone are not PWM conflicts.
+PWM warnings are used for normalized PWM conflicts, missing/incomplete log coverage, latest-before records outside the allowed time window, future-nearest fallback, carry-forward PWM, or no reliable PWM match. Direction changes alone are not PWM conflicts.
 
 ### Diagnostics Are Not Parse Warnings
 

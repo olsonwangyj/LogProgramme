@@ -61,11 +61,21 @@ NODE_TO_AXIS = {
 CONTROL_TIMESTAMP_PATTERN = re.compile(
     r"^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}:\d{3})\s+\[(?P<direction>IN\s?|OUT)\s*\].*$"
 )
-CONTROL_PWM_PATTERN = re.compile(
-    r"^\s*\[(?P<node>[A-Z0-9]+):(?P<axis>[A-Z]+)\]\s+"
-    r"(?P<command>RUN|VEL)(?:\s+(?P<status>'S'))?\s+"
-    r"(?P<arguments>.+?)\s+\((?P<pwm>[-+]?\d+(?:\.\d+)?)\)\s*$"
-)
+CONTROL_PWM_COMMANDS = {"RUN", "VEL"}
+
+
+def build_control_pwm_pattern(commands: set[str] | frozenset[str]) -> re.Pattern[str]:
+    """Build the PWM parser regex from the configured command names."""
+
+    command_pattern = "|".join(sorted(re.escape(command) for command in commands))
+    return re.compile(
+        r"^\s*\[(?P<node>[A-Z0-9]+):(?P<axis>[A-Z]+)\]\s+"
+        rf"(?P<command>{command_pattern})(?:\s+(?P<status>'S'))?\s+"
+        r"(?P<arguments>.+?)\s+\((?P<pwm>[-+]?\d+(?:\.\d+)?)\)\s*$"
+    )
+
+
+CONTROL_PWM_PATTERN = build_control_pwm_pattern(CONTROL_PWM_COMMANDS)
 
 COMPANION_VALUE_PREFIXES = ("min:", "max:")
 END_VALUE_COMPANION_SEARCH_WINDOW_MS = 2000
@@ -230,8 +240,10 @@ OVERALL_STATUS_PARSE_WARNING = "Parse Warning"
 
 PWM_STATUS_MATCHED_CONTAINING = "MatchedByContainingLogFile"
 PWM_STATUS_MATCHED_NEAREST = "MatchedByNearestLogFile"
+PWM_STATUS_MATCHED_NEAREST_FUTURE = "MatchedByNearestFutureLogFile"
 PWM_STATUS_MATCHED_LATEST_BEFORE = "MatchedByLatestBeforeStartWithinThreshold"
 PWM_STATUS_MATCHED_CARRY_FORWARD = "MatchedByCarryForward"
+PWM_STATUS_NO_EARLIER_PWM_FOR_AXIS = "NoEarlierPWMForAxis"
 PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE = "NoControlLogsAvailable"
 PWM_STATUS_NO_SAME_AXIS_IN_FOLDER = "NoSameAxisPWMInFolder"
 PWM_STATUS_NO_RELEVANT_LOG_FILE = "NoRelevantLogFileFound"
@@ -293,6 +305,30 @@ DISTRIBUTION_ALLOWED_PWM_MATCH_STATUSES = {
     PWM_STATUS_MATCHED_CONTAINING,
 }
 
+DISTRIBUTION_CHART_METADATA_KEYS = [
+    "TXT Source File",
+    "PWM (%)",
+    "Axis",
+    "Movement Distance Group Value",
+    "Movement Distance Display",
+    "Movement Distance Source",
+    "Movement Distance Method",
+    "Movement Distance Grouping Mode",
+    "Movement Distance Bin Size",
+    "Rule ID",
+    "Action Label",
+    "Sample Count",
+    "Mean Duration (s)",
+    "Sample Std Dev Duration (s)",
+    "Variance",
+    "Distribution Status",
+    "Chart Status",
+    "Chart File",
+    "Notes",
+]
+DISTRIBUTION_CHART_IMAGE_ROW_OFFSET = len(DISTRIBUTION_CHART_METADATA_KEYS) + 2
+DISTRIBUTION_CHART_BLOCK_HEIGHT = len(DISTRIBUTION_CHART_METADATA_KEYS) + 29
+
 DETAIL_COLUMNS = [
     "Axis",
     "Rule ID",
@@ -309,7 +345,7 @@ DETAIL_COLUMNS = [
     "Movement End Position",
     "Movement Commanded Distance",
     "Movement Actual Distance",
-    "Movement Distance",
+    "Selected Movement Distance",
     "Movement Distance Source",
     "Movement Distance Method",
     "Movement Distance Notes",
@@ -449,9 +485,10 @@ DISTRIBUTION_SUMMARY_COLUMNS = [
     "Unique Position Combination Count",
     "Movement Distance Raw Example",
     "Movement Distance Group Value",
+    "Movement Distance Group Display",
     "Movement Distance Grouping Mode",
     "Movement Distance Bin Size",
-    "Movement Distance",
+    "Selected Group Distance",
     "Movement Distance Rounded",
     "Movement Distance Method",
     "Movement Distance Source",
@@ -498,10 +535,12 @@ DISTRIBUTION_RAW_DATA_COLUMNS = [
     "Movement End Position",
     "Movement Commanded Distance",
     "Movement Actual Distance",
-    "Movement Distance",
+    "Selected Movement Distance",
     "Movement Distance Source",
     "Movement Distance Group Value",
+    "Movement Distance Group Display",
     "Movement Distance Grouping Mode",
+    "Movement Distance Bin Size",
     "Movement Distance Rounded",
     "Movement Distance Method",
     "Movement Distance Notes",
@@ -539,7 +578,8 @@ DISTRIBUTION_CHART_METADATA_COLUMNS = [
     "TXT Source File",
     "PWM (%)",
     "Axis",
-    "Movement Distance",
+    "Movement Distance Group Value",
+    "Movement Distance Display",
     "Movement Distance Source",
     "Movement Distance Method",
     "Movement Distance Grouping Mode",
@@ -557,6 +597,22 @@ DISTRIBUTION_CHART_METADATA_COLUMNS = [
 ]
 
 DISTRIBUTION_EXCLUSION_SUMMARY_COLUMNS = [
+    "Exclusion Reason",
+    "Secondary Exclusion Reasons",
+    "PWM Exclusion Reason",
+    "Movement Distance Exclusion Reason",
+    "Rule ID",
+    "Axis",
+    "Count",
+    "PWM Match Status",
+    "PWM Missing Reason",
+    "PWM Time Delta (ms)",
+    "Example PWM Source File",
+    "Example Start Line",
+    "Example Notes",
+]
+
+DISTRIBUTION_ELIGIBILITY_SUMMARY_COLUMNS = [
     "Exclusion Reason",
     "Rule ID",
     "Axis",
@@ -584,9 +640,32 @@ LOG_COVERAGE_SUMMARY_COLUMNS = [
     "Rows With Distribution-Accepted PWM",
     "Rows With Containing-File PWM",
     "Rows With Nearest-File PWM",
+    "Rows With Nearest-Future PWM",
     "Rows With Latest-Before PWM",
     "Rows With Carry-Forward PWM",
     "Rows Without PWM",
+    "Rows With No Control Logs Available",
+    "Rows With No Relevant Log File",
+    "Rows With No Same-Axis PWM In Folder",
+    "Rows With Relevant Log File Lacking Axis PWM",
+    "Rows With Latest-Before Too Far",
+    "Rows With PWM Conflict",
     "Rows Excluded From Distribution Due To PWM Reliability",
+    "PWM Carry Forward Enabled",
+    "Distribution Allows Carry Forward PWM",
+    "Notes",
+]
+
+LOG_COVERAGE_GAPS_COLUMNS = [
+    "TXT Source File",
+    "Gap Index",
+    "Gap Start Time",
+    "Gap End Time",
+    "Gap Duration (s)",
+    "Gap Type",
+    "Nearest Previous Control Log File",
+    "Nearest Previous Control Log End Time",
+    "Nearest Next Control Log File",
+    "Nearest Next Control Log Start Time",
     "Notes",
 ]

@@ -200,6 +200,13 @@ def _configure_logging(verbose: bool, trace_lines: bool = False) -> None:
             "log_activity_tool.service.loader",
             "log_activity_tool.service.main_log_parser",
             "log_activity_tool.service.pwm_log_parser",
+            "log_activity_tool.service.matcher",
+            "log_activity_tool.service.pwm_associator",
+            "log_activity_tool.service.distribution",
+            "log_activity_tool.service.validator",
+            "log_activity_tool.service.summary",
+            "log_activity_tool.service.excel_exporter",
+            "log_activity_tool.service.distribution_charts",
         ):
             logging.getLogger(logger_name).setLevel(logging.INFO)
     logging.getLogger("PIL").setLevel(logging.WARNING)
@@ -301,13 +308,18 @@ def _print_summary(result) -> None:
         print(f"Distribution raw rows: {result.distribution_raw_row_count}")
         print(f"Distribution charts: {result.distribution_chart_count}")
         print(f"Distribution chart folder: {result.distribution_output_dir}")
-        print(f"Distribution rows excluded missing PWM: {result.distribution_excluded_missing_pwm_count}")
-        print(f"Distribution rows excluded missing movement distance: {result.distribution_excluded_missing_distance_count}")
-        print(
-            "Distribution rows excluded missing true movement distance: "
-            f"{result.distribution_excluded_missing_true_distance_count}"
-        )
-        print(f"Distribution rows excluded unreliable PWM: {result.distribution_excluded_unreliable_pwm_count}")
+        if getattr(result, "distribution_exclusion_reason_counts", None):
+            print("Distribution exclusion reasons:")
+            for reason, count in sorted(result.distribution_exclusion_reason_counts.items()):
+                print(f"  {reason}: {count}")
+        else:
+            print(f"Distribution rows excluded missing PWM: {result.distribution_excluded_missing_pwm_count}")
+            print(f"Distribution rows excluded missing movement distance: {result.distribution_excluded_missing_distance_count}")
+            print(
+                "Distribution rows excluded missing true movement distance: "
+                f"{result.distribution_excluded_missing_true_distance_count}"
+            )
+            print(f"Distribution rows excluded unreliable PWM: {result.distribution_excluded_unreliable_pwm_count}")
     print(f"TXT encoding: {result.txt_encoding}")
 
 

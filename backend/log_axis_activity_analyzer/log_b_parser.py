@@ -6,7 +6,7 @@ import logging
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from .config import CONTROL_PWM_PATTERN, CONTROL_TIMESTAMP_PATTERN
+from .config import CONTROL_PWM_COMMANDS, CONTROL_PWM_PATTERN, CONTROL_TIMESTAMP_PATTERN
 from .file_loader import TextFileLoader
 from .models import AxisPWMProfile, DutyCycleLogFileResult, PWMEvent, ParseWarning
 from .time_utils import normalize_pwm_percent, parse_log_timestamp, resolve_pwm_direction
@@ -123,7 +123,7 @@ class DutyCycleLogParser:
         """Create a warning for malformed but relevant PWM lines."""
 
         self._logger.debug("Checking PWM line %s for parse warnings", line_number)
-        if not any(token in line for token in ("RUN", "VEL")) or "[" not in line or ":" not in line:
+        if not any(token in line for token in CONTROL_PWM_COMMANDS) or "[" not in line or ":" not in line:
             return None
         self._logger.warning("Malformed PWM line at %s:%s", path, line_number)
         return ParseWarning(

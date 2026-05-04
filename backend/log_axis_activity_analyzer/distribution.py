@@ -9,6 +9,7 @@ import re
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 import pandas as pd
@@ -26,9 +27,62 @@ from .config import (
     MOVEMENT_DISTANCE_ROUND_DIGITS,
     MOVEMENT_DISTANCE_SOURCE_OPTIONS,
     PWM_STATUS_MATCHED_CARRY_FORWARD,
+    PWM_STATUS_MATCHED_LATEST_BEFORE,
+    PWM_STATUS_MATCHED_NEAREST,
+    PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
+    PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
+    PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+    PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
+    PWM_STATUS_NO_EARLIER_PWM_FOR_AXIS,
+    PWM_STATUS_MATCHED_NEAREST_FUTURE,
+    PWM_STATUS_CONFLICT,
     STATUS_MATCHED,
 )
 from .models import ActivityRecord
+
+DistributionGroupKey = tuple[str, float | str, str, float | str, str]
+
+
+def format_movement_distance_group_value(
+    value: float | None,
+    grouping_mode: str,
+    bin_size: float | None,
+    round_digits: int,
+) -> str:
+    """Format a grouped movement distance without hiding the configured precision."""
+
+    if value is None or not _is_finite_number(value):
+        return "Missing"
+    numeric = float(value)
+    if grouping_mode == "exact":
+        return f"{numeric:.12g}"
+    if grouping_mode == "round_digits":
+        return f"{numeric:.{round_digits}f}"
+    digits = _decimal_places_for_step(bin_size)
+    return f"{numeric:.{digits}f}"
+
+
+def _decimal_places_for_step(step: float | None) -> int:
+    """Return the number of decimal places needed to display a bin step."""
+
+    if step is None or not _is_finite_number(step) or float(step) <= 0:
+        return 0
+    try:
+        decimal = Decimal(str(step)).normalize()
+    except InvalidOperation:
+        return 0
+    return max(0, -decimal.as_tuple().exponent)
+
+
+def _is_finite_number(value: object) -> bool:
+    """Return whether a value can be represented as a finite float."""
+
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return False
+    return math.isfinite(numeric)
 
 
 @dataclass
@@ -36,6 +90,7 @@ class DistributionInputRow:
     """One validated activity record prepared for distribution grouping."""
 
     group_id: str
+    group_key: DistributionGroupKey
     txt_source_file: str
     axis: str
     pwm_percent: float
@@ -48,6 +103,8 @@ class DistributionInputRow:
     movement_distance_source: str
     movement_distance_group_value: float
     movement_distance_grouping_mode: str
+    movement_distance_bin_size: float | None
+    movement_distance_round_digits: int
     movement_distance_rounded: float
     movement_distance_method: str
     movement_distance_notes: str
@@ -107,6 +164,7 @@ class DistributionStats:
     movement_distance_group_value: float
     movement_distance_grouping_mode: str
     movement_distance_bin_size: float | None
+    movement_distance_round_digits: int
     movement_distance: float
     movement_distance_rounded: float
     movement_distance_method: str
@@ -153,6 +211,14 @@ class DistributionExclusion:
     axis: str
     start_line: str
     notes: str
+    secondary_reasons: str = ""
+    pwm_exclusion_reason: str = ""
+    movement_distance_exclusion_reason: str = ""
+    category: str = "Distribution"
+    pwm_match_status: str = ""
+    pwm_missing_reason: str = ""
+    pwm_time_delta_ms: int | None = None
+    example_pwm_source_file: str = ""
 
 
 @dataclass
@@ -164,6 +230,7 @@ class DistributionAnalysisResult:
     stats: list[DistributionStats] = field(default_factory=list)
     exclusion_counts: Counter = field(default_factory=Counter)
     exclusions: list[DistributionExclusion] = field(default_factory=list)
+    eligibility_exclusions: list[DistributionExclusion] = field(default_factory=list)
     chart_output_dir: Path | None = None
 
 
@@ -223,6 +290,7 @@ class DistributionAnalyzer:
             self.allowed_pwm_match_statuses.add(PWM_STATUS_MATCHED_CARRY_FORWARD)
         self.exclusion_counts: Counter = Counter()
         self.exclusions: list[DistributionExclusion] = []
+        self.eligibility_exclusions: list[DistributionExclusion] = []
         self._logger = logger or logging.getLogger(self.__class__.__name__)
 
     def analyze(self, records: list[ActivityRecord], txt_source_file: str) -> DistributionAnalysisResult:
@@ -237,6 +305,7 @@ class DistributionAnalyzer:
             stats=stats,
             exclusion_counts=Counter(self.exclusion_counts),
             exclusions=list(self.exclusions),
+            eligibility_exclusions=list(self.eligibility_exclusions),
         )
 
     def build_input_rows(
@@ -249,34 +318,41 @@ class DistributionAnalyzer:
         self._logger.info("Building distribution input rows from %s activity records", len(records))
         self.exclusion_counts = Counter()
         self.exclusions = []
+        self.eligibility_exclusions = []
         rows: list[DistributionInputRow] = []
         source_name = Path(txt_source_file).name
         for index, record in enumerate(records, start=1):
             if not self._is_valid_duration_record(record):
-                self.exclusion_counts["invalid_status_or_duration"] += 1
-                self._record_exclusion("InvalidStatusOrDuration", record)
+                self._record_eligibility_exclusion(self._eligibility_exclusion_reason(record), record)
                 continue
             pwm_percent = self._normalize_pwm_percent(record.pwm_percent)
-            if pwm_percent is None:
-                self.exclusion_counts["missing_pwm"] += 1
-                if not self.include_missing_pwm:
-                    self._record_exclusion("MissingPWM", record)
-                    continue
-            if not self._is_reliable_pwm(record):
-                self.exclusion_counts["unreliable_pwm"] += 1
-                self._record_exclusion("UnreliablePWM", record)
-                continue
             movement = self.derive_movement_distance(record)
-            if movement.movement_distance is None:
-                self.exclusion_counts["missing_true_movement_distance"] += 1
-                self.exclusion_counts["missing_movement_distance"] += 1
-                if not self.include_missing_movement_distance:
-                    self._record_exclusion("MissingTrueMovementDistance", record)
-                    continue
-            if not record.axis or not record.rule_id:
-                self.exclusion_counts["missing_group_field"] += 1
-                self._record_exclusion("MissingGroupField", record)
+
+            movement_reason = (
+                "MissingTrueMovementDistance"
+                if movement.movement_distance is None and not self.include_missing_movement_distance
+                else ""
+            )
+            pwm_reason = self._distribution_pwm_exclusion_reason(record, pwm_percent)
+            group_reason = "MissingGroupField" if not record.axis or not record.rule_id else ""
+            reasons = [reason for reason in (movement_reason, pwm_reason, group_reason) if reason]
+            if reasons:
+                primary_reason = self._primary_exclusion_reason(
+                    movement_reason=movement_reason,
+                    pwm_reason=pwm_reason,
+                    group_reason=group_reason,
+                )
+                secondary_reasons = [reason for reason in reasons if reason != primary_reason]
+                self.exclusion_counts[primary_reason] += 1
+                self._record_exclusion(
+                    primary_reason,
+                    record,
+                    secondary_reasons=secondary_reasons,
+                    pwm_reason=pwm_reason,
+                    movement_reason=movement_reason,
+                )
                 continue
+
             movement_distance = movement.movement_distance if movement.movement_distance is not None else math.nan
             movement_distance_rounded = (
                 round(movement_distance, self.movement_distance_round_digits)
@@ -291,6 +367,13 @@ class DistributionAnalyzer:
                 else duration_ms / 1000.0
             )
             action_label = self._action_label(record)
+            group_key = self.build_group_key(
+                txt_source_file=source_name,
+                pwm_percent=pwm_percent,
+                axis=record.axis,
+                movement_distance_group_value=movement_distance_group_value,
+                rule_id=record.rule_id,
+            )
             group_id = self.build_group_id(
                 txt_source_file=source_name,
                 pwm_percent=pwm_percent,
@@ -301,6 +384,7 @@ class DistributionAnalyzer:
             rows.append(
                 DistributionInputRow(
                     group_id=group_id,
+                    group_key=group_key,
                     txt_source_file=source_name,
                     axis=record.axis,
                     pwm_percent=float(pwm_percent) if pwm_percent is not None else math.nan,
@@ -313,6 +397,8 @@ class DistributionAnalyzer:
                     movement_distance_source=movement.movement_distance_source,
                     movement_distance_group_value=float(movement_distance_group_value),
                     movement_distance_grouping_mode=self.distance_grouping_mode,
+                    movement_distance_bin_size=self.movement_distance_bin_size if self.distance_grouping_mode == "bin" else None,
+                    movement_distance_round_digits=self.movement_distance_round_digits,
                     movement_distance_rounded=float(movement_distance_rounded),
                     movement_distance_method=movement.movement_distance_method,
                     movement_distance_notes=movement.movement_distance_notes,
@@ -351,10 +437,17 @@ class DistributionAnalyzer:
     def group_rows(self, rows: list[DistributionInputRow]) -> dict[str, list[DistributionInputRow]]:
         """Group distribution rows by source, PWM, axis, grouped distance, and rule."""
 
-        grouped: dict[str, list[DistributionInputRow]] = defaultdict(list)
+        grouped_by_key: dict[DistributionGroupKey, list[DistributionInputRow]] = defaultdict(list)
         for row in rows:
-            grouped[row.group_id].append(row)
-        return dict(grouped)
+            grouped_by_key[row.group_key].append(row)
+        grouped_by_id: dict[str, list[DistributionInputRow]] = {}
+        for group_key in sorted(grouped_by_key, key=self._group_key_sort_key):
+            group_rows = grouped_by_key[group_key]
+            group_id = self.build_group_id_from_key(group_key)
+            for row in group_rows:
+                row.group_id = group_id
+            grouped_by_id[group_id] = group_rows
+        return grouped_by_id
 
     def compute_group_stats(
         self,
@@ -414,11 +507,44 @@ class DistributionAnalyzer:
     ) -> str:
         """Build a stable, readable group identifier."""
 
-        pwm_label = "Unknown" if pwm_percent is None else f"{float(pwm_percent):g}"
-        distance_label = (
-            "Missing"
-            if movement_distance_group_value is None or not self._is_numeric(movement_distance_group_value)
-            else f"{float(movement_distance_group_value):.{self.movement_distance_round_digits}f}"
+        return self.build_group_id_from_key(
+            self.build_group_key(
+                txt_source_file=Path(txt_source_file).name,
+                pwm_percent=pwm_percent,
+                axis=axis,
+                movement_distance_group_value=movement_distance_group_value,
+                rule_id=rule_id,
+            )
+        )
+
+    def build_group_key(
+        self,
+        txt_source_file: str,
+        pwm_percent: float | None,
+        axis: str,
+        movement_distance_group_value: float | None,
+        rule_id: str,
+    ) -> DistributionGroupKey:
+        """Build the exact tuple key used for grouping rows."""
+
+        return (
+            Path(txt_source_file).name,
+            self._numeric_key_value(pwm_percent),
+            axis,
+            self._numeric_key_value(movement_distance_group_value),
+            rule_id,
+        )
+
+    def build_group_id_from_key(self, group_key: DistributionGroupKey) -> str:
+        """Build a stable, readable group identifier from the tuple grouping key."""
+
+        txt_source_file, pwm_percent, axis, movement_distance_group_value, rule_id = group_key
+        pwm_label = "Unknown" if not self._is_numeric(pwm_percent) else f"{float(pwm_percent):g}"
+        distance_label = format_movement_distance_group_value(
+            float(movement_distance_group_value) if self._is_numeric(movement_distance_group_value) else None,
+            self.distance_grouping_mode,
+            self.movement_distance_bin_size if self.distance_grouping_mode == "bin" else None,
+            self.movement_distance_round_digits,
         )
         base = f"{Path(txt_source_file).stem}_PWM{pwm_label}_Axis{axis}_D{distance_label}_{rule_id}"
         safe_base = re.sub(r"[^A-Za-z0-9_.-]+", "_", base).strip("_")
@@ -489,6 +615,7 @@ class DistributionAnalyzer:
             movement_distance_group_value=first.movement_distance_group_value,
             movement_distance_grouping_mode=first.movement_distance_grouping_mode,
             movement_distance_bin_size=self.movement_distance_bin_size if self.distance_grouping_mode == "bin" else None,
+            movement_distance_round_digits=self.movement_distance_round_digits,
             movement_distance=first.movement_distance_group_value,
             movement_distance_rounded=first.movement_distance_group_value,
             movement_distance_method=distance_method,
@@ -562,7 +689,8 @@ class DistributionAnalyzer:
         bin_size = self.movement_distance_bin_size
         if not self._is_numeric(bin_size) or bin_size <= 0:
             return round(float(movement_distance), self.movement_distance_round_digits)
-        return round(round(float(movement_distance) / bin_size) * bin_size, self.movement_distance_round_digits)
+        digits = _decimal_places_for_step(bin_size)
+        return round(round(float(movement_distance) / bin_size) * bin_size, digits)
 
     def _distribution_status(self, sample_count: int, sample_std_ms: float | None) -> tuple[str, str]:
         """Resolve distribution status and note text for a group."""
@@ -593,18 +721,110 @@ class DistributionAnalyzer:
 
         return not record.pwm_conflict and record.pwm_match_status in self.allowed_pwm_match_statuses
 
-    def _record_exclusion(self, reason: str, record: ActivityRecord) -> None:
+    def _record_exclusion(
+        self,
+        reason: str,
+        record: ActivityRecord,
+        secondary_reasons: list[str] | None = None,
+        pwm_reason: str = "",
+        movement_reason: str = "",
+    ) -> None:
         """Store an auditable exclusion example for workbook aggregation."""
 
+        notes = " | ".join(
+            item
+            for item in (
+                record.notes,
+                record.movement_distance_notes,
+                record.pwm_missing_reason,
+            )
+            if item
+        )
         self.exclusions.append(
             DistributionExclusion(
                 reason=reason,
                 rule_id=record.rule_id,
                 axis=record.axis,
                 start_line=record.source_txt_start_line,
-                notes=record.notes or record.pwm_missing_reason or record.movement_distance_notes,
+                notes=notes,
+                secondary_reasons="; ".join(secondary_reasons or []),
+                pwm_exclusion_reason=pwm_reason,
+                movement_distance_exclusion_reason=movement_reason,
+                pwm_match_status=record.pwm_match_status,
+                pwm_missing_reason=record.pwm_missing_reason,
+                pwm_time_delta_ms=record.pwm_time_delta_ms,
+                example_pwm_source_file=record.pwm_source_file,
             )
         )
+
+    def _record_eligibility_exclusion(self, reason: str, record: ActivityRecord) -> None:
+        """Store a pre-distribution eligibility exclusion example."""
+
+        self.eligibility_exclusions.append(
+            DistributionExclusion(
+                reason=reason,
+                rule_id=record.rule_id,
+                axis=record.axis,
+                start_line=record.source_txt_start_line,
+                notes=record.notes or record.pwm_missing_reason or record.movement_distance_notes,
+                category="Eligibility",
+                pwm_match_status=record.pwm_match_status,
+                pwm_missing_reason=record.pwm_missing_reason,
+                pwm_time_delta_ms=record.pwm_time_delta_ms,
+                example_pwm_source_file=record.pwm_source_file,
+            )
+        )
+
+    def _distribution_pwm_exclusion_reason(self, record: ActivityRecord, pwm_percent: float | None) -> str:
+        """Return the PWM reason that would exclude a valid duration row from distribution."""
+
+        if pwm_percent is None:
+            if self.include_missing_pwm:
+                return ""
+            return self._pwm_exclusion_reason(record, missing_pwm=True)
+        if self._is_reliable_pwm(record):
+            return ""
+        return self._pwm_exclusion_reason(record, missing_pwm=False)
+
+    def _primary_exclusion_reason(self, movement_reason: str, pwm_reason: str, group_reason: str) -> str:
+        """Choose one primary reason while preserving secondary reasons for auditability."""
+
+        return movement_reason or pwm_reason or group_reason
+
+    def _pwm_exclusion_reason(self, record: ActivityRecord, missing_pwm: bool) -> str:
+        """Return a specific distribution exclusion reason for PWM-related failures."""
+
+        status_reason_map = {
+            PWM_STATUS_LATEST_BEFORE_TOO_FAR: "LatestBeforeStartTooFar",
+            PWM_STATUS_NO_RELEVANT_LOG_FILE: "NoRelevantLogFileFound",
+            PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE: "NoControlLogsAvailable",
+            PWM_STATUS_NO_SAME_AXIS_IN_FOLDER: "NoSameAxisPWMInFolder",
+            PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM: "RelevantLogFileLacksAxisPWM",
+            PWM_STATUS_NO_EARLIER_PWM_FOR_AXIS: "NoEarlierPWMForAxis",
+            PWM_STATUS_MATCHED_NEAREST: "NearestLogFilePWMNotAllowedForDistribution",
+            PWM_STATUS_MATCHED_NEAREST_FUTURE: "NearestFuturePWMNotAllowedForDistribution",
+            PWM_STATUS_MATCHED_LATEST_BEFORE: "LatestBeforePWMNotAllowedForDistribution",
+            PWM_STATUS_MATCHED_CARRY_FORWARD: "CarryForwardPWMNotAllowedForDistribution",
+            PWM_STATUS_CONFLICT: "PWMConflictInSourceFile",
+        }
+        if record.pwm_match_status in status_reason_map:
+            return status_reason_map[record.pwm_match_status]
+        if record.pwm_conflict:
+            return "PWMConflictInSourceFile"
+        return "MissingPWM" if missing_pwm else "UnreliablePWM"
+
+    def _eligibility_exclusion_reason(self, record: ActivityRecord) -> str:
+        """Return a clearer eligibility reason than the aggregate duration filter."""
+
+        if record.match_status == "Diagnostic":
+            return "Diagnostic"
+        if record.match_status == "Parse Warning":
+            return "ParseWarning"
+        if record.match_status != STATUS_MATCHED:
+            return "NotMatched"
+        if record.duration_status != DURATION_STATUS_VALID or record.duration_warning:
+            return "DurationInvalid"
+        return "InvalidStatusOrDuration"
 
     def _normalize_pwm_percent(self, value: object) -> float | None:
         """Normalize signed PWM values to an absolute percentage."""
@@ -637,6 +857,32 @@ class DistributionAnalyzer:
             first.movement_distance_group_value,
             first.rule_id,
         )
+
+    def _group_key_sort_key(self, group_key: DistributionGroupKey) -> tuple:
+        """Sort tuple group keys with stable handling for missing numeric values."""
+
+        txt_source_file, pwm_percent, axis, movement_distance_group_value, rule_id = group_key
+        return (
+            txt_source_file,
+            self._sort_numeric_key(pwm_percent),
+            axis,
+            self._sort_numeric_key(movement_distance_group_value),
+            rule_id,
+        )
+
+    def _numeric_key_value(self, value: float | None) -> float | str:
+        """Normalize optional numeric values for deterministic tuple grouping."""
+
+        if value is None or not self._is_numeric(value):
+            return "Missing"
+        return float(value)
+
+    def _sort_numeric_key(self, value: float | str) -> tuple[int, float | str]:
+        """Build a sort key for mixed numeric and missing tuple fields."""
+
+        if self._is_numeric(value):
+            return (0, float(value))
+        return (1, str(value))
 
     def _position_values_mixed(self, rows: list[DistributionInputRow]) -> bool:
         """Return whether any position or raw distance field varies inside a group."""

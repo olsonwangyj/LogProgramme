@@ -13,6 +13,7 @@ from .config import (
     DISTRIBUTION_ALLOW_LATEST_BEFORE_PWM,
     DISTRIBUTION_ALLOW_NEAREST_PWM,
     DISTRIBUTION_ALLOWED_PWM_MATCH_STATUSES,
+    DISTRIBUTION_CHART_BLOCK_HEIGHT,
     DISTRIBUTION_CHART_FOLDER_MODE,
     DISTRIBUTION_ALLOW_PWM_CARRY_FORWARD,
     DISTRIBUTION_DISTANCE_GROUPING_MODE,
@@ -41,6 +42,13 @@ from .config import (
     PWM_STATUS_MATCHED_CONTAINING,
     PWM_STATUS_MATCHED_LATEST_BEFORE,
     PWM_STATUS_MATCHED_NEAREST,
+    PWM_STATUS_MATCHED_NEAREST_FUTURE,
+    PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE,
+    PWM_STATUS_NO_RELEVANT_LOG_FILE,
+    PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
+    PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
+    PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+    PWM_STATUS_CONFLICT,
 )
 from .chart_generator import NormalDistributionChartGenerator
 from .distribution import DistributionAnalysisResult, DistributionAnalyzer
@@ -122,6 +130,7 @@ class LogAnalysisService:
         )
         all_records = self._append_parse_warnings(enriched_records, main_result.warnings, folder_result)
         validated_records = self._validator.validate(all_records)
+        self._apply_runtime_movement_distance_selection(validated_records, distribution_distance_source)
         distribution_result = None
         distribution_allowed_pwm_statuses = self._build_distribution_allowed_pwm_statuses(
             allow_nearest_pwm=distribution_allow_nearest_pwm,
@@ -143,13 +152,15 @@ class LogAnalysisService:
                 allowed_pwm_match_statuses=distribution_allowed_pwm_statuses,
                 distribution_allow_carry_forward_pwm=distribution_allow_carry_forward_pwm,
             )
-        log_coverage_summary = self._build_log_coverage_summary(
+        log_coverage_summary, log_coverage_gaps = self._build_log_coverage_report(
             normalized_paths=normalized_paths,
             main_result=main_result,
             folder_result=folder_result,
             records=validated_records,
             distribution_result=distribution_result,
             distribution_allowed_pwm_match_statuses=distribution_allowed_pwm_statuses,
+            allow_pwm_carry_forward=allow_pwm_carry_forward,
+            distribution_allow_carry_forward_pwm=distribution_allow_carry_forward_pwm,
         )
         report_frames = self._summary_generator.build_report_frames(
             validated_records,
@@ -157,6 +168,7 @@ class LogAnalysisService:
             diagnostics=main_result.diagnostics,
             distribution_result=distribution_result,
             log_coverage_summary=log_coverage_summary,
+            log_coverage_gaps=log_coverage_gaps,
         )
         run_result = self._build_run_result(
             output_path=normalized_paths["output"],
@@ -203,8 +215,17 @@ class LogAnalysisService:
                     run_result.distribution_excluded_missing_true_distance_count
                 ),
                 "distribution_excluded_unreliable_pwm_count": run_result.distribution_excluded_unreliable_pwm_count,
+                "distribution_exclusion_reason_counts": "; ".join(
+                    f"{reason}={count}"
+                    for reason, count in sorted(run_result.distribution_exclusion_reason_counts.items())
+                ),
                 "embed_distribution_charts": embed_distribution_charts,
                 "log_coverage_warning": self._coverage_warning_from_rows(log_coverage_summary),
+                "pwm_carry_forward_enabled": allow_pwm_carry_forward,
+                "distribution_allows_carry_forward_pwm": distribution_allow_carry_forward_pwm,
+                "distribution_distance_source": distribution_distance_source,
+                "distribution_distance_grouping_mode": distribution_distance_grouping_mode,
+                "movement_distance_bin_size": movement_distance_bin_size,
             },
         )
         return run_result
@@ -312,6 +333,24 @@ class LogAnalysisService:
         self._assign_distribution_chart_anchors(result, embed_distribution_charts)
         return result
 
+    def _apply_runtime_movement_distance_selection(
+        self,
+        records: list[ActivityRecord],
+        distribution_distance_source: str,
+    ) -> None:
+        """Populate Details movement-distance display fields using the current run option."""
+
+        analyzer = DistributionAnalyzer(
+            distance_source=distribution_distance_source,
+            logger=self._logger.getChild("details_movement_distance"),
+        )
+        for record in records:
+            movement = analyzer.derive_movement_distance(record)
+            record.movement_distance = movement.movement_distance
+            record.movement_distance_source = movement.movement_distance_source
+            record.movement_distance_method = movement.movement_distance_method
+            record.movement_distance_notes = movement.movement_distance_notes
+
     def _resolve_distribution_chart_output_dir(
         self,
         output_path: Path,
@@ -347,7 +386,7 @@ class LogAnalysisService:
                 continue
             if embed_distribution_charts:
                 stats.chart_sheet_anchor = f"Distribution Charts!A{current_row}"
-                current_row += 43
+                current_row += DISTRIBUTION_CHART_BLOCK_HEIGHT
             else:
                 stats.chart_sheet_anchor = "External chart file"
 
@@ -362,13 +401,14 @@ class LogAnalysisService:
         statuses = set(DISTRIBUTION_ALLOWED_PWM_MATCH_STATUSES)
         if allow_nearest_pwm:
             statuses.add(PWM_STATUS_MATCHED_NEAREST)
+            statuses.add(PWM_STATUS_MATCHED_NEAREST_FUTURE)
         if allow_latest_before_pwm:
             statuses.add(PWM_STATUS_MATCHED_LATEST_BEFORE)
         if allow_carry_forward_pwm:
             statuses.add(PWM_STATUS_MATCHED_CARRY_FORWARD)
         return statuses
 
-    def _build_log_coverage_summary(
+    def _build_log_coverage_report(
         self,
         normalized_paths: dict[str, Path],
         main_result,
@@ -376,8 +416,10 @@ class LogAnalysisService:
         records: list[ActivityRecord],
         distribution_result: DistributionAnalysisResult | None,
         distribution_allowed_pwm_match_statuses: set[str],
-    ) -> list[dict[str, object]]:
-        """Build a one-row summary showing control-log coverage for the TXT timeline."""
+        allow_pwm_carry_forward: bool,
+        distribution_allow_carry_forward_pwm: bool,
+    ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
+        """Build coverage summary and one row per uncovered TXT interval."""
 
         txt_times = [
             item.timestamp
@@ -386,11 +428,16 @@ class LogAnalysisService:
         ]
         txt_start = min(txt_times) if txt_times else None
         txt_end = max(txt_times) if txt_times else None
-        control_intervals = [
-            (item.file_start_time, item.file_end_time)
+        control_interval_infos = [
+            {
+                "start": item.file_start_time,
+                "end": item.file_end_time,
+                "file": item.source_path.name,
+            }
             for item in folder_result.files
             if item.file_start_time is not None and item.file_end_time is not None
         ]
+        control_intervals = [(item["start"], item["end"]) for item in control_interval_infos]
         log_starts = [start for start, _ in control_intervals]
         log_ends = [end for _, end in control_intervals]
         control_start = min(log_starts) if log_starts else None
@@ -422,13 +469,26 @@ class LogAnalysisService:
         )
         containing_pwm_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_MATCHED_CONTAINING)
         nearest_pwm_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_MATCHED_NEAREST)
+        nearest_future_pwm_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_MATCHED_NEAREST_FUTURE)
         latest_before_pwm_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_MATCHED_LATEST_BEFORE)
         carry_forward_pwm_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_MATCHED_CARRY_FORWARD)
         without_pwm_count = sum(record.pwm_percent is None for record in valid_duration_records)
-        exclusions = distribution_result.exclusion_counts if distribution_result is not None else {}
-        excluded_due_to_pwm_reliability = exclusions.get("missing_pwm", 0) + exclusions.get("unreliable_pwm", 0)
+        no_control_logs_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_NO_CONTROL_LOGS_AVAILABLE)
+        no_relevant_log_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_NO_RELEVANT_LOG_FILE)
+        no_same_axis_pwm_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_NO_SAME_AXIS_IN_FOLDER)
+        relevant_log_lacks_axis_count = self._count_pwm_status(
+            valid_duration_records,
+            PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
+        )
+        latest_before_too_far_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_LATEST_BEFORE_TOO_FAR)
+        pwm_conflict_count = self._count_pwm_status(valid_duration_records, PWM_STATUS_CONFLICT)
+        excluded_due_to_pwm_reliability = (
+            sum(1 for item in distribution_result.exclusions if item.pwm_exclusion_reason)
+            if distribution_result is not None
+            else 0
+        )
         notes = self._build_coverage_notes(coverage_ratio, len(uncovered_spans), excluded_due_to_pwm_reliability)
-        return [
+        summary_rows = [
             {
                 "TXT Source File": normalized_paths["txt_file"].name,
                 "TXT Start Time": format_log_timestamp(txt_start),
@@ -448,13 +508,95 @@ class LogAnalysisService:
                 "Rows With Distribution-Accepted PWM": distribution_accepted_pwm_count,
                 "Rows With Containing-File PWM": containing_pwm_count,
                 "Rows With Nearest-File PWM": nearest_pwm_count,
+                "Rows With Nearest-Future PWM": nearest_future_pwm_count,
                 "Rows With Latest-Before PWM": latest_before_pwm_count,
                 "Rows With Carry-Forward PWM": carry_forward_pwm_count,
                 "Rows Without PWM": without_pwm_count,
+                "Rows With No Control Logs Available": no_control_logs_count,
+                "Rows With No Relevant Log File": no_relevant_log_count,
+                "Rows With No Same-Axis PWM In Folder": no_same_axis_pwm_count,
+                "Rows With Relevant Log File Lacking Axis PWM": relevant_log_lacks_axis_count,
+                "Rows With Latest-Before Too Far": latest_before_too_far_count,
+                "Rows With PWM Conflict": pwm_conflict_count,
                 "Rows Excluded From Distribution Due To PWM Reliability": excluded_due_to_pwm_reliability,
+                "PWM Carry Forward Enabled": allow_pwm_carry_forward,
+                "Distribution Allows Carry Forward PWM": distribution_allow_carry_forward_pwm,
                 "Notes": notes,
             }
         ]
+        gap_rows = self._build_log_coverage_gap_rows(
+            normalized_paths["txt_file"].name,
+            uncovered_spans,
+            control_interval_infos,
+        )
+        return summary_rows, gap_rows
+
+    def _build_log_coverage_gap_rows(
+        self,
+        txt_source_file: str,
+        uncovered_spans: list[tuple[object, object]],
+        control_interval_infos: list[dict[str, object]] | None = None,
+    ) -> list[dict[str, object]]:
+        """Convert uncovered coverage spans into workbook rows."""
+
+        intervals = sorted(control_interval_infos or [], key=lambda item: (item["start"], item["end"]))
+        rows: list[dict[str, object]] = []
+        for index, (start, end) in enumerate(uncovered_spans, start=1):
+            previous = self._nearest_previous_control_interval(start, intervals)
+            next_item = self._nearest_next_control_interval(end, intervals)
+            gap_type = self._coverage_gap_type(previous, next_item, intervals)
+            rows.append(
+                {
+                    "TXT Source File": txt_source_file,
+                    "Gap Index": index,
+                    "Gap Start Time": format_log_timestamp(start),
+                    "Gap End Time": format_log_timestamp(end),
+                    "Gap Duration (s)": round(self._duration_seconds(start, end) or 0.0, 3),
+                    "Gap Type": gap_type,
+                    "Nearest Previous Control Log File": previous.get("file") if previous else "",
+                    "Nearest Previous Control Log End Time": format_log_timestamp(previous.get("end") if previous else None),
+                    "Nearest Next Control Log File": next_item.get("file") if next_item else "",
+                    "Nearest Next Control Log Start Time": format_log_timestamp(next_item.get("start") if next_item else None),
+                    "Notes": "TXT interval not covered by any parsed control-log interval.",
+                }
+            )
+        return rows
+
+    def _nearest_previous_control_interval(
+        self,
+        gap_start,
+        intervals: list[dict[str, object]],
+    ) -> dict[str, object] | None:
+        """Return the nearest control-log interval ending before the gap starts."""
+
+        previous = [item for item in intervals if item["end"] <= gap_start]
+        return max(previous, key=lambda item: item["end"]) if previous else None
+
+    def _nearest_next_control_interval(
+        self,
+        gap_end,
+        intervals: list[dict[str, object]],
+    ) -> dict[str, object] | None:
+        """Return the nearest control-log interval starting after the gap ends."""
+
+        future = [item for item in intervals if item["start"] >= gap_end]
+        return min(future, key=lambda item: item["start"]) if future else None
+
+    def _coverage_gap_type(
+        self,
+        previous: dict[str, object] | None,
+        next_item: dict[str, object] | None,
+        intervals: list[dict[str, object]],
+    ) -> str:
+        """Classify an uncovered TXT span relative to parsed control-log intervals."""
+
+        if not intervals:
+            return "NoControlLogsAvailable"
+        if previous is None:
+            return "BeforeFirstControlLog"
+        if next_item is None:
+            return "AfterLastControlLog"
+        return "BetweenControlLogs"
 
     def _record_has_distribution_accepted_pwm(
         self,
@@ -571,6 +713,14 @@ class LogAnalysisService:
 
         self._logger.info("Building run summary")
         distribution_exclusions = distribution_result.exclusion_counts if distribution_result is not None else {}
+        pwm_not_allowed_reasons = {
+            "NearestLogFilePWMNotAllowedForDistribution",
+            "NearestFuturePWMNotAllowedForDistribution",
+            "LatestBeforePWMNotAllowedForDistribution",
+            "CarryForwardPWMNotAllowedForDistribution",
+            "PWMConflictInSourceFile",
+            "UnreliablePWM",
+        }
         return AnalysisRunResult(
             output_path=output_path,
             txt_axis_event_count=txt_axis_event_count,
@@ -601,11 +751,12 @@ class LogAnalysisService:
             if distribution_result is not None
             else 0,
             distribution_output_dir=distribution_result.chart_output_dir if distribution_result is not None else None,
-            distribution_excluded_missing_pwm_count=distribution_exclusions.get("missing_pwm", 0),
-            distribution_excluded_missing_distance_count=distribution_exclusions.get("missing_movement_distance", 0),
-            distribution_excluded_missing_true_distance_count=distribution_exclusions.get(
-                "missing_true_movement_distance",
-                0,
+            distribution_excluded_missing_pwm_count=distribution_exclusions.get("MissingPWM", 0),
+            distribution_excluded_missing_distance_count=distribution_exclusions.get("MissingTrueMovementDistance", 0),
+            distribution_excluded_missing_true_distance_count=distribution_exclusions.get("MissingTrueMovementDistance", 0),
+            distribution_excluded_unreliable_pwm_count=sum(
+                distribution_exclusions.get(reason, 0)
+                for reason in pwm_not_allowed_reasons
             ),
-            distribution_excluded_unreliable_pwm_count=distribution_exclusions.get("unreliable_pwm", 0),
+            distribution_exclusion_reason_counts=dict(distribution_exclusions),
         )

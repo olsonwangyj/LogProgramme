@@ -275,8 +275,10 @@ class ReportFrames:
     distribution_summary: object | None = None
     distribution_raw_data: object | None = None
     distribution_chart_metadata: object | None = None
+    distribution_eligibility_summary: object | None = None
     distribution_exclusion_summary: object | None = None
     log_coverage_summary: object | None = None
+    log_coverage_gaps: object | None = None
 
 
 @dataclass
@@ -309,3 +311,4 @@ class AnalysisRunResult:
     distribution_excluded_missing_distance_count: int = 0
     distribution_excluded_missing_true_distance_count: int = 0
     distribution_excluded_unreliable_pwm_count: int = 0
+    distribution_exclusion_reason_counts: dict[str, int] = field(default_factory=dict)

@@ -15,7 +15,11 @@ from .config import (
     NORMAL_DISTRIBUTION_CHART_FORMAT,
     NORMAL_DISTRIBUTION_MAX_CHARTS,
 )
-from .distribution import DistributionInputRow, DistributionStats
+from .distribution import (
+    DistributionInputRow,
+    DistributionStats,
+    format_movement_distance_group_value,
+)
 
 
 class NormalDistributionChartGenerator:
@@ -175,8 +179,18 @@ class NormalDistributionChartGenerator:
         std_text = self._format_number(stats.sample_std_s, "NA", 3)
         return (
             f"{stats.txt_source_file} | Axis {stats.axis} | PWM {stats.pwm_percent:g}% | "
-            f"Distance {stats.movement_distance_group_value:.2f} ({stats.movement_distance_source}) | {stats.rule_id}\n"
+            f"Distance {self._distance_label(stats)} ({stats.movement_distance_source}) | {stats.rule_id}\n"
             f"N={stats.sample_count}, Mean={mean_text}s, SD={std_text}s"
+        )
+
+    def _distance_label(self, stats: DistributionStats) -> str:
+        """Return the chart display label for the grouped movement distance."""
+
+        return format_movement_distance_group_value(
+            stats.movement_distance_group_value,
+            stats.movement_distance_grouping_mode,
+            stats.movement_distance_bin_size,
+            stats.movement_distance_round_digits,
         )
 
     def _chart_filename(self, stats: DistributionStats, position: int) -> str:

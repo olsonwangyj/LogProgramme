@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import math
+import shutil
+import subprocess
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -12,12 +15,15 @@ from openpyxl import load_workbook
 from backend.log_axis_activity_analyzer.chart_generator import NormalDistributionChartGenerator
 from backend.log_axis_activity_analyzer.config import (
     DEFAULT_EVENT_RULES,
+    DISTRIBUTION_CHART_BLOCK_HEIGHT,
     DISTRIBUTION_SUMMARY_COLUMNS,
     DURATION_STATUS_VALID,
+    LOG_COVERAGE_GAPS_COLUMNS,
     LOG_COVERAGE_SUMMARY_COLUMNS,
     PWM_STATUS_LATEST_BEFORE_TOO_FAR,
     PWM_STATUS_MATCHED_CONTAINING,
     PWM_STATUS_MATCHED_NEAREST,
+    PWM_STATUS_MATCHED_NEAREST_FUTURE,
     STATUS_MATCHED,
 )
 from backend.log_axis_activity_analyzer.distribution import DistributionAnalyzer
@@ -110,7 +116,21 @@ def _matched_records_from_txt(tmp_path: Path, lines: list[str]) -> list[Activity
     txt_path = _write_lines(tmp_path / "movement.txt", lines)
     parse_result = MainLogParser(TextFileLoader()).parse(txt_path)
     records = EventMatcher(DEFAULT_EVENT_RULES).build_activity_records(parse_result.timeline)
-    return ActivityValidator().validate(records)
+    validated = ActivityValidator().validate(records)
+    _apply_distance_selection(validated)
+    return validated
+
+
+def _apply_distance_selection(records: list[ActivityRecord], distance_source: str = "actual_preferred") -> None:
+    """Apply the same runtime movement-distance selection the service uses for Details."""
+
+    analyzer = DistributionAnalyzer(distance_source=distance_source)
+    for record in records:
+        movement = analyzer.derive_movement_distance(record)
+        record.movement_distance = movement.movement_distance
+        record.movement_distance_source = movement.movement_distance_source
+        record.movement_distance_method = movement.movement_distance_method
+        record.movement_distance_notes = movement.movement_distance_notes
 
 
 def _stats_for(records: list[ActivityRecord]):
@@ -121,6 +141,28 @@ def _stats_for(records: list[ActivityRecord]):
     grouped = analyzer.group_rows(rows)
     stats = analyzer.compute_group_stats(grouped)
     return analyzer, rows, grouped, stats
+
+
+def test_matcher_keeps_raw_distance_components_until_runtime_selection(tmp_path: Path) -> None:
+    """Matcher should not bake the global distribution distance source into Details fields."""
+
+    txt_path = _write_lines(
+        tmp_path / "raw.txt",
+        [
+            "2026-04-30 09:50:25:829 MCU   @[Y] max: 0.00",
+            "2026-04-30 09:50:27:029 MCU   @[Y] start clearing: -19.50",
+            "2026-04-30 09:50:33:666 MCU   @[Y] motor cleared",
+            "2026-04-30 09:50:33:667 MCU   @[Y] min: -29.51",
+        ],
+    )
+    parse_result = MainLogParser(TextFileLoader()).parse(txt_path)
+    records = EventMatcher(DEFAULT_EVENT_RULES).build_activity_records(parse_result.timeline)
+
+    record = next(item for item in records if item.match_status == STATUS_MATCHED)
+    assert record.movement_commanded_distance == pytest.approx(19.50)
+    assert record.movement_actual_distance == pytest.approx(29.51)
+    assert record.movement_distance is None
+    assert record.movement_distance_source == ""
 
 
 def test_distribution_grouping_key_splits_only_on_configured_fields() -> None:
@@ -464,7 +506,7 @@ def test_missing_start_position_is_not_used_for_distribution_by_default(tmp_path
     assert rows == []
     assert grouped == {}
     assert stats == []
-    assert analyzer.exclusion_counts["missing_true_movement_distance"] == 1
+    assert analyzer.exclusion_counts["MissingTrueMovementDistance"] == 1
 
 
 def test_distribution_grouping_uses_corrected_distance() -> None:
@@ -527,6 +569,74 @@ def test_distance_binning_groups_small_float_variations_but_keeps_raw_values() -
     assert near_group.position_values_mixed is True
 
 
+def test_exact_distance_grouping_does_not_round_group_keys() -> None:
+    """Exact mode should keep near-but-different distances as separate groups."""
+
+    analyzer = DistributionAnalyzer(distance_grouping_mode="exact")
+    rows = analyzer.build_input_rows(
+        [
+            _record(txt_offset=0, movement_distance=23.861, movement_commanded_distance=23.861),
+            _record(txt_offset=20, movement_distance=23.862, movement_commanded_distance=23.862),
+        ],
+        "sample.txt",
+    )
+    grouped = analyzer.group_rows(rows)
+    stats = analyzer.compute_group_stats(grouped)
+
+    assert len(grouped) == 2
+    assert sorted(item.movement_distance_group_value for item in stats) == pytest.approx([23.861, 23.862])
+    assert "23.861" in stats[0].group_id or "23.862" in stats[0].group_id
+
+
+def test_round_digits_distance_grouping_can_merge_exact_variations() -> None:
+    """Round-digits mode should group values that round to the same configured value."""
+
+    analyzer = DistributionAnalyzer(distance_grouping_mode="round_digits", movement_distance_round_digits=2)
+    rows = analyzer.build_input_rows(
+        [
+            _record(txt_offset=0, movement_distance=23.861, movement_commanded_distance=23.861),
+            _record(txt_offset=20, movement_distance=23.862, movement_commanded_distance=23.862),
+        ],
+        "sample.txt",
+    )
+    grouped = analyzer.group_rows(rows)
+
+    assert len(grouped) == 1
+    assert next(iter(grouped.values()))[0].movement_distance_group_value == pytest.approx(23.86)
+
+
+def test_bin_distance_display_uses_bin_precision() -> None:
+    """Distance display should follow bin precision instead of a fixed two-decimal format."""
+
+    analyzer = DistributionAnalyzer(distance_grouping_mode="bin", movement_distance_bin_size=0.05)
+    rows = analyzer.build_input_rows(
+        [_record(txt_offset=0, movement_distance=23.861, movement_commanded_distance=23.861)],
+        "sample.txt",
+    )
+    grouped = analyzer.group_rows(rows)
+    stats = analyzer.compute_group_stats(grouped)
+
+    assert stats[0].movement_distance_group_value == pytest.approx(23.85)
+    assert "D23.85" in stats[0].group_id
+
+
+def test_chart_title_uses_group_distance_display_and_source() -> None:
+    """Chart titles should show grouped distance precision and movement source."""
+
+    analyzer = DistributionAnalyzer(distance_grouping_mode="exact")
+    rows = analyzer.build_input_rows(
+        [_record(txt_offset=0, movement_distance=23.861, movement_commanded_distance=23.861)],
+        "sample.txt",
+    )
+    grouped = analyzer.group_rows(rows)
+    stats = analyzer.compute_group_stats(grouped)
+
+    title = NormalDistributionChartGenerator()._chart_title(stats[0])
+
+    assert "Distance 23.861 (CommandTargetPosition)" in title
+    assert "Distance 23.86 " not in title
+
+
 def test_unreliable_pwm_is_excluded_from_distribution() -> None:
     """Uncertain PWM evidence should not be used for same-PWM distribution grouping."""
 
@@ -541,7 +651,36 @@ def test_unreliable_pwm_is_excluded_from_distribution() -> None:
     assert rows == []
     assert grouped == {}
     assert stats == []
-    assert analyzer.exclusion_counts["unreliable_pwm"] == 1
+    assert analyzer.exclusion_counts["LatestBeforeStartTooFar"] == 1
+
+
+def test_latest_before_too_far_exclusion_is_specific() -> None:
+    """PWM time-window exclusions should not be reported as generic missing PWM."""
+
+    analyzer = DistributionAnalyzer()
+    record = _record(pwm_percent=None, pwm_match_status=PWM_STATUS_LATEST_BEFORE_TOO_FAR)
+    record.pwm_missing_reason = "The latest PWM record before the activity for axis Z was too far away."
+    record.pwm_time_delta_ms = 599000
+
+    rows = analyzer.build_input_rows([record], "sample.txt")
+
+    assert rows == []
+    assert analyzer.exclusions[0].reason == "LatestBeforeStartTooFar"
+    assert analyzer.exclusions[0].pwm_match_status == PWM_STATUS_LATEST_BEFORE_TOO_FAR
+    assert analyzer.exclusions[0].pwm_time_delta_ms == 599000
+
+
+def test_nearest_future_pwm_exclusion_is_specific() -> None:
+    """Nearest future PWM should be clearly labeled when distribution rejects it."""
+
+    analyzer = DistributionAnalyzer()
+    record = _record(pwm_match_status=PWM_STATUS_MATCHED_NEAREST_FUTURE)
+
+    rows = analyzer.build_input_rows([record], "sample.txt")
+
+    assert rows == []
+    assert analyzer.exclusions[0].reason == "NearestFuturePWMNotAllowedForDistribution"
+    assert analyzer.exclusions[0].pwm_match_status == PWM_STATUS_MATCHED_NEAREST_FUTURE
 
 
 def test_nearest_pwm_is_excluded_from_distribution_by_default() -> None:
@@ -558,7 +697,35 @@ def test_nearest_pwm_is_excluded_from_distribution_by_default() -> None:
     assert rows == []
     assert grouped == {}
     assert stats == []
-    assert analyzer.exclusion_counts["unreliable_pwm"] == 1
+    assert analyzer.exclusion_counts["NearestLogFilePWMNotAllowedForDistribution"] == 1
+
+
+def test_distribution_exclusion_keeps_movement_reason_when_pwm_is_also_bad() -> None:
+    """Rows with multiple exclusion causes should show movement and PWM reasons."""
+
+    analyzer = DistributionAnalyzer()
+    record = _record(
+        rule_id="search_reference",
+        start_event="start searching reference",
+        end_event="reference found",
+        start_value=None,
+        movement_start_position=None,
+        movement_target_position=None,
+        movement_commanded_distance=None,
+        movement_actual_distance=None,
+        movement_distance=None,
+        movement_distance_method="MissingValue",
+        pwm_match_status=PWM_STATUS_MATCHED_NEAREST_FUTURE,
+    )
+
+    rows = analyzer.build_input_rows([record], "sample.txt")
+
+    assert rows == []
+    exclusion = analyzer.exclusions[0]
+    assert exclusion.reason == "MissingTrueMovementDistance"
+    assert exclusion.movement_distance_exclusion_reason == "MissingTrueMovementDistance"
+    assert exclusion.pwm_exclusion_reason == "NearestFuturePWMNotAllowedForDistribution"
+    assert "NearestFuturePWMNotAllowedForDistribution" in exclusion.secondary_reasons
 
 
 def test_nearest_pwm_can_be_explicitly_allowed_for_distribution() -> None:
@@ -693,6 +860,8 @@ def test_excel_export_includes_distribution_sheets_and_chart_paths(tmp_path: Pat
         "Distribution Raw Data",
         "Distribution Charts",
         "Log Coverage Summary",
+        "Log Coverage Gaps",
+        "Distribution Eligibility",
         "Distribution Exclusion Summary",
     } <= set(workbook.sheetnames)
     summary_sheet = workbook["Distribution Summary"]
@@ -709,13 +878,170 @@ def test_excel_export_includes_distribution_sheets_and_chart_paths(tmp_path: Pat
     assert row[header_index["Example Movement Target Position"]] == -30
     assert row[header_index["Example Movement Commanded Distance"]] == 20
     assert row[header_index["Movement Distance Group Value"]] == 20
+    assert row[header_index["Selected Group Distance"]] == 20
     assert row[header_index["Movement Distance Rounded"]] == 20
     assert row[header_index["Movement Distance Method"]] == "KnownStartPositionToTarget"
     assert row[header_index["Movement Distance Source"]] == "CommandTargetPosition"
     assert row[header_index["Rule ID"]] == "move_to_home"
     assert row[header_index["Sample Count"]] == 5
+    assert row[header_index["Mean Duration (s)"]] == pytest.approx(11.999)
+    assert row[header_index["Sample Std Dev Duration (s)"]] == pytest.approx(math.sqrt(2.5))
+    assert row[header_index["Sample Variance Duration (s^2)"]] == pytest.approx(2.5)
+    assert row[header_index["Normal Fit Mean (s)"]] == pytest.approx(11.999)
+    assert row[header_index["Normal Fit Std Dev (s)"]] == pytest.approx(math.sqrt(2.5))
+    assert row[header_index["Chart Status"]] == "ChartGenerated"
     assert chart_path.exists()
     assert chart_path.stat().st_size > 0
+
+
+def test_service_commanded_only_keeps_details_and_distribution_consistent(tmp_path: Path) -> None:
+    """Runtime distance source should drive both Details selected distance and distribution grouping."""
+
+    txt_lines: list[str] = []
+    for index in range(2):
+        base = datetime(2026, 1, 1, 0, index, 0)
+        txt_lines.extend(
+            [
+                f"{base.strftime('%Y-%m-%d %H:%M:%S')}:000 MCU   @[Y] max: 0.00",
+                f"{(base + timedelta(milliseconds=1)).strftime('%Y-%m-%d %H:%M:%S')}:001 MCU   @[Y] start clearing: -19.50",
+                f"{(base + timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')}:000 MCU   @[Y] motor cleared",
+                f"{(base + timedelta(seconds=5, milliseconds=1)).strftime('%Y-%m-%d %H:%M:%S')}:001 MCU   @[Y] min: -29.51",
+            ]
+        )
+    txt_path = _write_lines(tmp_path / "commanded.txt", txt_lines)
+    log_folder = tmp_path / "logs"
+    log_folder.mkdir()
+    _write_lines(
+        log_folder / "y.log",
+        [
+            "2026-01-01 00:00:00:000 [OUT] sample",
+            "                              [N4:Y] RUN 0 80 (80)",
+            "2026-01-01 00:02:00:000 [OUT] sample",
+        ],
+    )
+    output_path = tmp_path / "commanded.xlsx"
+
+    LogAnalysisService().run_analysis(
+        txt_file_path=txt_path,
+        log_folder_path=log_folder,
+        output_path=output_path,
+        distribution_distance_source="commanded_only",
+        max_distribution_charts=2,
+    )
+
+    workbook = load_workbook(output_path, data_only=True)
+    details = workbook["Details"]
+    details_headers = [cell.value for cell in details[1]]
+    details_index = {header: index for index, header in enumerate(details_headers)}
+    detail_row = next(
+        row
+        for row in details.iter_rows(min_row=2, values_only=True)
+        if row[details_index["Match Status"]] == STATUS_MATCHED
+    )
+    assert detail_row[details_index["Movement Commanded Distance"]] == pytest.approx(19.5)
+    assert detail_row[details_index["Movement Actual Distance"]] == pytest.approx(29.51)
+    assert detail_row[details_index["Selected Movement Distance"]] == pytest.approx(19.5)
+    assert detail_row[details_index["Movement Distance Source"]] == "CommandTargetPosition"
+
+    summary = workbook["Distribution Summary"]
+    summary_headers = [cell.value for cell in summary[1]]
+    summary_index = {header: index for index, header in enumerate(summary_headers)}
+    summary_row = next(summary.iter_rows(min_row=2, values_only=True))
+    assert summary_row[summary_index["Movement Distance Group Value"]] == pytest.approx(19.5)
+    assert summary_row[summary_index["Movement Distance Source"]] == "CommandTargetPosition"
+
+
+def test_distribution_charts_sheet_explains_no_generated_charts(tmp_path: Path) -> None:
+    """When all groups are below the chart threshold, Excel should explain why charts are absent."""
+
+    txt_path = _write_lines(
+        tmp_path / "single-sample.txt",
+        [
+            "2026-01-01 00:00:00:000 MCU   @[Z] min: -50.00",
+            "2026-01-01 00:00:01:000 MCU   @[Z] start moving to home: -30.00",
+            "2026-01-01 00:00:02:000 MCU   @[Z] motor homed",
+        ],
+    )
+    log_folder = tmp_path / "logs"
+    log_folder.mkdir()
+    _write_lines(
+        log_folder / "z.log",
+        [
+            "2026-01-01 00:00:00:000 [OUT] sample",
+            "                              [N12:Z] RUN 0 80 (80)",
+            "2026-01-01 00:00:10:000 [OUT] sample",
+        ],
+    )
+    output_path = tmp_path / "single-sample.xlsx"
+
+    result = LogAnalysisService().run_analysis(
+        txt_file_path=txt_path,
+        log_folder_path=log_folder,
+        output_path=output_path,
+        max_distribution_charts=5,
+    )
+
+    workbook = load_workbook(output_path, data_only=True)
+    assert result.distribution_group_count == 1
+    assert result.distribution_chart_count == 0
+    assert "Distribution Charts" in workbook.sheetnames
+    message = workbook["Distribution Charts"].cell(row=1, column=1).value
+    assert "No distribution charts were generated because all valid groups had fewer than 2 samples." == message
+
+
+def test_distribution_chart_anchors_match_exported_blocks(tmp_path: Path) -> None:
+    """Chart anchors in Distribution Summary should point at real chart metadata blocks."""
+
+    txt_lines: list[str] = []
+    axes = [("X", -32.0, -3.0, "motor reached max pos", "start moving to max pos"), ("Y", -29.0, -10.0, "motor homed", "start moving to home"), ("Z", -50.0, -30.0, "motor homed", "start moving to home")]
+    for axis_index, (axis, start_position, target, end_label, start_label) in enumerate(axes):
+        for sample_index in range(2):
+            base = datetime(2026, 1, 1, 0, axis_index * 10 + sample_index, 0)
+            txt_lines.extend(
+                [
+                    f"{base.strftime('%Y-%m-%d %H:%M:%S')}:000 MCU   @[{axis}] min: {start_position:.2f}",
+                    f"{(base + timedelta(milliseconds=1)).strftime('%Y-%m-%d %H:%M:%S')}:001 MCU   @[{axis}] {start_label}: {target:.2f}",
+                    f"{(base + timedelta(seconds=4 + sample_index)).strftime('%Y-%m-%d %H:%M:%S')}:000 MCU   @[{axis}] {end_label}",
+                ]
+            )
+    txt_path = _write_lines(tmp_path / "anchors.txt", txt_lines)
+    log_folder = tmp_path / "logs"
+    log_folder.mkdir()
+    _write_lines(
+        log_folder / "all.log",
+        [
+            "2026-01-01 00:00:00:000 [OUT] sample",
+            "                              [N3:X] RUN 0 80 (80)",
+            "                              [N4:Y] RUN 0 80 (80)",
+            "                              [N12:Z] RUN 0 80 (80)",
+            "2026-01-01 00:30:00:000 [OUT] sample",
+        ],
+    )
+    output_path = tmp_path / "anchors.xlsx"
+
+    LogAnalysisService().run_analysis(
+        txt_file_path=txt_path,
+        log_folder_path=log_folder,
+        output_path=output_path,
+        max_distribution_charts=3,
+    )
+
+    workbook = load_workbook(output_path, data_only=True)
+    summary_sheet = workbook["Distribution Summary"]
+    headers = [cell.value for cell in summary_sheet[1]]
+    header_index = {header: index for index, header in enumerate(headers)}
+    anchors = [
+        row[header_index["Chart Sheet Anchor / Image ID"]]
+        for row in summary_sheet.iter_rows(min_row=2, values_only=True)
+        if row[header_index["Chart File"]]
+    ]
+    assert anchors == [
+        f"Distribution Charts!A{1 + index * DISTRIBUTION_CHART_BLOCK_HEIGHT}"
+        for index in range(3)
+    ]
+    chart_sheet = workbook["Distribution Charts"]
+    for index in range(3):
+        assert chart_sheet.cell(row=1 + index * DISTRIBUTION_CHART_BLOCK_HEIGHT, column=1).value == "Group ID"
 
 
 def test_log_coverage_summary_warns_when_control_logs_cover_only_a_short_span(tmp_path: Path) -> None:
@@ -762,15 +1088,18 @@ def test_log_coverage_summary_warns_when_control_logs_cover_only_a_short_span(tm
     assert row["Coverage Ratio (%)"] < 1
     assert row["Rows With Distribution-Accepted PWM"] == 1
     assert row["Rows With Containing-File PWM"] == 1
+    assert row["Rows With No Same-Axis PWM In Folder"] >= 1
     assert row["Rows Excluded From Distribution Due To PWM Reliability"] >= 1
     assert "Control log coverage appears incomplete" in row["Notes"]
+    assert "Log Coverage Gaps" in workbook.sheetnames
     exclusion_sheet = workbook["Distribution Exclusion Summary"]
     exclusion_headers = [cell.value for cell in exclusion_sheet[1]]
     exclusion_rows = list(exclusion_sheet.iter_rows(min_row=2, values_only=True))
     exclusion_index = {header: index for index, header in enumerate(exclusion_headers)}
     assert any(
-        row[exclusion_index["Exclusion Reason"]] == "MissingPWM"
+        row[exclusion_index["Exclusion Reason"]] == "NoSameAxisPWMInFolder"
         and row[exclusion_index["Axis"]] == "H"
+        and row[exclusion_index["PWM Match Status"]] == "NoSameAxisPWMInFolder"
         for row in exclusion_rows
     )
 
@@ -823,3 +1152,276 @@ def test_log_coverage_summary_uses_interval_union_not_outer_range(tmp_path: Path
     assert row["Covered Duration (s)"] == pytest.approx(120.0)
     assert row["Coverage Gap Count"] == 1
     assert row["Coverage Ratio (%)"] < 4
+    gaps_sheet = workbook["Log Coverage Gaps"]
+    gap_headers = [cell.value for cell in gaps_sheet[1]]
+    assert gap_headers == LOG_COVERAGE_GAPS_COLUMNS
+    gap_rows = list(gaps_sheet.iter_rows(min_row=2, values_only=True))
+    assert len(gap_rows) == row["Coverage Gap Count"]
+    gap_index = {header: index for index, header in enumerate(gap_headers)}
+    assert gap_rows[0][gap_index["Gap Duration (s)"]] > 3500
+    assert gap_rows[0][gap_index["Gap Type"]] == "BetweenControlLogs"
+    assert gap_rows[0][gap_index["Nearest Previous Control Log File"]] == "a.log"
+    assert gap_rows[0][gap_index["Nearest Next Control Log File"]] == "b.log"
+
+
+def test_log_coverage_gaps_sheet_lists_multiple_uncovered_intervals(tmp_path: Path) -> None:
+    """Multiple gaps from interval-union coverage should be individually auditable."""
+
+    txt_path = _write_lines(
+        tmp_path / "many-gaps.txt",
+        [
+            "2026-01-01 09:00:00:000 MCU   @[Z] min: -50.00",
+            "2026-01-01 09:00:01:000 MCU   @[Z] start moving to home: -30.00",
+            "2026-01-01 09:00:02:000 MCU   @[Z] motor homed",
+            "2026-01-01 11:00:00:000 MCU   @[Z] min: -50.00",
+        ],
+    )
+    log_folder = tmp_path / "logs"
+    log_folder.mkdir()
+    _write_lines(
+        log_folder / "a.log",
+        [
+            "2026-01-01 09:10:00:000 [OUT] sample",
+            "                              [N12:Z] RUN 0 80 (80)",
+            "2026-01-01 09:20:00:000 [OUT] sample",
+        ],
+    )
+    _write_lines(
+        log_folder / "b.log",
+        [
+            "2026-01-01 10:00:00:000 [OUT] sample",
+            "                              [N12:Z] RUN 0 80 (80)",
+            "2026-01-01 10:10:00:000 [OUT] sample",
+        ],
+    )
+    output_path = tmp_path / "many-gaps.xlsx"
+
+    LogAnalysisService().run_analysis(
+        txt_file_path=txt_path,
+        log_folder_path=log_folder,
+        output_path=output_path,
+        max_distribution_charts=1,
+    )
+
+    workbook = load_workbook(output_path, data_only=True)
+    summary_sheet = workbook["Log Coverage Summary"]
+    summary_headers = [cell.value for cell in summary_sheet[1]]
+    summary_row = next(summary_sheet.iter_rows(min_row=2, values_only=True))
+    summary = {header: summary_row[index] for index, header in enumerate(summary_headers)}
+    gaps_sheet = workbook["Log Coverage Gaps"]
+    gap_rows = list(gaps_sheet.iter_rows(min_row=2, values_only=True))
+    gap_headers = [cell.value for cell in gaps_sheet[1]]
+    gap_index = {header: index for index, header in enumerate(gap_headers)}
+    gap_types = [row[gap_index["Gap Type"]] for row in gap_rows]
+
+    assert summary["Coverage Gap Count"] == len(gap_rows)
+    assert len(gap_rows) >= 3
+    assert gap_types[0] == "BeforeFirstControlLog"
+    assert "BetweenControlLogs" in gap_types
+    assert gap_types[-1] == "AfterLastControlLog"
+    assert gap_rows[0][gap_index["Nearest Next Control Log File"]] == "a.log"
+    assert gap_rows[-1][gap_index["Nearest Previous Control Log File"]] == "b.log"
+
+
+def test_verbose_without_trace_lines_suppresses_matcher_line_debug(tmp_path: Path) -> None:
+    """CLI --verbose should keep matcher per-line debug logs hidden unless --trace-lines is supplied."""
+
+    txt_path = _write_lines(
+        tmp_path / "verbose.txt",
+        [
+            "2026-01-01 00:00:00:000 MCU   @[Z] min: -50.00",
+            "2026-01-01 00:00:01:000 MCU   @[Z] start moving to home: -30.00",
+            "2026-01-01 00:00:02:000 MCU   @[Z] motor homed",
+        ],
+    )
+    log_folder = tmp_path / "logs"
+    log_folder.mkdir()
+    _write_lines(
+        log_folder / "z.log",
+        [
+            "2026-01-01 00:00:00:000 [OUT] sample",
+            "                              [N12:Z] RUN 0 80 (80)",
+            "2026-01-01 00:00:10:000 [OUT] sample",
+        ],
+    )
+
+    quiet_result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.log_activity_tool",
+            "--txt-file",
+            str(txt_path),
+            "--log-folder",
+            str(log_folder),
+            "--output",
+            str(tmp_path / "quiet.xlsx"),
+            "--no-gui",
+            "--verbose",
+        ],
+        cwd=Path(__file__).resolve().parents[1],
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    trace_result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.log_activity_tool",
+            "--txt-file",
+            str(txt_path),
+            "--log-folder",
+            str(log_folder),
+            "--output",
+            str(tmp_path / "trace.xlsx"),
+            "--no-gui",
+            "--verbose",
+            "--trace-lines",
+        ],
+        cwd=Path(__file__).resolve().parents[1],
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+
+    quiet_output = quiet_result.stdout + quiet_result.stderr
+    trace_output = trace_result.stdout + trace_result.stderr
+    assert "Classifying activity message" not in quiet_output
+    assert "Registering start event" not in quiet_output
+    assert "Resolving end value" not in quiet_output
+    assert "Validating record for axis" not in quiet_output
+    assert "Validating duration for axis" not in quiet_output
+    assert "Validating PWM association for axis" not in quiet_output
+    assert "Classifying activity message" in trace_output
+    assert "Validating record for axis" in trace_output
+
+
+def _workbook_rows(workbook, sheet_name: str) -> tuple[dict[str, int], list[tuple[object, ...]]]:
+    """Return workbook rows keyed by header name for regression checks."""
+
+    sheet = workbook[sheet_name]
+    headers = [cell.value for cell in sheet[1]]
+    return {header: index for index, header in enumerate(headers)}, list(sheet.iter_rows(min_row=2, values_only=True))
+
+
+def test_april30_partial_log_regression_keeps_distances_and_explains_coverage(tmp_path: Path) -> None:
+    """The April 30 one-log sample should keep corrected distances and show partial coverage."""
+
+    repo_root = Path(__file__).resolve().parents[1]
+    txt_path = repo_root / "Log" / "UroBiopsy_20260430.txt"
+    source_log = repo_root / "Log" / "RobotMovingValues" / "20260430" / "20260430_095017586_initialization.log"
+    if not txt_path.exists() or not source_log.exists():
+        pytest.skip("April 30 local regression sample is not available.")
+    log_folder = tmp_path / "april30_one_log"
+    log_folder.mkdir()
+    shutil.copy2(source_log, log_folder / source_log.name)
+    output_path = tmp_path / "april30-partial.xlsx"
+
+    result = LogAnalysisService().run_analysis(
+        txt_file_path=txt_path,
+        log_folder_path=log_folder,
+        output_path=output_path,
+        max_distribution_charts=20,
+    )
+
+    workbook = load_workbook(output_path, data_only=True)
+    assert {
+        "Details",
+        "Distribution Summary",
+        "Distribution Raw Data",
+        "Distribution Exclusion Summary",
+        "Distribution Eligibility",
+        "Log Coverage Summary",
+        "Log Coverage Gaps",
+        "Distribution Charts",
+    } <= set(workbook.sheetnames)
+    details_index, details_rows = _workbook_rows(workbook, "Details")
+
+    y_clear = next(
+        row
+        for row in details_rows
+        if row[details_index["Axis"]] == "Y"
+        and "start clearing: -19.50" in str(row[details_index["Source TXT Start Line Text"]])
+        and row[details_index["Match Status"]] == STATUS_MATCHED
+    )
+    assert y_clear[details_index["Movement Commanded Distance"]] == pytest.approx(19.50)
+    assert y_clear[details_index["Movement Actual Distance"]] == pytest.approx(29.51)
+    assert y_clear[details_index["Selected Movement Distance"]] == pytest.approx(29.51)
+
+    x_clear = next(
+        row
+        for row in details_rows
+        if row[details_index["Axis"]] == "X"
+        and "start clearing: -22.00" in str(row[details_index["Source TXT Start Line Text"]])
+        and row[details_index["Match Status"]] == STATUS_MATCHED
+    )
+    assert x_clear[details_index["Movement Commanded Distance"]] == pytest.approx(22.00)
+    assert x_clear[details_index["Movement Actual Distance"]] == pytest.approx(32.01)
+    assert x_clear[details_index["Selected Movement Distance"]] == pytest.approx(32.01)
+
+    h_home = next(
+        row
+        for row in details_rows
+        if row[details_index["Axis"]] == "H"
+        and "start moving to home: -25.16" in str(row[details_index["Source TXT Start Line Text"]])
+        and row[details_index["Match Status"]] == STATUS_MATCHED
+    )
+    assert h_home[details_index["Selected Movement Distance"]] == pytest.approx(23.87)
+
+    assert result.distribution_group_count == 18
+    assert result.distribution_raw_row_count == 18
+    assert result.distribution_chart_count == 0
+    chart_message = workbook["Distribution Charts"].cell(row=1, column=1).value
+    assert "No distribution charts were generated because all valid groups had fewer than 2 samples." == chart_message
+
+    coverage_index, coverage_rows = _workbook_rows(workbook, "Log Coverage Summary")
+    coverage = coverage_rows[0]
+    assert coverage[coverage_index["Coverage Ratio (%)"]] < 10
+    gaps_index, gaps_rows = _workbook_rows(workbook, "Log Coverage Gaps")
+    assert len(gaps_rows) >= 2
+    assert gaps_rows[0][gaps_index["Gap Type"]] == "BeforeFirstControlLog"
+    assert gaps_rows[-1][gaps_index["Gap Type"]] == "AfterLastControlLog"
+
+
+def test_april10_bad_duration_pair_remains_rejected(tmp_path: Path) -> None:
+    """The old April 10 Z clear across-initialization false match must stay fixed."""
+
+    repo_root = Path(__file__).resolve().parents[1]
+    txt_path = repo_root / "Log" / "UroBiopsy_20260410.txt"
+    log_folder = repo_root / "Log" / "RobotMovingValues" / "20260410"
+    if not txt_path.exists() or not log_folder.exists():
+        pytest.skip("April 10 local regression sample is not available.")
+    output_path = tmp_path / "april10.xlsx"
+
+    LogAnalysisService().run_analysis(
+        txt_file_path=txt_path,
+        log_folder_path=log_folder,
+        output_path=output_path,
+        max_distribution_charts=10,
+    )
+
+    workbook = load_workbook(output_path, data_only=True)
+    details_index, details_rows = _workbook_rows(workbook, "Details")
+    bad_matches = [
+        row
+        for row in details_rows
+        if row[details_index["Match Status"]] == STATUS_MATCHED
+        and "2026-04-10 08:37:43:959 MCU   @[Z] start clearing: -50.00"
+        in str(row[details_index["Source TXT Start Line Text"]])
+        and "2026-04-10 09:20:46:317 MCU   @[Z] motor cleared"
+        in str(row[details_index["Source TXT End Line Text"]])
+    ]
+    assert bad_matches == []
+
+    correct = next(
+        row
+        for row in details_rows
+        if row[details_index["Match Status"]] == STATUS_MATCHED
+        and "2026-04-10 09:20:23:541 MCU   @[Z] start clearing: -50.00"
+        in str(row[details_index["Source TXT Start Line Text"]])
+        and "2026-04-10 09:20:46:317 MCU   @[Z] motor cleared"
+        in str(row[details_index["Source TXT End Line Text"]])
+    )
+    assert correct[details_index["Duration (ms)"]] == 22776
+    assert correct[details_index["Duration (s)"]] == pytest.approx(22.776)

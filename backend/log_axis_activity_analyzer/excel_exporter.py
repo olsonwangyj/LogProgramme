@@ -7,6 +7,12 @@ from pathlib import Path
 
 from openpyxl.styles import Font
 
+from .config import (
+    DISTRIBUTION_CHART_BLOCK_HEIGHT,
+    DISTRIBUTION_CHART_IMAGE_ROW_OFFSET,
+    DISTRIBUTION_CHART_METADATA_KEYS,
+)
+
 
 class ExcelExporter:
     """Writes workbook tables and basic formatting to an `.xlsx` file."""
@@ -35,8 +41,10 @@ class ExcelExporter:
             self._write_diagnostics_summary_sheet(writer, report_frames)
             self._write_distribution_summary_sheet(writer, report_frames)
             self._write_distribution_raw_data_sheet(writer, report_frames)
+            self._write_distribution_eligibility_summary_sheet(writer, report_frames)
             self._write_distribution_exclusion_summary_sheet(writer, report_frames)
             self._write_log_coverage_summary_sheet(writer, report_frames)
+            self._write_log_coverage_gaps_sheet(writer, report_frames)
             self._write_distribution_charts_sheet(
                 writer,
                 report_frames,
@@ -49,8 +57,10 @@ class ExcelExporter:
             self._format_diagnostics_summary_sheet(writer)
             self._format_distribution_summary_sheet(writer)
             self._format_distribution_raw_data_sheet(writer)
+            self._format_distribution_eligibility_summary_sheet(writer)
             self._format_distribution_exclusion_summary_sheet(writer)
             self._format_log_coverage_summary_sheet(writer)
+            self._format_log_coverage_gaps_sheet(writer)
             self._format_distribution_charts_sheet(writer)
         self._logger.info("Workbook export completed at %s", path)
         return path
@@ -96,6 +106,18 @@ class ExcelExporter:
                     {"Key": "Distribution Charts Generated", "Value": metadata.get("distribution_chart_count", 0)},
                     {"Key": "Distribution Chart Output Folder", "Value": metadata.get("distribution_output_dir", "")},
                     {
+                        "Key": "Distribution Distance Source",
+                        "Value": metadata.get("distribution_distance_source", ""),
+                    },
+                    {
+                        "Key": "Distribution Distance Grouping Mode",
+                        "Value": metadata.get("distribution_distance_grouping_mode", ""),
+                    },
+                    {
+                        "Key": "Movement Distance Bin Size",
+                        "Value": metadata.get("movement_distance_bin_size", ""),
+                    },
+                    {
                         "Key": "Distribution Excluded Missing PWM",
                         "Value": metadata.get("distribution_excluded_missing_pwm_count", 0),
                     },
@@ -112,8 +134,20 @@ class ExcelExporter:
                         "Value": metadata.get("distribution_excluded_unreliable_pwm_count", 0),
                     },
                     {
+                        "Key": "Distribution Exclusion Reason Counts",
+                        "Value": metadata.get("distribution_exclusion_reason_counts", ""),
+                    },
+                    {
                         "Key": "Log Coverage Warning",
                         "Value": metadata.get("log_coverage_warning", ""),
+                    },
+                    {
+                        "Key": "PWM Carry Forward Enabled",
+                        "Value": metadata.get("pwm_carry_forward_enabled", False),
+                    },
+                    {
+                        "Key": "Distribution Allows Carry Forward PWM",
+                        "Value": metadata.get("distribution_allows_carry_forward_pwm", False),
                     },
                 ]
             )
@@ -182,6 +216,18 @@ class ExcelExporter:
             index=False,
         )
 
+    def _write_distribution_eligibility_summary_sheet(self, writer, report_frames) -> None:
+        """Write grouped reasons for rows that never became distribution candidates."""
+
+        self._logger.debug("Writing Distribution Eligibility sheet")
+        if report_frames.distribution_eligibility_summary is None:
+            return
+        report_frames.distribution_eligibility_summary.to_excel(
+            writer,
+            sheet_name="Distribution Eligibility",
+            index=False,
+        )
+
     def _write_log_coverage_summary_sheet(self, writer, report_frames) -> None:
         """Write control-log coverage visibility to its own sheet."""
 
@@ -189,6 +235,14 @@ class ExcelExporter:
         if report_frames.log_coverage_summary is None:
             return
         report_frames.log_coverage_summary.to_excel(writer, sheet_name="Log Coverage Summary", index=False)
+
+    def _write_log_coverage_gaps_sheet(self, writer, report_frames) -> None:
+        """Write every uncovered TXT span from the interval-union coverage calculation."""
+
+        self._logger.debug("Writing Log Coverage Gaps sheet")
+        if report_frames.log_coverage_gaps is None:
+            return
+        report_frames.log_coverage_gaps.to_excel(writer, sheet_name="Log Coverage Gaps", index=False)
 
     def _write_distribution_charts_sheet(self, writer, report_frames, embed_charts: bool) -> None:
         """Optionally embed generated distribution chart PNG files."""
@@ -200,7 +254,16 @@ class ExcelExporter:
         writer.sheets["Distribution Charts"] = sheet
         metadata_frame = report_frames.distribution_chart_metadata
         if metadata_frame.empty:
-            sheet.cell(row=1, column=1, value="No distribution charts were generated.")
+            from .config import MIN_SAMPLES_FOR_DISTRIBUTION_CHART
+
+            sheet.cell(
+                row=1,
+                column=1,
+                value=(
+                    "No distribution charts were generated because all valid groups had fewer than "
+                    f"{MIN_SAMPLES_FOR_DISTRIBUTION_CHART} samples."
+                ),
+            )
             return
         try:
             from openpyxl.drawing.image import Image
@@ -212,30 +275,10 @@ class ExcelExporter:
             sheet.cell(row=current_row, column=1, value="Group ID")
             sheet.cell(row=current_row, column=2, value=item.get("Group ID"))
             sheet.cell(row=current_row, column=1).font = Font(bold=True)
-            keys = [
-                "TXT Source File",
-                "PWM (%)",
-                "Axis",
-                "Movement Distance",
-                "Movement Distance Source",
-                "Movement Distance Method",
-                "Movement Distance Grouping Mode",
-                "Movement Distance Bin Size",
-                "Rule ID",
-                "Action Label",
-                "Sample Count",
-                "Mean Duration (s)",
-                "Sample Std Dev Duration (s)",
-                "Variance",
-                "Distribution Status",
-                "Chart Status",
-                "Chart File",
-                "Notes",
-            ]
-            for offset, key in enumerate(keys, start=1):
+            for offset, key in enumerate(DISTRIBUTION_CHART_METADATA_KEYS, start=1):
                 sheet.cell(row=current_row + offset, column=1, value=key)
                 sheet.cell(row=current_row + offset, column=2, value=item.get(key))
-            image_row = current_row + len(keys) + 2
+            image_row = current_row + DISTRIBUTION_CHART_IMAGE_ROW_OFFSET
             chart_file = item.get("Chart File")
             chart_path = Path(chart_file) if chart_file else None
             if chart_path is not None and chart_path.is_file():
@@ -245,7 +288,7 @@ class ExcelExporter:
                 sheet.add_image(image, f"A{image_row}")
             else:
                 sheet.cell(row=image_row, column=1, value="Chart image file was not found.")
-            current_row = image_row + 27
+            current_row += DISTRIBUTION_CHART_BLOCK_HEIGHT
 
     def _format_details_sheet(self, writer) -> None:
         """Apply basic formatting to the Details sheet."""
@@ -330,6 +373,17 @@ class ExcelExporter:
         sheet.auto_filter.ref = sheet.dimensions
         self._auto_fit_columns(sheet)
 
+    def _format_distribution_eligibility_summary_sheet(self, writer) -> None:
+        """Apply basic formatting to the Distribution Eligibility sheet."""
+
+        self._logger.debug("Formatting Distribution Eligibility sheet")
+        if "Distribution Eligibility" not in writer.sheets:
+            return
+        sheet = writer.sheets["Distribution Eligibility"]
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        self._auto_fit_columns(sheet)
+
     def _format_log_coverage_summary_sheet(self, writer) -> None:
         """Apply basic formatting to the Log Coverage Summary sheet."""
 
@@ -337,6 +391,17 @@ class ExcelExporter:
         if "Log Coverage Summary" not in writer.sheets:
             return
         sheet = writer.sheets["Log Coverage Summary"]
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        self._auto_fit_columns(sheet)
+
+    def _format_log_coverage_gaps_sheet(self, writer) -> None:
+        """Apply basic formatting to the Log Coverage Gaps sheet."""
+
+        self._logger.debug("Formatting Log Coverage Gaps sheet")
+        if "Log Coverage Gaps" not in writer.sheets:
+            return
+        sheet = writer.sheets["Log Coverage Gaps"]
         sheet.freeze_panes = "A2"
         sheet.auto_filter.ref = sheet.dimensions
         self._auto_fit_columns(sheet)

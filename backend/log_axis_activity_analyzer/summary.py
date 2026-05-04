@@ -14,11 +14,13 @@ from .config import (
     DIAGNOSTIC_COLUMNS,
     DIAGNOSTIC_SUMMARY_COLUMNS,
     DISTRIBUTION_CHART_METADATA_COLUMNS,
+    DISTRIBUTION_ELIGIBILITY_SUMMARY_COLUMNS,
     DISTRIBUTION_EXCLUSION_SUMMARY_COLUMNS,
     DISTRIBUTION_RAW_DATA_COLUMNS,
     DISTRIBUTION_SUMMARY_COLUMNS,
     DURATION_STATUS_VALID,
     EVENT_SUMMARY_COLUMNS,
+    LOG_COVERAGE_GAPS_COLUMNS,
     LOG_COVERAGE_SUMMARY_COLUMNS,
     PWM_SOURCE_COLUMNS,
     STATUS_CLOSED_BY_BOUNDARY,
@@ -30,7 +32,13 @@ from .config import (
     STATUS_UNMATCHED_END,
     STATUS_UNMATCHED_START,
 )
-from .distribution import DistributionAnalysisResult, DistributionExclusion, DistributionInputRow, DistributionStats
+from .distribution import (
+    DistributionAnalysisResult,
+    DistributionExclusion,
+    DistributionInputRow,
+    DistributionStats,
+    format_movement_distance_group_value,
+)
 from .models import ActivityRecord, DiagnosticEvent, DutyCycleLogFileResult, ReportFrames
 from .time_utils import format_log_timestamp
 
@@ -50,6 +58,7 @@ class SummaryGenerator:
         diagnostics: list[DiagnosticEvent] | None = None,
         distribution_result: DistributionAnalysisResult | None = None,
         log_coverage_summary: list[dict[str, object]] | None = None,
+        log_coverage_gaps: list[dict[str, object]] | None = None,
     ) -> ReportFrames:
         """Convert activity records into workbook-ready data frames."""
 
@@ -83,6 +92,7 @@ class SummaryGenerator:
         distribution_summary_frame = None
         distribution_raw_data_frame = None
         distribution_chart_metadata_frame = None
+        distribution_eligibility_summary_frame = None
         distribution_exclusion_summary_frame = None
         if distribution_result is not None:
             distribution_summary_frame = pd.DataFrame(
@@ -97,6 +107,10 @@ class SummaryGenerator:
                 self._build_distribution_chart_metadata_rows(distribution_result.stats),
                 columns=DISTRIBUTION_CHART_METADATA_COLUMNS,
             )
+            distribution_eligibility_summary_frame = pd.DataFrame(
+                self._build_distribution_exclusion_rows(distribution_result.eligibility_exclusions),
+                columns=DISTRIBUTION_ELIGIBILITY_SUMMARY_COLUMNS,
+            )
             distribution_exclusion_summary_frame = pd.DataFrame(
                 self._build_distribution_exclusion_rows(distribution_result.exclusions),
                 columns=DISTRIBUTION_EXCLUSION_SUMMARY_COLUMNS,
@@ -104,6 +118,10 @@ class SummaryGenerator:
         log_coverage_summary_frame = pd.DataFrame(
             log_coverage_summary or [],
             columns=LOG_COVERAGE_SUMMARY_COLUMNS,
+        )
+        log_coverage_gaps_frame = pd.DataFrame(
+            log_coverage_gaps or [],
+            columns=LOG_COVERAGE_GAPS_COLUMNS,
         )
         return ReportFrames(
             details=details_frame,
@@ -115,8 +133,10 @@ class SummaryGenerator:
             distribution_summary=distribution_summary_frame,
             distribution_raw_data=distribution_raw_data_frame,
             distribution_chart_metadata=distribution_chart_metadata_frame,
+            distribution_eligibility_summary=distribution_eligibility_summary_frame,
             distribution_exclusion_summary=distribution_exclusion_summary_frame,
             log_coverage_summary=log_coverage_summary_frame,
+            log_coverage_gaps=log_coverage_gaps_frame,
         )
 
     def _build_detail_row(self, record: ActivityRecord) -> dict[str, object]:
@@ -139,7 +159,7 @@ class SummaryGenerator:
             "Movement End Position": record.movement_end_position,
             "Movement Commanded Distance": record.movement_commanded_distance,
             "Movement Actual Distance": record.movement_actual_distance,
-            "Movement Distance": record.movement_distance,
+            "Selected Movement Distance": record.movement_distance,
             "Movement Distance Source": record.movement_distance_source,
             "Movement Distance Method": record.movement_distance_method,
             "Movement Distance Notes": record.movement_distance_notes,
@@ -374,9 +394,10 @@ class SummaryGenerator:
                 "Unique Position Combination Count": item.unique_position_combination_count,
                 "Movement Distance Raw Example": item.movement_distance_raw_example,
                 "Movement Distance Group Value": item.movement_distance_group_value,
+                "Movement Distance Group Display": self._distance_display(item),
                 "Movement Distance Grouping Mode": item.movement_distance_grouping_mode,
                 "Movement Distance Bin Size": item.movement_distance_bin_size,
-                "Movement Distance": item.movement_distance,
+                "Selected Group Distance": item.movement_distance,
                 "Movement Distance Rounded": item.movement_distance_rounded,
                 "Movement Distance Method": item.movement_distance_method,
                 "Movement Distance Source": item.movement_distance_source,
@@ -430,10 +451,12 @@ class SummaryGenerator:
                 "Movement End Position": row.movement_end_position,
                 "Movement Commanded Distance": row.movement_commanded_distance,
                 "Movement Actual Distance": row.movement_actual_distance,
-                "Movement Distance": row.movement_distance,
+                "Selected Movement Distance": row.movement_distance,
                 "Movement Distance Source": row.movement_distance_source,
                 "Movement Distance Group Value": row.movement_distance_group_value,
+                "Movement Distance Group Display": self._input_distance_display(row),
                 "Movement Distance Grouping Mode": row.movement_distance_grouping_mode,
+                "Movement Distance Bin Size": row.movement_distance_bin_size,
                 "Movement Distance Rounded": row.movement_distance_rounded,
                 "Movement Distance Method": row.movement_distance_method,
                 "Movement Distance Notes": row.movement_distance_notes,
@@ -478,7 +501,8 @@ class SummaryGenerator:
                 "TXT Source File": item.txt_source_file,
                 "PWM (%)": item.pwm_percent,
                 "Axis": item.axis,
-                "Movement Distance": item.movement_distance_group_value,
+                "Movement Distance Group Value": item.movement_distance_group_value,
+                "Movement Distance Display": self._distance_display(item),
                 "Movement Distance Source": item.movement_distance_source,
                 "Movement Distance Method": item.movement_distance_method,
                 "Movement Distance Grouping Mode": item.movement_distance_grouping_mode,
@@ -505,20 +529,56 @@ class SummaryGenerator:
         """Aggregate excluded distribution rows by reason, rule, and axis."""
 
         self._logger.debug("Building distribution exclusion summary rows")
-        grouped: dict[tuple[str, str, str], list[DistributionExclusion]] = defaultdict(list)
+        grouped: dict[tuple[str, str, str, str, str, str], list[DistributionExclusion]] = defaultdict(list)
         for exclusion in exclusions:
-            grouped[(exclusion.reason, exclusion.rule_id, exclusion.axis)].append(exclusion)
+            grouped[
+                (
+                    exclusion.reason,
+                    exclusion.secondary_reasons,
+                    exclusion.pwm_exclusion_reason,
+                    exclusion.movement_distance_exclusion_reason,
+                    exclusion.rule_id,
+                    exclusion.axis,
+                )
+            ].append(exclusion)
         rows: list[dict[str, object]] = []
-        for (reason, rule_id, axis), group in sorted(grouped.items()):
+        for (reason, secondary, pwm_reason, movement_reason, rule_id, axis), group in sorted(grouped.items()):
             example = group[0]
             rows.append(
                 {
                     "Exclusion Reason": reason,
+                    "Secondary Exclusion Reasons": secondary,
+                    "PWM Exclusion Reason": pwm_reason,
+                    "Movement Distance Exclusion Reason": movement_reason,
                     "Rule ID": rule_id,
                     "Axis": axis,
                     "Count": len(group),
+                    "PWM Match Status": example.pwm_match_status,
+                    "PWM Missing Reason": example.pwm_missing_reason,
+                    "PWM Time Delta (ms)": example.pwm_time_delta_ms,
+                    "Example PWM Source File": example.example_pwm_source_file,
                     "Example Start Line": example.start_line,
                     "Example Notes": example.notes,
                 }
             )
         return rows
+
+    def _distance_display(self, item: DistributionStats) -> str:
+        """Return a text display for one grouped movement distance."""
+
+        return format_movement_distance_group_value(
+            item.movement_distance_group_value,
+            item.movement_distance_grouping_mode,
+            item.movement_distance_bin_size,
+            item.movement_distance_round_digits,
+        )
+
+    def _input_distance_display(self, row: DistributionInputRow) -> str:
+        """Return a text display for a raw row's grouped movement distance."""
+
+        return format_movement_distance_group_value(
+            row.movement_distance_group_value,
+            row.movement_distance_grouping_mode,
+            row.movement_distance_bin_size,
+            row.movement_distance_round_digits,
+        )

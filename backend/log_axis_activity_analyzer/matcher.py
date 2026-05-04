@@ -10,7 +10,6 @@ from typing import Iterable
 from .config import (
     COMPANION_VALUE_PREFIXES,
     DEFAULT_MAX_EVENT_DURATION_MS,
-    DISTRIBUTION_DISTANCE_SOURCE,
     DURATION_STATUS_END_BEFORE_START,
     DURATION_STATUS_NOT_APPLICABLE,
     DURATION_STATUS_TOO_LONG,
@@ -593,11 +592,6 @@ class EventMatcher:
             if movement_context.start_position is not None and end_position is not None
             else None
         )
-        distance, method, source = self._select_movement_distance(
-            commanded_distance=commanded_distance,
-            actual_distance=actual_distance,
-            fallback_method=movement_context.method,
-        )
         notes = movement_context.notes
         return {
             "movement_start_position": movement_context.start_position,
@@ -605,39 +599,11 @@ class EventMatcher:
             "movement_end_position": end_position,
             "movement_commanded_distance": commanded_distance,
             "movement_actual_distance": actual_distance,
-            "movement_distance": distance,
-            "movement_distance_source": source,
-            "movement_distance_method": method,
+            "movement_distance": None,
+            "movement_distance_source": "",
+            "movement_distance_method": movement_context.method,
             "movement_distance_notes": notes,
         }
-
-    def _select_movement_distance(
-        self,
-        commanded_distance: float | None,
-        actual_distance: float | None,
-        fallback_method: str,
-    ) -> tuple[float | None, str, str]:
-        """Choose the display/default movement distance according to configured source policy."""
-
-        if DISTRIBUTION_DISTANCE_SOURCE == "actual_only":
-            if actual_distance is not None:
-                return actual_distance, "KnownStartPositionToActualEnd", "ActualEndPosition"
-            return None, "MissingStartOrEndPosition", ""
-        if DISTRIBUTION_DISTANCE_SOURCE == "commanded_only":
-            if commanded_distance is not None:
-                return commanded_distance, "KnownStartPositionToTarget", "CommandTargetPosition"
-            return None, "MissingStartOrTargetPosition", ""
-        if DISTRIBUTION_DISTANCE_SOURCE == "commanded_preferred":
-            if commanded_distance is not None:
-                return commanded_distance, "KnownStartPositionToTarget", "CommandTargetPosition"
-            if actual_distance is not None:
-                return actual_distance, "KnownStartPositionToActualEnd", "ActualEndPosition"
-        else:
-            if actual_distance is not None:
-                return actual_distance, "KnownStartPositionToActualEnd", "ActualEndPosition"
-            if commanded_distance is not None:
-                return commanded_distance, "KnownStartPositionToTarget", "CommandTargetPosition"
-        return None, fallback_method or "MissingStartOrEndPosition", ""
 
     def _resolve_max_duration_ms(self, rule_id: str) -> int:
         """Return the configured max duration for one rule identifier."""
