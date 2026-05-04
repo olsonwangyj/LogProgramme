@@ -132,6 +132,52 @@ class AxisPWMProfile:
     events: list[PWMEvent] = field(default_factory=list)
 
 
+@dataclass
+class HardwarePositionEvent:
+    """Represents one parsed hardware TPOS position record from a control log."""
+
+    source_path: Path
+    line_number: int
+    timestamp: Optional[datetime]
+    node_id: Optional[int]
+    axis: str
+    position_kind: str
+    raw_position: Optional[int]
+    physical_position: Optional[float]
+    raw_line: str
+
+
+@dataclass
+class HardwareMotionSegment:
+    """Represents one hardware motion inferred from a TPOS Start/End pair."""
+
+    source_path: Path
+    axis: str
+    start_time: Optional[datetime] = None
+    end_time: Optional[datetime] = None
+    target_time: Optional[datetime] = None
+    raw_start_position: Optional[int] = None
+    raw_end_position: Optional[int] = None
+    raw_target_position: Optional[int] = None
+    hardware_start_position: Optional[float] = None
+    hardware_end_position: Optional[float] = None
+    hardware_target_position: Optional[float] = None
+    hardware_actual_distance: Optional[float] = None
+    hardware_commanded_distance: Optional[float] = None
+    start_line_number: Optional[int] = None
+    end_line_number: Optional[int] = None
+    target_line_number: Optional[int] = None
+    start_line_text: str = ""
+    end_line_text: str = ""
+    target_line_text: str = ""
+    match_status: str = ""
+    notes: str = ""
+    duplicate_segment_key: str = ""
+    duplicate_segment_count: int = 1
+    possible_duplicate_source_files: str = ""
+    possible_duplicate_hardware_segment: bool = False
+
+
 @dataclass(frozen=True)
 class ParseWarning:
     """Captures a malformed but relevant line that should appear in the report."""
@@ -159,13 +205,15 @@ class MainLogParseResult:
 
 @dataclass
 class DutyCycleLogFileResult:
-    """Holds parsed PWM events, profiles, and warnings for one control-log file."""
+    """Holds parsed PWM and hardware-position records for one control-log file."""
 
     source_path: Path
     encoding_used: str = ""
     file_start_time: Optional[datetime] = None
     file_end_time: Optional[datetime] = None
     pwm_events: list[PWMEvent] = field(default_factory=list)
+    hardware_position_events: list[HardwarePositionEvent] = field(default_factory=list)
+    hardware_motion_segments: list[HardwareMotionSegment] = field(default_factory=list)
     axis_profiles: dict[str, AxisPWMProfile] = field(default_factory=dict)
     warnings: list[ParseWarning] = field(default_factory=list)
 
@@ -217,6 +265,26 @@ class ActivityRecord:
     movement_distance_source: str = ""
     movement_distance_method: str = ""
     movement_distance_notes: str = ""
+    hardware_motion_source_file: str = ""
+    hardware_motion_match_status: str = ""
+    hardware_motion_time_delta_ms: Optional[float] = None
+    hardware_raw_start_position: Optional[int] = None
+    hardware_raw_end_position: Optional[int] = None
+    hardware_raw_target_position: Optional[int] = None
+    hardware_start_position: Optional[float] = None
+    hardware_end_position: Optional[float] = None
+    hardware_target_position: Optional[float] = None
+    hardware_actual_distance: Optional[float] = None
+    hardware_commanded_distance: Optional[float] = None
+    hardware_start_line_number: Optional[int] = None
+    hardware_end_line_number: Optional[int] = None
+    hardware_target_line_number: Optional[int] = None
+    hardware_start_line_text: str = ""
+    hardware_end_line_text: str = ""
+    hardware_target_line_text: str = ""
+    hardware_distance_consistency_status: str = ""
+    hardware_distance_consistency_delta: Optional[float] = None
+    hardware_warning: bool = False
     pwm_percent: Optional[float] = None
     pwm_raw_value: Optional[float] = None
     pwm_direction: str = ""
@@ -270,6 +338,7 @@ class ReportFrames:
     event_summary: object
     axis_summary: object
     pwm_sources: object | None = None
+    hardware_motion_segments: object | None = None
     diagnostics: object | None = None
     diagnostics_summary: object | None = None
     distribution_summary: object | None = None
@@ -311,4 +380,26 @@ class AnalysisRunResult:
     distribution_excluded_missing_distance_count: int = 0
     distribution_excluded_missing_true_distance_count: int = 0
     distribution_excluded_unreliable_pwm_count: int = 0
+    distribution_excluded_unreliable_hardware_count: int = 0
     distribution_exclusion_reason_counts: dict[str, int] = field(default_factory=dict)
+    hardware_matched_by_overlap_count: int = 0
+    hardware_nearest_previous_count: int = 0
+    hardware_nearest_future_count: int = 0
+    hardware_nearest_count: int = 0
+    hardware_multiple_candidates_count: int = 0
+    hardware_no_segment_found_count: int = 0
+    hardware_segment_incomplete_count: int = 0
+    hardware_warning_count: int = 0
+    hardware_duplicate_segment_group_count: int = 0
+    hardware_duplicate_segment_row_count: int = 0
+    distribution_image_gallery_path: Path | None = None
+    distribution_image_count: int = 0
+    distribution_image_statistics_count: int = 0
+    distribution_gallery_groups_with_chart_file_path_count: int = 0
+    distribution_gallery_existing_chart_file_count: int = 0
+    distribution_gallery_groups_without_charts_count: int = 0
+    distribution_gallery_image_limit_skipped_count: int = 0
+    distribution_gallery_missing_chart_file_count: int = 0
+    distribution_gallery_image_embedding_unavailable_count: int = 0
+    distribution_gallery_image_insert_failed_count: int = 0
+    distribution_image_gallery_error: str = ""

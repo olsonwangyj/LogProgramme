@@ -7,25 +7,29 @@ from pathlib import Path
 
 from .config import (
     ALLOW_PWM_CARRY_FORWARD_ACROSS_SESSION,
-    ALLOW_TARGET_ABSOLUTE_DISTANCE_FALLBACK,
     CLEAN_DISTRIBUTION_OUTPUT_DIR_BEFORE_RUN,
     DEFAULT_EVENT_RULES,
     DISTRIBUTION_ALLOW_LATEST_BEFORE_PWM,
+    DISTRIBUTION_ALLOW_MULTIPLE_HARDWARE_CANDIDATES,
     DISTRIBUTION_ALLOW_NEAREST_PWM,
+    DISTRIBUTION_ALLOW_NEAREST_HARDWARE_SEGMENT,
+    DISTRIBUTION_ALLOWED_HARDWARE_MOTION_MATCH_STATUSES,
     DISTRIBUTION_ALLOWED_PWM_MATCH_STATUSES,
     DISTRIBUTION_CHART_BLOCK_HEIGHT,
     DISTRIBUTION_CHART_FOLDER_MODE,
     DISTRIBUTION_ALLOW_PWM_CARRY_FORWARD,
     DISTRIBUTION_DISTANCE_GROUPING_MODE,
     DISTRIBUTION_DISTANCE_SOURCE,
+    DISTRIBUTION_IMAGE_MAX_IMAGES,
+    DISTRIBUTION_IMAGE_GALLERY_LAYOUT,
     DISTRIBUTION_OUTPUT_SUBDIR,
     DURATION_STATUS_VALID,
     EMBED_DISTRIBUTION_CHARTS_IN_EXCEL,
     ENABLE_DISTRIBUTION_ANALYSIS,
+    HARDWARE_DISTANCE_SOURCE,
+    EXPORT_DISTRIBUTION_IMAGE_GALLERY,
     MOVEMENT_DISTANCE_BIN_SIZE,
-    MOVEMENT_DISTANCE_GROUPING_MODES,
     MOVEMENT_DISTANCE_ROUND_DIGITS,
-    MOVEMENT_DISTANCE_SOURCE_OPTIONS,
     NORMAL_CHART_BINS,
     NORMAL_DISTRIBUTION_CHART_DPI,
     NORMAL_DISTRIBUTION_CHART_FORMAT,
@@ -49,12 +53,21 @@ from .config import (
     PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
     PWM_STATUS_LATEST_BEFORE_TOO_FAR,
     PWM_STATUS_CONFLICT,
+    HARDWARE_STATUS_MATCHED_NEAREST,
+    HARDWARE_STATUS_MATCHED_NEAREST_FUTURE,
+    HARDWARE_STATUS_MATCHED_NEAREST_PREVIOUS,
+    HARDWARE_STATUS_MATCHED_OVERLAP,
+    HARDWARE_STATUS_MULTIPLE_CANDIDATES,
+    HARDWARE_STATUS_NO_SEGMENT,
+    HARDWARE_STATUS_INCOMPLETE,
 )
 from .chart_generator import NormalDistributionChartGenerator
 from .distribution import DistributionAnalysisResult, DistributionAnalyzer
 from .duty_cycle_associator import DutyCycleAssociator
 from .excel_exporter import ExcelExporter
 from .file_loader import TextFileLoader
+from .hardware_motion_associator import HardwareMotionAssociator
+from .image_gallery_exporter import DistributionImageGalleryExporter
 from .log_a_parser import MainLogParser
 from .log_b_parser import DutyCycleLogParser
 from .log_folder_scanner import LogFolderScanner
@@ -78,6 +91,7 @@ class LogAnalysisService:
         self._log_folder_scanner = LogFolderScanner(pwm_parser, self._logger.getChild("log_folder_scanner"))
         self._matcher = EventMatcher(DEFAULT_EVENT_RULES, logger=self._logger.getChild("matcher"))
         self._associator = DutyCycleAssociator(self._logger.getChild("pwm_associator"))
+        self._hardware_motion_associator = HardwareMotionAssociator(logger=self._logger.getChild("hardware_motion"))
         self._validator = ActivityValidator(self._logger.getChild("validator"))
         self._summary_generator = SummaryGenerator(self._logger.getChild("summary"))
         self._exporter = ExcelExporter(self._logger.getChild("excel_exporter"))
@@ -102,11 +116,20 @@ class LogAnalysisService:
         distribution_allow_nearest_pwm: bool = DISTRIBUTION_ALLOW_NEAREST_PWM,
         distribution_allow_latest_before_pwm: bool = DISTRIBUTION_ALLOW_LATEST_BEFORE_PWM,
         distribution_allow_carry_forward_pwm: bool = DISTRIBUTION_ALLOW_PWM_CARRY_FORWARD,
+        distribution_allow_nearest_hardware_segment: bool = DISTRIBUTION_ALLOW_NEAREST_HARDWARE_SEGMENT,
+        distribution_allow_ambiguous_hardware_segment: bool = DISTRIBUTION_ALLOW_MULTIPLE_HARDWARE_CANDIDATES,
         allow_pwm_carry_forward: bool = ALLOW_PWM_CARRY_FORWARD_ACROSS_SESSION,
+        export_distribution_image_gallery: bool | None = EXPORT_DISTRIBUTION_IMAGE_GALLERY,
+        distribution_image_gallery_output: Path | str | None = None,
+        distribution_image_gallery_layout: str = DISTRIBUTION_IMAGE_GALLERY_LAYOUT,
         **legacy_kwargs,
     ) -> AnalysisRunResult:
         """Run the full analysis workflow and return a concise execution summary."""
 
+        if distribution_distance_source != HARDWARE_DISTANCE_SOURCE:
+            raise ValueError(
+                "Software distance sources are no longer supported. Hardware actual distance is the only supported distance source."
+            )
         if "encoding_a" in legacy_kwargs and encoding_txt is None:
             encoding_txt = legacy_kwargs["encoding_a"]
         if "log_folder_encoding" in legacy_kwargs and encoding_logs is None:
@@ -115,6 +138,19 @@ class LogAnalysisService:
             recursive = bool(legacy_kwargs["recursive_log_folder"])
 
         normalized_paths = self._validate_paths(txt_file_path, log_folder_path, output_path)
+        should_export_image_gallery = (
+            bool(enable_distribution_analysis)
+            and (
+                EXPORT_DISTRIBUTION_IMAGE_GALLERY
+                if export_distribution_image_gallery is None
+                else bool(export_distribution_image_gallery)
+            )
+        )
+        gallery_output_path = self._resolve_distribution_image_gallery_output(
+            normalized_paths["output"],
+            distribution_image_gallery_output,
+            enabled=should_export_image_gallery,
+        )
         main_result = self._main_log_parser.parse(normalized_paths["txt_file"], encoding_txt)
         folder_result = self._log_folder_scanner.scan(
             normalized_paths["log_folder"],
@@ -128,7 +164,8 @@ class LogAnalysisService:
             association_strategy,
             allow_carry_forward=allow_pwm_carry_forward,
         )
-        all_records = self._append_parse_warnings(enriched_records, main_result.warnings, folder_result)
+        hardware_enriched_records = self._hardware_motion_associator.attach(enriched_records, folder_result.files)
+        all_records = self._append_parse_warnings(hardware_enriched_records, main_result.warnings, folder_result)
         validated_records = self._validator.validate(all_records)
         self._apply_runtime_movement_distance_selection(validated_records, distribution_distance_source)
         distribution_result = None
@@ -136,6 +173,10 @@ class LogAnalysisService:
             allow_nearest_pwm=distribution_allow_nearest_pwm,
             allow_latest_before_pwm=distribution_allow_latest_before_pwm,
             allow_carry_forward_pwm=distribution_allow_carry_forward_pwm,
+        )
+        distribution_allowed_hardware_statuses = self._build_distribution_allowed_hardware_statuses(
+            allow_nearest_hardware_segment=distribution_allow_nearest_hardware_segment,
+            allow_ambiguous_hardware_segment=distribution_allow_ambiguous_hardware_segment,
         )
         if enable_distribution_analysis:
             distribution_result = self._run_distribution_analysis(
@@ -150,6 +191,7 @@ class LogAnalysisService:
                 distribution_distance_grouping_mode=distribution_distance_grouping_mode,
                 movement_distance_bin_size=movement_distance_bin_size,
                 allowed_pwm_match_statuses=distribution_allowed_pwm_statuses,
+                allowed_hardware_motion_match_statuses=distribution_allowed_hardware_statuses,
                 distribution_allow_carry_forward_pwm=distribution_allow_carry_forward_pwm,
             )
         log_coverage_summary, log_coverage_gaps = self._build_log_coverage_report(
@@ -181,6 +223,8 @@ class LogAnalysisService:
             pwm_profile_count=sum(len(file_result.axis_profiles) for file_result in folder_result.files),
             distribution_enabled=enable_distribution_analysis,
             distribution_result=distribution_result,
+            distribution_image_gallery_path=gallery_output_path,
+            hardware_duplicate_segment_counts=self._hardware_duplicate_segment_counts(folder_result.files),
         )
         self._exporter.export(
             normalized_paths["output"],
@@ -204,6 +248,16 @@ class LogAnalysisService:
                 "diagnostic_count": run_result.diagnostic_count,
                 "duration_warning_count": run_result.duration_warning_count,
                 "pwm_warning_count": run_result.pwm_warning_count,
+                "hardware_matched_by_overlap_count": run_result.hardware_matched_by_overlap_count,
+                "hardware_nearest_previous_count": run_result.hardware_nearest_previous_count,
+                "hardware_nearest_future_count": run_result.hardware_nearest_future_count,
+                "hardware_nearest_count": run_result.hardware_nearest_count,
+                "hardware_multiple_candidates_count": run_result.hardware_multiple_candidates_count,
+                "hardware_no_segment_found_count": run_result.hardware_no_segment_found_count,
+                "hardware_segment_incomplete_count": run_result.hardware_segment_incomplete_count,
+                "hardware_warning_count": run_result.hardware_warning_count,
+                "hardware_duplicate_segment_group_count": run_result.hardware_duplicate_segment_group_count,
+                "hardware_duplicate_segment_row_count": run_result.hardware_duplicate_segment_row_count,
                 "distribution_enabled": run_result.distribution_enabled,
                 "distribution_group_count": run_result.distribution_group_count,
                 "distribution_raw_row_count": run_result.distribution_raw_row_count,
@@ -215,9 +269,17 @@ class LogAnalysisService:
                     run_result.distribution_excluded_missing_true_distance_count
                 ),
                 "distribution_excluded_unreliable_pwm_count": run_result.distribution_excluded_unreliable_pwm_count,
+                "distribution_excluded_unreliable_hardware_count": (
+                    run_result.distribution_excluded_unreliable_hardware_count
+                ),
                 "distribution_exclusion_reason_counts": "; ".join(
                     f"{reason}={count}"
                     for reason, count in sorted(run_result.distribution_exclusion_reason_counts.items())
+                ),
+                "distribution_image_gallery_path": str(run_result.distribution_image_gallery_path or ""),
+                "distribution_image_gallery_metadata_note": (
+                    "The optional image gallery workbook is exported after the main workbook; "
+                    "final gallery insertion counts are printed by the CLI and stored in the gallery workbook."
                 ),
                 "embed_distribution_charts": embed_distribution_charts,
                 "log_coverage_warning": self._coverage_warning_from_rows(log_coverage_summary),
@@ -228,6 +290,30 @@ class LogAnalysisService:
                 "movement_distance_bin_size": movement_distance_bin_size,
             },
         )
+        if distribution_result is not None and gallery_output_path is not None:
+            try:
+                gallery_result = DistributionImageGalleryExporter(
+                    max_images=DISTRIBUTION_IMAGE_MAX_IMAGES,
+                    layout=distribution_image_gallery_layout,
+                    logger=self._logger.getChild("distribution_image_gallery"),
+                ).export(gallery_output_path, distribution_result)
+                run_result.distribution_image_gallery_path = gallery_result.output_path
+                run_result.distribution_image_count = gallery_result.image_inserted_count
+                run_result.distribution_image_statistics_count = gallery_result.statistics_count
+                run_result.distribution_gallery_groups_with_chart_file_path_count = (
+                    gallery_result.groups_with_chart_file_path_count
+                )
+                run_result.distribution_gallery_existing_chart_file_count = gallery_result.existing_chart_file_count
+                run_result.distribution_gallery_groups_without_charts_count = gallery_result.groups_without_charts_count
+                run_result.distribution_gallery_image_limit_skipped_count = gallery_result.image_limit_skipped_count
+                run_result.distribution_gallery_missing_chart_file_count = gallery_result.missing_chart_file_count
+                run_result.distribution_gallery_image_embedding_unavailable_count = (
+                    gallery_result.image_embedding_unavailable_count
+                )
+                run_result.distribution_gallery_image_insert_failed_count = gallery_result.image_insert_failed_count
+            except Exception as exc:  # pragma: no cover - exercised through service-level tests.
+                self._logger.exception("Distribution image gallery export failed: %s", exc)
+                run_result.distribution_image_gallery_error = str(exc)
         return run_result
 
     def _validate_paths(
@@ -302,6 +388,7 @@ class LogAnalysisService:
         distribution_distance_grouping_mode: str,
         movement_distance_bin_size: float,
         allowed_pwm_match_statuses: set[str],
+        allowed_hardware_motion_match_statuses: set[str],
         distribution_allow_carry_forward_pwm: bool,
     ) -> DistributionAnalysisResult:
         """Run distribution grouping, statistics, and chart generation."""
@@ -309,8 +396,8 @@ class LogAnalysisService:
         self._logger.info("Running normal distribution analysis")
         analyzer = DistributionAnalyzer(
             movement_distance_round_digits=movement_distance_round_digits,
-            allow_target_absolute_distance_fallback=ALLOW_TARGET_ABSOLUTE_DISTANCE_FALLBACK,
             allowed_pwm_match_statuses=allowed_pwm_match_statuses,
+            allowed_hardware_motion_match_statuses=allowed_hardware_motion_match_statuses,
             distance_source=distribution_distance_source,
             distance_grouping_mode=distribution_distance_grouping_mode,
             movement_distance_bin_size=movement_distance_bin_size,
@@ -338,18 +425,36 @@ class LogAnalysisService:
         records: list[ActivityRecord],
         distribution_distance_source: str,
     ) -> None:
-        """Populate Details movement-distance display fields using the current run option."""
+        """Populate Details movement-distance display fields from hardware actual distance only."""
 
-        analyzer = DistributionAnalyzer(
-            distance_source=distribution_distance_source,
-            logger=self._logger.getChild("details_movement_distance"),
-        )
+        if distribution_distance_source != HARDWARE_DISTANCE_SOURCE:
+            raise ValueError(
+                "Software distance sources are no longer supported. Hardware actual distance is the only supported distance source."
+            )
         for record in records:
-            movement = analyzer.derive_movement_distance(record)
-            record.movement_distance = movement.movement_distance
-            record.movement_distance_source = movement.movement_distance_source
-            record.movement_distance_method = movement.movement_distance_method
-            record.movement_distance_notes = movement.movement_distance_notes
+            if (
+                record.hardware_actual_distance is not None
+                and record.hardware_motion_match_status == HARDWARE_STATUS_MATCHED_OVERLAP
+            ):
+                record.movement_distance = abs(float(record.hardware_actual_distance))
+                record.movement_distance_source = "HardwareActualDistance"
+                record.movement_distance_method = "TPOSStartEndRawDifference"
+                continue
+            if record.match_status == STATUS_MATCHED:
+                record.movement_distance = None
+                record.movement_distance_source = ""
+                if record.hardware_actual_distance is None:
+                    record.movement_distance_method = "MissingHardwareActualDistance"
+                    record.movement_distance_notes = self._merge_notes(
+                        record.movement_distance_notes,
+                        "No complete same-axis hardware TPOS Start/End segment was matched; software TXT positions are not used as selected distance.",
+                    )
+                else:
+                    record.movement_distance_method = "UnreliableHardwareMotionMatch"
+                    record.movement_distance_notes = self._merge_notes(
+                        record.movement_distance_notes,
+                        "Hardware actual distance is available only as a candidate because the hardware segment match is not an overlapping match.",
+                    )
 
     def _resolve_distribution_chart_output_dir(
         self,
@@ -363,6 +468,35 @@ class LogAnalysisService:
         if DISTRIBUTION_CHART_FOLDER_MODE == "per_workbook":
             return (output_path.parent / f"{output_path.stem}_distribution_charts").resolve()
         return (output_path.parent / DISTRIBUTION_OUTPUT_SUBDIR).resolve()
+
+    def _merge_notes(self, existing: str, new_note: str) -> str:
+        """Append a note using the report separator style."""
+
+        if not new_note:
+            return existing
+        if not existing:
+            return new_note
+        return f"{existing} | {new_note}"
+
+    def _resolve_distribution_image_gallery_output(
+        self,
+        output_path: Path,
+        distribution_image_gallery_output: Path | str | None,
+        enabled: bool,
+    ) -> Path | None:
+        """Resolve the optional standalone distribution image gallery workbook path."""
+
+        if not enabled:
+            return None
+        if distribution_image_gallery_output is not None:
+            gallery_path = Path(distribution_image_gallery_output).expanduser().resolve()
+        else:
+            gallery_path = (output_path.parent / f"{output_path.stem}_distribution_image_gallery.xlsx").resolve()
+        if gallery_path.suffix.lower() != ".xlsx":
+            gallery_path = gallery_path.with_suffix(".xlsx")
+        if gallery_path == output_path.resolve():
+            raise ValueError("Distribution image gallery output path must be different from the main output workbook path.")
+        return gallery_path
 
     def _prepare_distribution_chart_output_dir(self, chart_output_dir: Path) -> None:
         """Create and optionally clear the current run's distribution chart folder."""
@@ -406,6 +540,26 @@ class LogAnalysisService:
             statuses.add(PWM_STATUS_MATCHED_LATEST_BEFORE)
         if allow_carry_forward_pwm:
             statuses.add(PWM_STATUS_MATCHED_CARRY_FORWARD)
+        return statuses
+
+    def _build_distribution_allowed_hardware_statuses(
+        self,
+        allow_nearest_hardware_segment: bool,
+        allow_ambiguous_hardware_segment: bool,
+    ) -> set[str]:
+        """Resolve hardware motion match statuses accepted for distribution grouping."""
+
+        statuses = set(DISTRIBUTION_ALLOWED_HARDWARE_MOTION_MATCH_STATUSES)
+        if allow_nearest_hardware_segment:
+            statuses.update(
+                {
+                    HARDWARE_STATUS_MATCHED_NEAREST,
+                    HARDWARE_STATUS_MATCHED_NEAREST_PREVIOUS,
+                    HARDWARE_STATUS_MATCHED_NEAREST_FUTURE,
+                }
+            )
+        if allow_ambiguous_hardware_segment:
+            statuses.add(HARDWARE_STATUS_MULTIPLE_CANDIDATES)
         return statuses
 
     def _build_log_coverage_report(
@@ -708,11 +862,18 @@ class LogAnalysisService:
         pwm_profile_count: int,
         distribution_enabled: bool = False,
         distribution_result: DistributionAnalysisResult | None = None,
+        distribution_image_gallery_path: Path | None = None,
+        hardware_duplicate_segment_counts: tuple[int, int] = (0, 0),
     ) -> AnalysisRunResult:
         """Summarize the finished run for CLI output."""
 
         self._logger.info("Building run summary")
         distribution_exclusions = distribution_result.exclusion_counts if distribution_result is not None else {}
+        hardware_missing_reasons = {
+            "MissingHardwareActualDistance",
+            "NoHardwareSegmentFound",
+            "HardwareSegmentIncomplete",
+        }
         pwm_not_allowed_reasons = {
             "NearestLogFilePWMNotAllowedForDistribution",
             "NearestFuturePWMNotAllowedForDistribution",
@@ -721,6 +882,12 @@ class LogAnalysisService:
             "PWMConflictInSourceFile",
             "UnreliablePWM",
         }
+        hardware_not_allowed_reasons = {
+            "NearestHardwareSegmentNotAllowedForDistribution",
+            "MultipleHardwareCandidatesNotAllowedForDistribution",
+            "UnreliableHardwareMotionMatch",
+        }
+        duplicate_group_count, duplicate_row_count = hardware_duplicate_segment_counts
         return AnalysisRunResult(
             output_path=output_path,
             txt_axis_event_count=txt_axis_event_count,
@@ -741,6 +908,16 @@ class LogAnalysisService:
                 for record in records
             ),
             pwm_warning_count=sum(record.pwm_warning for record in records),
+            hardware_matched_by_overlap_count=self._count_hardware_status(records, HARDWARE_STATUS_MATCHED_OVERLAP),
+            hardware_nearest_previous_count=self._count_hardware_status(records, HARDWARE_STATUS_MATCHED_NEAREST_PREVIOUS),
+            hardware_nearest_future_count=self._count_hardware_status(records, HARDWARE_STATUS_MATCHED_NEAREST_FUTURE),
+            hardware_nearest_count=self._count_hardware_status(records, HARDWARE_STATUS_MATCHED_NEAREST),
+            hardware_multiple_candidates_count=self._count_hardware_status(records, HARDWARE_STATUS_MULTIPLE_CANDIDATES),
+            hardware_no_segment_found_count=self._count_hardware_status(records, HARDWARE_STATUS_NO_SEGMENT),
+            hardware_segment_incomplete_count=self._count_hardware_status(records, HARDWARE_STATUS_INCOMPLETE),
+            hardware_warning_count=sum(record.hardware_warning for record in records),
+            hardware_duplicate_segment_group_count=duplicate_group_count,
+            hardware_duplicate_segment_row_count=duplicate_row_count,
             txt_encoding=txt_encoding,
             distribution_enabled=distribution_enabled,
             distribution_group_count=len(distribution_result.stats) if distribution_result is not None else 0,
@@ -752,11 +929,38 @@ class LogAnalysisService:
             else 0,
             distribution_output_dir=distribution_result.chart_output_dir if distribution_result is not None else None,
             distribution_excluded_missing_pwm_count=distribution_exclusions.get("MissingPWM", 0),
-            distribution_excluded_missing_distance_count=distribution_exclusions.get("MissingTrueMovementDistance", 0),
-            distribution_excluded_missing_true_distance_count=distribution_exclusions.get("MissingTrueMovementDistance", 0),
+            distribution_excluded_missing_distance_count=sum(
+                distribution_exclusions.get(reason, 0) for reason in hardware_missing_reasons
+            ),
+            distribution_excluded_missing_true_distance_count=sum(
+                distribution_exclusions.get(reason, 0) for reason in hardware_missing_reasons
+            ),
             distribution_excluded_unreliable_pwm_count=sum(
                 distribution_exclusions.get(reason, 0)
                 for reason in pwm_not_allowed_reasons
             ),
+            distribution_excluded_unreliable_hardware_count=sum(
+                distribution_exclusions.get(reason, 0)
+                for reason in hardware_not_allowed_reasons
+            ),
             distribution_exclusion_reason_counts=dict(distribution_exclusions),
+            distribution_image_gallery_path=distribution_image_gallery_path,
         )
+
+    def _count_hardware_status(self, records: list[ActivityRecord], status: str) -> int:
+        """Count detail records with one hardware motion match status."""
+
+        return sum(record.hardware_motion_match_status == status for record in records)
+
+    def _hardware_duplicate_segment_counts(self, log_file_results) -> tuple[int, int]:
+        """Return duplicate segment group and duplicate row counts for summary metadata."""
+
+        duplicate_keys: set[str] = set()
+        duplicate_rows = 0
+        for file_result in log_file_results:
+            for segment in file_result.hardware_motion_segments:
+                if segment.possible_duplicate_hardware_segment:
+                    duplicate_rows += 1
+                    if segment.duplicate_segment_key:
+                        duplicate_keys.add(segment.duplicate_segment_key)
+        return len(duplicate_keys), duplicate_rows

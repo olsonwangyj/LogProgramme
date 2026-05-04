@@ -37,6 +37,7 @@ class ExcelExporter:
             report_frames.details.to_excel(writer, sheet_name="Details", index=False)
             self._write_summary_sheet(writer, report_frames, metadata)
             self._write_pwm_sources_sheet(writer, report_frames)
+            self._write_hardware_motion_segments_sheet(writer, report_frames)
             self._write_diagnostics_sheet(writer, report_frames)
             self._write_diagnostics_summary_sheet(writer, report_frames)
             self._write_distribution_summary_sheet(writer, report_frames)
@@ -53,6 +54,7 @@ class ExcelExporter:
             self._format_details_sheet(writer)
             self._format_summary_sheet(writer)
             self._format_pwm_sources_sheet(writer)
+            self._format_hardware_motion_segments_sheet(writer)
             self._format_diagnostics_sheet(writer)
             self._format_diagnostics_summary_sheet(writer)
             self._format_distribution_summary_sheet(writer)
@@ -97,6 +99,22 @@ class ExcelExporter:
             {"Key": "Diagnostic Count", "Value": metadata["diagnostic_count"]},
             {"Key": "Duration Warning Count", "Value": metadata["duration_warning_count"]},
             {"Key": "PWM Warning Count", "Value": metadata["pwm_warning_count"]},
+            {"Key": "Hardware Matched By Overlap", "Value": metadata.get("hardware_matched_by_overlap_count", 0)},
+            {"Key": "Hardware Nearest Previous", "Value": metadata.get("hardware_nearest_previous_count", 0)},
+            {"Key": "Hardware Nearest Future", "Value": metadata.get("hardware_nearest_future_count", 0)},
+            {"Key": "Hardware Nearest Generic", "Value": metadata.get("hardware_nearest_count", 0)},
+            {"Key": "Hardware Multiple Candidates", "Value": metadata.get("hardware_multiple_candidates_count", 0)},
+            {"Key": "Hardware No Segment Found", "Value": metadata.get("hardware_no_segment_found_count", 0)},
+            {"Key": "Hardware Segment Incomplete", "Value": metadata.get("hardware_segment_incomplete_count", 0)},
+            {"Key": "Hardware Warning Count", "Value": metadata.get("hardware_warning_count", 0)},
+            {
+                "Key": "Hardware Duplicate Segment Groups",
+                "Value": metadata.get("hardware_duplicate_segment_group_count", 0),
+            },
+            {
+                "Key": "Hardware Duplicate Segment Rows",
+                "Value": metadata.get("hardware_duplicate_segment_row_count", 0),
+            },
         ]
         if metadata.get("distribution_enabled"):
             metadata_rows.extend(
@@ -134,8 +152,20 @@ class ExcelExporter:
                         "Value": metadata.get("distribution_excluded_unreliable_pwm_count", 0),
                     },
                     {
+                        "Key": "Distribution Excluded Unreliable Hardware Match",
+                        "Value": metadata.get("distribution_excluded_unreliable_hardware_count", 0),
+                    },
+                    {
                         "Key": "Distribution Exclusion Reason Counts",
                         "Value": metadata.get("distribution_exclusion_reason_counts", ""),
+                    },
+                    {
+                        "Key": "Distribution Image Gallery Workbook",
+                        "Value": metadata.get("distribution_image_gallery_path", ""),
+                    },
+                    {
+                        "Key": "Distribution Image Gallery Metadata Note",
+                        "Value": metadata.get("distribution_image_gallery_metadata_note", ""),
                     },
                     {
                         "Key": "Log Coverage Warning",
@@ -171,6 +201,18 @@ class ExcelExporter:
         if report_frames.pwm_sources is None:
             return
         report_frames.pwm_sources.to_excel(writer, sheet_name="PWM Sources", index=False)
+
+    def _write_hardware_motion_segments_sheet(self, writer, report_frames) -> None:
+        """Write parsed hardware TPOS motion segments for audit/debugging."""
+
+        self._logger.debug("Writing Hardware Motion Segments sheet")
+        if getattr(report_frames, "hardware_motion_segments", None) is None:
+            return
+        report_frames.hardware_motion_segments.to_excel(
+            writer,
+            sheet_name="Hardware Motion Segments",
+            index=False,
+        )
 
     def _write_diagnostics_sheet(self, writer, report_frames) -> None:
         """Write the optional Diagnostics sheet when structured diagnostics are available."""
@@ -336,6 +378,17 @@ class ExcelExporter:
         if "PWM Sources" not in writer.sheets:
             return
         sheet = writer.sheets["PWM Sources"]
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        self._auto_fit_columns(sheet)
+
+    def _format_hardware_motion_segments_sheet(self, writer) -> None:
+        """Apply basic formatting to the optional Hardware Motion Segments sheet."""
+
+        self._logger.debug("Formatting Hardware Motion Segments sheet")
+        if "Hardware Motion Segments" not in writer.sheets:
+            return
+        sheet = writer.sheets["Hardware Motion Segments"]
         sheet.freeze_panes = "A2"
         sheet.auto_filter.ref = sheet.dimensions
         self._auto_fit_columns(sheet)

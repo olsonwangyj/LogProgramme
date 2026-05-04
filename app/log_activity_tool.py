@@ -20,6 +20,11 @@ def main(argv: list[str] | None = None) -> int:
 
     args = _parse_arguments(argv)
     _configure_logging(args.verbose, args.trace_lines)
+    if args.distribution_distance_source != "hardware_actual":
+        logging.getLogger("log_activity_tool").error(
+            "Software distance sources are no longer supported. Hardware actual distance is the only supported distance source."
+        )
+        return 1
     if IMPORT_ERROR is not None or LogAnalysisService is None:
         logging.getLogger("log_activity_tool").error(
             "Missing dependency %s. Install packages with `pip install -r requirements.txt`.",
@@ -48,7 +53,12 @@ def main(argv: list[str] | None = None) -> int:
             distribution_allow_nearest_pwm=args.distribution_allow_nearest_pwm,
             distribution_allow_latest_before_pwm=args.distribution_allow_latest_before_pwm,
             distribution_allow_carry_forward_pwm=args.distribution_allow_carry_forward_pwm,
+            distribution_allow_nearest_hardware_segment=args.distribution_allow_nearest_hardware_segment,
+            distribution_allow_ambiguous_hardware_segment=args.distribution_allow_ambiguous_hardware_segment,
             allow_pwm_carry_forward=args.pwm_carry_forward,
+            export_distribution_image_gallery=args.distribution_image_gallery,
+            distribution_image_gallery_output=args.distribution_image_gallery_output,
+            distribution_image_gallery_layout=args.distribution_image_gallery_layout,
         )
         _print_summary(result)
         return 0
@@ -141,9 +151,9 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--distribution-distance-source",
-        choices=["actual_preferred", "commanded_preferred", "actual_only", "commanded_only"],
-        default="actual_preferred",
-        help="Movement distance source used for distribution grouping.",
+        "--distance-source",
+        default="hardware_actual",
+        help="Movement distance source used for distribution grouping. Only hardware_actual is supported.",
     )
     parser.add_argument(
         "--distribution-distance-grouping-mode",
@@ -173,10 +183,44 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
         help="Allow carry-forward PWM matches in distribution groups.",
     )
     parser.add_argument(
+        "--distribution-allow-nearest-hardware-segment",
+        action="store_true",
+        help="Allow nearest previous/future hardware TPOS segment fallback matches in distribution groups.",
+    )
+    parser.add_argument(
+        "--distribution-allow-ambiguous-hardware-segment",
+        action="store_true",
+        help="Allow overlapping hardware matches with multiple same-axis candidates in distribution groups.",
+    )
+    parser.add_argument(
         "--pwm-carry-forward",
         action="store_true",
         help="Allow same-axis PWM values to carry forward when strict time matching cannot find reliable evidence.",
     )
+    gallery_group = parser.add_mutually_exclusive_group()
+    gallery_group.add_argument(
+        "--distribution-image-gallery",
+        dest="distribution_image_gallery",
+        action="store_true",
+        help="Export a separate workbook containing distribution chart images and image statistics.",
+    )
+    gallery_group.add_argument(
+        "--no-distribution-image-gallery",
+        dest="distribution_image_gallery",
+        action="store_false",
+        help="Do not export the separate distribution image gallery workbook.",
+    )
+    parser.add_argument(
+        "--distribution-image-gallery-output",
+        help="Optional path for the separate distribution image gallery workbook.",
+    )
+    parser.add_argument(
+        "--distribution-image-gallery-layout",
+        choices=["vertical", "compact_grid"],
+        default="vertical",
+        help="Layout for the separate distribution image gallery workbook.",
+    )
+    parser.set_defaults(distribution_image_gallery=None)
     parser.add_argument(
         "--verbose",
         action="store_true",
@@ -202,11 +246,13 @@ def _configure_logging(verbose: bool, trace_lines: bool = False) -> None:
             "log_activity_tool.service.pwm_log_parser",
             "log_activity_tool.service.matcher",
             "log_activity_tool.service.pwm_associator",
+            "log_activity_tool.service.hardware_motion",
             "log_activity_tool.service.distribution",
             "log_activity_tool.service.validator",
             "log_activity_tool.service.summary",
             "log_activity_tool.service.excel_exporter",
             "log_activity_tool.service.distribution_charts",
+            "log_activity_tool.service.distribution_image_gallery",
         ):
             logging.getLogger(logger_name).setLevel(logging.INFO)
     logging.getLogger("PIL").setLevel(logging.WARNING)
@@ -302,12 +348,44 @@ def _print_summary(result) -> None:
     print(f"Diagnostics: {result.diagnostic_count}")
     print(f"Parse warnings: {result.parse_warning_count}")
     print(f"Duration warnings: {result.duration_warning_count}")
+    print(f"Hardware matched by overlap: {result.hardware_matched_by_overlap_count}")
+    print(f"Hardware nearest previous: {result.hardware_nearest_previous_count}")
+    print(f"Hardware nearest future: {result.hardware_nearest_future_count}")
+    print(f"Hardware nearest generic: {result.hardware_nearest_count}")
+    print(f"Hardware multiple candidates: {result.hardware_multiple_candidates_count}")
+    print(f"Hardware no segment found: {result.hardware_no_segment_found_count}")
+    print(f"Hardware segment incomplete: {result.hardware_segment_incomplete_count}")
+    print(f"Hardware warnings: {result.hardware_warning_count}")
+    print(f"Hardware duplicate segment groups: {result.hardware_duplicate_segment_group_count}")
+    print(f"Hardware duplicate segment rows: {result.hardware_duplicate_segment_row_count}")
     print(f"PWM warnings: {result.pwm_warning_count}")
     if getattr(result, "distribution_enabled", False):
         print(f"Distribution groups: {result.distribution_group_count}")
         print(f"Distribution raw rows: {result.distribution_raw_row_count}")
         print(f"Distribution charts: {result.distribution_chart_count}")
         print(f"Distribution chart folder: {result.distribution_output_dir}")
+        print(f"Distribution image gallery: {result.distribution_image_gallery_path}")
+        print(
+            "Distribution groups with chart file path: "
+            f"{result.distribution_gallery_groups_with_chart_file_path_count}"
+        )
+        print(f"Distribution existing chart files: {result.distribution_gallery_existing_chart_file_count}")
+        print(f"Distribution images inserted into gallery: {result.distribution_image_count}")
+        print(f"Distribution image statistics rows: {result.distribution_image_statistics_count}")
+        print(f"Distribution groups without charts: {result.distribution_gallery_groups_without_charts_count}")
+        print(f"Distribution images skipped due to image limit: {result.distribution_gallery_image_limit_skipped_count}")
+        print(f"Distribution gallery missing chart files: {result.distribution_gallery_missing_chart_file_count}")
+        print(
+            "Distribution gallery image embedding unavailable: "
+            f"{result.distribution_gallery_image_embedding_unavailable_count}"
+        )
+        print(f"Distribution gallery image insert failures: {result.distribution_gallery_image_insert_failed_count}")
+        print(
+            "Distribution rows excluded unreliable hardware match: "
+            f"{result.distribution_excluded_unreliable_hardware_count}"
+        )
+        if getattr(result, "distribution_image_gallery_error", ""):
+            print(f"Distribution image gallery error: {result.distribution_image_gallery_error}")
         if getattr(result, "distribution_exclusion_reason_counts", None):
             print("Distribution exclusion reasons:")
             for reason, count in sorted(result.distribution_exclusion_reason_counts.items()):

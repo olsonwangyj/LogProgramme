@@ -179,7 +179,7 @@ class NormalDistributionChartGenerator:
         std_text = self._format_number(stats.sample_std_s, "NA", 3)
         return (
             f"{stats.txt_source_file} | Axis {stats.axis} | PWM {stats.pwm_percent:g}% | "
-            f"Distance {self._distance_label(stats)} ({stats.movement_distance_source}) | {stats.rule_id}\n"
+            f"Hardware Actual Distance {self._distance_label(stats)} ({stats.movement_distance_source}) | {stats.rule_id}\n"
             f"N={stats.sample_count}, Mean={mean_text}s, SD={std_text}s"
         )
 

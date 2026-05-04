@@ -76,6 +76,41 @@ def build_control_pwm_pattern(commands: set[str] | frozenset[str]) -> re.Pattern
 
 
 CONTROL_PWM_PATTERN = build_control_pwm_pattern(CONTROL_PWM_COMMANDS)
+CONTROL_TPOS_PATTERN = re.compile(
+    r"^\s*\[(?P<node>[A-Z]*?(?P<node_id>\d+)[A-Z0-9]*):(?P<axis>[A-Z]+)\]\s+TPOS"
+    r"(?:\s+'(?P<kind>[A-Z])')?"
+    r"(?:\s+(?P<arguments>.*?))?"
+    r"(?:\s+\((?P<raw>[-+]?\d+)\))?\s*$"
+)
+
+AXIS_RAW_SCALE = {
+    "X": 58708.0,
+    "Y": 58708.0,
+    "Z": 88064.0,
+    "V": -34120.0,
+    "H": -34120.0,
+    "N": -80058.0,
+    "R": 19570.0,
+    "P": 9784.0,
+}
+HARDWARE_SEGMENT_MATCH_WINDOW_MS = 3000
+HARDWARE_TARGET_TO_START_MAX_DELTA_MS = 3000
+HARDWARE_DISTANCE_SOURCE = "hardware_actual"
+HARDWARE_DISTANCE_SOURCE_OPTIONS = {"hardware_actual"}
+HARDWARE_STATUS_MATCHED_OVERLAP = "MatchedByOverlappingTime"
+HARDWARE_STATUS_MATCHED_NEAREST = "MatchedByNearestHardwareSegment"
+HARDWARE_STATUS_MATCHED_NEAREST_PREVIOUS = "MatchedByNearestPreviousHardwareSegment"
+HARDWARE_STATUS_MATCHED_NEAREST_FUTURE = "MatchedByNearestFutureHardwareSegment"
+HARDWARE_STATUS_MULTIPLE_CANDIDATES = "MultipleHardwareCandidates"
+HARDWARE_STATUS_NO_SEGMENT = "NoHardwareSegmentFound"
+HARDWARE_STATUS_INCOMPLETE = "HardwareSegmentIncomplete"
+HARDWARE_DISTANCE_CONSISTENCY_TOLERANCE = 0.5
+HARDWARE_POSITION_KIND_MAP = {
+    "S": "Start",
+    "E": "End",
+    "Z": "ZeroSensor",
+    "I": "ResetOrInit",
+}
 
 COMPANION_VALUE_PREFIXES = ("min:", "max:")
 END_VALUE_COMPANION_SEARCH_WINDOW_MS = 2000
@@ -227,9 +262,11 @@ STATUS_DIAGNOSTIC = "Diagnostic"
 STATUS_PWM_WARNING = "PWM Warning"
 STATUS_NO_PWM_FOUND = "No PWM Found"
 STATUS_NO_RELEVANT_LOG_FILE_FOUND = "No Relevant Log File Found"
+STATUS_MISSING_HARDWARE_DISTANCE = "Missing Hardware Distance"
 
 OVERALL_STATUS_OK = "OK"
 OVERALL_STATUS_DURATION_WARNING = "Duration Warning"
+OVERALL_STATUS_HARDWARE_WARNING = "Hardware Warning"
 OVERALL_STATUS_PWM_WARNING = "PWM Warning"
 OVERALL_STATUS_BOUNDARY_CLOSED = "Boundary Closed"
 OVERALL_STATUS_CLOSED_BY_NEW_START = "Closed By New Start"
@@ -277,19 +314,20 @@ MOVEMENT_DISTANCE_RESET_BOUNDARY_TYPES = HARD_POSITION_RESET_BOUNDARIES | (
     SOFT_WORKFLOW_BOUNDARIES if RESET_POSITION_ON_SOFT_WORKFLOW_BOUNDARIES else set()
 )
 MOVEMENT_DISTANCE_SOURCE_OPTIONS = {
-    "actual_preferred",
-    "commanded_preferred",
-    "actual_only",
-    "commanded_only",
+    "hardware_actual",
 }
-DISTRIBUTION_DISTANCE_SOURCE = "actual_preferred"
+DISTRIBUTION_DISTANCE_SOURCE = HARDWARE_DISTANCE_SOURCE
 DISTRIBUTION_DISTANCE_GROUPING_MODE = "bin"
 MOVEMENT_DISTANCE_GROUPING_MODES = {"round_digits", "bin", "exact"}
-ALLOW_TARGET_ABSOLUTE_DISTANCE_FALLBACK = False
 ALLOW_PWM_CARRY_FORWARD_ACROSS_SESSION = False
 DISTRIBUTION_ALLOW_NEAREST_PWM = False
 DISTRIBUTION_ALLOW_LATEST_BEFORE_PWM = False
 DISTRIBUTION_ALLOW_PWM_CARRY_FORWARD = False
+DISTRIBUTION_ALLOW_NEAREST_HARDWARE_SEGMENT = False
+DISTRIBUTION_ALLOW_MULTIPLE_HARDWARE_CANDIDATES = False
+DISTRIBUTION_ALLOWED_HARDWARE_MOTION_MATCH_STATUSES = {
+    HARDWARE_STATUS_MATCHED_OVERLAP,
+}
 MIN_SAMPLES_FOR_NORMAL_FIT = 3
 MIN_SAMPLES_FOR_DISTRIBUTION_CHART = 2
 NORMAL_CHART_BINS = "auto"
@@ -304,15 +342,142 @@ CLEAN_DISTRIBUTION_OUTPUT_DIR_BEFORE_RUN = True
 DISTRIBUTION_ALLOWED_PWM_MATCH_STATUSES = {
     PWM_STATUS_MATCHED_CONTAINING,
 }
+EXPORT_DISTRIBUTION_IMAGE_GALLERY = True
+DISTRIBUTION_IMAGE_GALLERY_SHEET_NAME = "Image Gallery"
+DISTRIBUTION_IMAGE_STATISTICS_SHEET_NAME = "Image Statistics"
+DISTRIBUTION_IMAGE_INDEX_SHEET_NAME = "Image Index"
+DISTRIBUTION_IMAGE_MAX_IMAGES = 500
+DISTRIBUTION_IMAGE_WIDTH_PX = 900
+DISTRIBUTION_IMAGE_HEIGHT_PX = 600
+DISTRIBUTION_IMAGE_BLOCK_HEIGHT_ROWS = 35
+DISTRIBUTION_IMAGE_GALLERY_INCLUDE_SKIPPED_GROUPS = False
+DISTRIBUTION_IMAGE_GALLERY_LAYOUT = "vertical"
+DISTRIBUTION_IMAGE_GALLERY_LAYOUT_OPTIONS = {"vertical", "compact_grid"}
+DISTRIBUTION_IMAGE_GRID_COLUMNS = 2
+DISTRIBUTION_IMAGE_GRID_BLOCK_WIDTH_COLUMNS = 14
+
+DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS = [
+    "Group ID",
+    "TXT Source File",
+    "PWM (%)",
+    "Axis",
+    "Hardware Actual Distance",
+    "Hardware Actual Distance Group Value",
+    "Hardware Actual Distance Group Display",
+    "Hardware Distance Source",
+    "Hardware Distance Method",
+    "Movement Distance Grouping Mode",
+    "Movement Distance Bin Size",
+    "Rule ID",
+    "Action Label",
+    "Sample Count",
+    "Mean Duration (s)",
+    "Sample SD Duration (s)",
+    "Sample Variance Duration (s^2)",
+    "Chart File",
+    "Distribution Status",
+    "Chart Status",
+    "Gallery Image Status",
+    "Image Insert Error",
+]
+
+DISTRIBUTION_IMAGE_STATISTICS_COLUMNS = [
+    "Group ID",
+    "TXT Source File",
+    "PWM (%)",
+    "PWM Raw Values Seen",
+    "PWM Directions Seen",
+    "PWM Direction Mixed",
+    "PWM Raw Value Example",
+    "PWM Direction Example",
+    "Axis",
+    "Selected Group Distance",
+    "Hardware Actual Distance Group Value",
+    "Hardware Actual Distance Group Display",
+    "Movement Distance Grouping Mode",
+    "Movement Distance Bin Size",
+    "Hardware Actual Distance Raw Example",
+    "Hardware Actual Distance Min",
+    "Hardware Actual Distance Max",
+    "Hardware Motion Source File",
+    "Hardware Raw Start Position",
+    "Hardware Raw End Position",
+    "Hardware Start Position",
+    "Hardware End Position",
+    "Hardware Actual Distance",
+    "Position Values Mixed",
+    "Hardware Distance Source",
+    "Hardware Distance Method",
+    "Rule ID",
+    "Action Label",
+    "Sample Count",
+    "Mean Duration (ms)",
+    "Mean Duration (s)",
+    "Median Duration (ms)",
+    "Median Duration (s)",
+    "Sample SD Duration (ms)",
+    "Sample SD Duration (s)",
+    "Sample Variance Duration (ms^2)",
+    "Sample Variance Duration (s^2)",
+    "Normal Fit Mean (s)",
+    "Normal Fit Std Dev (s)",
+    "Normal Fit Variance (s^2)",
+    "Population SD Duration (ms)",
+    "Population SD Duration (s)",
+    "Population Variance Duration (ms^2)",
+    "Population Variance Duration (s^2)",
+    "Min Duration (ms)",
+    "Max Duration (ms)",
+    "P05 Duration (ms)",
+    "P25 Duration (ms)",
+    "P75 Duration (ms)",
+    "P95 Duration (ms)",
+    "Coefficient of Variation (%)",
+    "Distribution Status",
+    "Chart Status",
+    "Gallery Image Status",
+    "Image Insert Error",
+    "Chart File",
+    "Notes",
+]
+
+DISTRIBUTION_IMAGE_INDEX_COLUMNS = [
+    "Image Number",
+    "Group ID",
+    "Chart File",
+    "Excel Anchor",
+    "TXT Source File",
+    "Axis",
+    "PWM (%)",
+    "Hardware Actual Distance Group Value",
+    "Hardware Actual Distance Group Display",
+    "Hardware Distance Source",
+    "Hardware Distance Method",
+    "Movement Distance Grouping Mode",
+    "Movement Distance Bin Size",
+    "PWM Raw Values Seen",
+    "PWM Directions Seen",
+    "PWM Direction Mixed",
+    "Rule ID",
+    "Sample Count",
+    "Mean Duration (s)",
+    "Sample SD Duration (s)",
+    "Normal Fit Mean (s)",
+    "Normal Fit Std Dev (s)",
+    "Normal Fit Variance (s^2)",
+    "Chart Status",
+    "Gallery Image Status",
+    "Image Insert Error",
+]
 
 DISTRIBUTION_CHART_METADATA_KEYS = [
     "TXT Source File",
     "PWM (%)",
     "Axis",
-    "Movement Distance Group Value",
-    "Movement Distance Display",
-    "Movement Distance Source",
-    "Movement Distance Method",
+    "Hardware Actual Distance Group Value",
+    "Hardware Actual Distance Display",
+    "Hardware Distance Source",
+    "Hardware Distance Method",
     "Movement Distance Grouping Mode",
     "Movement Distance Bin Size",
     "Rule ID",
@@ -340,15 +505,37 @@ DETAIL_COLUMNS = [
     "Duration (s)",
     "Start Value",
     "End Value",
-    "Movement Start Position",
-    "Movement Target Position",
-    "Movement End Position",
-    "Movement Commanded Distance",
-    "Movement Actual Distance",
+    "Hardware Motion Match Status",
+    "Hardware Motion Source File",
+    "Hardware Motion Time Delta (ms)",
+    "Hardware Raw Start Position",
+    "Hardware Raw End Position",
+    "Hardware Raw Target Position",
+    "Hardware Start Position",
+    "Hardware End Position",
+    "Hardware Target Position",
+    "Hardware Actual Distance",
+    "Candidate Hardware Actual Distance",
+    "Hardware Commanded Distance",
+    "Hardware Distance Consistency Status",
+    "Hardware Distance Consistency Delta",
+    "Hardware Start Line Number",
+    "Hardware Start Line Text",
+    "Hardware End Line Number",
+    "Hardware End Line Text",
+    "Hardware Target Line Number",
+    "Hardware Target Line Text",
+    "Selected Hardware Actual Distance",
     "Selected Movement Distance",
-    "Movement Distance Source",
-    "Movement Distance Method",
-    "Movement Distance Notes",
+    "Selected Movement Distance Source",
+    "Selected Movement Distance Method",
+    "Selected Movement Distance Notes",
+    "Software TXT Start Position",
+    "Software TXT Target Position",
+    "Software TXT Reported End Position",
+    "Software TXT Commanded Distance",
+    "Software TXT Reported Distance",
+    "Hardware Warning",
     "PWM (%)",
     "PWM Raw Value",
     "PWM Direction",
@@ -400,6 +587,7 @@ EVENT_SUMMARY_COLUMNS = [
     "Initialization Failed Count",
     "Parse Warning Count",
     "Duration Warning Count",
+    "Hardware Warning Count",
     "PWM Warning Count",
 ]
 
@@ -420,6 +608,7 @@ AXIS_SUMMARY_COLUMNS = [
     "Initialization Failed Count",
     "Parse Warning Count",
     "Duration Warning Count",
+    "Hardware Warning Count",
     "PWM Warning Count",
 ]
 
@@ -439,6 +628,33 @@ PWM_SOURCE_COLUMNS = [
     "Is Status Confirmation",
     "PWM Conflict",
     "PWM Conflict Reason",
+    "Notes",
+]
+
+HARDWARE_MOTION_SEGMENT_COLUMNS = [
+    "Source Log File",
+    "Axis",
+    "Match Status",
+    "Start Time",
+    "End Time",
+    "Target Time",
+    "Raw Start Position",
+    "Raw End Position",
+    "Raw Target Position",
+    "Hardware Start Position",
+    "Hardware End Position",
+    "Hardware Target Position",
+    "Hardware Actual Distance",
+    "Hardware Commanded Distance",
+    "Start Line Number",
+    "Start Line Text",
+    "End Line Number",
+    "End Line Text",
+    "Target Line Number",
+    "Target Line Text",
+    "Duplicate Segment Key",
+    "Duplicate Segment Count",
+    "Possible Duplicate Source Files",
     "Notes",
 ]
 
@@ -468,31 +684,31 @@ DISTRIBUTION_SUMMARY_COLUMNS = [
     "TXT Source File",
     "PWM (%)",
     "Axis",
-    "Example Movement Start Position",
-    "Example Movement Target Position",
-    "Example Movement End Position",
-    "Example Movement Commanded Distance",
-    "Example Movement Actual Distance",
-    "Example Movement Distance",
-    "Movement Start Position Min",
-    "Movement Start Position Max",
-    "Movement Target Position Min",
-    "Movement Target Position Max",
-    "Movement End Position Min",
-    "Movement End Position Max",
-    "Movement Distance Min",
-    "Movement Distance Max",
+    "Example Hardware Start Position",
+    "Example Hardware Target Position",
+    "Example Hardware End Position",
+    "Example Hardware Commanded Distance",
+    "Example Hardware Actual Distance",
+    "Example Selected Hardware Actual Distance",
+    "Hardware Start Position Min",
+    "Hardware Start Position Max",
+    "Hardware Target Position Min",
+    "Hardware Target Position Max",
+    "Hardware End Position Min",
+    "Hardware End Position Max",
+    "Hardware Actual Distance Min",
+    "Hardware Actual Distance Max",
     "Unique Position Combination Count",
-    "Movement Distance Raw Example",
-    "Movement Distance Group Value",
-    "Movement Distance Group Display",
+    "Hardware Actual Distance Raw Example",
+    "Hardware Actual Distance Group Value",
+    "Hardware Actual Distance Group Display",
     "Movement Distance Grouping Mode",
     "Movement Distance Bin Size",
     "Selected Group Distance",
-    "Movement Distance Rounded",
-    "Movement Distance Method",
-    "Movement Distance Source",
-    "Movement Distance Notes",
+    "Hardware Actual Distance Rounded",
+    "Hardware Distance Method",
+    "Hardware Distance Source",
+    "Hardware Distance Notes",
     "Position Values Mixed",
     "Rule ID",
     "Action Label",
@@ -530,20 +746,36 @@ DISTRIBUTION_RAW_DATA_COLUMNS = [
     "TXT Source File",
     "Axis",
     "PWM (%)",
-    "Movement Start Position",
-    "Movement Target Position",
-    "Movement End Position",
-    "Movement Commanded Distance",
-    "Movement Actual Distance",
+    "Selected Hardware Start Position",
+    "Selected Hardware Target Position",
+    "Selected Hardware End Position",
+    "Selected Hardware Commanded Distance",
+    "Selected Hardware Actual Distance",
+    "Hardware Motion Match Status",
+    "Hardware Motion Source File",
+    "Hardware Raw Start Position",
+    "Hardware Raw End Position",
+    "Hardware Raw Target Position",
+    "Hardware Start Position",
+    "Hardware End Position",
+    "Hardware Target Position",
+    "Hardware Actual Distance",
+    "Hardware Commanded Distance",
+    "Hardware Start Line Number",
+    "Hardware Start Line Text",
+    "Hardware End Line Number",
+    "Hardware End Line Text",
+    "Hardware Target Line Number",
+    "Hardware Target Line Text",
     "Selected Movement Distance",
-    "Movement Distance Source",
-    "Movement Distance Group Value",
-    "Movement Distance Group Display",
+    "Selected Movement Distance Source",
+    "Hardware Actual Distance Group Value",
+    "Hardware Actual Distance Group Display",
     "Movement Distance Grouping Mode",
     "Movement Distance Bin Size",
-    "Movement Distance Rounded",
-    "Movement Distance Method",
-    "Movement Distance Notes",
+    "Hardware Actual Distance Rounded",
+    "Selected Movement Distance Method",
+    "Selected Movement Distance Notes",
     "Rule ID",
     "Action Label",
     "Start Time",
@@ -578,10 +810,10 @@ DISTRIBUTION_CHART_METADATA_COLUMNS = [
     "TXT Source File",
     "PWM (%)",
     "Axis",
-    "Movement Distance Group Value",
-    "Movement Distance Display",
-    "Movement Distance Source",
-    "Movement Distance Method",
+    "Hardware Actual Distance Group Value",
+    "Hardware Actual Distance Display",
+    "Hardware Distance Source",
+    "Hardware Distance Method",
     "Movement Distance Grouping Mode",
     "Movement Distance Bin Size",
     "Rule ID",
@@ -608,6 +840,7 @@ DISTRIBUTION_EXCLUSION_SUMMARY_COLUMNS = [
     "PWM Missing Reason",
     "PWM Time Delta (ms)",
     "Example PWM Source File",
+    "Hardware Motion Match Status",
     "Example Start Line",
     "Example Notes",
 ]

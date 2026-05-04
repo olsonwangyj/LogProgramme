@@ -15,8 +15,8 @@ from pathlib import Path
 import pandas as pd
 
 from .config import (
-    ALLOW_TARGET_ABSOLUTE_DISTANCE_FALLBACK,
     DISTRIBUTION_ALLOW_PWM_CARRY_FORWARD,
+    DISTRIBUTION_ALLOWED_HARDWARE_MOTION_MATCH_STATUSES,
     DISTRIBUTION_ALLOWED_PWM_MATCH_STATUSES,
     DISTRIBUTION_DISTANCE_GROUPING_MODE,
     DISTRIBUTION_DISTANCE_SOURCE,
@@ -25,7 +25,13 @@ from .config import (
     MOVEMENT_DISTANCE_BIN_SIZE,
     MOVEMENT_DISTANCE_GROUPING_MODES,
     MOVEMENT_DISTANCE_ROUND_DIGITS,
-    MOVEMENT_DISTANCE_SOURCE_OPTIONS,
+    HARDWARE_DISTANCE_SOURCE,
+    HARDWARE_STATUS_INCOMPLETE,
+    HARDWARE_STATUS_MATCHED_NEAREST,
+    HARDWARE_STATUS_MATCHED_NEAREST_FUTURE,
+    HARDWARE_STATUS_MATCHED_NEAREST_PREVIOUS,
+    HARDWARE_STATUS_MULTIPLE_CANDIDATES,
+    HARDWARE_STATUS_NO_SEGMENT,
     PWM_STATUS_MATCHED_CARRY_FORWARD,
     PWM_STATUS_MATCHED_LATEST_BEFORE,
     PWM_STATUS_MATCHED_NEAREST,
@@ -135,6 +141,22 @@ class DistributionInputRow:
     overall_status: str = ""
     match_status: str = ""
     duration_status: str = ""
+    hardware_motion_match_status: str = ""
+    hardware_motion_source_file: str = ""
+    hardware_raw_start_position: int | None = None
+    hardware_raw_end_position: int | None = None
+    hardware_raw_target_position: int | None = None
+    hardware_start_position: float | None = None
+    hardware_end_position: float | None = None
+    hardware_target_position: float | None = None
+    hardware_actual_distance: float | None = None
+    hardware_commanded_distance: float | None = None
+    hardware_start_line_number: int | None = None
+    hardware_start_line_text: str = ""
+    hardware_end_line_number: int | None = None
+    hardware_end_line_text: str = ""
+    hardware_target_line_number: int | None = None
+    hardware_target_line_text: str = ""
 
 
 @dataclass
@@ -219,6 +241,7 @@ class DistributionExclusion:
     pwm_missing_reason: str = ""
     pwm_time_delta_ms: int | None = None
     example_pwm_source_file: str = ""
+    hardware_motion_match_status: str = ""
 
 
 @dataclass
@@ -258,8 +281,8 @@ class DistributionAnalyzer:
         min_samples_for_normal_fit: int = MIN_SAMPLES_FOR_NORMAL_FIT,
         include_missing_pwm: bool = False,
         include_missing_movement_distance: bool = False,
-        allow_target_absolute_distance_fallback: bool = ALLOW_TARGET_ABSOLUTE_DISTANCE_FALLBACK,
         allowed_pwm_match_statuses: set[str] | None = None,
+        allowed_hardware_motion_match_statuses: set[str] | None = None,
         distance_source: str = DISTRIBUTION_DISTANCE_SOURCE,
         distance_grouping_mode: str = DISTRIBUTION_DISTANCE_GROUPING_MODE,
         movement_distance_bin_size: float = MOVEMENT_DISTANCE_BIN_SIZE,
@@ -268,17 +291,26 @@ class DistributionAnalyzer:
     ) -> None:
         """Initialize distribution analysis options."""
 
+        self._logger = logger or logging.getLogger(self.__class__.__name__)
         self.movement_distance_round_digits = movement_distance_round_digits
         self.min_samples_for_normal_fit = min_samples_for_normal_fit
         self.include_missing_pwm = include_missing_pwm
         self.include_missing_movement_distance = include_missing_movement_distance
-        self.allow_target_absolute_distance_fallback = allow_target_absolute_distance_fallback
         self.allowed_pwm_match_statuses = (
             set(DISTRIBUTION_ALLOWED_PWM_MATCH_STATUSES)
             if allowed_pwm_match_statuses is None
             else set(allowed_pwm_match_statuses)
         )
-        self.distance_source = distance_source if distance_source in MOVEMENT_DISTANCE_SOURCE_OPTIONS else "actual_preferred"
+        self.allowed_hardware_motion_match_statuses = (
+            set(DISTRIBUTION_ALLOWED_HARDWARE_MOTION_MATCH_STATUSES)
+            if allowed_hardware_motion_match_statuses is None
+            else set(allowed_hardware_motion_match_statuses)
+        )
+        if distance_source != HARDWARE_DISTANCE_SOURCE:
+            raise ValueError(
+                "Software distance sources are no longer supported. Hardware actual distance is the only supported distance source."
+            )
+        self.distance_source = HARDWARE_DISTANCE_SOURCE
         self.distance_grouping_mode = (
             distance_grouping_mode
             if distance_grouping_mode in MOVEMENT_DISTANCE_GROUPING_MODES
@@ -291,7 +323,6 @@ class DistributionAnalyzer:
         self.exclusion_counts: Counter = Counter()
         self.exclusions: list[DistributionExclusion] = []
         self.eligibility_exclusions: list[DistributionExclusion] = []
-        self._logger = logger or logging.getLogger(self.__class__.__name__)
 
     def analyze(self, records: list[ActivityRecord], txt_source_file: str) -> DistributionAnalysisResult:
         """Build rows, group them, and compute statistics in one call."""
@@ -328,11 +359,7 @@ class DistributionAnalyzer:
             pwm_percent = self._normalize_pwm_percent(record.pwm_percent)
             movement = self.derive_movement_distance(record)
 
-            movement_reason = (
-                "MissingTrueMovementDistance"
-                if movement.movement_distance is None and not self.include_missing_movement_distance
-                else ""
-            )
+            movement_reason = self._hardware_motion_exclusion_reason(record, movement)
             pwm_reason = self._distribution_pwm_exclusion_reason(record, pwm_percent)
             group_reason = "MissingGroupField" if not record.axis or not record.rule_id else ""
             reasons = [reason for reason in (movement_reason, pwm_reason, group_reason) if reason]
@@ -354,6 +381,8 @@ class DistributionAnalyzer:
                 continue
 
             movement_distance = movement.movement_distance if movement.movement_distance is not None else math.nan
+            if self._is_numeric(movement_distance):
+                movement_distance = abs(float(movement_distance))
             movement_distance_rounded = (
                 round(movement_distance, self.movement_distance_round_digits)
                 if self._is_numeric(movement_distance)
@@ -429,6 +458,22 @@ class DistributionAnalyzer:
                     overall_status=record.status,
                     match_status=record.match_status,
                     duration_status=record.duration_status,
+                    hardware_motion_match_status=record.hardware_motion_match_status,
+                    hardware_motion_source_file=record.hardware_motion_source_file,
+                    hardware_raw_start_position=record.hardware_raw_start_position,
+                    hardware_raw_end_position=record.hardware_raw_end_position,
+                    hardware_raw_target_position=record.hardware_raw_target_position,
+                    hardware_start_position=record.hardware_start_position,
+                    hardware_end_position=record.hardware_end_position,
+                    hardware_target_position=record.hardware_target_position,
+                    hardware_actual_distance=record.hardware_actual_distance,
+                    hardware_commanded_distance=record.hardware_commanded_distance,
+                    hardware_start_line_number=record.hardware_start_line_number,
+                    hardware_start_line_text=record.hardware_start_line_text,
+                    hardware_end_line_number=record.hardware_end_line_number,
+                    hardware_end_line_text=record.hardware_end_line_text,
+                    hardware_target_line_number=record.hardware_target_line_number,
+                    hardware_target_line_text=record.hardware_target_line_text,
                 )
             )
         self._logger.info("Prepared %s distribution input rows; exclusions: %s", len(rows), dict(self.exclusion_counts))
@@ -463,28 +508,30 @@ class DistributionAnalyzer:
         ]
 
     def derive_movement_distance(self, record: ActivityRecord) -> MovementDerivation:
-        """Return selected movement-distance fields according to configured source policy."""
+        """Return selected movement-distance fields from hardware TPOS actual distance only."""
 
-        start_position = self._to_float_or_none(record.movement_start_position)
-        target_position = self._to_float_or_none(record.movement_target_position)
-        end_position = self._to_float_or_none(record.movement_end_position)
-        commanded_distance = self._to_float_or_none(record.movement_commanded_distance)
-        actual_distance = self._to_float_or_none(record.movement_actual_distance)
-        if commanded_distance is None and start_position is not None and target_position is not None:
-            commanded_distance = abs(target_position - start_position)
-        if actual_distance is None and start_position is not None and end_position is not None:
-            actual_distance = abs(end_position - start_position)
-
-        distance, method, source = self._select_distance(commanded_distance, actual_distance)
+        start_position = self._to_float_or_none(record.hardware_start_position)
+        target_position = self._to_float_or_none(record.hardware_target_position)
+        end_position = self._to_float_or_none(record.hardware_end_position)
+        commanded_distance = self._to_float_or_none(record.hardware_commanded_distance)
+        actual_distance = self._to_float_or_none(record.hardware_actual_distance)
+        if commanded_distance is not None:
+            commanded_distance = abs(commanded_distance)
+        if actual_distance is not None:
+            actual_distance = abs(actual_distance)
         notes = record.movement_distance_notes
-        if distance is None and self.allow_target_absolute_distance_fallback and target_position is not None:
-            distance = abs(target_position)
-            method = "StartTargetAbsoluteValueFallback"
-            source = "TargetAbsoluteFallback"
-            notes = self._merge_notes(notes, "Target absolute value used because true start position was unavailable.")
-        if distance is None:
-            method = record.movement_distance_method or "MissingStartOrEndPosition"
+        if actual_distance is None:
+            method = "MissingHardwareActualDistance"
             source = ""
+            notes = self._merge_notes(
+                notes,
+                "No complete same-axis hardware TPOS Start/End segment was matched; software TXT positions are not used as selected distance.",
+            )
+            distance = None
+        else:
+            distance = actual_distance
+            method = "TPOSStartEndRawDifference"
+            source = "HardwareActualDistance"
         return MovementDerivation(
             movement_start_position=start_position,
             movement_target_position=target_position,
@@ -650,47 +697,21 @@ class DistributionAnalyzer:
             notes=notes,
         )
 
-    def _select_distance(
-        self,
-        commanded_distance: float | None,
-        actual_distance: float | None,
-    ) -> tuple[float | None, str, str]:
-        """Choose movement distance according to the configured source policy."""
-
-        if self.distance_source == "actual_only":
-            if actual_distance is not None:
-                return actual_distance, "KnownStartPositionToActualEnd", "ActualEndPosition"
-            return None, "MissingStartOrEndPosition", ""
-        if self.distance_source == "commanded_only":
-            if commanded_distance is not None:
-                return commanded_distance, "KnownStartPositionToTarget", "CommandTargetPosition"
-            return None, "MissingStartOrTargetPosition", ""
-        if self.distance_source == "commanded_preferred":
-            if commanded_distance is not None:
-                return commanded_distance, "KnownStartPositionToTarget", "CommandTargetPosition"
-            if actual_distance is not None:
-                return actual_distance, "KnownStartPositionToActualEnd", "ActualEndPosition"
-        else:
-            if actual_distance is not None:
-                return actual_distance, "KnownStartPositionToActualEnd", "ActualEndPosition"
-            if commanded_distance is not None:
-                return commanded_distance, "KnownStartPositionToTarget", "CommandTargetPosition"
-        return None, "MissingStartOrEndPosition", ""
-
     def _group_distance_value(self, movement_distance: float) -> float:
         """Return the distance value used for distribution grouping."""
 
         if not self._is_numeric(movement_distance):
             return math.nan
+        movement_distance = abs(float(movement_distance))
         if self.distance_grouping_mode == "exact":
-            return float(movement_distance)
+            return movement_distance
         if self.distance_grouping_mode == "round_digits":
-            return round(float(movement_distance), self.movement_distance_round_digits)
+            return round(movement_distance, self.movement_distance_round_digits)
         bin_size = self.movement_distance_bin_size
         if not self._is_numeric(bin_size) or bin_size <= 0:
-            return round(float(movement_distance), self.movement_distance_round_digits)
+            return round(movement_distance, self.movement_distance_round_digits)
         digits = _decimal_places_for_step(bin_size)
-        return round(round(float(movement_distance) / bin_size) * bin_size, digits)
+        return round(round(movement_distance / bin_size) * bin_size, digits)
 
     def _distribution_status(self, sample_count: int, sample_std_ms: float | None) -> tuple[str, str]:
         """Resolve distribution status and note text for a group."""
@@ -720,6 +741,43 @@ class DistributionAnalyzer:
         """Return whether PWM evidence is reliable enough for same-PWM grouping."""
 
         return not record.pwm_conflict and record.pwm_match_status in self.allowed_pwm_match_statuses
+
+    def _hardware_motion_exclusion_reason(
+        self,
+        record: ActivityRecord,
+        movement: MovementDerivation,
+    ) -> str:
+        """Return the hardware-distance reason that excludes a valid row from distribution."""
+
+        if movement.movement_distance is None:
+            if self.include_missing_movement_distance:
+                return ""
+            return self._missing_hardware_distance_reason(record)
+        if record.hardware_motion_match_status in self.allowed_hardware_motion_match_statuses:
+            return ""
+        return self._unreliable_hardware_match_reason(record.hardware_motion_match_status)
+
+    def _missing_hardware_distance_reason(self, record: ActivityRecord) -> str:
+        """Return a specific missing-hardware-distance reason."""
+
+        if record.hardware_motion_match_status == HARDWARE_STATUS_NO_SEGMENT:
+            return HARDWARE_STATUS_NO_SEGMENT
+        if record.hardware_motion_match_status == HARDWARE_STATUS_INCOMPLETE:
+            return HARDWARE_STATUS_INCOMPLETE
+        return "MissingHardwareActualDistance"
+
+    def _unreliable_hardware_match_reason(self, status: str) -> str:
+        """Return a specific reason for excluding a weak hardware segment match."""
+
+        if status in {
+            HARDWARE_STATUS_MATCHED_NEAREST,
+            HARDWARE_STATUS_MATCHED_NEAREST_PREVIOUS,
+            HARDWARE_STATUS_MATCHED_NEAREST_FUTURE,
+        }:
+            return "NearestHardwareSegmentNotAllowedForDistribution"
+        if status == HARDWARE_STATUS_MULTIPLE_CANDIDATES:
+            return "MultipleHardwareCandidatesNotAllowedForDistribution"
+        return "UnreliableHardwareMotionMatch"
 
     def _record_exclusion(
         self,
@@ -754,6 +812,7 @@ class DistributionAnalyzer:
                 pwm_missing_reason=record.pwm_missing_reason,
                 pwm_time_delta_ms=record.pwm_time_delta_ms,
                 example_pwm_source_file=record.pwm_source_file,
+                hardware_motion_match_status=record.hardware_motion_match_status,
             )
         )
 
@@ -772,6 +831,7 @@ class DistributionAnalyzer:
                 pwm_missing_reason=record.pwm_missing_reason,
                 pwm_time_delta_ms=record.pwm_time_delta_ms,
                 example_pwm_source_file=record.pwm_source_file,
+                hardware_motion_match_status=record.hardware_motion_match_status,
             )
         )
 

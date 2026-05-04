@@ -15,8 +15,10 @@ from backend.log_axis_activity_analyzer.config import (
     DURATION_STATUS_NOT_APPLICABLE,
     DURATION_STATUS_TOO_LONG,
     DURATION_STATUS_VALID,
+    HARDWARE_STATUS_MATCHED_OVERLAP,
     OVERALL_STATUS_BOUNDARY_CLOSED,
     OVERALL_STATUS_CLOSED_BY_NEW_START,
+    OVERALL_STATUS_HARDWARE_WARNING,
     OVERALL_STATUS_INITIALIZATION_FAILED,
     OVERALL_STATUS_OK,
     OVERALL_STATUS_PWM_WARNING,
@@ -72,6 +74,19 @@ def _parse_main_log(tmp_path: Path, lines: list[str]):
     return parser.parse(path)
 
 
+def _with_reliable_hardware(record: ActivityRecord, distance: float = 1.0) -> ActivityRecord:
+    """Attach minimal reliable hardware evidence to tests focused on non-hardware behavior."""
+
+    record.hardware_motion_match_status = HARDWARE_STATUS_MATCHED_OVERLAP
+    record.hardware_actual_distance = distance
+    record.hardware_start_position = 0
+    record.hardware_end_position = distance
+    record.movement_distance = distance
+    record.movement_distance_source = "HardwareActualDistance"
+    record.movement_distance_method = "TPOSStartEndRawDifference"
+    return record
+
+
 def test_parse_log_timestamp_preserves_milliseconds() -> None:
     """Millisecond precision should survive timestamp parsing."""
 
@@ -114,7 +129,7 @@ def test_valid_same_axis_match_produces_expected_duration(tmp_path: Path) -> Non
     assert record.rule_id == "clear_motor"
     assert record.duration_ms == 6819
     assert record.duration_s == 6.819
-    assert record.status == OVERALL_STATUS_OK
+    assert record.status == OVERALL_STATUS_HARDWARE_WARNING
 
 
 def test_different_axis_events_do_not_match(tmp_path: Path) -> None:
@@ -488,7 +503,7 @@ def test_direction_changed_profile_does_not_create_pwm_warning(tmp_path: Path) -
         ],
     )
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="H",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -496,7 +511,7 @@ def test_direction_changed_profile_does_not_create_pwm_warning(tmp_path: Path) -
         start_time=datetime(2026, 4, 10, 8, 37, 35),
         end_time=datetime(2026, 4, 10, 8, 37, 36),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
 
@@ -608,7 +623,7 @@ def test_pwm_association_prefers_containing_log_file(tmp_path: Path) -> None:
     )
 
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -616,7 +631,7 @@ def test_pwm_association_prefers_containing_log_file(tmp_path: Path) -> None:
         start_time=datetime(2026, 1, 1, 0, 0, 5),
         end_time=datetime(2026, 1, 1, 0, 0, 6),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
 
@@ -648,7 +663,7 @@ def test_pwm_association_falls_back_when_containing_file_lacks_axis(tmp_path: Pa
     )
 
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -656,7 +671,7 @@ def test_pwm_association_falls_back_when_containing_file_lacks_axis(tmp_path: Pa
         start_time=datetime(2026, 1, 1, 0, 0, 5),
         end_time=datetime(2026, 1, 1, 0, 0, 6),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
 
@@ -682,7 +697,7 @@ def test_pwm_association_does_not_attach_far_latest_before(tmp_path: Path) -> No
     )
 
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -690,7 +705,7 @@ def test_pwm_association_does_not_attach_far_latest_before(tmp_path: Path) -> No
         start_time=datetime(2026, 1, 1, 0, 10, 0),
         end_time=datetime(2026, 1, 1, 0, 10, 1),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
 
@@ -718,7 +733,7 @@ def test_latest_before_strategy_does_not_attach_future_pwm(tmp_path: Path) -> No
     )
 
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -726,7 +741,7 @@ def test_latest_before_strategy_does_not_attach_future_pwm(tmp_path: Path) -> No
         start_time=datetime(2026, 1, 1, 0, 0, 0),
         end_time=datetime(2026, 1, 1, 0, 0, 1),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files, strategy="latest_before_start"))
 
@@ -759,7 +774,7 @@ def test_latest_known_strategy_uses_only_prior_pwm(tmp_path: Path) -> None:
     )
 
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -767,7 +782,7 @@ def test_latest_known_strategy_uses_only_prior_pwm(tmp_path: Path) -> None:
         start_time=datetime(2026, 1, 1, 0, 1, 30),
         end_time=datetime(2026, 1, 1, 0, 1, 31),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files, strategy="latest_known"))
 
@@ -792,7 +807,7 @@ def test_pwm_carry_forward_is_explicit_and_warned_when_enabled(tmp_path: Path) -
     )
 
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -800,7 +815,7 @@ def test_pwm_carry_forward_is_explicit_and_warned_when_enabled(tmp_path: Path) -
         start_time=datetime(2026, 1, 1, 0, 10, 0),
         end_time=datetime(2026, 1, 1, 0, 10, 1),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files, allow_carry_forward=True))
 
@@ -814,7 +829,7 @@ def test_pwm_carry_forward_is_explicit_and_warned_when_enabled(tmp_path: Path) -
 def test_pwm_association_reports_no_control_logs_available() -> None:
     """Missing control-log coverage should be distinguishable from axis-specific misses."""
 
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -822,7 +837,7 @@ def test_pwm_association_reports_no_control_logs_available() -> None:
         start_time=datetime(2026, 1, 1, 0, 0, 5),
         end_time=datetime(2026, 1, 1, 0, 0, 6),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], []))
 
@@ -846,7 +861,7 @@ def test_pwm_association_reports_no_same_axis_pwm_in_folder(tmp_path: Path) -> N
         ],
     )
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -854,7 +869,7 @@ def test_pwm_association_reports_no_same_axis_pwm_in_folder(tmp_path: Path) -> N
         start_time=datetime(2026, 1, 1, 0, 0, 5),
         end_time=datetime(2026, 1, 1, 0, 0, 6),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
 
@@ -886,7 +901,7 @@ def test_pwm_association_reports_containing_file_lacks_axis_when_no_safe_fallbac
         ],
     )
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -894,7 +909,7 @@ def test_pwm_association_reports_containing_file_lacks_axis_when_no_safe_fallbac
         start_time=datetime(2026, 1, 1, 0, 0, 5),
         end_time=datetime(2026, 1, 1, 0, 0, 6),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
 
@@ -920,7 +935,7 @@ def test_pwm_association_reports_normalized_conflict(tmp_path: Path) -> None:
     )
 
     files = LogFolderScanner(DutyCycleLogParser(TextFileLoader())).scan(folder).files
-    record = ActivityRecord(
+    record = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_event="start clearing",
@@ -928,7 +943,7 @@ def test_pwm_association_reports_normalized_conflict(tmp_path: Path) -> None:
         start_time=datetime(2026, 1, 1, 0, 0, 5),
         end_time=datetime(2026, 1, 1, 0, 0, 6),
         match_status=STATUS_MATCHED,
-    )
+    ))
 
     ActivityValidator().validate(DutyCycleAssociator().attach([record], files))
 
@@ -941,21 +956,21 @@ def test_pwm_association_reports_normalized_conflict(tmp_path: Path) -> None:
 def test_overall_status_keeps_match_and_duration_status_separate() -> None:
     """PWM warnings should not overwrite match or duration correctness."""
 
-    matched_with_pwm_warning = ActivityRecord(
+    matched_with_pwm_warning = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_time=datetime(2026, 1, 1, 0, 0, 0),
         end_time=datetime(2026, 1, 1, 0, 0, 1),
         match_status=STATUS_MATCHED,
         pwm_match_status=PWM_STATUS_NO_RELEVANT_LOG_FILE,
-    )
-    matched_clean = ActivityRecord(
+    ))
+    matched_clean = _with_reliable_hardware(ActivityRecord(
         axis="Y",
         rule_id="clear_motor",
         start_time=datetime(2026, 1, 1, 0, 0, 0),
         end_time=datetime(2026, 1, 1, 0, 0, 1),
         match_status=STATUS_MATCHED,
-    )
+    ))
     boundary_closed = ActivityRecord(
         axis="Z",
         rule_id="clear_motor",
@@ -1109,6 +1124,10 @@ def test_excel_export_validation_with_synthetic_service_run(tmp_path: Path) -> N
             "                              [N6:H] RUN 255 176 (-80)",
             "2026-03-31 09:39:35:000 [IN ] sample",
             "                              [N6:H] RUN 'S' 255 176 (-80)",
+            "2026-03-31 09:39:40:554 [OUT] sample",
+            "                              [N4:Y] TPOS 'S' 0 0 0 0 (0)",
+            "2026-03-31 09:39:47:373 [OUT] sample",
+            "                              [N4:Y] TPOS 'E' 0 0 0 0 (-1145360)",
             "2026-03-31 09:39:50:000 [OUT] sample",
         ],
     )

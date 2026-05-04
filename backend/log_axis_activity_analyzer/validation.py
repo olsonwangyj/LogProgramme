@@ -15,6 +15,7 @@ from .config import (
     OVERALL_STATUS_CLOSED_BY_NEW_START,
     OVERALL_STATUS_DIAGNOSTIC,
     OVERALL_STATUS_DURATION_WARNING,
+    OVERALL_STATUS_HARDWARE_WARNING,
     OVERALL_STATUS_INITIALIZATION_FAILED,
     OVERALL_STATUS_OK,
     OVERALL_STATUS_PARSE_WARNING,
@@ -29,6 +30,7 @@ from .config import (
     PWM_STATUS_NO_RELEVANT_LOG_FILE,
     PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
     PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
+    HARDWARE_STATUS_MATCHED_OVERLAP,
     STATUS_CLOSED_BY_BOUNDARY,
     STATUS_CLOSED_BY_NEW_START,
     STATUS_DIAGNOSTIC,
@@ -85,6 +87,7 @@ class ActivityValidator:
         if record.match_status == STATUS_MATCHED:
             self._validate_duration(record)
             self._validate_pwm(record)
+            self._validate_hardware(record)
             self._finalize_matched_status(record)
             return
         self._validate_non_matched_shape(record)
@@ -161,12 +164,41 @@ class ActivityValidator:
         }:
             record.pwm_warning = True
 
+    def _validate_hardware(self, record: ActivityRecord) -> None:
+        """Set the hardware warning flag when selected hardware distance is unavailable or weak."""
+
+        self._logger.debug("Validating hardware distance for axis %s", record.axis)
+        if record.match_status != STATUS_MATCHED:
+            return
+        if record.hardware_motion_match_status != HARDWARE_STATUS_MATCHED_OVERLAP:
+            record.hardware_warning = True
+            if record.hardware_actual_distance is None:
+                record.notes = self._merge_notes(
+                    record.notes,
+                    "No hardware actual distance found; selected distance is unavailable.",
+                )
+            else:
+                record.notes = self._merge_notes(
+                    record.notes,
+                    "Hardware motion match is not reliable enough to select movement distance.",
+                )
+            return
+        if record.hardware_actual_distance is None or record.movement_distance is None:
+            record.hardware_warning = True
+            record.notes = self._merge_notes(
+                record.notes,
+                "No hardware actual distance found; selected distance is unavailable.",
+            )
+
     def _finalize_matched_status(self, record: ActivityRecord) -> None:
         """Choose the final display status for a successfully matched record."""
 
         self._logger.debug("Finalizing matched display status for axis %s", record.axis)
         if record.duration_warning:
             record.status = OVERALL_STATUS_DURATION_WARNING
+            return
+        if record.hardware_warning:
+            record.status = OVERALL_STATUS_HARDWARE_WARNING
             return
         if record.pwm_warning:
             record.status = OVERALL_STATUS_PWM_WARNING
