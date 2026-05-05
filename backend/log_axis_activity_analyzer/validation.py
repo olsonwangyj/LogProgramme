@@ -30,6 +30,7 @@ from .config import (
     PWM_STATUS_NO_RELEVANT_LOG_FILE,
     PWM_STATUS_NO_SAME_AXIS_IN_FOLDER,
     PWM_STATUS_RELEVANT_LOG_FILE_LACKS_AXIS_PWM,
+    HARDWARE_REFERENCE_STATUS_FOUND,
     HARDWARE_STATUS_MATCHED_OVERLAP,
     STATUS_CLOSED_BY_BOUNDARY,
     STATUS_CLOSED_BY_NEW_START,
@@ -169,6 +170,16 @@ class ActivityValidator:
 
         self._logger.debug("Validating hardware distance for axis %s", record.axis)
         if record.match_status != STATUS_MATCHED:
+            return
+        if record.rule_id == "search_reference":
+            if record.hardware_reference_match_status == HARDWARE_REFERENCE_STATUS_FOUND:
+                record.hardware_warning = False
+                return
+            record.hardware_warning = True
+            record.notes = self._merge_notes(
+                record.notes,
+                "No hardware reference evidence found for search-reference activity.",
+            )
             return
         if record.hardware_motion_match_status != HARDWARE_STATUS_MATCHED_OVERLAP:
             record.hardware_warning = True

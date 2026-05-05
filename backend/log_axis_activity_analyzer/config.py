@@ -104,7 +104,13 @@ HARDWARE_STATUS_MATCHED_NEAREST_FUTURE = "MatchedByNearestFutureHardwareSegment"
 HARDWARE_STATUS_MULTIPLE_CANDIDATES = "MultipleHardwareCandidates"
 HARDWARE_STATUS_NO_SEGMENT = "NoHardwareSegmentFound"
 HARDWARE_STATUS_INCOMPLETE = "HardwareSegmentIncomplete"
+HARDWARE_STATUS_REFERENCE_NOT_APPLICABLE = "HardwareReferenceNotApplicable"
 HARDWARE_DISTANCE_CONSISTENCY_TOLERANCE = 0.5
+HARDWARE_REFERENCE_MATCH_WINDOW_MS = 3000
+HARDWARE_REFERENCE_STATUS_FOUND = "HardwareReferenceEvidenceFound"
+HARDWARE_REFERENCE_STATUS_PARTIAL = "HardwareReferenceEvidencePartial"
+HARDWARE_REFERENCE_STATUS_NO_EVIDENCE = "NoHardwareReferenceEvidenceFound"
+HARDWARE_REFERENCE_STATUS_NOT_APPLICABLE = "HardwareReferenceNotApplicable"
 HARDWARE_POSITION_KIND_MAP = {
     "S": "Start",
     "E": "End",
@@ -330,6 +336,9 @@ DISTRIBUTION_ALLOWED_HARDWARE_MOTION_MATCH_STATUSES = {
 }
 MIN_SAMPLES_FOR_NORMAL_FIT = 3
 MIN_SAMPLES_FOR_DISTRIBUTION_CHART = 2
+AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD = 2.0
+AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD = 20.0
+AXIS_SUMMARY_MEAN_RED_THRESHOLD = 25.0
 NORMAL_CHART_BINS = "auto"
 NORMAL_DISTRIBUTION_CHART_DPI = 150
 NORMAL_DISTRIBUTION_MAX_CHARTS = 200
@@ -358,12 +367,15 @@ DISTRIBUTION_IMAGE_GRID_BLOCK_WIDTH_COLUMNS = 14
 
 DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS = [
     "Group ID",
-    "TXT Source File",
+    "Chart Type",
     "PWM (%)",
     "Axis",
+    "Action",
     "Hardware Actual Distance",
     "Hardware Actual Distance Group Value",
     "Hardware Actual Distance Group Display",
+    "Distance",
+    "Reference Evidence Status",
     "Hardware Distance Source",
     "Hardware Distance Method",
     "Movement Distance Grouping Mode",
@@ -383,6 +395,7 @@ DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS = [
 
 DISTRIBUTION_IMAGE_STATISTICS_COLUMNS = [
     "Group ID",
+    "Chart Type",
     "TXT Source File",
     "PWM (%)",
     "PWM Raw Values Seen",
@@ -391,9 +404,12 @@ DISTRIBUTION_IMAGE_STATISTICS_COLUMNS = [
     "PWM Raw Value Example",
     "PWM Direction Example",
     "Axis",
+    "Action",
     "Selected Group Distance",
     "Hardware Actual Distance Group Value",
     "Hardware Actual Distance Group Display",
+    "Distance",
+    "Reference Evidence Status",
     "Movement Distance Grouping Mode",
     "Movement Distance Bin Size",
     "Hardware Actual Distance Raw Example",
@@ -446,11 +462,14 @@ DISTRIBUTION_IMAGE_INDEX_COLUMNS = [
     "Group ID",
     "Chart File",
     "Excel Anchor",
-    "TXT Source File",
+    "Chart Type",
     "Axis",
+    "Action",
     "PWM (%)",
     "Hardware Actual Distance Group Value",
     "Hardware Actual Distance Group Display",
+    "Distance",
+    "Reference Evidence Status",
     "Hardware Distance Source",
     "Hardware Distance Method",
     "Movement Distance Grouping Mode",
@@ -471,11 +490,15 @@ DISTRIBUTION_IMAGE_INDEX_COLUMNS = [
 ]
 
 DISTRIBUTION_CHART_METADATA_KEYS = [
+    "Chart Type",
     "TXT Source File",
     "PWM (%)",
     "Axis",
+    "Action",
     "Hardware Actual Distance Group Value",
     "Hardware Actual Distance Display",
+    "Distance",
+    "Reference Evidence Status",
     "Hardware Distance Source",
     "Hardware Distance Method",
     "Movement Distance Grouping Mode",
@@ -519,6 +542,14 @@ DETAIL_COLUMNS = [
     "Hardware Commanded Distance",
     "Hardware Distance Consistency Status",
     "Hardware Distance Consistency Delta",
+    "Hardware Reference Match Status",
+    "Hardware Reference Source File",
+    "Hardware Reference Time Delta (ms)",
+    "Hardware Reference Zero Sensor Time",
+    "Hardware Reference Reset Time",
+    "Hardware Reference Zero Sensor Raw Value",
+    "Hardware Reference Line Number",
+    "Hardware Reference Line Text",
     "Hardware Start Line Number",
     "Hardware Start Line Text",
     "Hardware End Line Number",
@@ -654,7 +685,27 @@ HARDWARE_MOTION_SEGMENT_COLUMNS = [
     "Target Line Text",
     "Duplicate Segment Key",
     "Duplicate Segment Count",
+    "Possible Duplicate Hardware Segment",
     "Possible Duplicate Source Files",
+    "Effective Segment Used For Matching",
+    "Matched TXT Activity Count",
+    "Matched TXT Rule ID",
+    "Matched TXT Start Time",
+    "Notes",
+]
+
+HARDWARE_REFERENCE_EVENT_COLUMNS = [
+    "Source Log File",
+    "Axis",
+    "Evidence Type",
+    "Timestamp",
+    "Raw / Status Value",
+    "Line Number",
+    "Line Text",
+    "Matched TXT Rule ID",
+    "Matched TXT Start Time",
+    "Matched TXT End Time",
+    "Match Status",
     "Notes",
 ]
 
@@ -807,11 +858,15 @@ DISTRIBUTION_RAW_DATA_COLUMNS = [
 
 DISTRIBUTION_CHART_METADATA_COLUMNS = [
     "Group ID",
+    "Chart Type",
     "TXT Source File",
     "PWM (%)",
     "Axis",
+    "Action",
     "Hardware Actual Distance Group Value",
     "Hardware Actual Distance Display",
+    "Distance",
+    "Reference Evidence Status",
     "Hardware Distance Source",
     "Hardware Distance Method",
     "Movement Distance Grouping Mode",
@@ -826,6 +881,94 @@ DISTRIBUTION_CHART_METADATA_COLUMNS = [
     "Chart Status",
     "Chart File",
     "Notes",
+]
+
+REFERENCE_DURATION_SUMMARY_COLUMNS = [
+    "Group ID",
+    "TXT Source File",
+    "Axis",
+    "Action",
+    "Rule ID",
+    "Sample Count",
+    "Mean Duration (ms)",
+    "Mean Duration (s)",
+    "Median Duration (s)",
+    "Sample SD Duration (s)",
+    "Sample Variance Duration (s^2)",
+    "Population SD Duration (s)",
+    "Population Variance Duration (s^2)",
+    "Min Duration (s)",
+    "Max Duration (s)",
+    "Min-Max Display",
+    "CV (%)",
+    "Hardware Reference Evidence Found Count",
+    "Hardware Reference Evidence Missing Count",
+    "Distribution Status",
+    "Chart Status",
+    "Chart File",
+    "Chart Sheet Anchor / Image ID",
+    "Notes",
+]
+
+REFERENCE_DURATION_RAW_DATA_COLUMNS = [
+    "Group ID",
+    "TXT Source File",
+    "Axis",
+    "Action",
+    "Rule ID",
+    "Start Time",
+    "End Time",
+    "Duration (ms)",
+    "Duration (s)",
+    "Hardware Reference Match Status",
+    "Hardware Reference Source File",
+    "Hardware Reference Zero Sensor Raw Value",
+    "Hardware Reference Line Text",
+    "Hardware Motion Match Status",
+    "Selected Movement Distance Method",
+    "Overall Status",
+    "Match Status",
+    "Duration Status",
+    "Source TXT Start Line Number",
+    "Source TXT Start Line Text",
+    "Source TXT End Line Number",
+    "Source TXT End Line Text",
+    "Notes",
+]
+
+REFERENCE_DURATION_CHART_METADATA_COLUMNS = [
+    "Group ID",
+    "Chart Type",
+    "TXT Source File",
+    "Axis",
+    "Action",
+    "Rule ID",
+    "Distance",
+    "Sample Count",
+    "Mean Duration (s)",
+    "Sample Std Dev Duration (s)",
+    "Variance",
+    "Min-Max Display",
+    "CV (%)",
+    "Reference Evidence Status",
+    "Hardware Reference Evidence Found Count",
+    "Hardware Reference Evidence Missing Count",
+    "Distribution Status",
+    "Chart Status",
+    "Chart File",
+    "Notes",
+]
+
+AXIS_ACTION_SUMMARY_COLUMNS = [
+    "Axis",
+    "Action",
+    "n",
+    "Mean (s)",
+    "SD (s)",
+    "Var (s^2)",
+    "Median (s)",
+    "Min-Max (s)",
+    "CV (%)",
 ]
 
 DISTRIBUTION_EXCLUSION_SUMMARY_COLUMNS = [
@@ -883,6 +1026,11 @@ LOG_COVERAGE_SUMMARY_COLUMNS = [
     "Rows With Relevant Log File Lacking Axis PWM",
     "Rows With Latest-Before Too Far",
     "Rows With PWM Conflict",
+    "Rows Excluded Due To Missing Hardware Distance",
+    "Rows Excluded Due To Unreliable Hardware Match",
+    "Rows Excluded Due To Missing PWM",
+    "Rows Excluded Due To Unreliable PWM",
+    "Rows Excluded Due To Multiple Reasons",
     "Rows Excluded From Distribution Due To PWM Reliability",
     "PWM Carry Forward Enabled",
     "Distribution Allows Carry Forward PWM",

@@ -82,7 +82,7 @@ Backward-compatible aliases:
 
 `--log-folder` is the preferred workflow for new runs.
 
-Hardware actual distance is the only supported distance source. Legacy software distance choices such as `--distribution-distance-source commanded_only` are rejected with a clear error so a run cannot silently mix TXT software distances into distribution grouping.
+Hardware actual distance is the only supported distance source. `--distance-source` / `--distribution-distance-source` is strictly limited to `hardware_actual`; legacy software choices such as `commanded_only` are rejected by the CLI before analysis so a run cannot silently mix TXT software distances into distribution grouping.
 
 ## Duration Matching
 
@@ -233,6 +233,15 @@ Similarly, for:
 
 the hardware actual distance is about `19.51`, even if TXT reports `@[Y] min: -29.51`.
 
+Hardware reference-search evidence is different from motion-distance evidence. Control-log lines such as:
+
+```text
+[N4:Y] TPOS 'Z' 76 (76)
+[N4:Y] TPOS 'I'
+```
+
+are treated as hardware reference / zeroing / reset evidence for the axis. `TPOS 'Z'` stores the final value as a reference/status value, not a motor raw position, and no physical position or distance is calculated from it. `TPOS 'I'` is also preserved as reset/init evidence. These records do not create hardware motion segments and are never used for selected movement distance.
+
 The Details sheet includes hardware audit columns:
 
 - `Hardware Raw Start Position`
@@ -247,7 +256,7 @@ The Details sheet includes hardware audit columns:
 - `Hardware Motion Match Status`
 - `Hardware Start/End/Target Line Text`
 
-`Selected Movement Distance` is now always `Hardware Actual Distance` when a complete hardware S/E segment is matched. The selected source is `HardwareActualDistance` and the method is `TPOSStartEndRawDifference`. Software-derived TXT distances are not used as fallback.
+`Selected Movement Distance` is now always `Hardware Actual Distance` when a complete overlapping hardware S/E segment is matched. The selected source is `HardwareActualDistance` and the method is `TPOSStartEndRawDifference`. Software-derived TXT distances are not used as fallback.
 
 Software-layer movement fields may still appear as audit metadata:
 
@@ -263,9 +272,13 @@ When no complete hardware TPOS Start/End segment is matched:
 - The row is excluded from distribution analysis with a specific reason such as `NoHardwareSegmentFound`, `HardwareSegmentIncomplete`, or `MissingHardwareActualDistance`.
 - TXT min/max/target values are not used as a fallback.
 
-Nearest previous/future hardware segments and ambiguous multiple-candidate matches are shown only as candidate hardware distances by default. They do not populate the selected distance and are excluded from distribution unless explicitly enabled with `--distribution-allow-nearest-hardware-segment` or `--distribution-allow-ambiguous-hardware-segment`.
+Search-reference actions are the exception because they are reference/zeroing workflows, not distance measurements. For `search_reference`, the tool looks for same-axis `TPOS 'Z'` and/or `TPOS 'I'` evidence near the TXT reference activity. When found, `Hardware Reference Match Status = HardwareReferenceEvidenceFound`, `Hardware Motion Match Status = HardwareReferenceNotApplicable`, and selected movement distance stays blank with method `DistanceNotApplicableForReference`. These rows are excluded from distance-based distribution analysis as `DistanceNotApplicableForReference`, not as missing hardware S/E motion.
 
-The workbook also records `Hardware Distance Consistency Status` and `Hardware Distance Consistency Delta` as diagnostics. This compares TXT target-derived command distance against hardware command/actual distance when possible; TXT min/max reported end positions are not used for the check.
+Search-reference durations are still analyzed separately. The main workbook adds `Reference Duration Summary`, `Reference Duration Raw Data`, and `Reference Duration Charts`. These sheets group valid `search_reference` rows by TXT source file, axis, and rule ID, without hardware distance and without default PWM grouping. Reference chart titles say `Reference Duration Distribution` and show `Distance = Not Applicable`.
+
+Nearest previous/future hardware segments and ambiguous multiple-candidate matches are shown only as `Candidate Hardware Actual Distance` by default. They do not populate `Selected Hardware Actual Distance` / `Selected Movement Distance` and are excluded from distribution unless explicitly enabled with `--distribution-allow-nearest-hardware-segment` or `--distribution-allow-ambiguous-hardware-segment`.
+
+The workbook also records `Hardware Distance Consistency Status` and `Hardware Distance Consistency Delta` as diagnostics. This compares TXT target-derived command distance against hardware command/actual distance when possible; TXT min/max reported end positions are not used for the check. Candidate-only hardware matches report `CandidateOnlyNotValidated` instead of `ConsistentWithTXTTarget` so a similar distance cannot make a weak time match look reliable.
 
 Distribution distance grouping is configurable from the CLI or `config.py`:
 
@@ -276,7 +289,7 @@ Distribution distance grouping is configurable from the CLI or `config.py`:
 
 The raw exact distance remains visible in `Distribution Raw Data`, while `Distribution Summary`, chart metadata, chart titles, and chart file names use the configured group value consistently. The workbook also includes a text display column so bin sizes such as `0.1` and `0.05` are not forced into a fixed two-decimal format.
 
-For each group, the `Distribution Summary` sheet reports count, mean, median, min, max, range, sample standard deviation, sample variance, population standard deviation, population variance, coefficient of variation, P05/P25/P75/P95 percentiles, fit status, chart status, and chart file path. Sample standard deviation and sample variance are the primary SD/variance values. With one sample, they are blank and the status is `InsufficientSamples`.
+For each group, the `Distribution Summary` sheet reports count, mean, median, min, max, range, sample standard deviation, sample variance, population standard deviation, population variance, coefficient of variation, P05/P25/P75/P95 percentiles, fit status, chart status, and chart filename. Sample standard deviation and sample variance are the primary SD/variance values. With one sample, they are blank and the status is `InsufficientSamples`.
 
 Charts are saved as PNG files in a workbook-specific folder by default:
 
@@ -309,11 +322,13 @@ python -m app.log_activity_tool ^
 
 The main analysis workbook is exported first. The separate gallery workbook is written only after the main workbook succeeds, so a gallery file is not treated as proof that the whole analysis completed. The main workbook records the intended gallery path and a note that final gallery insertion counts are produced after the main workbook is saved; the CLI output and the gallery workbook contain the final image counts. Choose a denser image-first layout with `--distribution-image-gallery-layout compact_grid`; the default `vertical` layout keeps a metadata block above each inserted image.
 
+The gallery workbook is intentionally user-facing and does not expose full local paths, raw output folders, or temporary implementation paths. Chart file columns show filenames only; the workbook uses the chart output folder internally when it needs to embed images.
+
 The gallery workbook contains:
 
-- `Image Gallery`: generated chart PNGs arranged vertically with metadata blocks for group ID, TXT file, PWM, axis, hardware actual grouped distance, hardware distance source/method, grouping mode/bin size, rule/action, sample count, mean, sample SD, sample variance, chart file, and chart status. By default this sheet contains only groups that have actual chart images.
-- `Image Statistics`: one row per distribution group, including skipped/no-image groups, with extracted statistics such as mean, median, sample SD, sample variance, normal fit mean/SD/variance, population SD/variance, min/max, percentiles, coefficient of variation, distribution status, chart status, and notes. It also shows `Selected Group Distance`, `PWM Raw Values Seen`, `PWM Directions Seen`, `PWM Direction Mixed`, `Hardware Actual Distance Group Display`, grouping mode, bin size, hardware raw distance example, hardware distance min/max, and whether position values were mixed inside the group.
-- `Image Index`: a compact lookup table with image number, group ID, chart file, Excel anchor, PWM, axis, hardware actual grouped distance, hardware distance source/method, PWM raw values/directions seen, normal fit mean/SD/variance, gallery image status, and any image insertion error.
+- `Image Gallery`: generated motion and reference chart PNGs. Motion blocks show `Motion Duration Distribution`, PWM, axis, action, and hardware actual grouped distance. Reference blocks show `Reference Duration Distribution`, `Search Reference`, and `Distance = Not Applicable`.
+- `Image Statistics`: one row per motion or reference distribution group, including skipped/no-image groups, with extracted statistics such as mean, median, sample SD, sample variance, normal fit mean/SD/variance, population SD/variance, min/max, percentiles, coefficient of variation, distribution status, chart status, and notes. It also shows `Chart Type`, `Action`, `Distance`, `Reference Evidence Status`, `Selected Group Distance`, `PWM Raw Values Seen`, `PWM Directions Seen`, `PWM Direction Mixed`, `Hardware Actual Distance Group Display`, grouping mode, bin size, hardware raw distance example, hardware distance min/max, and whether position values were mixed inside the group.
+- `Image Index`: a compact lookup table with image number, group ID, chart filename, Excel anchor, chart type, axis, action, PWM, hardware actual grouped distance, reference evidence status, normal fit mean/SD/variance, gallery image status, and any image insertion error.
 
 The gallery reuses PNG files generated by the normal chart generator; it does not regenerate charts. If a group has too few samples, it still appears in `Image Statistics`, but it does not create a large block in `Image Gallery` unless `DISTRIBUTION_IMAGE_GALLERY_INCLUDE_SKIPPED_GROUPS = True`. If no images are inserted, `Image Gallery` shows an `Image Gallery Summary` with statistics-row count, groups with chart paths, existing chart files, inserted images, groups without charts, image-limit skips, missing chart files, embedding-unavailable count, insert failures, and a reason such as insufficient samples or image limit. If a chart path is missing, the workbook records `Chart File Missing` instead of failing. If image embedding is unavailable, the status is `ImageEmbeddingUnavailable`. If one image file is corrupt or cannot be inserted, that row is marked `ImageInsertFailed`, the exception appears in `Image Insert Error`, and remaining images still export. If more than `DISTRIBUTION_IMAGE_MAX_IMAGES` charts are available, statistics are exported for every group and extra image insertions are counted as images skipped due to the image limit. Groups that never produced chart files are reported separately as groups without charts.
 
@@ -329,6 +344,10 @@ New workbook sheets:
 
 - `Distribution Summary`: one row per group.
 - `Distribution Raw Data`: one row per activity record used by distribution analysis.
+- `Reference Duration Summary`: one row per `search_reference` duration group, with n, mean, median, sample SD/variance, population SD/variance, min/max, CV, reference evidence counts, distribution status, and chart status.
+- `Reference Duration Raw Data`: the matched `search_reference` rows used by reference-duration statistics.
+- `Reference Duration Charts`: embedded reference-duration chart PNGs when chart embedding is enabled.
+- `Axis Action Summary`: a clean axis/action table combining motion rows and `Search Reference` rows.
 - `Distribution Eligibility`: rows that never became distribution candidates, such as unmatched rows, diagnostics, parse warnings, and invalid durations.
 - `Distribution Exclusion Summary`: grouped reasons for records excluded from distribution analysis.
 - `Distribution Charts`: embedded PNG charts and group metadata when chart embedding is enabled.
@@ -488,7 +507,13 @@ The `PWM Sources` sheet lists parsed PWM records with raw value, normalized perc
 
 The `Hardware Motion Segments` sheet lists every TPOS motion segment parsed from the control-log folder. It includes complete `Start`/`End` pairs, incomplete starts, and unmatched hardware ends with source file, line numbers, raw positions, physical positions, actual distance, commanded distance, and notes. Use it to audit rows whose Details status is `NoHardwareSegmentFound`, `HardwareSegmentIncomplete`, or a nearest previous/future fallback.
 
-Exact duplicate hardware segments are marked with `Duplicate Segment Key`, `Duplicate Segment Count`, and `Possible Duplicate Source Files`. Duplicate audit rows remain visible in the sheet, but exact duplicates are deduplicated before TXT activity matching so copied control logs do not create false `MultipleHardwareCandidates` results.
+Exact duplicate hardware segments are marked with `Duplicate Segment Key`, `Duplicate Segment Count`, `Possible Duplicate Hardware Segment`, and `Possible Duplicate Source Files`. Normal non-duplicate rows leave the duplicate count blank. Duplicate audit rows remain visible in the sheet, but exact duplicates are deduplicated before TXT activity matching so copied control logs do not create false `MultipleHardwareCandidates` results. The sheet also shows `Effective Segment Used For Matching`, `Matched TXT Activity Count`, `Matched TXT Rule ID`, and `Matched TXT Start Time` so the segment that actually contributed to selected hardware distance is auditable.
+
+### Hardware Reference Events
+
+The `Hardware Reference Events` sheet lists `TPOS 'Z'` and `TPOS 'I'` records from the control logs. These are reference/zeroing/reset evidence, not movement-distance records. The sheet shows source file, axis, evidence type, timestamp, raw/status value, source line number/text, matched TXT rule ID, matched TXT start/end time, match status, and notes.
+
+Use this sheet to audit `search_reference` rows. A matched reference row with nearby `TPOS 'Z'` or `TPOS 'I'` evidence can be hardware-clean even though `Selected Movement Distance` is blank, because distance is not applicable for reference search.
 
 ### Diagnostics
 
@@ -531,6 +556,33 @@ With the default `bin` mode and bin size `0.1`, raw distances such as `49.03` gr
 
 `Distribution Status` explains whether a normal fit was possible, whether the sample count was too small, or whether variance was zero. `Chart File` points to the generated PNG when one was generated.
 
+### Reference Duration Summary
+
+Use this sheet for `search_reference` timing consistency. Search-reference is a timed activity, but it is not a hardware movement-distance group. The grouping key is TXT source filename, axis, and `search_reference`. PWM and hardware actual distance do not split reference groups by default.
+
+The row reports `Sample Count`, mean, median, sample SD, sample variance, population SD, population variance, min/max, `Min-Max Display`, `CV (%)`, hardware reference evidence found/missing counts, distribution status, chart status, and chart filename. If there are enough samples, the corresponding chart appears in `Reference Duration Charts` and is titled `Reference Duration Distribution`.
+
+### Axis Action Summary
+
+`Axis Action Summary` is the compact table for quick review:
+
+```text
+Axis | Action | n | Mean (s) | SD (s) | Var (s^2) | Median (s) | Min-Max (s) | CV (%)
+```
+
+Rows include both hardware-distance motion actions and `Search Reference` actions. Motion rows use the same validated hardware-overlap rows used by `Distribution Summary`. Search-reference rows use the same validated duration rows used by `Reference Duration Summary`. This keeps mean, SD, variance, median, min/max, and CV consistent across all statistics sheets.
+
+Formatting is intentionally restrained: dark header, alternating row shading, frozen header, autofilter, centered numeric columns, 3 decimal places for mean/median/min/max display, 4 decimals for SD/variance, and 2 decimals for CV.
+
+Conditional formatting highlights only `Mean (s)` and `CV (%)`:
+
+- red when `CV (%) >= 2.0` and `Mean (s) >= 25.0`
+- yellow when `CV (%) >= 2.0` and `20.0 <= Mean (s) < 25.0`
+- no highlight when `CV (%) < 2.0`
+- no highlight when `Mean (s) < 20.0`
+
+The thresholds live in `config.py` as `AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD`, `AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD`, and `AXIS_SUMMARY_MEAN_RED_THRESHOLD`.
+
 ### Distribution Raw Data
 
 This sheet lists each activity row used in distribution analysis, including group ID, source TXT line numbers and text, PWM raw value, PWM direction, PWM conflict data, PWM match method/status, PWM source line number and text, duration, hardware raw start/end/target positions, hardware physical positions, hardware actual distance, selected movement distance, grouping value, distance source, method, and notes. It is the fastest way to audit why a group has its statistics.
@@ -541,11 +593,11 @@ This sheet groups records that did not meet basic distribution eligibility befor
 
 ### Distribution Exclusion Summary
 
-This sheet includes only valid matched duration rows that were excluded from distribution analysis after eligibility checks. It records a primary reason plus secondary, PWM-specific, and movement-distance-specific reasons, so rows with multiple problems do not lose important context. Typical reasons include `NoHardwareSegmentFound`, `HardwareSegmentIncomplete`, `MissingHardwareActualDistance`, `NearestHardwareSegmentNotAllowedForDistribution`, `MultipleHardwareCandidatesNotAllowedForDistribution`, `LatestBeforeStartTooFar`, `NoRelevantLogFileFound`, `NoControlLogsAvailable`, `NoSameAxisPWMInFolder`, `RelevantLogFileLacksAxisPWM`, `NearestLogFilePWMNotAllowedForDistribution`, `NearestFuturePWMNotAllowedForDistribution`, `LatestBeforePWMNotAllowedForDistribution`, `CarryForwardPWMNotAllowedForDistribution`, `PWMConflictInSourceFile`, `MissingPWM`, and `MissingGroupField`. It also shows the example row's `PWM Match Status`, `PWM Missing Reason`, `PWM Time Delta (ms)`, hardware motion match status, and source file so coverage problems are not hidden behind a generic label.
+This sheet includes only valid matched duration rows that were excluded from distribution analysis after eligibility checks. It records a primary reason plus secondary, PWM-specific, and movement-distance-specific reasons, so rows with multiple problems do not lose important context. Typical reasons include `DistanceNotApplicableForReference`, `NoHardwareSegmentFound`, `HardwareSegmentIncomplete`, `MissingHardwareActualDistance`, `NearestHardwareSegmentNotAllowedForDistribution`, `MultipleHardwareCandidatesNotAllowedForDistribution`, `LatestBeforeStartTooFar`, `NoRelevantLogFileFound`, `NoControlLogsAvailable`, `NoSameAxisPWMInFolder`, `RelevantLogFileLacksAxisPWM`, `NearestLogFilePWMNotAllowedForDistribution`, `NearestFuturePWMNotAllowedForDistribution`, `LatestBeforePWMNotAllowedForDistribution`, `CarryForwardPWMNotAllowedForDistribution`, `PWMConflictInSourceFile`, `MissingPWM`, and `MissingGroupField`. It also shows the example row's `PWM Match Status`, `PWM Missing Reason`, `PWM Time Delta (ms)`, hardware motion match status, and source file so coverage problems are not hidden behind a generic label.
 
 ### Log Coverage Summary
 
-This sheet compares the TXT time span with the union of scanned control-log intervals. Separate log files with gaps are not treated as one continuous covered range. It reports merged interval count, covered duration, uncovered duration, gap count, coverage ratio, distribution-accepted PWM counts, containing/nearest/future-nearest/latest-before/carry-forward PWM counts, rows without PWM, specific PWM warning categories, and rows excluded because PWM reliability was not acceptable for distribution grouping. If coverage is low, the notes warn that many TXT activities may be excluded from PWM-based distribution analysis.
+This sheet compares the TXT time span with the union of scanned control-log intervals. Separate log files with gaps are not treated as one continuous covered range. It reports merged interval count, covered duration, uncovered duration, gap count, coverage ratio, distribution-accepted PWM counts, containing/nearest/future-nearest/latest-before/carry-forward PWM counts, rows without PWM, and specific PWM warning categories. Distribution exclusions are split into missing hardware distance, unreliable hardware match, missing PWM, unreliable PWM, and multiple-reason rows, so a row whose primary problem is `NoHardwareSegmentFound` is not mislabeled as a PWM-only coverage problem. If coverage is low, the notes warn that many TXT activities may be excluded from hardware/PWM-based distribution analysis.
 
 ### Log Coverage Gaps
 
@@ -553,7 +605,7 @@ This sheet lists every uncovered TXT interval with gap index, start time, end ti
 
 ### Distribution Charts
 
-When embedding is enabled, each generated PNG appears with a small metadata block including hardware distance source, method, grouping mode, and bin size. Chart titles label the displayed group distance as `HardwareActualDistance`. When embedding is disabled, use the `Chart File` path in `Distribution Summary` to open the external image.
+When embedding is enabled, each generated PNG appears with a small metadata block including chart type, action, hardware distance source, method, grouping mode, and bin size. Motion chart titles label the displayed group distance as `HardwareActualDistance`. Reference chart titles label the chart as `Reference Duration Distribution` and show `Distance Not Applicable`. User-facing chart file cells show filenames only, not full local paths.
 
 ## Troubleshooting
 

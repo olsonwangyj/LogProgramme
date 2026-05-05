@@ -24,16 +24,23 @@ from backend.log_axis_activity_analyzer.config import (
     HARDWARE_STATUS_MATCHED_NEAREST_FUTURE,
     HARDWARE_STATUS_MATCHED_OVERLAP,
     HARDWARE_STATUS_MULTIPLE_CANDIDATES,
+    HARDWARE_STATUS_NO_SEGMENT,
+    HARDWARE_STATUS_REFERENCE_NOT_APPLICABLE,
+    HARDWARE_REFERENCE_STATUS_FOUND,
+    HARDWARE_REFERENCE_STATUS_NO_EVIDENCE,
+    HARDWARE_REFERENCE_STATUS_NOT_APPLICABLE,
     LOG_COVERAGE_GAPS_COLUMNS,
     LOG_COVERAGE_SUMMARY_COLUMNS,
     OVERALL_STATUS_HARDWARE_WARNING,
+    OVERALL_STATUS_OK,
     PWM_STATUS_LATEST_BEFORE_TOO_FAR,
     PWM_STATUS_MATCHED_CONTAINING,
     PWM_STATUS_MATCHED_NEAREST,
     PWM_STATUS_MATCHED_NEAREST_FUTURE,
     STATUS_MATCHED,
 )
-from backend.log_axis_activity_analyzer.distribution import DistributionAnalyzer
+from backend.log_axis_activity_analyzer.distribution import DistributionAnalyzer, ReferenceDurationAnalyzer
+from backend.log_axis_activity_analyzer.excel_exporter import ExcelExporter
 from backend.log_axis_activity_analyzer.file_loader import TextFileLoader
 from backend.log_axis_activity_analyzer.hardware_motion_associator import HardwareMotionAssociator
 from backend.log_axis_activity_analyzer.image_gallery_exporter import DistributionImageGalleryExporter
@@ -42,6 +49,7 @@ from backend.log_axis_activity_analyzer.log_b_parser import DutyCycleLogParser
 from backend.log_axis_activity_analyzer.matcher import EventMatcher
 from backend.log_axis_activity_analyzer.models import ActivityRecord, DutyCycleLogFileResult, HardwareMotionSegment
 from backend.log_axis_activity_analyzer.service import LogAnalysisService
+from backend.log_axis_activity_analyzer.summary import SummaryGenerator
 from backend.log_axis_activity_analyzer.validation import ActivityValidator
 
 
@@ -170,6 +178,48 @@ def _record(
         pwm_source_line="RUN 0 80 (80)",
         pwm_line_number=10,
         pwm_source_time=start_time - timedelta(seconds=1),
+    )
+
+
+def _reference_record(
+    *,
+    seconds: float = 10.0,
+    txt_offset: int = 0,
+    axis: str = "Y",
+    hardware_reference_status: str = HARDWARE_REFERENCE_STATUS_FOUND,
+) -> ActivityRecord:
+    """Build a matched search-reference record for reference-duration tests."""
+
+    start_time = datetime(2026, 1, 1, 1, 0, 0) + timedelta(seconds=txt_offset)
+    return ActivityRecord(
+        axis=axis,
+        rule_id="search_reference",
+        event_type="start searching reference",
+        start_event="start searching reference",
+        end_event="reference found",
+        start_time=start_time,
+        end_time=start_time + timedelta(seconds=seconds),
+        duration_ms=int(seconds * 1000),
+        duration_s=seconds,
+        match_status=STATUS_MATCHED,
+        duration_status=DURATION_STATUS_VALID,
+        hardware_motion_match_status=HARDWARE_STATUS_REFERENCE_NOT_APPLICABLE,
+        hardware_reference_match_status=hardware_reference_status,
+        hardware_reference_source_file="reference.log" if hardware_reference_status == HARDWARE_REFERENCE_STATUS_FOUND else "",
+        hardware_reference_zero_sensor_raw_value=76 if hardware_reference_status == HARDWARE_REFERENCE_STATUS_FOUND else None,
+        hardware_reference_line_text="[N4:Y] TPOS 'Z' 76 (76)"
+        if hardware_reference_status == HARDWARE_REFERENCE_STATUS_FOUND
+        else "",
+        movement_distance=None,
+        movement_distance_source="",
+        movement_distance_method="DistanceNotApplicableForReference",
+        status=OVERALL_STATUS_OK
+        if hardware_reference_status == HARDWARE_REFERENCE_STATUS_FOUND
+        else OVERALL_STATUS_HARDWARE_WARNING,
+        start_line_number=txt_offset + 1,
+        end_line_number=txt_offset + 2,
+        source_txt_start_line="@[Y] start searching reference",
+        source_txt_end_line="@[Y] reference found (SENSOR)",
     )
 
 
@@ -314,6 +364,58 @@ def test_control_log_parser_parses_tpos_start_end_and_builds_hardware_segment(tm
     assert segment.hardware_actual_distance == pytest.approx(22.01, abs=0.01)
 
 
+def test_control_log_parser_tpos_zero_sensor_is_reference_not_position(tmp_path: Path) -> None:
+    """TPOS Z should be reference evidence, not a raw motor-position sample."""
+
+    log_path = _write_lines(
+        tmp_path / "reference.log",
+        [
+            "2026-01-01 09:00:01:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'Z' 76 (76)",
+        ],
+    )
+
+    result = DutyCycleLogParser(TextFileLoader()).parse(log_path)
+
+    assert len(result.hardware_position_events) == 1
+    event = result.hardware_position_events[0]
+    assert event.axis == "Y"
+    assert event.position_kind == "ZeroSensor"
+    assert event.raw_position is None
+    assert event.reference_raw_value == 76
+    assert event.hardware_status_value == 76
+    assert event.physical_position is None
+    assert result.hardware_motion_segments == []
+    assert len(result.hardware_reference_events) == 1
+    evidence = result.hardware_reference_events[0]
+    assert evidence.evidence_type == "ZeroSensor"
+    assert evidence.raw_value == 76
+
+
+def test_control_log_parser_tpos_reset_init_is_reference_evidence(tmp_path: Path) -> None:
+    """TPOS I should be preserved as reset/init reference evidence."""
+
+    log_path = _write_lines(
+        tmp_path / "reference.log",
+        [
+            "2026-01-01 09:00:01:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'I'",
+        ],
+    )
+
+    result = DutyCycleLogParser(TextFileLoader()).parse(log_path)
+
+    assert len(result.hardware_position_events) == 1
+    event = result.hardware_position_events[0]
+    assert event.position_kind == "ResetOrInit"
+    assert event.raw_position is None
+    assert event.reference_raw_value is None
+    assert event.physical_position is None
+    assert result.hardware_motion_segments == []
+    assert len(result.hardware_reference_events) == 1
+    assert result.hardware_reference_events[0].evidence_type == "ResetOrInit"
+
+
 def test_hardware_target_attach_rejects_stale_target(tmp_path: Path) -> None:
     """Hardware commanded distance should not reuse an old TPOS target for a later Start."""
 
@@ -380,6 +482,147 @@ def test_hardware_motion_segments_include_incomplete_and_unmatched_end(tmp_path:
     assert "UnmatchedHardwareEnd" in statuses
 
 
+def test_reference_evidence_matches_search_reference_without_distance_warning(tmp_path: Path) -> None:
+    """Search-reference activities should use TPOS Z/I evidence instead of requiring S/E distance."""
+
+    start = datetime(2026, 1, 1, 9, 0, 0)
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="search_reference",
+        start_event="start searching reference",
+        end_event="reference found",
+        start_time=start,
+        end_time=start + timedelta(seconds=3),
+        match_status=STATUS_MATCHED,
+    )
+    log_path = _write_lines(
+        tmp_path / "reference.log",
+        [
+            "2026-01-01 09:00:01:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'Z' 76 (76)",
+            "2026-01-01 09:00:02:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'I'",
+        ],
+    )
+    log_result = DutyCycleLogParser(TextFileLoader()).parse(log_path)
+
+    HardwareMotionAssociator().attach([record], [log_result])
+    ActivityValidator().validate([record])
+
+    assert record.hardware_reference_match_status == HARDWARE_REFERENCE_STATUS_FOUND
+    assert record.hardware_motion_match_status == HARDWARE_STATUS_REFERENCE_NOT_APPLICABLE
+    assert record.hardware_reference_source_file == "reference.log"
+    assert record.hardware_reference_time_delta_ms == 0
+    assert record.hardware_reference_zero_sensor_raw_value == 76
+    assert record.hardware_actual_distance is None
+    assert record.movement_distance is None
+    assert record.movement_distance_method == "DistanceNotApplicableForReference"
+    assert record.hardware_warning is False
+    assert record.status == OVERALL_STATUS_OK
+    evidence_statuses = {event.evidence_type: event.match_status for event in log_result.hardware_reference_events}
+    assert evidence_statuses == {
+        "ZeroSensor": HARDWARE_REFERENCE_STATUS_FOUND,
+        "ResetOrInit": HARDWARE_REFERENCE_STATUS_FOUND,
+    }
+
+
+def test_summary_exports_hardware_reference_events_rows(tmp_path: Path) -> None:
+    """Workbook frames should expose TPOS Z/I reference evidence for audit."""
+
+    start = datetime(2026, 1, 1, 9, 0, 0)
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="search_reference",
+        start_event="start searching reference",
+        end_event="reference found",
+        start_time=start,
+        end_time=start + timedelta(seconds=3),
+        match_status=STATUS_MATCHED,
+    )
+    log_path = _write_lines(
+        tmp_path / "reference.log",
+        [
+            "2026-01-01 09:00:01:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'Z' 76 (76)",
+            "2026-01-01 09:00:02:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'I'",
+        ],
+    )
+    log_result = DutyCycleLogParser(TextFileLoader()).parse(log_path)
+    HardwareMotionAssociator().attach([record], [log_result])
+    ActivityValidator().validate([record])
+
+    frames = SummaryGenerator().build_report_frames([record], [log_result])
+    rows = frames.hardware_reference_events.to_dict("records")
+
+    assert len(rows) == 2
+    zero_row = next(row for row in rows if row["Evidence Type"] == "ZeroSensor")
+    reset_row = next(row for row in rows if row["Evidence Type"] == "ResetOrInit")
+    assert zero_row["Raw / Status Value"] == 76
+    assert zero_row["Matched TXT Rule ID"] == "search_reference"
+    assert zero_row["Match Status"] == HARDWARE_REFERENCE_STATUS_FOUND
+    assert reset_row["Matched TXT Rule ID"] == "search_reference"
+
+
+def test_search_reference_without_reference_evidence_is_hardware_warning() -> None:
+    """Search-reference rows still need Z/I reference evidence for a clean hardware status."""
+
+    start = datetime(2026, 1, 1, 9, 0, 0)
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="search_reference",
+        start_event="start searching reference",
+        end_event="reference found",
+        start_time=start,
+        end_time=start + timedelta(seconds=3),
+        match_status=STATUS_MATCHED,
+    )
+
+    HardwareMotionAssociator().attach([record], [DutyCycleLogFileResult(source_path=Path("empty.log"))])
+    ActivityValidator().validate([record])
+
+    assert record.hardware_reference_match_status == HARDWARE_REFERENCE_STATUS_NO_EVIDENCE
+    assert record.hardware_motion_match_status == HARDWARE_STATUS_REFERENCE_NOT_APPLICABLE
+    assert record.movement_distance is None
+    assert record.hardware_warning is True
+    assert record.status == OVERALL_STATUS_HARDWARE_WARNING
+
+
+def test_tpos_reference_evidence_is_not_used_as_normal_motion_distance(tmp_path: Path) -> None:
+    """TPOS Z/I evidence must not satisfy a clear_motor hardware-distance requirement."""
+
+    start = datetime(2026, 1, 1, 9, 0, 0)
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=start,
+        end_time=start + timedelta(seconds=3),
+        match_status=STATUS_MATCHED,
+    )
+    log_path = _write_lines(
+        tmp_path / "reference.log",
+        [
+            "2026-01-01 09:00:01:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'Z' 76 (76)",
+            "2026-01-01 09:00:02:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'I'",
+        ],
+    )
+    log_result = DutyCycleLogParser(TextFileLoader()).parse(log_path)
+
+    HardwareMotionAssociator().attach([record], [log_result])
+    ActivityValidator().validate([record])
+
+    assert record.hardware_motion_match_status == HARDWARE_STATUS_NO_SEGMENT
+    assert record.hardware_reference_match_status == HARDWARE_REFERENCE_STATUS_NOT_APPLICABLE
+    assert record.hardware_actual_distance is None
+    assert record.movement_distance is None
+    assert record.hardware_warning is True
+    assert record.status == OVERALL_STATUS_HARDWARE_WARNING
+
+
 def test_duplicate_hardware_segments_are_deduped_for_matching_but_kept_for_audit() -> None:
     """Exact copied hardware segments should not create ambiguous matching by themselves."""
 
@@ -427,6 +670,102 @@ def test_duplicate_hardware_segments_are_deduped_for_matching_but_kept_for_audit
     assert first.duplicate_segment_count == 2
     assert "copy-a.log" in first.possible_duplicate_source_files
     assert "copy-b.log" in first.possible_duplicate_source_files
+    assert sum(segment.effective_segment_used_for_matching for segment in (first, second)) == 1
+    assert sum(segment.matched_txt_activity_count for segment in (first, second)) == 1
+
+
+def test_unique_hardware_segment_duplicate_fields_are_blank_and_effective() -> None:
+    """Normal non-duplicate hardware rows should not display a misleading duplicate count of one."""
+
+    start = datetime(2026, 1, 1, 9, 0, 0)
+    record = ActivityRecord(
+        axis="X",
+        start_time=start,
+        end_time=start + timedelta(seconds=2),
+        match_status=STATUS_MATCHED,
+        duration_status=DURATION_STATUS_VALID,
+    )
+    segment = HardwareMotionSegment(
+        source_path=Path("unique.log"),
+        axis="X",
+        start_time=start,
+        end_time=start + timedelta(seconds=2),
+        raw_start_position=0,
+        raw_end_position=-1292112,
+        hardware_actual_distance=22.01,
+        match_status="HardwareSegmentComplete",
+    )
+
+    HardwareMotionAssociator().attach(
+        [record],
+        [DutyCycleLogFileResult(source_path=Path("unique.log"), hardware_motion_segments=[segment])],
+    )
+
+    assert segment.possible_duplicate_hardware_segment is False
+    assert segment.duplicate_segment_count == 0
+    assert segment.effective_segment_used_for_matching is True
+    assert segment.matched_txt_activity_count == 1
+
+    frames = SummaryGenerator().build_report_frames([record], [DutyCycleLogFileResult(source_path=Path("unique.log"), hardware_motion_segments=[segment])])
+    segment_row = frames.hardware_motion_segments.iloc[0].to_dict()
+    assert segment_row["Duplicate Segment Count"] is None
+    assert segment_row["Possible Duplicate Hardware Segment"] is False
+    assert segment_row["Effective Segment Used For Matching"] is True
+
+
+def test_duplicate_hardware_dedupe_preserves_target_information() -> None:
+    """The effective duplicate representative should keep target/commanded-distance audit fields."""
+
+    start = datetime(2026, 1, 1, 9, 0, 0)
+    record = ActivityRecord(
+        axis="X",
+        start_time=start,
+        end_time=start + timedelta(seconds=2),
+        match_status=STATUS_MATCHED,
+        duration_status=DURATION_STATUS_VALID,
+    )
+    without_target = HardwareMotionSegment(
+        source_path=Path("copy-a.log"),
+        axis="X",
+        start_time=start,
+        end_time=start + timedelta(seconds=2),
+        raw_start_position=0,
+        raw_end_position=-1292112,
+        hardware_start_position=0.0,
+        hardware_end_position=-22.01,
+        hardware_actual_distance=22.01,
+        match_status="HardwareSegmentComplete",
+    )
+    with_target = HardwareMotionSegment(
+        source_path=Path("copy-b.log"),
+        axis="X",
+        start_time=start,
+        end_time=start + timedelta(seconds=2),
+        target_time=start - timedelta(milliseconds=100),
+        raw_start_position=0,
+        raw_end_position=-1292112,
+        raw_target_position=-1292112,
+        hardware_start_position=0.0,
+        hardware_end_position=-22.01,
+        hardware_target_position=-22.01,
+        hardware_actual_distance=22.01,
+        hardware_commanded_distance=22.01,
+        target_line_number=7,
+        target_line_text="[N3:X] TPOS 0 0 0 0 (-1292112)",
+        match_status="HardwareSegmentComplete",
+    )
+
+    HardwareMotionAssociator().attach(
+        [record],
+        [
+            DutyCycleLogFileResult(source_path=Path("copy-a.log"), hardware_motion_segments=[without_target]),
+            DutyCycleLogFileResult(source_path=Path("copy-b.log"), hardware_motion_segments=[with_target]),
+        ],
+    )
+
+    assert record.hardware_raw_target_position == -1292112
+    assert record.hardware_commanded_distance == pytest.approx(22.01)
+    assert record.hardware_target_line_text == "[N3:X] TPOS 0 0 0 0 (-1292112)"
 
 
 def test_hardware_nearest_exact_start_is_selected_before_later_segment() -> None:
@@ -435,6 +774,8 @@ def test_hardware_nearest_exact_start_is_selected_before_later_segment() -> None
     start = datetime(2026, 1, 1, 9, 0, 0)
     record = ActivityRecord(
         axis="X",
+        start_value=-1.0,
+        movement_commanded_distance=1.0,
         start_time=start,
         end_time=start + timedelta(milliseconds=500),
         match_status=STATUS_MATCHED,
@@ -477,6 +818,8 @@ def test_hardware_nearest_future_status_is_distinct() -> None:
     start = datetime(2026, 1, 1, 9, 0, 0)
     record = ActivityRecord(
         axis="X",
+        start_value=-1.0,
+        movement_commanded_distance=1.0,
         start_time=start,
         end_time=start + timedelta(milliseconds=500),
         match_status=STATUS_MATCHED,
@@ -501,9 +844,69 @@ def test_hardware_nearest_future_status_is_distinct() -> None:
     assert record.hardware_motion_match_status == HARDWARE_STATUS_MATCHED_NEAREST_FUTURE
     assert record.hardware_actual_distance == pytest.approx(1.0)
     assert record.movement_distance is None
+    assert record.hardware_distance_consistency_status == "CandidateOnlyNotValidated"
     ActivityValidator().validate([record])
     assert record.hardware_warning is True
     assert record.status == OVERALL_STATUS_HARDWARE_WARNING
+
+
+def test_details_split_selected_and_candidate_hardware_distances() -> None:
+    """Reliable overlap rows use selected distance; weak rows expose only candidate distance."""
+
+    start = datetime(2026, 1, 1, 9, 0, 0)
+    overlap = ActivityRecord(
+        axis="X",
+        start_time=start,
+        end_time=start + timedelta(seconds=2),
+        match_status=STATUS_MATCHED,
+        duration_status=DURATION_STATUS_VALID,
+    )
+    nearest = ActivityRecord(
+        axis="X",
+        start_time=start + timedelta(seconds=10),
+        end_time=start + timedelta(seconds=11),
+        match_status=STATUS_MATCHED,
+        duration_status=DURATION_STATUS_VALID,
+    )
+    overlap_segment = HardwareMotionSegment(
+        source_path=Path("overlap.log"),
+        axis="X",
+        start_time=start,
+        end_time=start + timedelta(seconds=2),
+        raw_start_position=0,
+        raw_end_position=-1292112,
+        hardware_actual_distance=22.01,
+        match_status="HardwareSegmentComplete",
+    )
+    future_segment = HardwareMotionSegment(
+        source_path=Path("future.log"),
+        axis="X",
+        start_time=start + timedelta(seconds=11, milliseconds=100),
+        end_time=start + timedelta(seconds=12),
+        raw_start_position=0,
+        raw_end_position=-58708,
+        hardware_actual_distance=1.0,
+        match_status="HardwareSegmentComplete",
+    )
+
+    HardwareMotionAssociator(match_window_ms=2000).attach(
+        [overlap, nearest],
+        [
+            DutyCycleLogFileResult(
+                source_path=Path("hardware.log"),
+                hardware_motion_segments=[overlap_segment, future_segment],
+            )
+        ],
+    )
+    frames = SummaryGenerator().build_report_frames([overlap, nearest], [])
+    detail_rows = frames.details.to_dict("records")
+
+    overlap_row = next(row for row in detail_rows if row["Hardware Motion Match Status"] == HARDWARE_STATUS_MATCHED_OVERLAP)
+    nearest_row = next(row for row in detail_rows if row["Hardware Motion Match Status"] == HARDWARE_STATUS_MATCHED_NEAREST_FUTURE)
+    assert overlap_row["Selected Hardware Actual Distance"] == pytest.approx(22.01)
+    assert math.isnan(overlap_row["Candidate Hardware Actual Distance"])
+    assert math.isnan(nearest_row["Selected Hardware Actual Distance"])
+    assert nearest_row["Candidate Hardware Actual Distance"] == pytest.approx(1.0)
 
 
 def test_multiple_hardware_candidates_are_candidates_not_selected_distance() -> None:
@@ -634,6 +1037,46 @@ def test_distribution_excludes_when_hardware_actual_distance_is_missing() -> Non
     ActivityValidator().validate([record])
     assert record.hardware_warning is True
     assert record.status == OVERALL_STATUS_HARDWARE_WARNING
+
+
+def test_distribution_exclusion_counts_split_hardware_from_secondary_pwm() -> None:
+    """A missing-hardware primary exclusion should not be reported as only PWM reliability."""
+
+    repeated_note = (
+        "No complete same-axis hardware TPOS Start/End segment was matched; "
+        "software TXT positions are not used as selected distance."
+    )
+    record = ActivityRecord(
+        axis="Z",
+        rule_id="clear_motor",
+        start_event="start clearing",
+        end_event="motor cleared",
+        start_time=datetime(2026, 1, 1, 9, 0, 0),
+        end_time=datetime(2026, 1, 1, 9, 0, 2),
+        duration_ms=2000,
+        duration_s=2.0,
+        match_status=STATUS_MATCHED,
+        duration_status=DURATION_STATUS_VALID,
+        hardware_motion_match_status=HARDWARE_STATUS_NO_SEGMENT,
+        pwm_match_status=PWM_STATUS_LATEST_BEFORE_TOO_FAR,
+        pwm_percent=None,
+        notes=repeated_note,
+        movement_distance_notes=repeated_note,
+        pwm_missing_reason=repeated_note,
+        source_txt_start_line="@[Z] start clearing: -50.00",
+    )
+
+    result = DistributionAnalyzer().analyze([record], "sample.txt")
+    exclusion = result.exclusions[0]
+    breakdown = LogAnalysisService()._distribution_exclusion_breakdown(result)
+
+    assert exclusion.reason == "NoHardwareSegmentFound"
+    assert exclusion.secondary_reasons == "LatestBeforeStartTooFar"
+    assert exclusion.notes.count(repeated_note) == 1
+    assert breakdown["missing_hardware"] == 1
+    assert breakdown["missing_pwm"] == 0
+    assert breakdown["unreliable_pwm"] == 0
+    assert breakdown["multiple_reasons"] == 1
 
 
 def test_distribution_excludes_nearest_hardware_match_by_default() -> None:
@@ -1326,8 +1769,8 @@ def test_nearest_pwm_is_excluded_from_distribution_by_default() -> None:
     assert analyzer.exclusion_counts["NearestLogFilePWMNotAllowedForDistribution"] == 1
 
 
-def test_distribution_exclusion_keeps_movement_reason_when_pwm_is_also_bad() -> None:
-    """Rows with multiple exclusion causes should show movement and PWM reasons."""
+def test_distribution_exclusion_keeps_reference_distance_reason_when_pwm_is_also_bad() -> None:
+    """Search-reference distribution exclusions should show distance-not-applicable plus PWM context."""
 
     analyzer = DistributionAnalyzer()
     record = _record(
@@ -1348,10 +1791,47 @@ def test_distribution_exclusion_keeps_movement_reason_when_pwm_is_also_bad() -> 
 
     assert rows == []
     exclusion = analyzer.exclusions[0]
-    assert exclusion.reason == "NoHardwareSegmentFound"
-    assert exclusion.movement_distance_exclusion_reason == "NoHardwareSegmentFound"
+    assert exclusion.reason == "DistanceNotApplicableForReference"
+    assert exclusion.movement_distance_exclusion_reason == "DistanceNotApplicableForReference"
     assert exclusion.pwm_exclusion_reason == "NearestFuturePWMNotAllowedForDistribution"
     assert "NearestFuturePWMNotAllowedForDistribution" in exclusion.secondary_reasons
+
+
+def test_search_reference_with_evidence_exclusion_is_distance_not_applicable(tmp_path: Path) -> None:
+    """Reference rows with valid Z/I hardware evidence should not look like missing S/E segments."""
+
+    start = datetime(2026, 1, 1, 9, 0, 0)
+    record = ActivityRecord(
+        axis="Y",
+        rule_id="search_reference",
+        start_event="start searching reference",
+        end_event="reference found",
+        start_time=start,
+        end_time=start + timedelta(seconds=3),
+        match_status=STATUS_MATCHED,
+        pwm_percent=80,
+        pwm_match_status=PWM_STATUS_MATCHED_CONTAINING,
+    )
+    log_path = _write_lines(
+        tmp_path / "reference.log",
+        [
+            "2026-01-01 09:00:01:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'Z' 76 (76)",
+            "2026-01-01 09:00:02:000 [OUT] sample",
+            "                              [N4:Y] TPOS 'I'",
+        ],
+    )
+    log_result = DutyCycleLogParser(TextFileLoader()).parse(log_path)
+    HardwareMotionAssociator().attach([record], [log_result])
+    ActivityValidator().validate([record])
+
+    analyzer = DistributionAnalyzer()
+    rows = analyzer.build_input_rows([record], "sample.txt")
+
+    assert rows == []
+    assert analyzer.exclusions[0].reason == "DistanceNotApplicableForReference"
+    assert analyzer.exclusions[0].movement_distance_exclusion_reason == "DistanceNotApplicableForReference"
+    assert analyzer.exclusions[0].reason != "NoHardwareSegmentFound"
 
 
 def test_nearest_pwm_can_be_explicitly_allowed_for_distribution() -> None:
@@ -1439,6 +1919,162 @@ def test_zero_variance_chart_generation_does_not_crash(tmp_path: Path) -> None:
     assert chart_path.stat().st_size > 0
 
 
+def test_reference_duration_summary_and_chart_generation(tmp_path: Path) -> None:
+    """Search-reference rows should have distance-free duration statistics and charts."""
+
+    records = [
+        _reference_record(seconds=value, txt_offset=index * 20, axis="Y")
+        for index, value in enumerate([10.0, 12.0, 14.0])
+    ]
+    result = ReferenceDurationAnalyzer().analyze(records, "sample.txt")
+    stats = result.stats[0]
+
+    assert stats.axis == "Y"
+    assert stats.rule_id == "search_reference"
+    assert stats.sample_count == 3
+    assert stats.mean_s == pytest.approx(12.0)
+    assert stats.sample_std_s == pytest.approx(2.0)
+    assert stats.sample_var_s2 == pytest.approx(4.0)
+    assert stats.hardware_reference_evidence_found_count == 3
+    assert stats.hardware_reference_evidence_missing_count == 0
+    assert stats.chart_type == "Reference Duration Distribution"
+
+    generated = NormalDistributionChartGenerator(max_charts=10).generate_reference_charts(
+        result.grouped_rows,
+        {stats.group_id: stats},
+        tmp_path / "charts",
+    )
+
+    assert len(generated) == 1
+    assert stats.chart_status == "ChartGenerated"
+    assert next(iter(generated.values())).exists()
+
+
+def test_axis_action_summary_combines_motion_and_reference_rows(tmp_path: Path) -> None:
+    """Axis Action Summary should use the same motion/reference stats inputs as workbook sheets."""
+
+    motion_records = [
+        _record(seconds=value, txt_offset=index * 20, axis="X", rule_id="clear_motor", movement_distance=22.01)
+        for index, value in enumerate([22.0, 25.0, 28.0])
+    ] + [
+        _record(
+            seconds=value,
+            txt_offset=200 + index * 20,
+            axis="Y",
+            rule_id="move_to_home",
+            movement_distance=19.51,
+        )
+        for index, value in enumerate([20.0, 22.0, 24.0])
+    ]
+    reference_records = [
+        _reference_record(seconds=value, txt_offset=400 + index * 20, axis="Y")
+        for index, value in enumerate([10.0, 12.0, 14.0])
+    ]
+    distribution_result = DistributionAnalyzer().analyze(motion_records, "sample.txt")
+    reference_result = ReferenceDurationAnalyzer().analyze(reference_records, "sample.txt")
+
+    frames = SummaryGenerator().build_report_frames(
+        motion_records + reference_records,
+        [],
+        distribution_result=distribution_result,
+        reference_duration_result=reference_result,
+    )
+
+    rows = frames.axis_action_summary.to_dict("records")
+    assert [row["Action"] for row in rows] == ["Clear Motor", "Search Reference", "Move to Home"]
+    clear_row = next(row for row in rows if row["Axis"] == "X" and row["Action"] == "Clear Motor")
+    ref_row = next(row for row in rows if row["Axis"] == "Y" and row["Action"] == "Search Reference")
+    assert clear_row["n"] == 3
+    assert clear_row["Mean (s)"] == pytest.approx(25.0)
+    assert clear_row["SD (s)"] == pytest.approx(3.0)
+    assert clear_row["Var (s^2)"] == pytest.approx(9.0)
+    assert clear_row["CV (%)"] == pytest.approx(12.0)
+    assert ref_row["n"] == 3
+    assert ref_row["Mean (s)"] == pytest.approx(12.0)
+    assert ref_row["SD (s)"] == pytest.approx(2.0)
+
+
+def test_axis_action_summary_conditional_formatting_rules(tmp_path: Path) -> None:
+    """Axis Action Summary should install the requested red/yellow CV+mean rules."""
+
+    motion_records = [
+        _record(seconds=value, txt_offset=index * 20, axis="X", rule_id="clear_motor", movement_distance=22.01)
+        for index, value in enumerate([22.0, 25.0, 28.0])
+    ] + [
+        _record(
+            seconds=value,
+            txt_offset=200 + index * 20,
+            axis="Y",
+            rule_id="move_to_home",
+            movement_distance=19.51,
+        )
+        for index, value in enumerate([20.0, 22.0, 24.0])
+    ] + [
+        _record(
+            seconds=value,
+            txt_offset=400 + index * 20,
+            axis="Z",
+            rule_id="clear_motor",
+            movement_distance=50.0,
+        )
+        for index, value in enumerate([29.8, 30.0, 30.2])
+    ]
+    distribution_result = DistributionAnalyzer().analyze(motion_records, "sample.txt")
+    frames = SummaryGenerator().build_report_frames(
+        motion_records,
+        [],
+        distribution_result=distribution_result,
+        reference_duration_result=ReferenceDurationAnalyzer().analyze(
+            [_reference_record(seconds=value, txt_offset=600 + index * 20, axis="H") for index, value in enumerate([18.0, 19.0, 20.0])],
+            "sample.txt",
+        ),
+    )
+    output = tmp_path / "axis-summary.xlsx"
+    ExcelExporter().export(
+        output,
+        frames,
+        metadata={
+            "txt_file_path": str(tmp_path / "sample.txt"),
+            "log_folder_path": str(tmp_path / "logs"),
+            "output_path": str(output),
+            "association_strategy": "test",
+            "txt_axis_event_count": 0,
+            "boundary_event_count": 0,
+            "log_file_count": 0,
+            "pwm_profile_count": 0,
+            "matched_count": len(motion_records),
+            "unmatched_start_count": 0,
+            "unmatched_end_count": 0,
+            "parse_warning_count": 0,
+            "closed_by_boundary_count": 0,
+            "closed_by_new_start_count": 0,
+            "initialization_failed_count": 0,
+            "diagnostic_count": 0,
+            "duration_warning_count": 0,
+            "pwm_warning_count": 0,
+            "distribution_enabled": True,
+            "distribution_output_dir_full": "",
+            "embed_distribution_charts": False,
+        },
+    )
+
+    workbook = load_workbook(output)
+    sheet = workbook["Axis Action Summary"]
+    headers = [cell.value for cell in sheet[1]]
+    assert headers[:9] == ["Axis", "Action", "n", "Mean (s)", "SD (s)", "Var (s^2)", "Median (s)", "Min-Max (s)", "CV (%)"]
+    rules = list(sheet.conditional_formatting)
+    formula_text = "\n".join(
+        formula
+        for conditional_range in rules
+        for rule in sheet.conditional_formatting[conditional_range]
+        for formula in rule.formula
+    )
+    assert "$I2>=2.0" in formula_text
+    assert "$D2>=25.0" in formula_text
+    assert "$D2>=20.0" in formula_text
+    assert "$D2<25.0" in formula_text
+
+
 def test_distribution_image_gallery_workbook_creation_inserts_images(tmp_path: Path) -> None:
     """The standalone gallery workbook should contain chart images plus stats and index sheets."""
 
@@ -1523,6 +2159,45 @@ def test_distribution_image_gallery_exports_mean_sd_and_variance(tmp_path: Path)
     assert row[headers.index("Normal Fit Mean (s)")] == pytest.approx(12.0)
     assert row[headers.index("Normal Fit Std Dev (s)")] == pytest.approx(2.0)
     assert row[headers.index("Normal Fit Variance (s^2)")] == pytest.approx(4.0)
+
+
+def test_image_gallery_exports_reference_stats_without_paths(tmp_path: Path) -> None:
+    """Reference charts should be labeled separately and avoid exposing full local paths."""
+
+    records = [
+        _reference_record(seconds=value, txt_offset=index * 20, axis="Y")
+        for index, value in enumerate([10.0, 12.0, 14.0])
+    ]
+    result = ReferenceDurationAnalyzer().analyze(records, str(tmp_path / "sample.txt"))
+    stats_by_group = {item.group_id: item for item in result.stats}
+    NormalDistributionChartGenerator(max_charts=10).generate_reference_charts(
+        result.grouped_rows,
+        stats_by_group,
+        tmp_path / "charts",
+    )
+
+    export_result = DistributionImageGalleryExporter().export(tmp_path / "reference-gallery.xlsx", result)
+    workbook = load_workbook(export_result.output_path, data_only=True)
+
+    assert export_result.image_inserted_count == 1
+    stats_sheet = workbook["Image Statistics"]
+    headers = [cell.value for cell in stats_sheet[1]]
+    row = next(stats_sheet.iter_rows(min_row=2, values_only=True))
+    assert row[headers.index("Chart Type")] == "Reference Duration Distribution"
+    assert row[headers.index("Action")] == "Search Reference"
+    assert row[headers.index("Distance")] == "Not Applicable"
+    assert row[headers.index("Reference Evidence Status")] == "Found"
+    assert row[headers.index("Mean Duration (s)")] == pytest.approx(12.0)
+    assert row[headers.index("Sample SD Duration (s)")] == pytest.approx(2.0)
+    chart_file = row[headers.index("Chart File")]
+    assert chart_file.endswith(".png")
+    assert "/" not in chart_file and "\\" not in chart_file
+
+    index_sheet = workbook["Image Index"]
+    index_headers = [cell.value for cell in index_sheet[1]]
+    index_row = next(index_sheet.iter_rows(min_row=2, values_only=True))
+    assert index_row[index_headers.index("Chart Type")] == "Reference Duration Distribution"
+    assert index_row[index_headers.index("Distance")] == "Not Applicable"
 
 
 def test_distribution_image_gallery_handles_skipped_chart_groups(tmp_path: Path) -> None:
@@ -1968,6 +2643,7 @@ def test_excel_export_includes_distribution_sheets_and_chart_paths(tmp_path: Pat
         "Distribution Eligibility",
         "Distribution Exclusion Summary",
         "Hardware Motion Segments",
+        "Hardware Reference Events",
     } <= set(workbook.sheetnames)
     detail_headers = [cell.value for cell in workbook["Details"][1]]
     assert "Movement Actual Distance" not in detail_headers
@@ -1979,13 +2655,16 @@ def test_excel_export_includes_distribution_sheets_and_chart_paths(tmp_path: Pat
     segment_headers = [cell.value for cell in segment_sheet[1]]
     assert "Start Line Text" in segment_headers
     assert "End Line Text" in segment_headers
+    assert "Possible Duplicate Hardware Segment" in segment_headers
+    assert "Effective Segment Used For Matching" in segment_headers
+    assert "Matched TXT Activity Count" in segment_headers
     summary_sheet = workbook["Distribution Summary"]
     headers = [cell.value for cell in summary_sheet[1]]
     for expected in DISTRIBUTION_SUMMARY_COLUMNS:
         assert expected in headers
     header_index = {header: index for index, header in enumerate(headers)}
     row = next(summary_sheet.iter_rows(min_row=2, values_only=True))
-    chart_path = Path(row[header_index["Chart File"]])
+    chart_file = row[header_index["Chart File"]]
     assert row[header_index["TXT Source File"]] == "sample.txt"
     assert row[header_index["PWM (%)"]] == 80
     assert row[header_index["Axis"]] == "Z"
@@ -2005,8 +2684,9 @@ def test_excel_export_includes_distribution_sheets_and_chart_paths(tmp_path: Pat
     assert row[header_index["Normal Fit Mean (s)"]] == pytest.approx(11.999)
     assert row[header_index["Normal Fit Std Dev (s)"]] == pytest.approx(math.sqrt(2.5))
     assert row[header_index["Chart Status"]] == "ChartGenerated"
-    assert chart_path.exists()
-    assert chart_path.stat().st_size > 0
+    assert "/" not in chart_file and "\\" not in chart_file
+    assert (chart_dir / chart_file).exists()
+    assert (chart_dir / chart_file).stat().st_size > 0
     gallery = load_workbook(result.distribution_image_gallery_path, data_only=True)
     assert {"Image Gallery", "Image Statistics", "Image Index"} <= set(gallery.sheetnames)
     assert len(gallery["Image Gallery"]._images) == 1
@@ -2126,7 +2806,10 @@ def test_synthetic_multi_image_end_to_end_gallery_exports_images_and_sign_audits
     assert z_row[headers.index("Sample Variance Duration (s^2)")] == pytest.approx(10.0)
     assert z_row[headers.index("Normal Fit Mean (s)")] == pytest.approx(14.0)
     assert z_row[headers.index("Normal Fit Std Dev (s)")] == pytest.approx(math.sqrt(10))
-    assert Path(z_row[headers.index("Chart File")]).exists()
+    z_chart_file = z_row[headers.index("Chart File")]
+    assert "/" not in z_chart_file and "\\" not in z_chart_file
+    assert result.distribution_output_dir is not None
+    assert (result.distribution_output_dir / z_chart_file).exists()
     summary_keys = [cell.value for cell in workbook["Summary"]["A"] if cell.value]
     assert "Distribution Images Inserted Into Gallery" not in summary_keys
     assert "Distribution Image Gallery Metadata Note" in summary_keys
@@ -2354,7 +3037,13 @@ def test_service_reports_hardware_warning_counts_in_run_result_and_summary(tmp_p
 
     assert result.hardware_no_segment_found_count == 1
     assert result.hardware_warning_count == 1
+    assert result.matched_count == 1
+    assert result.matched_hardware_overlap_count == 0
+    assert result.distribution_eligible_row_count == 0
+    assert result.matched_missing_hardware_distance_count == 1
+    assert result.matched_hardware_warning_count == 1
     assert result.distribution_excluded_missing_distance_count == 1
+    assert result.distribution_excluded_multiple_reasons_count == 0
 
     workbook = load_workbook(output_path, data_only=True)
     details_index, details_rows = _workbook_rows(workbook, "Details")
@@ -2366,6 +3055,8 @@ def test_service_reports_hardware_warning_counts_in_run_result_and_summary(tmp_p
     metadata = {key: value for key, value in summary_rows if key}
     assert metadata["Hardware No Segment Found"] == 1
     assert metadata["Hardware Warning Count"] == 1
+    assert metadata["Matched + Hardware-Overlap Rows"] == 0
+    assert metadata["Matched Missing Hardware Distance"] == 1
 
 
 def test_distribution_charts_sheet_explains_no_generated_charts(tmp_path: Path) -> None:
@@ -2511,7 +3202,9 @@ def test_log_coverage_summary_warns_when_control_logs_cover_only_a_short_span(tm
     assert row["Rows With Distribution-Accepted PWM"] == 1
     assert row["Rows With Containing-File PWM"] == 1
     assert row["Rows With No Same-Axis PWM In Folder"] >= 1
-    assert row["Rows Excluded From Distribution Due To PWM Reliability"] >= 1
+    assert row["Rows Excluded Due To Missing Hardware Distance"] >= 1
+    assert row["Rows Excluded Due To Multiple Reasons"] >= 1
+    assert row["Rows Excluded From Distribution Due To PWM Reliability"] == 0
     assert "Control log coverage appears incomplete" in row["Notes"]
     assert "Log Coverage Gaps" in workbook.sheetnames
     exclusion_sheet = workbook["Distribution Exclusion Summary"]
@@ -2744,8 +3437,9 @@ def test_cli_rejects_old_software_distance_source(tmp_path: Path) -> None:
         check=False,
     )
 
-    assert result.returncode == 1
-    assert "Software distance sources are no longer supported" in (result.stdout + result.stderr)
+    assert result.returncode != 0
+    assert "invalid choice" in (result.stdout + result.stderr)
+    assert "hardware_actual" in (result.stdout + result.stderr)
     assert not output_path.exists()
 
 
@@ -2787,6 +3481,9 @@ def test_april30_partial_log_regression_keeps_distances_and_explains_coverage(tm
         "Log Coverage Summary",
         "Log Coverage Gaps",
         "Distribution Charts",
+        "Reference Duration Summary",
+        "Reference Duration Charts",
+        "Axis Action Summary",
         "Hardware Motion Segments",
     } <= set(workbook.sheetnames)
     details_index, details_rows = _workbook_rows(workbook, "Details")
@@ -2830,11 +3527,11 @@ def test_april30_partial_log_regression_keeps_distances_and_explains_coverage(tm
     assert result.distribution_chart_count == 0
     assert result.distribution_image_gallery_path is not None
     gallery = load_workbook(result.distribution_image_gallery_path, data_only=True)
-    assert gallery["Image Statistics"].max_row == 19
-    assert len(gallery["Image Gallery"]._images) == 0
-    assert gallery["Image Gallery"].cell(row=1, column=1).value == "Image Gallery Summary"
-    assert gallery["Image Gallery"].cell(row=2, column=2).value == 18
-    assert gallery["Image Gallery"].cell(row=6, column=2).value == 18
+    expected_gallery_stats_rows = 1 + result.distribution_group_count + result.reference_distribution_group_count
+    assert gallery["Image Statistics"].max_row == expected_gallery_stats_rows
+    assert len(gallery["Image Gallery"]._images) == result.reference_distribution_chart_count
+    assert result.reference_distribution_group_count == 8
+    assert result.reference_distribution_chart_count == 8
     chart_message = workbook["Distribution Charts"].cell(row=1, column=1).value
     assert "No distribution charts were generated because all valid groups had fewer than 2 samples." == chart_message
 

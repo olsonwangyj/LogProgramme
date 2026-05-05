@@ -145,6 +145,8 @@ class HardwarePositionEvent:
     raw_position: Optional[int]
     physical_position: Optional[float]
     raw_line: str
+    reference_raw_value: Optional[int] = None
+    hardware_status_value: Optional[int] = None
 
 
 @dataclass
@@ -173,9 +175,31 @@ class HardwareMotionSegment:
     match_status: str = ""
     notes: str = ""
     duplicate_segment_key: str = ""
-    duplicate_segment_count: int = 1
+    duplicate_segment_count: int = 0
     possible_duplicate_source_files: str = ""
     possible_duplicate_hardware_segment: bool = False
+    effective_segment_used_for_matching: bool = False
+    matched_txt_activity_count: int = 0
+    matched_txt_rule_id: str = ""
+    matched_txt_start_time: Optional[datetime] = None
+
+
+@dataclass
+class HardwareReferenceEvidence:
+    """Represents hardware reference/zeroing evidence from TPOS Z/I records."""
+
+    source_path: Path
+    axis: str
+    evidence_type: str
+    timestamp: Optional[datetime] = None
+    raw_value: Optional[int] = None
+    line_number: Optional[int] = None
+    line_text: str = ""
+    match_status: str = ""
+    notes: str = ""
+    matched_txt_rule_id: str = ""
+    matched_txt_start_time: Optional[datetime] = None
+    matched_txt_end_time: Optional[datetime] = None
 
 
 @dataclass(frozen=True)
@@ -214,6 +238,7 @@ class DutyCycleLogFileResult:
     pwm_events: list[PWMEvent] = field(default_factory=list)
     hardware_position_events: list[HardwarePositionEvent] = field(default_factory=list)
     hardware_motion_segments: list[HardwareMotionSegment] = field(default_factory=list)
+    hardware_reference_events: list[HardwareReferenceEvidence] = field(default_factory=list)
     axis_profiles: dict[str, AxisPWMProfile] = field(default_factory=dict)
     warnings: list[ParseWarning] = field(default_factory=list)
 
@@ -284,6 +309,14 @@ class ActivityRecord:
     hardware_target_line_text: str = ""
     hardware_distance_consistency_status: str = ""
     hardware_distance_consistency_delta: Optional[float] = None
+    hardware_reference_match_status: str = ""
+    hardware_reference_source_file: str = ""
+    hardware_reference_time_delta_ms: Optional[float] = None
+    hardware_reference_zero_sensor_time: Optional[datetime] = None
+    hardware_reference_reset_time: Optional[datetime] = None
+    hardware_reference_zero_sensor_raw_value: Optional[int] = None
+    hardware_reference_line_number: Optional[int] = None
+    hardware_reference_line_text: str = ""
     hardware_warning: bool = False
     pwm_percent: Optional[float] = None
     pwm_raw_value: Optional[float] = None
@@ -339,11 +372,16 @@ class ReportFrames:
     axis_summary: object
     pwm_sources: object | None = None
     hardware_motion_segments: object | None = None
+    hardware_reference_events: object | None = None
     diagnostics: object | None = None
     diagnostics_summary: object | None = None
     distribution_summary: object | None = None
     distribution_raw_data: object | None = None
     distribution_chart_metadata: object | None = None
+    reference_duration_summary: object | None = None
+    reference_duration_raw_data: object | None = None
+    reference_duration_chart_metadata: object | None = None
+    axis_action_summary: object | None = None
     distribution_eligibility_summary: object | None = None
     distribution_exclusion_summary: object | None = None
     log_coverage_summary: object | None = None
@@ -375,6 +413,9 @@ class AnalysisRunResult:
     distribution_group_count: int = 0
     distribution_raw_row_count: int = 0
     distribution_chart_count: int = 0
+    reference_distribution_group_count: int = 0
+    reference_distribution_raw_row_count: int = 0
+    reference_distribution_chart_count: int = 0
     distribution_output_dir: Path | None = None
     distribution_excluded_missing_pwm_count: int = 0
     distribution_excluded_missing_distance_count: int = 0
@@ -392,6 +433,11 @@ class AnalysisRunResult:
     hardware_warning_count: int = 0
     hardware_duplicate_segment_group_count: int = 0
     hardware_duplicate_segment_row_count: int = 0
+    matched_hardware_overlap_count: int = 0
+    distribution_eligible_row_count: int = 0
+    matched_missing_hardware_distance_count: int = 0
+    matched_hardware_warning_count: int = 0
+    distribution_excluded_multiple_reasons_count: int = 0
     distribution_image_gallery_path: Path | None = None
     distribution_image_count: int = 0
     distribution_image_statistics_count: int = 0

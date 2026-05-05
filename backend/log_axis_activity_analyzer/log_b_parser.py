@@ -21,6 +21,7 @@ from .models import (
     DutyCycleLogFileResult,
     HardwareMotionSegment,
     HardwarePositionEvent,
+    HardwareReferenceEvidence,
     PWMEvent,
     ParseWarning,
 )
@@ -91,11 +92,13 @@ class DutyCycleLogParser:
         self._propagate_file_times(result)
         self._mark_confirmed_events(result)
         self._build_axis_profiles(result)
+        self._build_hardware_reference_events(result)
         self._build_hardware_motion_segments(result)
         self._logger.info(
-            "Parsed %s PWM events, %s hardware positions, %s hardware segments, %s profiles, and %s warnings from %s",
+            "Parsed %s PWM events, %s hardware positions, %s hardware reference events, %s hardware segments, %s profiles, and %s warnings from %s",
             len(result.pwm_events),
             len(result.hardware_position_events),
+            len(result.hardware_reference_events),
             len(result.hardware_motion_segments),
             len(result.axis_profiles),
             len(result.warnings),
@@ -162,14 +165,19 @@ class DutyCycleLogParser:
         raw_text = match.group("raw")
         raw_position = int(raw_text) if raw_text is not None else None
         axis = match.group("axis")
+        kind_token = match.group("kind")
+        position_kind = HARDWARE_POSITION_KIND_MAP.get(kind_token or "", "Target")
+        is_reference_kind = position_kind in {"ZeroSensor", "ResetOrInit"}
         scale = AXIS_RAW_SCALE.get(axis)
         physical_position = (
             raw_position / scale
-            if raw_position is not None and scale not in {None, 0}
+            if raw_position is not None
+            and not is_reference_kind
+            and scale not in {None, 0}
             else None
         )
-        kind_token = match.group("kind")
-        position_kind = HARDWARE_POSITION_KIND_MAP.get(kind_token or "", "Target")
+        reference_raw_value = raw_position if is_reference_kind else None
+        position_raw_value = None if is_reference_kind else raw_position
         node_id_text = match.group("node_id")
         return HardwarePositionEvent(
             source_path=path,
@@ -178,10 +186,31 @@ class DutyCycleLogParser:
             node_id=int(node_id_text) if node_id_text else None,
             axis=axis,
             position_kind=position_kind,
-            raw_position=raw_position,
+            raw_position=position_raw_value,
             physical_position=physical_position,
             raw_line=line,
+            reference_raw_value=reference_raw_value,
+            hardware_status_value=reference_raw_value,
         )
+
+    def _build_hardware_reference_events(self, result: DutyCycleLogFileResult) -> None:
+        """Preserve TPOS Z/I reference evidence separately from motion segments."""
+
+        for event in result.hardware_position_events:
+            if event.position_kind not in {"ZeroSensor", "ResetOrInit"}:
+                continue
+            result.hardware_reference_events.append(
+                HardwareReferenceEvidence(
+                    source_path=event.source_path,
+                    axis=event.axis,
+                    evidence_type=event.position_kind,
+                    timestamp=event.timestamp,
+                    raw_value=event.reference_raw_value,
+                    line_number=event.line_number,
+                    line_text=event.raw_line,
+                    match_status="UnmatchedHardwareReferenceEvidence",
+                )
+            )
 
     def _build_parse_warning(
         self,

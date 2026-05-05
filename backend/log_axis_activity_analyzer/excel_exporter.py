@@ -5,12 +5,17 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
-from openpyxl.styles import Font
+from openpyxl.formatting.rule import FormulaRule
+from openpyxl.styles import Alignment, Font, PatternFill
 
 from .config import (
+    AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD,
+    AXIS_SUMMARY_MEAN_RED_THRESHOLD,
+    AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD,
     DISTRIBUTION_CHART_BLOCK_HEIGHT,
     DISTRIBUTION_CHART_IMAGE_ROW_OFFSET,
     DISTRIBUTION_CHART_METADATA_KEYS,
+    REFERENCE_DURATION_CHART_METADATA_COLUMNS,
 )
 
 
@@ -38,10 +43,14 @@ class ExcelExporter:
             self._write_summary_sheet(writer, report_frames, metadata)
             self._write_pwm_sources_sheet(writer, report_frames)
             self._write_hardware_motion_segments_sheet(writer, report_frames)
+            self._write_hardware_reference_events_sheet(writer, report_frames)
             self._write_diagnostics_sheet(writer, report_frames)
             self._write_diagnostics_summary_sheet(writer, report_frames)
             self._write_distribution_summary_sheet(writer, report_frames)
             self._write_distribution_raw_data_sheet(writer, report_frames)
+            self._write_reference_duration_summary_sheet(writer, report_frames)
+            self._write_reference_duration_raw_data_sheet(writer, report_frames)
+            self._write_axis_action_summary_sheet(writer, report_frames)
             self._write_distribution_eligibility_summary_sheet(writer, report_frames)
             self._write_distribution_exclusion_summary_sheet(writer, report_frames)
             self._write_log_coverage_summary_sheet(writer, report_frames)
@@ -50,20 +59,32 @@ class ExcelExporter:
                 writer,
                 report_frames,
                 embed_charts=bool(metadata.get("embed_distribution_charts", True)),
+                chart_output_dir=metadata.get("distribution_output_dir_full", ""),
+            )
+            self._write_reference_duration_charts_sheet(
+                writer,
+                report_frames,
+                embed_charts=bool(metadata.get("embed_distribution_charts", True)),
+                chart_output_dir=metadata.get("distribution_output_dir_full", ""),
             )
             self._format_details_sheet(writer)
             self._format_summary_sheet(writer)
             self._format_pwm_sources_sheet(writer)
             self._format_hardware_motion_segments_sheet(writer)
+            self._format_hardware_reference_events_sheet(writer)
             self._format_diagnostics_sheet(writer)
             self._format_diagnostics_summary_sheet(writer)
             self._format_distribution_summary_sheet(writer)
             self._format_distribution_raw_data_sheet(writer)
+            self._format_reference_duration_summary_sheet(writer)
+            self._format_reference_duration_raw_data_sheet(writer)
+            self._format_axis_action_summary_sheet(writer)
             self._format_distribution_eligibility_summary_sheet(writer)
             self._format_distribution_exclusion_summary_sheet(writer)
             self._format_log_coverage_summary_sheet(writer)
             self._format_log_coverage_gaps_sheet(writer)
             self._format_distribution_charts_sheet(writer)
+            self._format_reference_duration_charts_sheet(writer)
         self._logger.info("Workbook export completed at %s", path)
         return path
 
@@ -81,9 +102,9 @@ class ExcelExporter:
         self._logger.debug("Writing Summary sheet")
         summary_sheet_name = "Summary"
         metadata_rows = [
-            {"Key": "TXT File", "Value": metadata["txt_file_path"]},
-            {"Key": "Log Folder", "Value": metadata["log_folder_path"]},
-            {"Key": "Generated Workbook", "Value": metadata["output_path"]},
+            {"Key": "TXT File", "Value": self._basename(metadata["txt_file_path"])},
+            {"Key": "Log Folder", "Value": self._basename(metadata["log_folder_path"])},
+            {"Key": "Generated Workbook", "Value": self._basename(metadata["output_path"])},
             {"Key": "Association Strategy", "Value": metadata["association_strategy"]},
             {"Key": "TXT Axis Events Parsed", "Value": metadata["txt_axis_event_count"]},
             {"Key": "TXT Boundary Events Parsed", "Value": metadata["boundary_event_count"]},
@@ -115,14 +136,21 @@ class ExcelExporter:
                 "Key": "Hardware Duplicate Segment Rows",
                 "Value": metadata.get("hardware_duplicate_segment_row_count", 0),
             },
+            {"Key": "Matched + Hardware-Overlap Rows", "Value": metadata.get("matched_hardware_overlap_count", 0)},
+            {"Key": "Matched Missing Hardware Distance", "Value": metadata.get("matched_missing_hardware_distance_count", 0)},
+            {"Key": "Matched Hardware Warning Rows", "Value": metadata.get("matched_hardware_warning_count", 0)},
         ]
         if metadata.get("distribution_enabled"):
             metadata_rows.extend(
                 [
                     {"Key": "Distribution Groups", "Value": metadata.get("distribution_group_count", 0)},
+                    {"Key": "Distribution Eligible Rows", "Value": metadata.get("distribution_eligible_row_count", 0)},
                     {"Key": "Distribution Raw Rows", "Value": metadata.get("distribution_raw_row_count", 0)},
                     {"Key": "Distribution Charts Generated", "Value": metadata.get("distribution_chart_count", 0)},
-                    {"Key": "Distribution Chart Output Folder", "Value": metadata.get("distribution_output_dir", "")},
+                    {"Key": "Reference Duration Groups", "Value": metadata.get("reference_distribution_group_count", 0)},
+                    {"Key": "Reference Duration Raw Rows", "Value": metadata.get("reference_distribution_raw_row_count", 0)},
+                    {"Key": "Reference Duration Charts Generated", "Value": metadata.get("reference_distribution_chart_count", 0)},
+                    {"Key": "Distribution Chart Output Folder", "Value": self._basename(metadata.get("distribution_output_dir", ""))},
                     {
                         "Key": "Distribution Distance Source",
                         "Value": metadata.get("distribution_distance_source", ""),
@@ -156,12 +184,16 @@ class ExcelExporter:
                         "Value": metadata.get("distribution_excluded_unreliable_hardware_count", 0),
                     },
                     {
+                        "Key": "Distribution Excluded Multiple Reasons",
+                        "Value": metadata.get("distribution_excluded_multiple_reasons_count", 0),
+                    },
+                    {
                         "Key": "Distribution Exclusion Reason Counts",
                         "Value": metadata.get("distribution_exclusion_reason_counts", ""),
                     },
                     {
                         "Key": "Distribution Image Gallery Workbook",
-                        "Value": metadata.get("distribution_image_gallery_path", ""),
+                        "Value": self._basename(metadata.get("distribution_image_gallery_path", "")),
                     },
                     {
                         "Key": "Distribution Image Gallery Metadata Note",
@@ -214,6 +246,18 @@ class ExcelExporter:
             index=False,
         )
 
+    def _write_hardware_reference_events_sheet(self, writer, report_frames) -> None:
+        """Write parsed hardware TPOS reference evidence for audit/debugging."""
+
+        self._logger.debug("Writing Hardware Reference Events sheet")
+        if getattr(report_frames, "hardware_reference_events", None) is None:
+            return
+        report_frames.hardware_reference_events.to_excel(
+            writer,
+            sheet_name="Hardware Reference Events",
+            index=False,
+        )
+
     def _write_diagnostics_sheet(self, writer, report_frames) -> None:
         """Write the optional Diagnostics sheet when structured diagnostics are available."""
 
@@ -245,6 +289,42 @@ class ExcelExporter:
         if report_frames.distribution_raw_data is None:
             return
         report_frames.distribution_raw_data.to_excel(writer, sheet_name="Distribution Raw Data", index=False)
+
+    def _write_reference_duration_summary_sheet(self, writer, report_frames) -> None:
+        """Write search-reference duration statistics."""
+
+        self._logger.debug("Writing Reference Duration Summary sheet")
+        if getattr(report_frames, "reference_duration_summary", None) is None:
+            return
+        report_frames.reference_duration_summary.to_excel(
+            writer,
+            sheet_name="Reference Duration Summary",
+            index=False,
+        )
+
+    def _write_reference_duration_raw_data_sheet(self, writer, report_frames) -> None:
+        """Write search-reference rows used by reference duration statistics."""
+
+        self._logger.debug("Writing Reference Duration Raw Data sheet")
+        if getattr(report_frames, "reference_duration_raw_data", None) is None:
+            return
+        report_frames.reference_duration_raw_data.to_excel(
+            writer,
+            sheet_name="Reference Duration Raw Data",
+            index=False,
+        )
+
+    def _write_axis_action_summary_sheet(self, writer, report_frames) -> None:
+        """Write the final clean axis/action summary table."""
+
+        self._logger.debug("Writing Axis Action Summary sheet")
+        if getattr(report_frames, "axis_action_summary", None) is None:
+            return
+        report_frames.axis_action_summary.to_excel(
+            writer,
+            sheet_name="Axis Action Summary",
+            index=False,
+        )
 
     def _write_distribution_exclusion_summary_sheet(self, writer, report_frames) -> None:
         """Write grouped reasons for rows excluded from distribution analysis."""
@@ -286,7 +366,13 @@ class ExcelExporter:
             return
         report_frames.log_coverage_gaps.to_excel(writer, sheet_name="Log Coverage Gaps", index=False)
 
-    def _write_distribution_charts_sheet(self, writer, report_frames, embed_charts: bool) -> None:
+    def _write_distribution_charts_sheet(
+        self,
+        writer,
+        report_frames,
+        embed_charts: bool,
+        chart_output_dir: str | Path | None = None,
+    ) -> None:
         """Optionally embed generated distribution chart PNG files."""
 
         self._logger.debug("Writing Distribution Charts sheet")
@@ -322,7 +408,7 @@ class ExcelExporter:
                 sheet.cell(row=current_row + offset, column=2, value=item.get(key))
             image_row = current_row + DISTRIBUTION_CHART_IMAGE_ROW_OFFSET
             chart_file = item.get("Chart File")
-            chart_path = Path(chart_file) if chart_file else None
+            chart_path = self._resolve_chart_path(chart_file, chart_output_dir)
             if chart_path is not None and chart_path.is_file():
                 image = Image(str(chart_path))
                 image.width = 720
@@ -331,6 +417,57 @@ class ExcelExporter:
             else:
                 sheet.cell(row=image_row, column=1, value="Chart image file was not found.")
             current_row += DISTRIBUTION_CHART_BLOCK_HEIGHT
+
+    def _write_reference_duration_charts_sheet(
+        self,
+        writer,
+        report_frames,
+        embed_charts: bool,
+        chart_output_dir: str | Path | None = None,
+    ) -> None:
+        """Optionally embed generated reference duration chart PNG files."""
+
+        self._logger.debug("Writing Reference Duration Charts sheet")
+        if not embed_charts or getattr(report_frames, "reference_duration_chart_metadata", None) is None:
+            return
+        sheet = writer.book.create_sheet("Reference Duration Charts")
+        writer.sheets["Reference Duration Charts"] = sheet
+        metadata_frame = report_frames.reference_duration_chart_metadata
+        if metadata_frame.empty:
+            from .config import MIN_SAMPLES_FOR_DISTRIBUTION_CHART
+
+            sheet.cell(
+                row=1,
+                column=1,
+                value=(
+                    "No reference duration charts were generated because all reference groups had fewer than "
+                    f"{MIN_SAMPLES_FOR_DISTRIBUTION_CHART} samples."
+                ),
+            )
+            return
+        try:
+            from openpyxl.drawing.image import Image
+        except ImportError as exc:  # pragma: no cover - only when Pillow is missing.
+            sheet.cell(row=1, column=1, value=f"Chart embedding unavailable: {exc}")
+            return
+        current_row = 1
+        for item in metadata_frame.to_dict(orient="records"):
+            sheet.cell(row=current_row, column=1, value="Group ID")
+            sheet.cell(row=current_row, column=2, value=item.get("Group ID"))
+            sheet.cell(row=current_row, column=1).font = Font(bold=True)
+            for offset, key in enumerate(REFERENCE_DURATION_CHART_METADATA_COLUMNS[1:], start=1):
+                sheet.cell(row=current_row + offset, column=1, value=key)
+                sheet.cell(row=current_row + offset, column=2, value=item.get(key))
+            image_row = current_row + len(REFERENCE_DURATION_CHART_METADATA_COLUMNS) + 2
+            chart_path = self._resolve_chart_path(item.get("Chart File"), chart_output_dir)
+            if chart_path is not None and chart_path.is_file():
+                image = Image(str(chart_path))
+                image.width = 720
+                image.height = 440
+                sheet.add_image(image, f"A{image_row}")
+            else:
+                sheet.cell(row=image_row, column=1, value="Chart image file was not found.")
+            current_row += len(REFERENCE_DURATION_CHART_METADATA_COLUMNS) + 29
 
     def _format_details_sheet(self, writer) -> None:
         """Apply basic formatting to the Details sheet."""
@@ -393,6 +530,17 @@ class ExcelExporter:
         sheet.auto_filter.ref = sheet.dimensions
         self._auto_fit_columns(sheet)
 
+    def _format_hardware_reference_events_sheet(self, writer) -> None:
+        """Apply basic formatting to the optional Hardware Reference Events sheet."""
+
+        self._logger.debug("Formatting Hardware Reference Events sheet")
+        if "Hardware Reference Events" not in writer.sheets:
+            return
+        sheet = writer.sheets["Hardware Reference Events"]
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        self._auto_fit_columns(sheet)
+
     def _format_distribution_summary_sheet(self, writer) -> None:
         """Apply basic formatting to the Distribution Summary sheet."""
 
@@ -413,6 +561,64 @@ class ExcelExporter:
         sheet = writer.sheets["Distribution Raw Data"]
         sheet.freeze_panes = "A2"
         sheet.auto_filter.ref = sheet.dimensions
+        self._auto_fit_columns(sheet)
+
+    def _format_reference_duration_summary_sheet(self, writer) -> None:
+        """Apply basic formatting to the Reference Duration Summary sheet."""
+
+        self._logger.debug("Formatting Reference Duration Summary sheet")
+        if "Reference Duration Summary" not in writer.sheets:
+            return
+        sheet = writer.sheets["Reference Duration Summary"]
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        self._auto_fit_columns(sheet)
+
+    def _format_reference_duration_raw_data_sheet(self, writer) -> None:
+        """Apply basic formatting to the Reference Duration Raw Data sheet."""
+
+        self._logger.debug("Formatting Reference Duration Raw Data sheet")
+        if "Reference Duration Raw Data" not in writer.sheets:
+            return
+        sheet = writer.sheets["Reference Duration Raw Data"]
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        self._auto_fit_columns(sheet)
+
+    def _format_axis_action_summary_sheet(self, writer) -> None:
+        """Apply table styling and CV/mean conditional formatting."""
+
+        self._logger.debug("Formatting Axis Action Summary sheet")
+        if "Axis Action Summary" not in writer.sheets:
+            return
+        sheet = writer.sheets["Axis Action Summary"]
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        header_fill = PatternFill("solid", fgColor="1F2937")
+        header_font = Font(color="FFFFFF", bold=True)
+        alternate_fill = PatternFill("solid", fgColor="F3F4F6")
+        for cell in sheet[1]:
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = Alignment(horizontal="center")
+        headers = {cell.value: cell.column for cell in sheet[1]}
+        for row_index in range(2, sheet.max_row + 1):
+            if row_index % 2 == 0:
+                for column in range(1, sheet.max_column + 1):
+                    sheet.cell(row=row_index, column=column).fill = alternate_fill
+            for header in ("n", "Mean (s)", "SD (s)", "Var (s^2)", "Median (s)", "CV (%)"):
+                if header in headers:
+                    sheet.cell(row=row_index, column=headers[header]).alignment = Alignment(horizontal="center")
+            for header, number_format in {
+                "Mean (s)": "0.000",
+                "SD (s)": "0.0000",
+                "Var (s^2)": "0.0000",
+                "Median (s)": "0.000",
+                "CV (%)": "0.00",
+            }.items():
+                if header in headers:
+                    sheet.cell(row=row_index, column=headers[header]).number_format = number_format
+        self._apply_axis_action_conditional_formatting(sheet, headers)
         self._auto_fit_columns(sheet)
 
     def _format_distribution_exclusion_summary_sheet(self, writer) -> None:
@@ -468,6 +674,68 @@ class ExcelExporter:
         sheet = writer.sheets["Distribution Charts"]
         sheet.freeze_panes = "A1"
         self._auto_fit_columns(sheet)
+
+    def _format_reference_duration_charts_sheet(self, writer) -> None:
+        """Apply basic formatting to the optional Reference Duration Charts sheet."""
+
+        self._logger.debug("Formatting Reference Duration Charts sheet")
+        if "Reference Duration Charts" not in writer.sheets:
+            return
+        sheet = writer.sheets["Reference Duration Charts"]
+        sheet.freeze_panes = "A1"
+        self._auto_fit_columns(sheet)
+
+    def _apply_axis_action_conditional_formatting(self, sheet, headers: dict[str, int]) -> None:
+        """Highlight Mean/CV cells when both CV and mean thresholds are exceeded."""
+
+        if not {"Mean (s)", "CV (%)"} <= set(headers):
+            return
+        if sheet.max_row < 2:
+            return
+        mean_col = headers["Mean (s)"]
+        cv_col = headers["CV (%)"]
+        mean_letter = sheet.cell(row=1, column=mean_col).column_letter
+        cv_letter = sheet.cell(row=1, column=cv_col).column_letter
+        red_fill = PatternFill("solid", fgColor="FFC7CE")
+        yellow_fill = PatternFill("solid", fgColor="FFEB9C")
+        target_range = f"{mean_letter}2:{mean_letter}{sheet.max_row} {cv_letter}2:{cv_letter}{sheet.max_row}"
+        red_formula = (
+            f"AND(${cv_letter}2>={AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD},"
+            f"${mean_letter}2>={AXIS_SUMMARY_MEAN_RED_THRESHOLD})"
+        )
+        yellow_formula = (
+            f"AND(${cv_letter}2>={AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD},"
+            f"${mean_letter}2>={AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD},"
+            f"${mean_letter}2<{AXIS_SUMMARY_MEAN_RED_THRESHOLD})"
+        )
+        sheet.conditional_formatting.add(
+            target_range,
+            FormulaRule(formula=[red_formula], fill=red_fill, stopIfTrue=True),
+        )
+        sheet.conditional_formatting.add(
+            target_range,
+            FormulaRule(formula=[yellow_formula], fill=yellow_fill),
+        )
+
+    def _basename(self, value: object) -> str:
+        """Return a path basename without exposing local directories."""
+
+        text = str(value or "")
+        if not text:
+            return ""
+        return text.replace("\\", "/").rstrip("/").split("/")[-1]
+
+    def _resolve_chart_path(self, chart_file: object, chart_output_dir: str | Path | None) -> Path | None:
+        """Resolve a display chart filename back to a local file for embedding."""
+
+        if not chart_file:
+            return None
+        chart_path = Path(str(chart_file))
+        if chart_path.is_absolute():
+            return chart_path
+        if chart_output_dir:
+            return Path(chart_output_dir) / chart_path.name
+        return chart_path
 
     def _auto_fit_columns(self, sheet) -> None:
         """Adjust worksheet column widths to fit current values."""

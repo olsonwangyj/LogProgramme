@@ -18,6 +18,8 @@ from .config import (
 from .distribution import (
     DistributionInputRow,
     DistributionStats,
+    ReferenceDurationInputRow,
+    ReferenceDurationStats,
     format_movement_distance_group_value,
 )
 
@@ -92,10 +94,57 @@ class NormalDistributionChartGenerator:
         self._logger.info("Generated %s distribution chart files", len(generated))
         return generated
 
+    def generate_reference_charts(
+        self,
+        grouped_rows: dict[str, list[ReferenceDurationInputRow]],
+        stats: dict[str, ReferenceDurationStats],
+        output_dir: Path,
+    ) -> dict[str, Path]:
+        """Generate charts for search-reference duration groups."""
+
+        output_dir.mkdir(parents=True, exist_ok=True)
+        self._logger.info("Generating reference duration charts in %s", output_dir)
+        generated: dict[str, Path] = {}
+        eligible = [
+            group_stats
+            for group_stats in stats.values()
+            if group_stats.sample_count >= self.min_samples_for_distribution_chart
+        ]
+        eligible.sort(key=lambda item: (-item.sample_count, item.group_id))
+        for group_stats in stats.values():
+            if group_stats.sample_count < self.min_samples_for_distribution_chart:
+                group_stats.chart_status = "SkippedInsufficientSamplesForChart"
+                group_stats.notes = self._merge_notes(
+                    group_stats.notes,
+                    f"Fewer than {self.min_samples_for_distribution_chart} samples; chart not generated.",
+                )
+        for position, group_stats in enumerate(eligible, start=1):
+            rows = grouped_rows.get(group_stats.group_id, [])
+            if position > self.max_charts:
+                group_stats.chart_status = "SkippedDueToMaxChartLimit"
+                group_stats.notes = self._merge_notes(
+                    group_stats.notes,
+                    f"Chart skipped because max chart count is {self.max_charts}.",
+                )
+                continue
+            try:
+                chart_path = output_dir / self._chart_filename(group_stats, position, prefix="ref")
+                self._draw_chart(rows, group_stats, chart_path)
+            except Exception as exc:  # pragma: no cover - defensive around local rendering backends.
+                self._logger.exception("Failed to generate reference chart for group %s", group_stats.group_id)
+                group_stats.chart_status = "ChartFailed"
+                group_stats.notes = self._merge_notes(group_stats.notes, f"Chart generation failed: {exc}")
+                continue
+            group_stats.chart_file = str(chart_path)
+            group_stats.chart_status = "ChartGenerated"
+            generated[group_stats.group_id] = chart_path
+        self._logger.info("Generated %s reference duration chart files", len(generated))
+        return generated
+
     def _draw_chart(
         self,
-        rows: list[DistributionInputRow],
-        stats: DistributionStats,
+        rows: list[DistributionInputRow] | list[ReferenceDurationInputRow],
+        stats: DistributionStats | ReferenceDurationStats,
         chart_path: Path,
     ) -> None:
         """Render one chart to a PNG file."""
@@ -153,7 +202,7 @@ class NormalDistributionChartGenerator:
         fig.savefig(chart_path, dpi=self.dpi, format=self.chart_format)
         plt.close(fig)
 
-    def _can_draw_normal_curve(self, stats: DistributionStats) -> bool:
+    def _can_draw_normal_curve(self, stats: DistributionStats | ReferenceDurationStats) -> bool:
         """Return whether a fitted normal curve should be drawn."""
 
         return (
@@ -163,7 +212,7 @@ class NormalDistributionChartGenerator:
             and stats.normal_fit_std_s > 0
         )
 
-    def _chart_note(self, stats: DistributionStats) -> str:
+    def _chart_note(self, stats: DistributionStats | ReferenceDurationStats) -> str:
         """Return an in-chart note for groups without a normal curve."""
 
         if stats.sample_count < self.min_samples_for_normal_fit:
@@ -172,18 +221,24 @@ class NormalDistributionChartGenerator:
             return "Zero variance; normal curve not drawn."
         return "Normal curve not drawn."
 
-    def _chart_title(self, stats: DistributionStats) -> str:
+    def _chart_title(self, stats: DistributionStats | ReferenceDurationStats) -> str:
         """Build the required chart title with compact group metadata."""
 
         mean_text = self._format_number(stats.mean_s, "NA", 3)
         std_text = self._format_number(stats.sample_std_s, "NA", 3)
+        if getattr(stats, "chart_type", "") == "Reference Duration Distribution":
+            return (
+                f"Reference Duration Distribution | Axis {stats.axis} | {stats.action_label} | "
+                "Distance Not Applicable\n"
+                f"N={stats.sample_count}, Mean={mean_text}s, SD={std_text}s"
+            )
         return (
             f"{stats.txt_source_file} | Axis {stats.axis} | PWM {stats.pwm_percent:g}% | "
             f"Hardware Actual Distance {self._distance_label(stats)} ({stats.movement_distance_source}) | {stats.rule_id}\n"
             f"N={stats.sample_count}, Mean={mean_text}s, SD={std_text}s"
         )
 
-    def _distance_label(self, stats: DistributionStats) -> str:
+    def _distance_label(self, stats: DistributionStats | ReferenceDurationStats) -> str:
         """Return the chart display label for the grouped movement distance."""
 
         return format_movement_distance_group_value(
@@ -193,11 +248,17 @@ class NormalDistributionChartGenerator:
             stats.movement_distance_round_digits,
         )
 
-    def _chart_filename(self, stats: DistributionStats, position: int) -> str:
+    def _chart_filename(
+        self,
+        stats: DistributionStats | ReferenceDurationStats,
+        position: int,
+        prefix: str = "",
+    ) -> str:
         """Build a safe chart file name."""
 
         safe_group = re.sub(r"[^A-Za-z0-9_.-]+", "_", stats.group_id).strip("_")
-        return f"{position:03d}_{safe_group[:120]}.{self.chart_format}"
+        prefix_text = f"{prefix}_" if prefix else ""
+        return f"{position:03d}_{prefix_text}{safe_group[:120]}.{self.chart_format}"
 
     def _linspace(self, start: float, stop: float, count: int) -> list[float]:
         """Return evenly spaced values without requiring numpy in this module."""

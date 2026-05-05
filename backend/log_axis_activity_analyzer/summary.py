@@ -11,6 +11,7 @@ import pandas as pd
 
 from .config import (
     AXIS_SUMMARY_COLUMNS,
+    AXIS_ACTION_SUMMARY_COLUMNS,
     DETAIL_COLUMNS,
     DIAGNOSTIC_COLUMNS,
     DIAGNOSTIC_SUMMARY_COLUMNS,
@@ -21,10 +22,15 @@ from .config import (
     DISTRIBUTION_SUMMARY_COLUMNS,
     DURATION_STATUS_VALID,
     EVENT_SUMMARY_COLUMNS,
+    HARDWARE_REFERENCE_EVENT_COLUMNS,
+    HARDWARE_STATUS_MATCHED_OVERLAP,
     HARDWARE_MOTION_SEGMENT_COLUMNS,
     LOG_COVERAGE_GAPS_COLUMNS,
     LOG_COVERAGE_SUMMARY_COLUMNS,
     PWM_SOURCE_COLUMNS,
+    REFERENCE_DURATION_CHART_METADATA_COLUMNS,
+    REFERENCE_DURATION_RAW_DATA_COLUMNS,
+    REFERENCE_DURATION_SUMMARY_COLUMNS,
     STATUS_CLOSED_BY_BOUNDARY,
     STATUS_CLOSED_BY_NEW_START,
     STATUS_DIAGNOSTIC,
@@ -39,6 +45,9 @@ from .distribution import (
     DistributionExclusion,
     DistributionInputRow,
     DistributionStats,
+    ReferenceDurationAnalysisResult,
+    ReferenceDurationInputRow,
+    ReferenceDurationStats,
     format_movement_distance_group_value,
 )
 from .models import ActivityRecord, DiagnosticEvent, DutyCycleLogFileResult, ReportFrames
@@ -59,6 +68,7 @@ class SummaryGenerator:
         log_file_results: list[DutyCycleLogFileResult],
         diagnostics: list[DiagnosticEvent] | None = None,
         distribution_result: DistributionAnalysisResult | None = None,
+        reference_duration_result: ReferenceDurationAnalysisResult | None = None,
         log_coverage_summary: list[dict[str, object]] | None = None,
         log_coverage_gaps: list[dict[str, object]] | None = None,
     ) -> ReportFrames:
@@ -87,6 +97,10 @@ class SummaryGenerator:
             self._build_hardware_motion_segment_rows(log_file_results),
             columns=HARDWARE_MOTION_SEGMENT_COLUMNS,
         )
+        hardware_reference_events_frame = pd.DataFrame(
+            self._build_hardware_reference_event_rows(log_file_results),
+            columns=HARDWARE_REFERENCE_EVENT_COLUMNS,
+        )
         diagnostics_frame = pd.DataFrame(
             self._build_diagnostic_rows(diagnostics),
             columns=DIAGNOSTIC_COLUMNS,
@@ -98,6 +112,10 @@ class SummaryGenerator:
         distribution_summary_frame = None
         distribution_raw_data_frame = None
         distribution_chart_metadata_frame = None
+        reference_duration_summary_frame = None
+        reference_duration_raw_data_frame = None
+        reference_duration_chart_metadata_frame = None
+        axis_action_summary_frame = None
         distribution_eligibility_summary_frame = None
         distribution_exclusion_summary_frame = None
         if distribution_result is not None:
@@ -121,6 +139,27 @@ class SummaryGenerator:
                 self._build_distribution_exclusion_rows(distribution_result.exclusions),
                 columns=DISTRIBUTION_EXCLUSION_SUMMARY_COLUMNS,
             )
+        if reference_duration_result is not None:
+            reference_duration_summary_frame = pd.DataFrame(
+                self._build_reference_duration_summary_rows(reference_duration_result.stats),
+                columns=REFERENCE_DURATION_SUMMARY_COLUMNS,
+            )
+            reference_duration_raw_data_frame = pd.DataFrame(
+                self._build_reference_duration_raw_rows(reference_duration_result.input_rows),
+                columns=REFERENCE_DURATION_RAW_DATA_COLUMNS,
+            )
+            reference_duration_chart_metadata_frame = pd.DataFrame(
+                self._build_reference_duration_chart_metadata_rows(reference_duration_result.stats),
+                columns=REFERENCE_DURATION_CHART_METADATA_COLUMNS,
+            )
+        if distribution_result is not None or reference_duration_result is not None:
+            axis_action_summary_frame = pd.DataFrame(
+                self._build_axis_action_summary_rows(
+                    distribution_result.input_rows if distribution_result is not None else [],
+                    reference_duration_result.input_rows if reference_duration_result is not None else [],
+                ),
+                columns=AXIS_ACTION_SUMMARY_COLUMNS,
+            )
         log_coverage_summary_frame = pd.DataFrame(
             log_coverage_summary or [],
             columns=LOG_COVERAGE_SUMMARY_COLUMNS,
@@ -135,11 +174,16 @@ class SummaryGenerator:
             axis_summary=axis_summary_frame,
             pwm_sources=pwm_source_frame,
             hardware_motion_segments=hardware_motion_segments_frame,
+            hardware_reference_events=hardware_reference_events_frame,
             diagnostics=diagnostics_frame,
             diagnostics_summary=diagnostics_summary_frame,
             distribution_summary=distribution_summary_frame,
             distribution_raw_data=distribution_raw_data_frame,
             distribution_chart_metadata=distribution_chart_metadata_frame,
+            reference_duration_summary=reference_duration_summary_frame,
+            reference_duration_raw_data=reference_duration_raw_data_frame,
+            reference_duration_chart_metadata=reference_duration_chart_metadata_frame,
+            axis_action_summary=axis_action_summary_frame,
             distribution_eligibility_summary=distribution_eligibility_summary_frame,
             distribution_exclusion_summary=distribution_exclusion_summary_frame,
             log_coverage_summary=log_coverage_summary_frame,
@@ -171,10 +215,22 @@ class SummaryGenerator:
             "Hardware End Position": record.hardware_end_position,
             "Hardware Target Position": record.hardware_target_position,
             "Hardware Actual Distance": record.hardware_actual_distance,
-            "Candidate Hardware Actual Distance": record.hardware_actual_distance,
+            "Candidate Hardware Actual Distance": (
+                None
+                if record.hardware_motion_match_status == HARDWARE_STATUS_MATCHED_OVERLAP
+                else record.hardware_actual_distance
+            ),
             "Hardware Commanded Distance": record.hardware_commanded_distance,
             "Hardware Distance Consistency Status": record.hardware_distance_consistency_status,
             "Hardware Distance Consistency Delta": record.hardware_distance_consistency_delta,
+            "Hardware Reference Match Status": record.hardware_reference_match_status,
+            "Hardware Reference Source File": record.hardware_reference_source_file,
+            "Hardware Reference Time Delta (ms)": record.hardware_reference_time_delta_ms,
+            "Hardware Reference Zero Sensor Time": format_log_timestamp(record.hardware_reference_zero_sensor_time),
+            "Hardware Reference Reset Time": format_log_timestamp(record.hardware_reference_reset_time),
+            "Hardware Reference Zero Sensor Raw Value": record.hardware_reference_zero_sensor_raw_value,
+            "Hardware Reference Line Number": record.hardware_reference_line_number,
+            "Hardware Reference Line Text": record.hardware_reference_line_text,
             "Hardware Start Line Number": record.hardware_start_line_number,
             "Hardware Start Line Text": record.hardware_start_line_text,
             "Hardware End Line Number": record.hardware_end_line_number,
@@ -372,9 +428,54 @@ class SummaryGenerator:
                         "Target Line Number": segment.target_line_number,
                         "Target Line Text": segment.target_line_text,
                         "Duplicate Segment Key": segment.duplicate_segment_key,
-                        "Duplicate Segment Count": segment.duplicate_segment_count,
+                        "Duplicate Segment Count": (
+                            segment.duplicate_segment_count
+                            if segment.possible_duplicate_hardware_segment
+                            else None
+                        ),
+                        "Possible Duplicate Hardware Segment": segment.possible_duplicate_hardware_segment,
                         "Possible Duplicate Source Files": segment.possible_duplicate_source_files,
+                        "Effective Segment Used For Matching": segment.effective_segment_used_for_matching,
+                        "Matched TXT Activity Count": segment.matched_txt_activity_count or None,
+                        "Matched TXT Rule ID": segment.matched_txt_rule_id,
+                        "Matched TXT Start Time": format_log_timestamp(segment.matched_txt_start_time),
                         "Notes": segment.notes,
+                    }
+                )
+        return rows
+
+    def _build_hardware_reference_event_rows(
+        self,
+        log_file_results: list[DutyCycleLogFileResult],
+    ) -> list[dict[str, object]]:
+        """Convert parsed TPOS Z/I reference evidence into an audit worksheet."""
+
+        self._logger.debug("Building hardware reference event rows")
+        rows: list[dict[str, object]] = []
+        for file_result in sorted(log_file_results, key=lambda item: item.source_path.name):
+            for event in sorted(
+                file_result.hardware_reference_events,
+                key=lambda item: (
+                    item.timestamp is None,
+                    item.timestamp or datetime.max,
+                    item.axis,
+                    item.line_number or 0,
+                ),
+            ):
+                rows.append(
+                    {
+                        "Source Log File": event.source_path.name,
+                        "Axis": event.axis,
+                        "Evidence Type": event.evidence_type,
+                        "Timestamp": format_log_timestamp(event.timestamp),
+                        "Raw / Status Value": event.raw_value,
+                        "Line Number": event.line_number,
+                        "Line Text": event.line_text,
+                        "Matched TXT Rule ID": event.matched_txt_rule_id,
+                        "Matched TXT Start Time": format_log_timestamp(event.matched_txt_start_time),
+                        "Matched TXT End Time": format_log_timestamp(event.matched_txt_end_time),
+                        "Match Status": event.match_status,
+                        "Notes": event.notes,
                     }
                 )
         return rows
@@ -507,7 +608,7 @@ class SummaryGenerator:
                 "Normal Fit Variance (s^2)": item.normal_fit_variance_s2,
                 "Distribution Status": item.distribution_status,
                 "Chart Status": item.chart_status,
-                "Chart File": item.chart_file,
+                "Chart File": self._chart_file_display(item.chart_file),
                 "Chart Sheet Anchor / Image ID": item.chart_sheet_anchor,
                 "Notes": item.notes,
             }
@@ -592,11 +693,15 @@ class SummaryGenerator:
         return [
             {
                 "Group ID": item.group_id,
+                "Chart Type": "Motion Duration Distribution",
                 "TXT Source File": item.txt_source_file,
                 "PWM (%)": item.pwm_percent,
                 "Axis": item.axis,
+                "Action": self._human_action(item.rule_id, item.action_label),
                 "Hardware Actual Distance Group Value": item.movement_distance_group_value,
                 "Hardware Actual Distance Display": self._distance_display(item),
+                "Distance": self._distance_display(item),
+                "Reference Evidence Status": "",
                 "Hardware Distance Source": item.movement_distance_source,
                 "Hardware Distance Method": item.movement_distance_method,
                 "Movement Distance Grouping Mode": item.movement_distance_grouping_mode,
@@ -609,12 +714,147 @@ class SummaryGenerator:
                 "Variance": item.sample_var_s2,
                 "Distribution Status": item.distribution_status,
                 "Chart Status": item.chart_status,
-                "Chart File": item.chart_file,
+                "Chart File": self._chart_file_display(item.chart_file),
                 "Notes": item.notes,
             }
             for item in stats
             if item.chart_file
         ]
+
+    def _build_reference_duration_summary_rows(
+        self,
+        stats: list[ReferenceDurationStats],
+    ) -> list[dict[str, object]]:
+        """Convert reference-duration statistics into workbook rows."""
+
+        return [
+            {
+                "Group ID": item.group_id,
+                "TXT Source File": item.txt_source_file,
+                "Axis": item.axis,
+                "Action": self._human_action(item.rule_id, item.action_label),
+                "Rule ID": item.rule_id,
+                "Sample Count": item.sample_count,
+                "Mean Duration (ms)": item.mean_ms,
+                "Mean Duration (s)": item.mean_s,
+                "Median Duration (s)": item.median_s,
+                "Sample SD Duration (s)": item.sample_std_s,
+                "Sample Variance Duration (s^2)": item.sample_var_s2,
+                "Population SD Duration (s)": item.population_std_s,
+                "Population Variance Duration (s^2)": item.population_var_s2,
+                "Min Duration (s)": item.min_s,
+                "Max Duration (s)": item.max_s,
+                "Min-Max Display": self._min_max_display(item.min_s, item.max_s),
+                "CV (%)": item.cv_percent,
+                "Hardware Reference Evidence Found Count": item.hardware_reference_evidence_found_count,
+                "Hardware Reference Evidence Missing Count": item.hardware_reference_evidence_missing_count,
+                "Distribution Status": item.distribution_status,
+                "Chart Status": item.chart_status,
+                "Chart File": self._chart_file_display(item.chart_file),
+                "Chart Sheet Anchor / Image ID": item.chart_sheet_anchor,
+                "Notes": item.notes,
+            }
+            for item in stats
+        ]
+
+    def _build_reference_duration_raw_rows(
+        self,
+        rows: list[ReferenceDurationInputRow],
+    ) -> list[dict[str, object]]:
+        """Convert reference-duration input rows into auditable raw-data rows."""
+
+        return [
+            {
+                "Group ID": row.group_id,
+                "TXT Source File": row.txt_source_file,
+                "Axis": row.axis,
+                "Action": self._human_action(row.rule_id, row.action_label),
+                "Rule ID": row.rule_id,
+                "Start Time": format_log_timestamp(row.start_time),
+                "End Time": format_log_timestamp(row.end_time),
+                "Duration (ms)": row.duration_ms,
+                "Duration (s)": row.duration_s,
+                "Hardware Reference Match Status": row.hardware_reference_match_status,
+                "Hardware Reference Source File": row.hardware_reference_source_file,
+                "Hardware Reference Zero Sensor Raw Value": row.hardware_reference_zero_sensor_raw_value,
+                "Hardware Reference Line Text": row.hardware_reference_line_text,
+                "Hardware Motion Match Status": row.hardware_motion_match_status,
+                "Selected Movement Distance Method": row.movement_distance_method,
+                "Overall Status": row.overall_status,
+                "Match Status": row.match_status,
+                "Duration Status": row.duration_status,
+                "Source TXT Start Line Number": row.source_txt_start_line_number,
+                "Source TXT Start Line Text": row.source_txt_start_line_text,
+                "Source TXT End Line Number": row.source_txt_end_line_number,
+                "Source TXT End Line Text": row.source_txt_end_line_text,
+                "Notes": row.notes,
+            }
+            for row in rows
+        ]
+
+    def _build_reference_duration_chart_metadata_rows(
+        self,
+        stats: list[ReferenceDurationStats],
+    ) -> list[dict[str, object]]:
+        """Build metadata blocks for reference charts embedded in Excel."""
+
+        return [
+            {
+                "Group ID": item.group_id,
+                "Chart Type": item.chart_type,
+                "TXT Source File": item.txt_source_file,
+                "Axis": item.axis,
+                "Action": self._human_action(item.rule_id, item.action_label),
+                "Rule ID": item.rule_id,
+                "Distance": "Not Applicable",
+                "Sample Count": item.sample_count,
+                "Mean Duration (s)": item.mean_s,
+                "Sample Std Dev Duration (s)": item.sample_std_s,
+                "Variance": item.sample_var_s2,
+                "Min-Max Display": self._min_max_display(item.min_s, item.max_s),
+                "CV (%)": item.cv_percent,
+                "Reference Evidence Status": self._reference_evidence_status(item),
+                "Hardware Reference Evidence Found Count": item.hardware_reference_evidence_found_count,
+                "Hardware Reference Evidence Missing Count": item.hardware_reference_evidence_missing_count,
+                "Distribution Status": item.distribution_status,
+                "Chart Status": item.chart_status,
+                "Chart File": self._chart_file_display(item.chart_file),
+                "Notes": item.notes,
+            }
+            for item in stats
+            if item.chart_file
+        ]
+
+    def _build_axis_action_summary_rows(
+        self,
+        motion_rows: list[DistributionInputRow],
+        reference_rows: list[ReferenceDurationInputRow],
+    ) -> list[dict[str, object]]:
+        """Build the clean axis/action duration summary requested by users."""
+
+        grouped: dict[tuple[str, str], list[float]] = defaultdict(list)
+        for row in motion_rows:
+            grouped[(row.axis, self._human_action(row.rule_id, row.action_label))].append(row.duration_s)
+        for row in reference_rows:
+            grouped[(row.axis, self._human_action(row.rule_id, row.action_label))].append(row.duration_s)
+
+        rows: list[dict[str, object]] = []
+        for (axis, action), durations_s in sorted(grouped.items(), key=lambda item: self._axis_action_sort_key(item[0])):
+            stats = self._duration_stats_seconds(durations_s)
+            rows.append(
+                {
+                    "Axis": axis,
+                    "Action": action,
+                    "n": stats["n"],
+                    "Mean (s)": stats["mean"],
+                    "SD (s)": stats["sd"],
+                    "Var (s^2)": stats["var"],
+                    "Median (s)": stats["median"],
+                    "Min-Max (s)": self._min_max_display(stats["min"], stats["max"]),
+                    "CV (%)": stats["cv"],
+                }
+            )
+        return rows
 
     def _build_distribution_exclusion_rows(
         self,
@@ -677,3 +917,77 @@ class SummaryGenerator:
             row.movement_distance_bin_size,
             row.movement_distance_round_digits,
         )
+
+    def _chart_file_display(self, chart_file: str | None) -> str:
+        """Return a user-facing chart file name without local folder paths."""
+
+        return "" if not chart_file else str(chart_file).replace("\\", "/").split("/")[-1]
+
+    def _human_action(self, rule_id: str, fallback: str = "") -> str:
+        """Return the compact action labels used in final summary sheets."""
+
+        labels = {
+            "search_reference": "Search Reference",
+            "clear_motor": "Clear Motor",
+            "move_to_home": "Move to Home",
+            "move_to_max": "Move to Max",
+        }
+        return labels.get(rule_id, fallback or rule_id)
+
+    def _axis_action_sort_key(self, key: tuple[str, str]) -> tuple[str, int, str]:
+        """Sort axis/action summary rows in the requested action order."""
+
+        axis, action = key
+        action_order = {
+            "Search Reference": 0,
+            "Clear Motor": 1,
+            "Move to Home": 2,
+            "Move to Max": 3,
+        }
+        return (axis, action_order.get(action, 99), action)
+
+    def _duration_stats_seconds(self, values: list[float]) -> dict[str, float | int | None]:
+        """Compute common stats for already-second duration values."""
+
+        numeric = [float(value) for value in values if value is not None]
+        if not numeric:
+            return {
+                "n": 0,
+                "mean": None,
+                "sd": None,
+                "var": None,
+                "median": None,
+                "min": None,
+                "max": None,
+                "cv": None,
+            }
+        count = len(numeric)
+        mean = statistics.mean(numeric)
+        sd = statistics.stdev(numeric) if count > 1 else None
+        var = statistics.variance(numeric) if count > 1 else None
+        return {
+            "n": count,
+            "mean": mean,
+            "sd": sd,
+            "var": var,
+            "median": statistics.median(numeric),
+            "min": min(numeric),
+            "max": max(numeric),
+            "cv": sd / mean * 100.0 if sd is not None and mean else None,
+        }
+
+    def _min_max_display(self, minimum: float | None, maximum: float | None) -> str:
+        """Format a compact min-max seconds display."""
+
+        if minimum is None or maximum is None:
+            return ""
+        return f"{minimum:.3f}-{maximum:.3f}"
+
+    def _reference_evidence_status(self, item: ReferenceDurationStats) -> str:
+        """Return a compact reference-evidence status for gallery/index sheets."""
+
+        if item.hardware_reference_evidence_found_count and not item.hardware_reference_evidence_missing_count:
+            return "Found"
+        if item.hardware_reference_evidence_found_count and item.hardware_reference_evidence_missing_count:
+            return "Mixed"
+        return "Missing"

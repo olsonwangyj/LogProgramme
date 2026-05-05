@@ -32,6 +32,7 @@ from .config import (
     HARDWARE_STATUS_MATCHED_NEAREST_PREVIOUS,
     HARDWARE_STATUS_MULTIPLE_CANDIDATES,
     HARDWARE_STATUS_NO_SEGMENT,
+    HARDWARE_REFERENCE_STATUS_FOUND,
     PWM_STATUS_MATCHED_CARRY_FORWARD,
     PWM_STATUS_MATCHED_LATEST_BEFORE,
     PWM_STATUS_MATCHED_NEAREST,
@@ -254,6 +255,96 @@ class DistributionAnalysisResult:
     exclusion_counts: Counter = field(default_factory=Counter)
     exclusions: list[DistributionExclusion] = field(default_factory=list)
     eligibility_exclusions: list[DistributionExclusion] = field(default_factory=list)
+    chart_output_dir: Path | None = None
+
+
+@dataclass
+class ReferenceDurationInputRow:
+    """One validated search-reference duration row prepared for reference statistics."""
+
+    group_id: str
+    txt_source_file: str
+    axis: str
+    rule_id: str
+    action_label: str
+    start_time: datetime
+    end_time: datetime
+    duration_ms: float
+    duration_s: float
+    hardware_reference_match_status: str = ""
+    hardware_reference_source_file: str = ""
+    hardware_reference_zero_sensor_raw_value: int | None = None
+    hardware_reference_line_text: str = ""
+    hardware_motion_match_status: str = ""
+    movement_distance_method: str = ""
+    overall_status: str = ""
+    match_status: str = ""
+    duration_status: str = ""
+    source_txt_start_line_number: int | None = None
+    source_txt_start_line_text: str = ""
+    source_txt_end_line_number: int | None = None
+    source_txt_end_line_text: str = ""
+    notes: str = ""
+    pwm_percent: float | None = None
+    pwm_raw_value: float | None = None
+    pwm_direction: str = ""
+
+
+@dataclass
+class ReferenceDurationStats:
+    """Statistical result for one search-reference duration group."""
+
+    group_id: str
+    txt_source_file: str
+    axis: str
+    rule_id: str
+    action_label: str
+    sample_count: int
+    mean_ms: float | None
+    mean_s: float | None
+    median_ms: float | None
+    median_s: float | None
+    min_ms: float | None
+    min_s: float | None
+    max_ms: float | None
+    max_s: float | None
+    range_ms: float | None
+    sample_std_ms: float | None
+    sample_std_s: float | None
+    sample_var_ms2: float | None
+    sample_var_s2: float | None
+    population_std_ms: float | None
+    population_std_s: float | None
+    population_var_ms2: float | None
+    population_var_s2: float | None
+    cv_percent: float | None
+    normal_fit_mean_s: float | None
+    normal_fit_std_s: float | None
+    normal_fit_variance_s2: float | None
+    hardware_reference_evidence_found_count: int
+    hardware_reference_evidence_missing_count: int
+    distribution_status: str
+    chart_file: str | None = None
+    chart_status: str = "NotGenerated"
+    chart_sheet_anchor: str | None = None
+    notes: str = ""
+    chart_type: str = "Reference Duration Distribution"
+    movement_distance_source: str = ""
+    movement_distance_method: str = "DistanceNotApplicableForReference"
+    movement_distance_group_value: float | None = None
+    movement_distance_grouping_mode: str = ""
+    movement_distance_bin_size: float | None = None
+    movement_distance_round_digits: int = 0
+    sample_std_duration_s: float | None = None
+
+
+@dataclass
+class ReferenceDurationAnalysisResult:
+    """Reference-duration distribution payload for service, summary, and export layers."""
+
+    input_rows: list[ReferenceDurationInputRow] = field(default_factory=list)
+    grouped_rows: dict[str, list[ReferenceDurationInputRow]] = field(default_factory=dict)
+    stats: list[ReferenceDurationStats] = field(default_factory=list)
     chart_output_dir: Path | None = None
 
 
@@ -510,6 +601,21 @@ class DistributionAnalyzer:
     def derive_movement_distance(self, record: ActivityRecord) -> MovementDerivation:
         """Return selected movement-distance fields from hardware TPOS actual distance only."""
 
+        if record.rule_id == "search_reference":
+            notes = record.movement_distance_notes or (
+                "Search-reference movement distance is not applicable; hardware TPOS Z/I evidence is audited separately."
+            )
+            return MovementDerivation(
+                movement_start_position=None,
+                movement_target_position=None,
+                movement_end_position=None,
+                movement_commanded_distance=None,
+                movement_actual_distance=None,
+                movement_distance=None,
+                movement_distance_source="",
+                movement_distance_method="DistanceNotApplicableForReference",
+                movement_distance_notes=notes,
+            )
         start_position = self._to_float_or_none(record.hardware_start_position)
         target_position = self._to_float_or_none(record.hardware_target_position)
         end_position = self._to_float_or_none(record.hardware_end_position)
@@ -752,6 +858,8 @@ class DistributionAnalyzer:
         if movement.movement_distance is None:
             if self.include_missing_movement_distance:
                 return ""
+            if record.rule_id == "search_reference":
+                return "DistanceNotApplicableForReference"
             return self._missing_hardware_distance_reason(record)
         if record.hardware_motion_match_status in self.allowed_hardware_motion_match_statuses:
             return ""
@@ -789,14 +897,12 @@ class DistributionAnalyzer:
     ) -> None:
         """Store an auditable exclusion example for workbook aggregation."""
 
-        notes = " | ".join(
-            item
-            for item in (
+        notes = self._combine_unique_notes(
+            [
                 record.notes,
                 record.movement_distance_notes,
                 record.pwm_missing_reason,
-            )
-            if item
+            ]
         )
         self.exclusions.append(
             DistributionExclusion(
@@ -991,8 +1097,284 @@ class DistributionAnalyzer:
 
         unique_notes: list[str] = []
         for note in notes:
-            if note and note not in unique_notes:
-                unique_notes.append(note)
+            for part in str(note or "").split("|"):
+                cleaned = part.strip()
+                if cleaned and cleaned not in unique_notes:
+                    unique_notes.append(cleaned)
+        return " | ".join(unique_notes)
+
+    def _to_float_or_none(self, value: object) -> float | None:
+        """Convert a numeric-looking value to float, rejecting NaN and infinities."""
+
+        if value is None:
+            return None
+        try:
+            numeric = float(value)
+        except (TypeError, ValueError):
+            return None
+        return numeric if math.isfinite(numeric) else None
+
+    def _is_numeric(self, value: object) -> bool:
+        """Return whether a value is a finite number."""
+
+        return self._to_float_or_none(value) is not None
+
+    def _finite_or_none(self, value: object) -> float | None:
+        """Return finite floats and turn NaN/infinity into None."""
+
+        return self._to_float_or_none(value)
+
+    def _merge_notes(self, existing: str, new_note: str) -> str:
+        """Append a note using the report's existing note separator style."""
+
+        if not new_note:
+            return existing
+        if not existing:
+            return new_note
+        return f"{existing} | {new_note}"
+
+
+class ReferenceDurationAnalyzer:
+    """Build duration-only statistics for search-reference activities."""
+
+    def __init__(
+        self,
+        min_samples_for_normal_fit: int = MIN_SAMPLES_FOR_NORMAL_FIT,
+        logger: logging.Logger | None = None,
+    ) -> None:
+        """Initialize reference-duration analysis options."""
+
+        self.min_samples_for_normal_fit = min_samples_for_normal_fit
+        self._logger = logger or logging.getLogger(self.__class__.__name__)
+
+    def analyze(self, records: list[ActivityRecord], txt_source_file: str) -> ReferenceDurationAnalysisResult:
+        """Build reference rows, group them by axis, and compute duration statistics."""
+
+        input_rows = self.build_input_rows(records, txt_source_file)
+        grouped_rows = self.group_rows(input_rows)
+        stats = self.compute_group_stats(grouped_rows)
+        return ReferenceDurationAnalysisResult(input_rows=input_rows, grouped_rows=grouped_rows, stats=stats)
+
+    def build_input_rows(
+        self,
+        records: list[ActivityRecord],
+        txt_source_file: str,
+    ) -> list[ReferenceDurationInputRow]:
+        """Return valid matched search-reference duration rows."""
+
+        source_name = Path(txt_source_file).name
+        rows: list[ReferenceDurationInputRow] = []
+        for record in records:
+            if not self._is_valid_reference_record(record):
+                continue
+            group_id = self.build_group_id(source_name, record.axis, record.rule_id)
+            rows.append(
+                ReferenceDurationInputRow(
+                    group_id=group_id,
+                    txt_source_file=source_name,
+                    axis=record.axis,
+                    rule_id=record.rule_id,
+                    action_label=self._action_label(record),
+                    start_time=record.start_time,
+                    end_time=record.end_time,
+                    duration_ms=float(record.duration_ms),
+                    duration_s=(
+                        float(record.duration_s)
+                        if self._is_numeric(record.duration_s)
+                        else float(record.duration_ms) / 1000.0
+                    ),
+                    hardware_reference_match_status=record.hardware_reference_match_status,
+                    hardware_reference_source_file=record.hardware_reference_source_file,
+                    hardware_reference_zero_sensor_raw_value=record.hardware_reference_zero_sensor_raw_value,
+                    hardware_reference_line_text=record.hardware_reference_line_text,
+                    hardware_motion_match_status=record.hardware_motion_match_status,
+                    movement_distance_method=record.movement_distance_method,
+                    overall_status=record.status,
+                    match_status=record.match_status,
+                    duration_status=record.duration_status,
+                    source_txt_start_line_number=record.start_line_number or None,
+                    source_txt_start_line_text=record.source_txt_start_line,
+                    source_txt_end_line_number=record.end_line_number or None,
+                    source_txt_end_line_text=record.source_txt_end_line,
+                    notes=self._combine_unique_notes([record.notes, record.movement_distance_notes]),
+                    pwm_percent=abs(float(record.pwm_percent)) if self._is_numeric(record.pwm_percent) else None,
+                    pwm_raw_value=record.pwm_raw_value,
+                    pwm_direction=record.pwm_direction,
+                )
+            )
+        return rows
+
+    def group_rows(
+        self,
+        rows: list[ReferenceDurationInputRow],
+    ) -> dict[str, list[ReferenceDurationInputRow]]:
+        """Group reference rows by source file, axis, and rule."""
+
+        grouped: dict[str, list[ReferenceDurationInputRow]] = defaultdict(list)
+        for row in rows:
+            grouped[row.group_id].append(row)
+        return dict(sorted(grouped.items(), key=lambda item: self._group_sort_key(item[1][0])))
+
+    def compute_group_stats(
+        self,
+        grouped_rows: dict[str, list[ReferenceDurationInputRow]],
+    ) -> list[ReferenceDurationStats]:
+        """Compute duration statistics for every reference group."""
+
+        return [
+            self._compute_one_group(group_id, rows)
+            for group_id, rows in grouped_rows.items()
+        ]
+
+    def build_group_id(self, txt_source_file: str, axis: str, rule_id: str) -> str:
+        """Build a stable reference-duration group id."""
+
+        base = f"{Path(txt_source_file).stem}_Axis{axis}_{rule_id}_reference_duration"
+        safe_base = re.sub(r"[^A-Za-z0-9_.-]+", "_", base).strip("_")
+        digest = hashlib.sha1(base.encode("utf-8")).hexdigest()[:10]
+        return f"{safe_base[:90]}_{digest}"
+
+    def _compute_one_group(
+        self,
+        group_id: str,
+        rows: list[ReferenceDurationInputRow],
+    ) -> ReferenceDurationStats:
+        """Compute one reference-duration stats row."""
+
+        first = rows[0]
+        duration = self._duration_metrics(row.duration_ms for row in rows)
+        distribution_status, notes = self._distribution_status(
+            int(duration["sample_count"]),
+            duration["sample_std_ms"],
+        )
+        evidence_found_count = sum(
+            1
+            for row in rows
+            if row.hardware_reference_match_status == HARDWARE_REFERENCE_STATUS_FOUND
+        )
+        evidence_missing_count = int(duration["sample_count"]) - evidence_found_count
+        normal_fit_mean_s = duration["mean_s"] if distribution_status == "NormalFitReady" else None
+        normal_fit_std_s = duration["sample_std_s"] if distribution_status == "NormalFitReady" else None
+        normal_fit_variance_s2 = duration["sample_var_s2"] if distribution_status == "NormalFitReady" else None
+        row_notes = self._combine_unique_notes([row.notes for row in rows])
+        notes = self._merge_notes(notes, row_notes)
+        return ReferenceDurationStats(
+            group_id=group_id,
+            txt_source_file=first.txt_source_file,
+            axis=first.axis,
+            rule_id=first.rule_id,
+            action_label=first.action_label,
+            sample_count=int(duration["sample_count"]),
+            mean_ms=duration["mean_ms"],
+            mean_s=duration["mean_s"],
+            median_ms=duration["median_ms"],
+            median_s=duration["median_s"],
+            min_ms=duration["min_ms"],
+            min_s=duration["min_s"],
+            max_ms=duration["max_ms"],
+            max_s=duration["max_s"],
+            range_ms=duration["range_ms"],
+            sample_std_ms=duration["sample_std_ms"],
+            sample_std_s=duration["sample_std_s"],
+            sample_var_ms2=duration["sample_var_ms2"],
+            sample_var_s2=duration["sample_var_s2"],
+            population_std_ms=duration["population_std_ms"],
+            population_std_s=duration["population_std_s"],
+            population_var_ms2=duration["population_var_ms2"],
+            population_var_s2=duration["population_var_s2"],
+            cv_percent=duration["cv_percent"],
+            normal_fit_mean_s=normal_fit_mean_s,
+            normal_fit_std_s=normal_fit_std_s,
+            normal_fit_variance_s2=normal_fit_variance_s2,
+            hardware_reference_evidence_found_count=evidence_found_count,
+            hardware_reference_evidence_missing_count=evidence_missing_count,
+            distribution_status=distribution_status,
+            notes=notes,
+        )
+
+    def _duration_metrics(self, values) -> dict[str, float | int | None]:
+        """Return common duration statistics from millisecond values."""
+
+        series = pd.Series([float(value) for value in values], dtype="float64")
+        sample_count = int(series.count())
+        mean_ms = self._finite_or_none(series.mean())
+        median_ms = self._finite_or_none(series.median())
+        min_ms = self._finite_or_none(series.min())
+        max_ms = self._finite_or_none(series.max())
+        sample_std_ms = self._finite_or_none(series.std(ddof=1)) if sample_count > 1 else None
+        sample_var_ms2 = self._finite_or_none(series.var(ddof=1)) if sample_count > 1 else None
+        population_std_ms = self._finite_or_none(series.std(ddof=0)) if sample_count > 0 else None
+        population_var_ms2 = self._finite_or_none(series.var(ddof=0)) if sample_count > 0 else None
+        return {
+            "sample_count": sample_count,
+            "mean_ms": mean_ms,
+            "mean_s": mean_ms / 1000.0 if mean_ms is not None else None,
+            "median_ms": median_ms,
+            "median_s": median_ms / 1000.0 if median_ms is not None else None,
+            "min_ms": min_ms,
+            "min_s": min_ms / 1000.0 if min_ms is not None else None,
+            "max_ms": max_ms,
+            "max_s": max_ms / 1000.0 if max_ms is not None else None,
+            "range_ms": max_ms - min_ms if max_ms is not None and min_ms is not None else None,
+            "sample_std_ms": sample_std_ms,
+            "sample_std_s": sample_std_ms / 1000.0 if sample_std_ms is not None else None,
+            "sample_var_ms2": sample_var_ms2,
+            "sample_var_s2": sample_var_ms2 / 1_000_000.0 if sample_var_ms2 is not None else None,
+            "population_std_ms": population_std_ms,
+            "population_std_s": population_std_ms / 1000.0 if population_std_ms is not None else None,
+            "population_var_ms2": population_var_ms2,
+            "population_var_s2": population_var_ms2 / 1_000_000.0 if population_var_ms2 is not None else None,
+            "cv_percent": (
+                sample_std_ms / mean_ms * 100.0
+                if sample_std_ms is not None and mean_ms not in {None, 0}
+                else None
+            ),
+        }
+
+    def _distribution_status(self, sample_count: int, sample_std_ms: float | None) -> tuple[str, str]:
+        """Resolve reference duration distribution status and note text."""
+
+        if sample_count == 1:
+            return "InsufficientSamples", "Only one valid sample; sample SD and variance are not meaningful."
+        if sample_count < self.min_samples_for_normal_fit:
+            return "InsufficientSamplesForNormalFit", f"Fewer than {self.min_samples_for_normal_fit} samples; normal curve is not drawn."
+        if sample_std_ms is None or sample_std_ms == 0:
+            return "ZeroVariance", "Zero variance; normal curve not drawn."
+        return "NormalFitReady", ""
+
+    def _is_valid_reference_record(self, record: ActivityRecord) -> bool:
+        """Return whether a matched record belongs in reference-duration stats."""
+
+        return (
+            record.rule_id == "search_reference"
+            and record.match_status == STATUS_MATCHED
+            and record.duration_status == DURATION_STATUS_VALID
+            and not record.duration_warning
+            and self._is_numeric(record.duration_ms)
+            and float(record.duration_ms) > 0
+            and record.start_time is not None
+            and record.end_time is not None
+        )
+
+    def _action_label(self, record: ActivityRecord) -> str:
+        """Return a human-readable reference action label."""
+
+        return "Search Reference"
+
+    def _group_sort_key(self, row: ReferenceDurationInputRow) -> tuple[str, str, str]:
+        """Sort reference groups by source, axis, and rule."""
+
+        return (row.txt_source_file, row.axis, row.rule_id)
+
+    def _combine_unique_notes(self, notes: list[str]) -> str:
+        """Combine distinct non-empty notes while preserving order."""
+
+        unique_notes: list[str] = []
+        for note in notes:
+            for part in str(note or "").split("|"):
+                cleaned = part.strip()
+                if cleaned and cleaned not in unique_notes:
+                    unique_notes.append(cleaned)
         return " | ".join(unique_notes)
 
     def _to_float_or_none(self, value: object) -> float | None:

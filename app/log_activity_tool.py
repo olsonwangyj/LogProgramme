@@ -153,6 +153,7 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
         "--distribution-distance-source",
         "--distance-source",
         default="hardware_actual",
+        choices=["hardware_actual"],
         help="Movement distance source used for distribution grouping. Only hardware_actual is supported.",
     )
     parser.add_argument(
@@ -339,7 +340,7 @@ def _print_summary(result) -> None:
     print(f"Log files scanned: {result.log_file_count}")
     print(f"PWM profiles found: {result.pwm_profile_count}")
     print(f"Details rows: {result.detail_count}")
-    print(f"Matched rows: {result.matched_count}")
+    print(f"Matched activity rows: {result.matched_count}")
     print(f"Unmatched starts: {result.unmatched_start_count}")
     print(f"Unmatched ends: {result.unmatched_end_count}")
     print(f"Closed by boundary: {result.closed_by_boundary_count}")
@@ -358,11 +359,18 @@ def _print_summary(result) -> None:
     print(f"Hardware warnings: {result.hardware_warning_count}")
     print(f"Hardware duplicate segment groups: {result.hardware_duplicate_segment_group_count}")
     print(f"Hardware duplicate segment rows: {result.hardware_duplicate_segment_row_count}")
+    print(f"Matched + hardware-overlap rows: {result.matched_hardware_overlap_count}")
+    print(f"Matched but missing hardware distance: {result.matched_missing_hardware_distance_count}")
+    print(f"Matched but hardware warning: {result.matched_hardware_warning_count}")
     print(f"PWM warnings: {result.pwm_warning_count}")
     if getattr(result, "distribution_enabled", False):
+        print(f"Distribution-eligible rows: {result.distribution_eligible_row_count}")
         print(f"Distribution groups: {result.distribution_group_count}")
         print(f"Distribution raw rows: {result.distribution_raw_row_count}")
         print(f"Distribution charts: {result.distribution_chart_count}")
+        print(f"Reference duration groups: {result.reference_distribution_group_count}")
+        print(f"Reference duration raw rows: {result.reference_distribution_raw_row_count}")
+        print(f"Reference duration charts: {result.reference_distribution_chart_count}")
         print(f"Distribution chart folder: {result.distribution_output_dir}")
         print(f"Distribution image gallery: {result.distribution_image_gallery_path}")
         print(
@@ -383,6 +391,10 @@ def _print_summary(result) -> None:
         print(
             "Distribution rows excluded unreliable hardware match: "
             f"{result.distribution_excluded_unreliable_hardware_count}"
+        )
+        print(
+            "Distribution rows excluded multiple reasons: "
+            f"{result.distribution_excluded_multiple_reasons_count}"
         )
         if getattr(result, "distribution_image_gallery_error", ""):
             print(f"Distribution image gallery error: {result.distribution_image_gallery_error}")

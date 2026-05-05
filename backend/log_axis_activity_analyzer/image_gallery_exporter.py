@@ -28,7 +28,16 @@ from .config import (
     DISTRIBUTION_IMAGE_STATISTICS_SHEET_NAME,
     DISTRIBUTION_IMAGE_WIDTH_PX,
 )
-from .distribution import DistributionAnalysisResult, DistributionInputRow, DistributionStats
+from .distribution import (
+    DistributionAnalysisResult,
+    DistributionInputRow,
+    DistributionStats,
+    ReferenceDurationInputRow,
+    ReferenceDurationStats,
+)
+
+StatsLike = DistributionStats | ReferenceDurationStats
+RowLike = DistributionInputRow | ReferenceDurationInputRow
 
 
 @dataclass(frozen=True)
@@ -136,8 +145,8 @@ class DistributionImageGalleryExporter:
     def _build_gallery_and_index(
         self,
         sheet,
-        stats_list: list[DistributionStats],
-        rows_by_group: dict[str, list[DistributionInputRow]],
+        stats_list: list[StatsLike],
+        rows_by_group: dict[str, list[RowLike]],
     ) -> tuple[dict[str, dict[str, object]], list[dict[str, object]], dict[str, int]]:
         """Write gallery blocks and build index rows."""
 
@@ -160,7 +169,7 @@ class DistributionImageGalleryExporter:
         compact_item_count = 0
         for stats in stats_list:
             first_row = self._first_row(rows_by_group, stats.group_id)
-            chart_file = str(stats.chart_file or "")
+            chart_file = str(getattr(stats, "chart_file", "") or "")
             chart_path = Path(chart_file) if chart_file else None
             image_status = self._gallery_image_status(
                 stats,
@@ -212,7 +221,7 @@ class DistributionImageGalleryExporter:
                         stats,
                         group_rows,
                         image_number,
-                        chart_file,
+                        self._chart_file_display(chart_file),
                         anchor if image_status == "ImageInserted" else "",
                         image_status,
                         image_insert_error,
@@ -225,7 +234,7 @@ class DistributionImageGalleryExporter:
     def _write_no_image_summary(
         self,
         sheet,
-        stats_list: list[DistributionStats],
+        stats_list: list[StatsLike],
         counts: dict[str, int],
         statistics_count: int,
     ) -> None:
@@ -249,7 +258,7 @@ class DistributionImageGalleryExporter:
             sheet.cell(row=row_index, column=2, value=value)
             sheet.cell(row=row_index, column=1).font = Font(bold=True)
 
-    def _no_image_reason(self, stats_list: list[DistributionStats], counts: dict[str, int]) -> str:
+    def _no_image_reason(self, stats_list: list[StatsLike], counts: dict[str, int]) -> str:
         """Return a clear reason for an image-less gallery sheet."""
 
         if counts["existing_chart_file_count"] and counts["image_limit_skipped_count"] == counts["existing_chart_file_count"]:
@@ -283,11 +292,17 @@ class DistributionImageGalleryExporter:
     def _write_compact_grid_block(self, sheet, start_row: int, start_column: int, metadata: dict[str, object]) -> None:
         """Write a short title block for compact image gallery layout."""
 
-        title = (
-            f"{metadata.get('Axis', '')} | PWM {metadata.get('PWM (%)', '')}% | "
-            f"Hardware Actual Distance {metadata.get('Hardware Actual Distance Group Display', '')} "
-            f"({metadata.get('Hardware Distance Source', '')}) | {metadata.get('Rule ID', '')}"
-        )
+        if metadata.get("Chart Type") == "Reference Duration Distribution":
+            title = (
+                f"Reference Duration Distribution | Axis {metadata.get('Axis', '')} | "
+                f"{metadata.get('Action', '')} | Distance Not Applicable"
+            )
+        else:
+            title = (
+                f"Motion Duration Distribution | Axis {metadata.get('Axis', '')} | "
+                f"PWM {metadata.get('PWM (%)', '')}% | "
+                f"Hardware Actual Distance {metadata.get('Hardware Actual Distance Group Display', '')}"
+            )
         subtitle = (
             f"N={metadata.get('Sample Count', '')}, Mean={metadata.get('Mean Duration (s)', '')}, "
             f"SD={metadata.get('Sample SD Duration (s)', '')}, Status={metadata.get('Gallery Image Status', '')}"
@@ -308,42 +323,62 @@ class DistributionImageGalleryExporter:
 
     def _statistics_row(
         self,
-        stats: DistributionStats,
-        rows: list[DistributionInputRow],
+        stats: StatsLike,
+        rows: list[RowLike],
         gallery_row: dict[str, object],
     ) -> dict[str, object]:
         """Build one Image Statistics row from computed stats, not chart text."""
 
         first_row = rows[0] if rows else None
-        population_std_s = stats.population_std_ms / 1000.0 if stats.population_std_ms is not None else None
-        population_var_s2 = stats.population_var_ms2 / 1_000_000.0 if stats.population_var_ms2 is not None else None
+        population_std_s = self._population_std_s(stats)
+        population_var_s2 = self._population_var_s2(stats)
         return {
             "Group ID": stats.group_id,
-            "TXT Source File": stats.txt_source_file,
-            "PWM (%)": self._abs_optional(stats.pwm_percent),
-            "PWM Raw Values Seen": self._numeric_values_seen(row.pwm_raw_value for row in rows),
-            "PWM Directions Seen": self._string_values_seen(row.pwm_direction for row in rows),
-            "PWM Direction Mixed": self._values_mixed(row.pwm_direction for row in rows),
-            "PWM Raw Value Example": first_row.pwm_raw_value if first_row is not None else None,
-            "PWM Direction Example": first_row.pwm_direction if first_row is not None else "",
+            "Chart Type": self._chart_type(stats),
+            "TXT Source File": self._basename(getattr(stats, "txt_source_file", "")),
+            "PWM (%)": self._abs_optional(getattr(stats, "pwm_percent", None)),
+            "PWM Raw Values Seen": self._numeric_values_seen(getattr(row, "pwm_raw_value", None) for row in rows),
+            "PWM Directions Seen": self._string_values_seen(getattr(row, "pwm_direction", "") for row in rows),
+            "PWM Direction Mixed": self._values_mixed(getattr(row, "pwm_direction", "") for row in rows),
+            "PWM Raw Value Example": getattr(first_row, "pwm_raw_value", None) if first_row is not None else None,
+            "PWM Direction Example": getattr(first_row, "pwm_direction", "") if first_row is not None else "",
             "Axis": stats.axis,
-            "Selected Group Distance": self._abs_optional(stats.movement_distance),
-            "Hardware Actual Distance Group Value": self._abs_optional(stats.movement_distance_group_value),
-            "Hardware Actual Distance Group Display": self._distance_display(stats),
-            "Movement Distance Grouping Mode": stats.movement_distance_grouping_mode,
-            "Movement Distance Bin Size": stats.movement_distance_bin_size,
-            "Hardware Actual Distance Raw Example": self._abs_optional(stats.movement_distance_raw_example),
-            "Hardware Actual Distance Min": self._abs_optional(stats.movement_distance_min),
-            "Hardware Actual Distance Max": self._abs_optional(stats.movement_distance_max),
-            "Hardware Motion Source File": first_row.hardware_motion_source_file if first_row is not None else "",
-            "Hardware Raw Start Position": first_row.hardware_raw_start_position if first_row is not None else None,
-            "Hardware Raw End Position": first_row.hardware_raw_end_position if first_row is not None else None,
-            "Hardware Start Position": first_row.hardware_start_position if first_row is not None else None,
-            "Hardware End Position": first_row.hardware_end_position if first_row is not None else None,
-            "Hardware Actual Distance": first_row.hardware_actual_distance if first_row is not None else None,
-            "Position Values Mixed": stats.position_values_mixed,
-            "Hardware Distance Source": stats.movement_distance_source,
-            "Hardware Distance Method": stats.movement_distance_method,
+            "Action": self._action(stats),
+            "Selected Group Distance": self._abs_optional(getattr(stats, "movement_distance", None)),
+            "Hardware Actual Distance Group Value": self._abs_optional(
+                getattr(stats, "movement_distance_group_value", None)
+            ),
+            "Hardware Actual Distance Group Display": self._hardware_distance_group_display(stats),
+            "Distance": self._distance_display(stats),
+            "Reference Evidence Status": self._reference_evidence_status(stats),
+            "Movement Distance Grouping Mode": getattr(stats, "movement_distance_grouping_mode", ""),
+            "Movement Distance Bin Size": getattr(stats, "movement_distance_bin_size", None),
+            "Hardware Actual Distance Raw Example": self._abs_optional(
+                getattr(stats, "movement_distance_raw_example", None)
+            ),
+            "Hardware Actual Distance Min": self._abs_optional(getattr(stats, "movement_distance_min", None)),
+            "Hardware Actual Distance Max": self._abs_optional(getattr(stats, "movement_distance_max", None)),
+            "Hardware Motion Source File": self._basename(
+                getattr(first_row, "hardware_motion_source_file", "") if first_row is not None else ""
+            ),
+            "Hardware Raw Start Position": getattr(first_row, "hardware_raw_start_position", None)
+            if first_row is not None
+            else None,
+            "Hardware Raw End Position": getattr(first_row, "hardware_raw_end_position", None)
+            if first_row is not None
+            else None,
+            "Hardware Start Position": getattr(first_row, "hardware_start_position", None)
+            if first_row is not None
+            else None,
+            "Hardware End Position": getattr(first_row, "hardware_end_position", None)
+            if first_row is not None
+            else None,
+            "Hardware Actual Distance": getattr(first_row, "hardware_actual_distance", None)
+            if first_row is not None
+            else None,
+            "Position Values Mixed": getattr(stats, "position_values_mixed", None),
+            "Hardware Distance Source": getattr(stats, "movement_distance_source", ""),
+            "Hardware Distance Method": getattr(stats, "movement_distance_method", ""),
             "Rule ID": stats.rule_id,
             "Action Label": stats.action_label,
             "Sample Count": stats.sample_count,
@@ -358,29 +393,29 @@ class DistributionImageGalleryExporter:
             "Normal Fit Mean (s)": stats.normal_fit_mean_s,
             "Normal Fit Std Dev (s)": stats.normal_fit_std_s,
             "Normal Fit Variance (s^2)": stats.normal_fit_variance_s2,
-            "Population SD Duration (ms)": stats.population_std_ms,
+            "Population SD Duration (ms)": getattr(stats, "population_std_ms", None),
             "Population SD Duration (s)": population_std_s,
-            "Population Variance Duration (ms^2)": stats.population_var_ms2,
+            "Population Variance Duration (ms^2)": getattr(stats, "population_var_ms2", None),
             "Population Variance Duration (s^2)": population_var_s2,
             "Min Duration (ms)": stats.min_ms,
             "Max Duration (ms)": stats.max_ms,
-            "P05 Duration (ms)": stats.p05_ms,
-            "P25 Duration (ms)": stats.p25_ms,
-            "P75 Duration (ms)": stats.p75_ms,
-            "P95 Duration (ms)": stats.p95_ms,
+            "P05 Duration (ms)": getattr(stats, "p05_ms", None),
+            "P25 Duration (ms)": getattr(stats, "p25_ms", None),
+            "P75 Duration (ms)": getattr(stats, "p75_ms", None),
+            "P95 Duration (ms)": getattr(stats, "p95_ms", None),
             "Coefficient of Variation (%)": stats.cv_percent,
             "Distribution Status": stats.distribution_status,
             "Chart Status": gallery_row["Chart Status"],
             "Gallery Image Status": gallery_row["Gallery Image Status"],
             "Image Insert Error": gallery_row.get("Image Insert Error", ""),
-            "Chart File": stats.chart_file,
+            "Chart File": self._chart_file_display(getattr(stats, "chart_file", None)),
             "Notes": stats.notes,
         }
 
     def _gallery_metadata_row(
         self,
-        stats: DistributionStats,
-        first_row: DistributionInputRow | None,
+        stats: StatsLike,
+        first_row: RowLike | None,
         image_status: str,
         image_insert_error: str = "",
     ) -> dict[str, object]:
@@ -388,34 +423,40 @@ class DistributionImageGalleryExporter:
 
         return {
             "Group ID": stats.group_id,
-            "TXT Source File": stats.txt_source_file,
-            "PWM (%)": self._abs_optional(stats.pwm_percent),
+            "Chart Type": self._chart_type(stats),
+            "TXT Source File": self._basename(getattr(stats, "txt_source_file", "")),
+            "PWM (%)": self._abs_optional(getattr(stats, "pwm_percent", None)),
             "Axis": stats.axis,
-            "Hardware Actual Distance": self._abs_optional(stats.movement_distance),
-            "Hardware Actual Distance Group Value": self._abs_optional(stats.movement_distance_group_value),
-            "Hardware Actual Distance Group Display": self._distance_display(stats),
-            "Hardware Distance Source": stats.movement_distance_source,
-            "Hardware Distance Method": stats.movement_distance_method,
-            "Movement Distance Grouping Mode": stats.movement_distance_grouping_mode,
-            "Movement Distance Bin Size": stats.movement_distance_bin_size,
+            "Action": self._action(stats),
+            "Hardware Actual Distance": self._abs_optional(getattr(stats, "movement_distance", None)),
+            "Hardware Actual Distance Group Value": self._abs_optional(
+                getattr(stats, "movement_distance_group_value", None)
+            ),
+            "Hardware Actual Distance Group Display": self._hardware_distance_group_display(stats),
+            "Distance": self._distance_display(stats),
+            "Reference Evidence Status": self._reference_evidence_status(stats),
+            "Hardware Distance Source": getattr(stats, "movement_distance_source", ""),
+            "Hardware Distance Method": getattr(stats, "movement_distance_method", ""),
+            "Movement Distance Grouping Mode": getattr(stats, "movement_distance_grouping_mode", ""),
+            "Movement Distance Bin Size": getattr(stats, "movement_distance_bin_size", None),
             "Rule ID": stats.rule_id,
             "Action Label": stats.action_label,
             "Sample Count": stats.sample_count,
             "Mean Duration (s)": stats.mean_s,
             "Sample SD Duration (s)": stats.sample_std_s,
             "Sample Variance Duration (s^2)": stats.sample_var_s2,
-            "Chart File": stats.chart_file,
+            "Chart File": self._chart_file_display(getattr(stats, "chart_file", None)),
             "Distribution Status": stats.distribution_status,
             "Chart Status": self._display_chart_status(stats),
             "Gallery Image Status": image_status,
             "Image Insert Error": image_insert_error,
-            "PWM Raw Value Example": first_row.pwm_raw_value if first_row is not None else None,
+            "PWM Raw Value Example": getattr(first_row, "pwm_raw_value", None) if first_row is not None else None,
         }
 
     def _index_row(
         self,
-        stats: DistributionStats,
-        rows: list[DistributionInputRow],
+        stats: StatsLike,
+        rows: list[RowLike],
         image_number: int | None,
         chart_file: str,
         anchor: str,
@@ -429,18 +470,23 @@ class DistributionImageGalleryExporter:
             "Group ID": stats.group_id,
             "Chart File": chart_file,
             "Excel Anchor": f"{DISTRIBUTION_IMAGE_GALLERY_SHEET_NAME}!{anchor}" if anchor else "",
-            "TXT Source File": stats.txt_source_file,
+            "Chart Type": self._chart_type(stats),
             "Axis": stats.axis,
-            "PWM (%)": self._abs_optional(stats.pwm_percent),
-            "Hardware Actual Distance Group Value": self._abs_optional(stats.movement_distance_group_value),
-            "Hardware Actual Distance Group Display": self._distance_display(stats),
-            "Hardware Distance Source": stats.movement_distance_source,
-            "Hardware Distance Method": stats.movement_distance_method,
-            "Movement Distance Grouping Mode": stats.movement_distance_grouping_mode,
-            "Movement Distance Bin Size": stats.movement_distance_bin_size,
-            "PWM Raw Values Seen": self._numeric_values_seen(row.pwm_raw_value for row in rows),
-            "PWM Directions Seen": self._string_values_seen(row.pwm_direction for row in rows),
-            "PWM Direction Mixed": self._values_mixed(row.pwm_direction for row in rows),
+            "Action": self._action(stats),
+            "PWM (%)": self._abs_optional(getattr(stats, "pwm_percent", None)),
+            "Hardware Actual Distance Group Value": self._abs_optional(
+                getattr(stats, "movement_distance_group_value", None)
+            ),
+            "Hardware Actual Distance Group Display": self._hardware_distance_group_display(stats),
+            "Distance": self._distance_display(stats),
+            "Reference Evidence Status": self._reference_evidence_status(stats),
+            "Hardware Distance Source": getattr(stats, "movement_distance_source", ""),
+            "Hardware Distance Method": getattr(stats, "movement_distance_method", ""),
+            "Movement Distance Grouping Mode": getattr(stats, "movement_distance_grouping_mode", ""),
+            "Movement Distance Bin Size": getattr(stats, "movement_distance_bin_size", None),
+            "PWM Raw Values Seen": self._numeric_values_seen(getattr(row, "pwm_raw_value", None) for row in rows),
+            "PWM Directions Seen": self._string_values_seen(getattr(row, "pwm_direction", "") for row in rows),
+            "PWM Direction Mixed": self._values_mixed(getattr(row, "pwm_direction", "") for row in rows),
             "Rule ID": stats.rule_id,
             "Sample Count": stats.sample_count,
             "Mean Duration (s)": stats.mean_s,
@@ -455,14 +501,14 @@ class DistributionImageGalleryExporter:
 
     def _gallery_image_status(
         self,
-        stats: DistributionStats,
+        stats: StatsLike,
         chart_path: Path | None,
         inserted_count: int,
         image_class_available: bool,
     ) -> str:
         """Return image insertion status for one group."""
 
-        if not stats.chart_file:
+        if not getattr(stats, "chart_file", None):
             return self._display_chart_status(stats)
         if chart_path is None or not chart_path.is_file():
             return "Chart File Missing"
@@ -504,12 +550,12 @@ class DistributionImageGalleryExporter:
 
         return image_status == "ImageInserted" or self.include_skipped_groups
 
-    def _should_write_index_row(self, stats: DistributionStats, image_status: str) -> bool:
+    def _should_write_index_row(self, stats: StatsLike, image_status: str) -> bool:
         """Return whether a group should appear in Image Index."""
 
-        return bool(stats.chart_file) or self.include_skipped_groups or image_status == "ImageInserted"
+        return bool(getattr(stats, "chart_file", None)) or self.include_skipped_groups or image_status == "ImageInserted"
 
-    def _display_chart_status(self, stats: DistributionStats) -> str:
+    def _display_chart_status(self, stats: StatsLike) -> str:
         """Normalize chart status for the standalone gallery workbook."""
 
         if stats.chart_status == "SkippedInsufficientSamplesForChart":
@@ -548,9 +594,9 @@ class DistributionImageGalleryExporter:
 
     def _first_row(
         self,
-        rows_by_group: dict[str, list[DistributionInputRow]],
+        rows_by_group: dict[str, list[RowLike]],
         group_id: str,
-    ) -> DistributionInputRow | None:
+    ) -> RowLike | None:
         """Return the first raw row for one group."""
 
         rows = rows_by_group.get(group_id) or []
@@ -609,14 +655,83 @@ class DistributionImageGalleryExporter:
             return False
         return math.isfinite(numeric)
 
-    def _distance_display(self, stats: DistributionStats) -> str:
-        """Return a readable grouped distance display."""
+    def _chart_type(self, stats: StatsLike) -> str:
+        """Return the user-facing chart type for a stats row."""
+
+        return getattr(stats, "chart_type", "Motion Duration Distribution") or "Motion Duration Distribution"
+
+    def _action(self, stats: StatsLike) -> str:
+        """Return compact user-facing action text."""
+
+        labels = {
+            "search_reference": "Search Reference",
+            "clear_motor": "Clear Motor",
+            "move_to_home": "Move to Home",
+            "move_to_max": "Move to Max",
+        }
+        return labels.get(stats.rule_id, stats.action_label or stats.rule_id)
+
+    def _reference_evidence_status(self, stats: StatsLike) -> str:
+        """Return a compact reference evidence status when applicable."""
+
+        if self._chart_type(stats) != "Reference Duration Distribution":
+            return ""
+        found = getattr(stats, "hardware_reference_evidence_found_count", 0)
+        missing = getattr(stats, "hardware_reference_evidence_missing_count", 0)
+        if found and not missing:
+            return "Found"
+        if found and missing:
+            return "Mixed"
+        return "Missing"
+
+    def _distance_display(self, stats: StatsLike) -> str:
+        """Return the chart/statistics distance display."""
+
+        if self._chart_type(stats) == "Reference Duration Distribution":
+            return "Not Applicable"
+        return self._hardware_distance_group_display(stats)
+
+    def _hardware_distance_group_display(self, stats: StatsLike) -> str:
+        """Return a readable grouped hardware distance display."""
 
         from .distribution import format_movement_distance_group_value
 
+        value = self._abs_optional(getattr(stats, "movement_distance_group_value", None))
+        if value is None:
+            return ""
         return format_movement_distance_group_value(
-            self._abs_optional(stats.movement_distance_group_value),
-            stats.movement_distance_grouping_mode,
-            stats.movement_distance_bin_size,
-            stats.movement_distance_round_digits,
+            value,
+            getattr(stats, "movement_distance_grouping_mode", ""),
+            getattr(stats, "movement_distance_bin_size", None),
+            getattr(stats, "movement_distance_round_digits", 0),
         )
+
+    def _population_std_s(self, stats: StatsLike) -> float | None:
+        """Return population standard deviation in seconds."""
+
+        value = getattr(stats, "population_std_s", None)
+        if value is not None:
+            return value
+        value = getattr(stats, "population_std_ms", None)
+        return value / 1000.0 if value is not None else None
+
+    def _population_var_s2(self, stats: StatsLike) -> float | None:
+        """Return population variance in seconds squared."""
+
+        value = getattr(stats, "population_var_s2", None)
+        if value is not None:
+            return value
+        value = getattr(stats, "population_var_ms2", None)
+        return value / 1_000_000.0 if value is not None else None
+
+    def _chart_file_display(self, chart_file: str | Path | None) -> str:
+        """Return a user-facing chart image filename."""
+
+        return self._basename(chart_file)
+
+    def _basename(self, value: str | Path | None) -> str:
+        """Return filename-only display text so workbooks do not expose local paths."""
+
+        if not value:
+            return ""
+        return str(value).replace("\\", "/").split("/")[-1]
