@@ -340,6 +340,11 @@ AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD = 2.0
 AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD = 20.0
 AXIS_SUMMARY_MEAN_RED_THRESHOLD = 25.0
 NORMAL_CHART_BINS = "auto"
+NORMAL_CHART_Y_AXIS_MODE = "count"
+NORMAL_CHART_Y_AXIS_MODE_OPTIONS = {"count", "density"}
+LOW_VARIANCE_STD_THRESHOLD_S = 0.02
+REFERENCE_MIN_DURATION_MS = 1000
+REFERENCE_EXCLUDE_SHORT_DURATIONS_FROM_DISTRIBUTION = True
 NORMAL_DISTRIBUTION_CHART_DPI = 150
 NORMAL_DISTRIBUTION_MAX_CHARTS = 200
 NORMAL_DISTRIBUTION_CHART_FORMAT = "png"
@@ -386,6 +391,9 @@ DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS = [
     "Mean Duration (s)",
     "Sample SD Duration (s)",
     "Sample Variance Duration (s^2)",
+    "Outlier Count",
+    "Outlier Values",
+    "Chart Uses Outlier-Trimmed Axis",
     "Chart File",
     "Distribution Status",
     "Chart Status",
@@ -448,6 +456,9 @@ DISTRIBUTION_IMAGE_STATISTICS_COLUMNS = [
     "P25 Duration (ms)",
     "P75 Duration (ms)",
     "P95 Duration (ms)",
+    "Outlier Count",
+    "Outlier Values",
+    "Chart Uses Outlier-Trimmed Axis",
     "Coefficient of Variation (%)",
     "Distribution Status",
     "Chart Status",
@@ -484,6 +495,9 @@ DISTRIBUTION_IMAGE_INDEX_COLUMNS = [
     "Normal Fit Mean (s)",
     "Normal Fit Std Dev (s)",
     "Normal Fit Variance (s^2)",
+    "Outlier Count",
+    "Outlier Values",
+    "Chart Uses Outlier-Trimmed Axis",
     "Chart Status",
     "Gallery Image Status",
     "Image Insert Error",
@@ -509,6 +523,9 @@ DISTRIBUTION_CHART_METADATA_KEYS = [
     "Mean Duration (s)",
     "Sample Std Dev Duration (s)",
     "Variance",
+    "Outlier Count",
+    "Outlier Values",
+    "Chart Uses Outlier-Trimmed Axis",
     "Distribution Status",
     "Chart Status",
     "Chart File",
@@ -785,6 +802,9 @@ DISTRIBUTION_SUMMARY_COLUMNS = [
     "Normal Fit Mean (s)",
     "Normal Fit Std Dev (s)",
     "Normal Fit Variance (s^2)",
+    "Outlier Count",
+    "Outlier Values",
+    "Chart Uses Outlier-Trimmed Axis",
     "Distribution Status",
     "Chart Status",
     "Chart File",
@@ -877,6 +897,9 @@ DISTRIBUTION_CHART_METADATA_COLUMNS = [
     "Mean Duration (s)",
     "Sample Std Dev Duration (s)",
     "Variance",
+    "Outlier Count",
+    "Outlier Values",
+    "Chart Uses Outlier-Trimmed Axis",
     "Distribution Status",
     "Chart Status",
     "Chart File",
@@ -901,6 +924,9 @@ REFERENCE_DURATION_SUMMARY_COLUMNS = [
     "Max Duration (s)",
     "Min-Max Display",
     "CV (%)",
+    "Outlier Count",
+    "Outlier Values",
+    "Chart Uses Outlier-Trimmed Axis",
     "Hardware Reference Evidence Found Count",
     "Hardware Reference Evidence Missing Count",
     "Distribution Status",
@@ -924,6 +950,8 @@ REFERENCE_DURATION_RAW_DATA_COLUMNS = [
     "Hardware Reference Source File",
     "Hardware Reference Zero Sensor Raw Value",
     "Hardware Reference Line Text",
+    "Included In Reference Distribution",
+    "Reference Exclusion Reason",
     "Hardware Motion Match Status",
     "Selected Movement Distance Method",
     "Overall Status",
@@ -950,6 +978,9 @@ REFERENCE_DURATION_CHART_METADATA_COLUMNS = [
     "Variance",
     "Min-Max Display",
     "CV (%)",
+    "Outlier Count",
+    "Outlier Values",
+    "Chart Uses Outlier-Trimmed Axis",
     "Reference Evidence Status",
     "Hardware Reference Evidence Found Count",
     "Hardware Reference Evidence Missing Count",
@@ -957,6 +988,16 @@ REFERENCE_DURATION_CHART_METADATA_COLUMNS = [
     "Chart Status",
     "Chart File",
     "Notes",
+]
+
+REFERENCE_EXCLUSION_SUMMARY_COLUMNS = [
+    "Reference Exclusion Reason",
+    "Axis",
+    "Action",
+    "Count",
+    "Example Duration (s)",
+    "Example Start Time",
+    "Example Notes",
 ]
 
 AXIS_ACTION_SUMMARY_COLUMNS = [

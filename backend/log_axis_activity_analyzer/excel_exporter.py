@@ -50,6 +50,7 @@ class ExcelExporter:
             self._write_distribution_raw_data_sheet(writer, report_frames)
             self._write_reference_duration_summary_sheet(writer, report_frames)
             self._write_reference_duration_raw_data_sheet(writer, report_frames)
+            self._write_reference_exclusion_summary_sheet(writer, report_frames)
             self._write_axis_action_summary_sheet(writer, report_frames)
             self._write_distribution_eligibility_summary_sheet(writer, report_frames)
             self._write_distribution_exclusion_summary_sheet(writer, report_frames)
@@ -78,6 +79,7 @@ class ExcelExporter:
             self._format_distribution_raw_data_sheet(writer)
             self._format_reference_duration_summary_sheet(writer)
             self._format_reference_duration_raw_data_sheet(writer)
+            self._format_reference_exclusion_summary_sheet(writer)
             self._format_axis_action_summary_sheet(writer)
             self._format_distribution_eligibility_summary_sheet(writer)
             self._format_distribution_exclusion_summary_sheet(writer)
@@ -149,6 +151,10 @@ class ExcelExporter:
                     {"Key": "Distribution Charts Generated", "Value": metadata.get("distribution_chart_count", 0)},
                     {"Key": "Reference Duration Groups", "Value": metadata.get("reference_distribution_group_count", 0)},
                     {"Key": "Reference Duration Raw Rows", "Value": metadata.get("reference_distribution_raw_row_count", 0)},
+                    {
+                        "Key": "Reference Duration Rows Excluded Too Short",
+                        "Value": metadata.get("reference_distribution_excluded_short_count", 0),
+                    },
                     {"Key": "Reference Duration Charts Generated", "Value": metadata.get("reference_distribution_chart_count", 0)},
                     {"Key": "Distribution Chart Output Folder", "Value": self._basename(metadata.get("distribution_output_dir", ""))},
                     {
@@ -311,6 +317,18 @@ class ExcelExporter:
         report_frames.reference_duration_raw_data.to_excel(
             writer,
             sheet_name="Reference Duration Raw Data",
+            index=False,
+        )
+
+    def _write_reference_exclusion_summary_sheet(self, writer, report_frames) -> None:
+        """Write search-reference rows excluded from reference duration statistics."""
+
+        self._logger.debug("Writing Reference Exclusion Summary sheet")
+        if getattr(report_frames, "reference_exclusion_summary", None) is None:
+            return
+        report_frames.reference_exclusion_summary.to_excel(
+            writer,
+            sheet_name="Reference Exclusion Summary",
             index=False,
         )
 
@@ -581,6 +599,17 @@ class ExcelExporter:
         if "Reference Duration Raw Data" not in writer.sheets:
             return
         sheet = writer.sheets["Reference Duration Raw Data"]
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        self._auto_fit_columns(sheet)
+
+    def _format_reference_exclusion_summary_sheet(self, writer) -> None:
+        """Apply basic formatting to the Reference Exclusion Summary sheet."""
+
+        self._logger.debug("Formatting Reference Exclusion Summary sheet")
+        if "Reference Exclusion Summary" not in writer.sheets:
+            return
+        sheet = writer.sheets["Reference Exclusion Summary"]
         sheet.freeze_panes = "A2"
         sheet.auto_filter.ref = sheet.dimensions
         self._auto_fit_columns(sheet)

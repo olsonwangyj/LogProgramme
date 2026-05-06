@@ -8,10 +8,15 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from openpyxl import Workbook
-from openpyxl.styles import Font
+from openpyxl.formatting.rule import FormulaRule
+from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 from .config import (
+    AXIS_ACTION_SUMMARY_COLUMNS,
+    AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD,
+    AXIS_SUMMARY_MEAN_RED_THRESHOLD,
+    AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD,
     DISTRIBUTION_IMAGE_BLOCK_HEIGHT_ROWS,
     DISTRIBUTION_IMAGE_GALLERY_LAYOUT,
     DISTRIBUTION_IMAGE_GALLERY_LAYOUT_OPTIONS,
@@ -94,6 +99,7 @@ class DistributionImageGalleryExporter:
         self,
         output_path: Path | str,
         distribution_result: DistributionAnalysisResult,
+        axis_action_summary=None,
     ) -> DistributionImageGalleryExportResult:
         """Create the image gallery workbook and return export counts."""
 
@@ -106,6 +112,7 @@ class DistributionImageGalleryExporter:
         gallery_sheet.title = DISTRIBUTION_IMAGE_GALLERY_SHEET_NAME
         statistics_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_STATISTICS_SHEET_NAME)
         index_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_INDEX_SHEET_NAME)
+        axis_action_sheet = workbook.create_sheet("Axis Action Summary")
 
         rows_by_group = distribution_result.grouped_rows
         gallery_rows, index_rows, counts = self._build_gallery_and_index(
@@ -119,9 +126,11 @@ class DistributionImageGalleryExporter:
         ]
         self._write_table(statistics_sheet, DISTRIBUTION_IMAGE_STATISTICS_COLUMNS, statistics_rows)
         self._write_table(index_sheet, DISTRIBUTION_IMAGE_INDEX_COLUMNS, index_rows)
+        self._write_axis_action_summary(axis_action_sheet, axis_action_summary)
         self._format_gallery_sheet(gallery_sheet)
         self._format_table_sheet(statistics_sheet)
         self._format_table_sheet(index_sheet)
+        self._format_axis_action_summary_sheet(axis_action_sheet)
 
         workbook.save(path)
         self._logger.info(
@@ -403,6 +412,9 @@ class DistributionImageGalleryExporter:
             "P25 Duration (ms)": getattr(stats, "p25_ms", None),
             "P75 Duration (ms)": getattr(stats, "p75_ms", None),
             "P95 Duration (ms)": getattr(stats, "p95_ms", None),
+            "Outlier Count": getattr(stats, "outlier_count", 0),
+            "Outlier Values": getattr(stats, "outlier_values", ""),
+            "Chart Uses Outlier-Trimmed Axis": getattr(stats, "chart_uses_outlier_trimmed_axis", False),
             "Coefficient of Variation (%)": stats.cv_percent,
             "Distribution Status": stats.distribution_status,
             "Chart Status": gallery_row["Chart Status"],
@@ -445,6 +457,9 @@ class DistributionImageGalleryExporter:
             "Mean Duration (s)": stats.mean_s,
             "Sample SD Duration (s)": stats.sample_std_s,
             "Sample Variance Duration (s^2)": stats.sample_var_s2,
+            "Outlier Count": getattr(stats, "outlier_count", 0),
+            "Outlier Values": getattr(stats, "outlier_values", ""),
+            "Chart Uses Outlier-Trimmed Axis": getattr(stats, "chart_uses_outlier_trimmed_axis", False),
             "Chart File": self._chart_file_display(getattr(stats, "chart_file", None)),
             "Distribution Status": stats.distribution_status,
             "Chart Status": self._display_chart_status(stats),
@@ -494,6 +509,9 @@ class DistributionImageGalleryExporter:
             "Normal Fit Mean (s)": stats.normal_fit_mean_s,
             "Normal Fit Std Dev (s)": stats.normal_fit_std_s,
             "Normal Fit Variance (s^2)": stats.normal_fit_variance_s2,
+            "Outlier Count": getattr(stats, "outlier_count", 0),
+            "Outlier Values": getattr(stats, "outlier_values", ""),
+            "Chart Uses Outlier-Trimmed Axis": getattr(stats, "chart_uses_outlier_trimmed_axis", False),
             "Chart Status": self._display_chart_status(stats),
             "Gallery Image Status": image_status,
             "Image Insert Error": image_insert_error,
@@ -572,6 +590,22 @@ class DistributionImageGalleryExporter:
             for column_index, column_name in enumerate(columns, start=1):
                 sheet.cell(row=row_index, column=column_index, value=row.get(column_name))
 
+    def _write_axis_action_summary(self, sheet, axis_action_summary) -> None:
+        """Write the clean axis/action summary into the chart/statistics workbook."""
+
+        for column_index, column_name in enumerate(AXIS_ACTION_SUMMARY_COLUMNS, start=1):
+            cell = sheet.cell(row=1, column=column_index, value=column_name)
+            cell.font = Font(bold=True)
+        rows = []
+        if axis_action_summary is not None:
+            if hasattr(axis_action_summary, "to_dict"):
+                rows = axis_action_summary.to_dict(orient="records")
+            else:
+                rows = list(axis_action_summary)
+        for row_index, row in enumerate(rows, start=2):
+            for column_index, column_name in enumerate(AXIS_ACTION_SUMMARY_COLUMNS, start=1):
+                sheet.cell(row=row_index, column=column_index, value=row.get(column_name))
+
     def _format_gallery_sheet(self, sheet) -> None:
         """Apply readable gallery worksheet sizing."""
 
@@ -591,6 +625,68 @@ class DistributionImageGalleryExporter:
             values = [str(cell.value) for cell in column if cell.value is not None]
             width = min(max((len(value) for value in values), default=10) + 2, 72)
             sheet.column_dimensions[get_column_letter(column[0].column)].width = width
+
+    def _format_axis_action_summary_sheet(self, sheet) -> None:
+        """Apply summary table styling and Mean/CV conditional formatting."""
+
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        header_fill = PatternFill("solid", fgColor="1F2937")
+        header_font = Font(color="FFFFFF", bold=True)
+        alternate_fill = PatternFill("solid", fgColor="F3F4F6")
+        for cell in sheet[1]:
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = Alignment(horizontal="center")
+        headers = {cell.value: cell.column for cell in sheet[1]}
+        for row_index in range(2, sheet.max_row + 1):
+            if row_index % 2 == 0:
+                for column in range(1, sheet.max_column + 1):
+                    sheet.cell(row=row_index, column=column).fill = alternate_fill
+            for header in ("n", "Mean (s)", "SD (s)", "Var (s^2)", "Median (s)", "CV (%)"):
+                if header in headers:
+                    sheet.cell(row=row_index, column=headers[header]).alignment = Alignment(horizontal="center")
+            for header, number_format in {
+                "Mean (s)": "0.000",
+                "SD (s)": "0.0000",
+                "Var (s^2)": "0.0000",
+                "Median (s)": "0.000",
+                "CV (%)": "0.00",
+            }.items():
+                if header in headers:
+                    sheet.cell(row=row_index, column=headers[header]).number_format = number_format
+        self._apply_axis_action_conditional_formatting(sheet, headers)
+        self._format_table_sheet(sheet)
+
+    def _apply_axis_action_conditional_formatting(self, sheet, headers: dict[str, int]) -> None:
+        """Highlight only Mean and CV cells when both thresholds are met."""
+
+        if not {"Mean (s)", "CV (%)"} <= set(headers):
+            return
+        if sheet.max_row < 2:
+            return
+        mean_col = headers["Mean (s)"]
+        cv_col = headers["CV (%)"]
+        mean_letter = sheet.cell(row=1, column=mean_col).column_letter
+        cv_letter = sheet.cell(row=1, column=cv_col).column_letter
+        target_range = f"{mean_letter}2:{mean_letter}{sheet.max_row} {cv_letter}2:{cv_letter}{sheet.max_row}"
+        red_formula = (
+            f"AND(${cv_letter}2>={AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD},"
+            f"${mean_letter}2>={AXIS_SUMMARY_MEAN_RED_THRESHOLD})"
+        )
+        yellow_formula = (
+            f"AND(${cv_letter}2>={AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD},"
+            f"${mean_letter}2>={AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD},"
+            f"${mean_letter}2<{AXIS_SUMMARY_MEAN_RED_THRESHOLD})"
+        )
+        sheet.conditional_formatting.add(
+            target_range,
+            FormulaRule(formula=[red_formula], fill=PatternFill("solid", fgColor="FFC7CE"), stopIfTrue=True),
+        )
+        sheet.conditional_formatting.add(
+            target_range,
+            FormulaRule(formula=[yellow_formula], fill=PatternFill("solid", fgColor="FFEB9C")),
+        )
 
     def _first_row(
         self,

@@ -274,7 +274,9 @@ When no complete hardware TPOS Start/End segment is matched:
 
 Search-reference actions are the exception because they are reference/zeroing workflows, not distance measurements. For `search_reference`, the tool looks for same-axis `TPOS 'Z'` and/or `TPOS 'I'` evidence near the TXT reference activity. When found, `Hardware Reference Match Status = HardwareReferenceEvidenceFound`, `Hardware Motion Match Status = HardwareReferenceNotApplicable`, and selected movement distance stays blank with method `DistanceNotApplicableForReference`. These rows are excluded from distance-based distribution analysis as `DistanceNotApplicableForReference`, not as missing hardware S/E motion.
 
-Search-reference durations are still analyzed separately. The main workbook adds `Reference Duration Summary`, `Reference Duration Raw Data`, and `Reference Duration Charts`. These sheets group valid `search_reference` rows by TXT source file, axis, and rule ID, without hardware distance and without default PWM grouping. Reference chart titles say `Reference Duration Distribution` and show `Distance = Not Applicable`.
+Search-reference durations are still analyzed separately. The main workbook adds `Reference Duration Summary`, `Reference Duration Raw Data`, `Reference Exclusion Summary`, and `Reference Duration Charts`. These sheets group valid `search_reference` rows by TXT source file, axis, and rule ID, without hardware distance and without default PWM grouping. Reference chart titles say `Reference Duration Distribution` and show `Distance = Not Applicable`.
+
+Very short reference matches are treated as suspicious by default. `REFERENCE_MIN_DURATION_MS = 1000` and `REFERENCE_EXCLUDE_SHORT_DURATIONS_FROM_DISTRIBUTION = True` keep sub-second reference rows in `Reference Duration Raw Data`, but mark them as `ReferenceDurationTooShort` and exclude them from `Reference Duration Summary`, `Reference Duration Charts`, and `Axis Action Summary`.
 
 Nearest previous/future hardware segments and ambiguous multiple-candidate matches are shown only as `Candidate Hardware Actual Distance` by default. They do not populate `Selected Hardware Actual Distance` / `Selected Movement Distance` and are excluded from distribution unless explicitly enabled with `--distribution-allow-nearest-hardware-segment` or `--distribution-allow-ambiguous-hardware-segment`.
 
@@ -289,7 +291,7 @@ Distribution distance grouping is configurable from the CLI or `config.py`:
 
 The raw exact distance remains visible in `Distribution Raw Data`, while `Distribution Summary`, chart metadata, chart titles, and chart file names use the configured group value consistently. The workbook also includes a text display column so bin sizes such as `0.1` and `0.05` are not forced into a fixed two-decimal format.
 
-For each group, the `Distribution Summary` sheet reports count, mean, median, min, max, range, sample standard deviation, sample variance, population standard deviation, population variance, coefficient of variation, P05/P25/P75/P95 percentiles, fit status, chart status, and chart filename. Sample standard deviation and sample variance are the primary SD/variance values. With one sample, they are blank and the status is `InsufficientSamples`.
+For each group, the `Distribution Summary` sheet reports count, mean, median, min, max, range, sample standard deviation, sample variance, population standard deviation, population variance, coefficient of variation, P05/P25/P75/P95 percentiles, IQR outlier count/values, fit status, chart status, and chart filename. Sample standard deviation and sample variance are the primary SD/variance values. With one sample, they are blank and the status is `InsufficientSamples`.
 
 Charts are saved as PNG files in a workbook-specific folder by default:
 
@@ -299,7 +301,11 @@ Charts are saved as PNG files in a workbook-specific folder by default:
 
 For example, `april10-analysis.xlsx` writes charts under `april10-analysis_distribution_charts`. Use `--distribution-output-dir` to override this. The default run folder is cleaned of old PNG files before new charts are generated, so chart paths in Excel point to the current run.
 
-Each eligible group can get a histogram of `Duration (s)` when there are at least `MIN_SAMPLES_FOR_DISTRIBUTION_CHART` samples. A fitted normal curve requires at least `MIN_SAMPLES_FOR_NORMAL_FIT` samples and non-zero variance. Single-sample groups still appear in `Distribution Summary`, but no chart is generated. If no group reaches the chart threshold, the `Distribution Charts` sheet explains that all valid groups had too few samples. `--max-distribution-charts` prevents generating thousands of PNGs; largest groups are charted first.
+Each eligible group can get a histogram of `Duration (s)` when there are at least `MIN_SAMPLES_FOR_DISTRIBUTION_CHART` samples. The default chart y-axis is `Count`, so the bars show how many samples fall into each duration bin. If a fitted normal curve is drawn, it is scaled to the same count units as the histogram. A fitted normal curve requires at least `MIN_SAMPLES_FOR_NORMAL_FIT` samples and non-zero variance. Single-sample groups still appear in `Distribution Summary`, but no chart is generated. If no group reaches the chart threshold, the `Distribution Charts` sheet explains that all valid groups had too few samples. `--max-distribution-charts` prevents generating thousands of PNGs; largest groups are charted first.
+
+`Density` mode still exists as an advanced/debug chart mode through `NORMAL_CHART_Y_AXIS_MODE = "density"`. Density means probability density: the histogram is normalized so its total area equals 1. That is useful for statistical theory, but it is less intuitive for engineering duration reports, so user-facing charts default to `Count`.
+
+Low-variance groups are rendered with sample dots/rug marks, mean and median lines, and a mean +/- 1 SD band instead of a misleading spike. The threshold is `LOW_VARIANCE_STD_THRESHOLD_S`. Groups with IQR outliers keep the raw values in the data sheets and record `Outlier Count` / `Outlier Values`; charts may trim the visible x-axis for readability and annotate that outliers were detected.
 
 ### Distribution Image Gallery Workbook
 
@@ -327,8 +333,9 @@ The gallery workbook is intentionally user-facing and does not expose full local
 The gallery workbook contains:
 
 - `Image Gallery`: generated motion and reference chart PNGs. Motion blocks show `Motion Duration Distribution`, PWM, axis, action, and hardware actual grouped distance. Reference blocks show `Reference Duration Distribution`, `Search Reference`, and `Distance = Not Applicable`.
-- `Image Statistics`: one row per motion or reference distribution group, including skipped/no-image groups, with extracted statistics such as mean, median, sample SD, sample variance, normal fit mean/SD/variance, population SD/variance, min/max, percentiles, coefficient of variation, distribution status, chart status, and notes. It also shows `Chart Type`, `Action`, `Distance`, `Reference Evidence Status`, `Selected Group Distance`, `PWM Raw Values Seen`, `PWM Directions Seen`, `PWM Direction Mixed`, `Hardware Actual Distance Group Display`, grouping mode, bin size, hardware raw distance example, hardware distance min/max, and whether position values were mixed inside the group.
-- `Image Index`: a compact lookup table with image number, group ID, chart filename, Excel anchor, chart type, axis, action, PWM, hardware actual grouped distance, reference evidence status, normal fit mean/SD/variance, gallery image status, and any image insertion error.
+- `Image Statistics`: one row per motion or reference distribution group, including skipped/no-image groups, with extracted statistics such as mean, median, sample SD, sample variance, normal fit mean/SD/variance, population SD/variance, min/max, percentiles, coefficient of variation, outlier count/values, distribution status, chart status, and notes. It also shows `Chart Type`, `Action`, `Distance`, `Reference Evidence Status`, `Selected Group Distance`, `PWM Raw Values Seen`, `PWM Directions Seen`, `PWM Direction Mixed`, `Hardware Actual Distance Group Display`, grouping mode, bin size, hardware raw distance example, hardware distance min/max, and whether position values were mixed inside the group.
+- `Image Index`: a compact lookup table with image number, group ID, chart filename, Excel anchor, chart type, axis, action, PWM, hardware actual grouped distance, reference evidence status, normal fit mean/SD/variance, outlier summary, gallery image status, and any image insertion error.
+- `Axis Action Summary`: the same compact axis/action table as the main workbook, including both motion actions and validated `Search Reference` rows, with the same Mean/CV conditional formatting.
 
 The gallery reuses PNG files generated by the normal chart generator; it does not regenerate charts. If a group has too few samples, it still appears in `Image Statistics`, but it does not create a large block in `Image Gallery` unless `DISTRIBUTION_IMAGE_GALLERY_INCLUDE_SKIPPED_GROUPS = True`. If no images are inserted, `Image Gallery` shows an `Image Gallery Summary` with statistics-row count, groups with chart paths, existing chart files, inserted images, groups without charts, image-limit skips, missing chart files, embedding-unavailable count, insert failures, and a reason such as insufficient samples or image limit. If a chart path is missing, the workbook records `Chart File Missing` instead of failing. If image embedding is unavailable, the status is `ImageEmbeddingUnavailable`. If one image file is corrupt or cannot be inserted, that row is marked `ImageInsertFailed`, the exception appears in `Image Insert Error`, and remaining images still export. If more than `DISTRIBUTION_IMAGE_MAX_IMAGES` charts are available, statistics are exported for every group and extra image insertions are counted as images skipped due to the image limit. Groups that never produced chart files are reported separately as groups without charts.
 
@@ -344,8 +351,9 @@ New workbook sheets:
 
 - `Distribution Summary`: one row per group.
 - `Distribution Raw Data`: one row per activity record used by distribution analysis.
-- `Reference Duration Summary`: one row per `search_reference` duration group, with n, mean, median, sample SD/variance, population SD/variance, min/max, CV, reference evidence counts, distribution status, and chart status.
-- `Reference Duration Raw Data`: the matched `search_reference` rows used by reference-duration statistics.
+- `Reference Duration Summary`: one row per `search_reference` duration group, with n, mean, median, sample SD/variance, population SD/variance, min/max, CV, outlier summary, reference evidence counts, distribution status, and chart status.
+- `Reference Duration Raw Data`: all valid matched `search_reference` rows, including rows excluded from reference statistics because they were shorter than `REFERENCE_MIN_DURATION_MS`.
+- `Reference Exclusion Summary`: grouped reasons for reference-duration rows excluded from reference statistics, such as `ReferenceDurationTooShort`.
 - `Reference Duration Charts`: embedded reference-duration chart PNGs when chart embedding is enabled.
 - `Axis Action Summary`: a clean axis/action table combining motion rows and `Search Reference` rows.
 - `Distribution Eligibility`: rows that never became distribution candidates, such as unmatched rows, diagnostics, parse warnings, and invalid durations.
@@ -560,7 +568,9 @@ With the default `bin` mode and bin size `0.1`, raw distances such as `49.03` gr
 
 Use this sheet for `search_reference` timing consistency. Search-reference is a timed activity, but it is not a hardware movement-distance group. The grouping key is TXT source filename, axis, and `search_reference`. PWM and hardware actual distance do not split reference groups by default.
 
-The row reports `Sample Count`, mean, median, sample SD, sample variance, population SD, population variance, min/max, `Min-Max Display`, `CV (%)`, hardware reference evidence found/missing counts, distribution status, chart status, and chart filename. If there are enough samples, the corresponding chart appears in `Reference Duration Charts` and is titled `Reference Duration Distribution`.
+The row reports `Sample Count`, mean, median, sample SD, sample variance, population SD, population variance, min/max, `Min-Max Display`, `CV (%)`, IQR outlier count/values, hardware reference evidence found/missing counts, distribution status, chart status, and chart filename. If there are enough samples, the corresponding chart appears in `Reference Duration Charts` and is titled `Reference Duration Distribution`.
+
+`Reference Duration Raw Data` keeps every valid matched reference row and adds `Included In Reference Distribution` plus `Reference Exclusion Reason`. By default, durations below `1000 ms` are marked `ReferenceDurationTooShort` and excluded from the summary/charts so suspicious sub-second reference matches do not distort mean, SD, variance, CV, or min-max display.
 
 ### Axis Action Summary
 
@@ -605,7 +615,7 @@ This sheet lists every uncovered TXT interval with gap index, start time, end ti
 
 ### Distribution Charts
 
-When embedding is enabled, each generated PNG appears with a small metadata block including chart type, action, hardware distance source, method, grouping mode, and bin size. Motion chart titles label the displayed group distance as `HardwareActualDistance`. Reference chart titles label the chart as `Reference Duration Distribution` and show `Distance Not Applicable`. User-facing chart file cells show filenames only, not full local paths.
+When embedding is enabled, each generated PNG appears with a small metadata block including chart type, action, hardware distance source, method, grouping mode, and bin size. Motion chart titles label the displayed group distance as `HardwareActualDistance`. Reference chart titles label the chart as `Reference Duration Distribution` and show `Distance = Not Applicable`. User-facing chart file cells show filenames only, not full local paths. Chart y-axes use `Count` by default, not `Density`.
 
 ## Troubleshooting
 

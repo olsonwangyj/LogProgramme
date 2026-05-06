@@ -28,6 +28,7 @@ from .config import (
     LOG_COVERAGE_GAPS_COLUMNS,
     LOG_COVERAGE_SUMMARY_COLUMNS,
     PWM_SOURCE_COLUMNS,
+    REFERENCE_EXCLUSION_SUMMARY_COLUMNS,
     REFERENCE_DURATION_CHART_METADATA_COLUMNS,
     REFERENCE_DURATION_RAW_DATA_COLUMNS,
     REFERENCE_DURATION_SUMMARY_COLUMNS,
@@ -114,6 +115,7 @@ class SummaryGenerator:
         distribution_chart_metadata_frame = None
         reference_duration_summary_frame = None
         reference_duration_raw_data_frame = None
+        reference_exclusion_summary_frame = None
         reference_duration_chart_metadata_frame = None
         axis_action_summary_frame = None
         distribution_eligibility_summary_frame = None
@@ -148,6 +150,10 @@ class SummaryGenerator:
                 self._build_reference_duration_raw_rows(reference_duration_result.input_rows),
                 columns=REFERENCE_DURATION_RAW_DATA_COLUMNS,
             )
+            reference_exclusion_summary_frame = pd.DataFrame(
+                self._build_reference_exclusion_summary_rows(reference_duration_result.input_rows),
+                columns=REFERENCE_EXCLUSION_SUMMARY_COLUMNS,
+            )
             reference_duration_chart_metadata_frame = pd.DataFrame(
                 self._build_reference_duration_chart_metadata_rows(reference_duration_result.stats),
                 columns=REFERENCE_DURATION_CHART_METADATA_COLUMNS,
@@ -156,7 +162,13 @@ class SummaryGenerator:
             axis_action_summary_frame = pd.DataFrame(
                 self._build_axis_action_summary_rows(
                     distribution_result.input_rows if distribution_result is not None else [],
-                    reference_duration_result.input_rows if reference_duration_result is not None else [],
+                    [
+                        row
+                        for row in reference_duration_result.input_rows
+                        if row.included_in_reference_distribution
+                    ]
+                    if reference_duration_result is not None
+                    else [],
                 ),
                 columns=AXIS_ACTION_SUMMARY_COLUMNS,
             )
@@ -182,6 +194,7 @@ class SummaryGenerator:
             distribution_chart_metadata=distribution_chart_metadata_frame,
             reference_duration_summary=reference_duration_summary_frame,
             reference_duration_raw_data=reference_duration_raw_data_frame,
+            reference_exclusion_summary=reference_exclusion_summary_frame,
             reference_duration_chart_metadata=reference_duration_chart_metadata_frame,
             axis_action_summary=axis_action_summary_frame,
             distribution_eligibility_summary=distribution_eligibility_summary_frame,
@@ -606,6 +619,9 @@ class SummaryGenerator:
                 "Normal Fit Mean (s)": item.normal_fit_mean_s,
                 "Normal Fit Std Dev (s)": item.normal_fit_std_s,
                 "Normal Fit Variance (s^2)": item.normal_fit_variance_s2,
+                "Outlier Count": item.outlier_count,
+                "Outlier Values": item.outlier_values,
+                "Chart Uses Outlier-Trimmed Axis": item.chart_uses_outlier_trimmed_axis,
                 "Distribution Status": item.distribution_status,
                 "Chart Status": item.chart_status,
                 "Chart File": self._chart_file_display(item.chart_file),
@@ -712,6 +728,9 @@ class SummaryGenerator:
                 "Mean Duration (s)": item.mean_s,
                 "Sample Std Dev Duration (s)": item.sample_std_s,
                 "Variance": item.sample_var_s2,
+                "Outlier Count": item.outlier_count,
+                "Outlier Values": item.outlier_values,
+                "Chart Uses Outlier-Trimmed Axis": item.chart_uses_outlier_trimmed_axis,
                 "Distribution Status": item.distribution_status,
                 "Chart Status": item.chart_status,
                 "Chart File": self._chart_file_display(item.chart_file),
@@ -746,6 +765,9 @@ class SummaryGenerator:
                 "Max Duration (s)": item.max_s,
                 "Min-Max Display": self._min_max_display(item.min_s, item.max_s),
                 "CV (%)": item.cv_percent,
+                "Outlier Count": item.outlier_count,
+                "Outlier Values": item.outlier_values,
+                "Chart Uses Outlier-Trimmed Axis": item.chart_uses_outlier_trimmed_axis,
                 "Hardware Reference Evidence Found Count": item.hardware_reference_evidence_found_count,
                 "Hardware Reference Evidence Missing Count": item.hardware_reference_evidence_missing_count,
                 "Distribution Status": item.distribution_status,
@@ -778,6 +800,8 @@ class SummaryGenerator:
                 "Hardware Reference Source File": row.hardware_reference_source_file,
                 "Hardware Reference Zero Sensor Raw Value": row.hardware_reference_zero_sensor_raw_value,
                 "Hardware Reference Line Text": row.hardware_reference_line_text,
+                "Included In Reference Distribution": row.included_in_reference_distribution,
+                "Reference Exclusion Reason": row.reference_exclusion_reason,
                 "Hardware Motion Match Status": row.hardware_motion_match_status,
                 "Selected Movement Distance Method": row.movement_distance_method,
                 "Overall Status": row.overall_status,
@@ -813,6 +837,9 @@ class SummaryGenerator:
                 "Variance": item.sample_var_s2,
                 "Min-Max Display": self._min_max_display(item.min_s, item.max_s),
                 "CV (%)": item.cv_percent,
+                "Outlier Count": item.outlier_count,
+                "Outlier Values": item.outlier_values,
+                "Chart Uses Outlier-Trimmed Axis": item.chart_uses_outlier_trimmed_axis,
                 "Reference Evidence Status": self._reference_evidence_status(item),
                 "Hardware Reference Evidence Found Count": item.hardware_reference_evidence_found_count,
                 "Hardware Reference Evidence Missing Count": item.hardware_reference_evidence_missing_count,
@@ -824,6 +851,35 @@ class SummaryGenerator:
             for item in stats
             if item.chart_file
         ]
+
+    def _build_reference_exclusion_summary_rows(
+        self,
+        rows: list[ReferenceDurationInputRow],
+    ) -> list[dict[str, object]]:
+        """Aggregate reference-duration rows excluded from reference statistics."""
+
+        grouped: dict[tuple[str, str, str], list[ReferenceDurationInputRow]] = defaultdict(list)
+        for row in rows:
+            if row.included_in_reference_distribution:
+                continue
+            reason = row.reference_exclusion_reason or "ReferenceDurationExcluded"
+            action = self._human_action(row.rule_id, row.action_label)
+            grouped[(reason, row.axis, action)].append(row)
+        output_rows: list[dict[str, object]] = []
+        for (reason, axis, action), group in sorted(grouped.items()):
+            example = group[0]
+            output_rows.append(
+                {
+                    "Reference Exclusion Reason": reason,
+                    "Axis": axis,
+                    "Action": action,
+                    "Count": len(group),
+                    "Example Duration (s)": example.duration_s,
+                    "Example Start Time": format_log_timestamp(example.start_time),
+                    "Example Notes": example.notes,
+                }
+            )
+        return output_rows
 
     def _build_axis_action_summary_rows(
         self,

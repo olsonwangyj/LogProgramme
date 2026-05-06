@@ -288,6 +288,9 @@ class LogAnalysisService:
                 "distribution_output_dir_full": str(run_result.distribution_output_dir or ""),
                 "reference_distribution_group_count": run_result.reference_distribution_group_count,
                 "reference_distribution_raw_row_count": run_result.reference_distribution_raw_row_count,
+                "reference_distribution_excluded_short_count": (
+                    run_result.reference_distribution_excluded_short_count
+                ),
                 "reference_distribution_chart_count": run_result.reference_distribution_chart_count,
                 "distribution_excluded_missing_pwm_count": run_result.distribution_excluded_missing_pwm_count,
                 "distribution_excluded_missing_distance_count": run_result.distribution_excluded_missing_distance_count,
@@ -326,7 +329,11 @@ class LogAnalysisService:
                     max_images=DISTRIBUTION_IMAGE_MAX_IMAGES,
                     layout=distribution_image_gallery_layout,
                     logger=self._logger.getChild("distribution_image_gallery"),
-                ).export(gallery_output_path, gallery_source_result)
+                ).export(
+                    gallery_output_path,
+                    gallery_source_result,
+                    axis_action_summary=getattr(report_frames, "axis_action_summary", None),
+                )
                 run_result.distribution_image_gallery_path = gallery_result.output_path
                 run_result.distribution_image_count = gallery_result.image_inserted_count
                 run_result.distribution_image_statistics_count = gallery_result.statistics_count
@@ -1065,6 +1072,11 @@ class LogAnalysisService:
             ),
             reference_distribution_raw_row_count=(
                 len(reference_duration_result.input_rows) if reference_duration_result is not None else 0
+            ),
+            reference_distribution_excluded_short_count=(
+                reference_duration_result.exclusion_counts.get("ReferenceDurationTooShort", 0)
+                if reference_duration_result is not None
+                else 0
             ),
             reference_distribution_chart_count=sum(
                 bool(item.chart_file) for item in reference_duration_result.stats

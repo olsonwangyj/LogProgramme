@@ -33,6 +33,8 @@ from .config import (
     HARDWARE_STATUS_MULTIPLE_CANDIDATES,
     HARDWARE_STATUS_NO_SEGMENT,
     HARDWARE_REFERENCE_STATUS_FOUND,
+    REFERENCE_EXCLUDE_SHORT_DURATIONS_FROM_DISTRIBUTION,
+    REFERENCE_MIN_DURATION_MS,
     PWM_STATUS_MATCHED_CARRY_FORWARD,
     PWM_STATUS_MATCHED_LATEST_BEFORE,
     PWM_STATUS_MATCHED_NEAREST,
@@ -90,6 +92,26 @@ def _is_finite_number(value: object) -> bool:
     except (TypeError, ValueError):
         return False
     return math.isfinite(numeric)
+
+
+def _outlier_summary_from_ms_series(series: pd.Series) -> tuple[int, str]:
+    """Return IQR outlier count and display values in seconds."""
+
+    clean = pd.Series([float(value) for value in series.dropna()], dtype="float64")
+    if int(clean.count()) < 4:
+        return 0, ""
+    q1 = float(clean.quantile(0.25))
+    q3 = float(clean.quantile(0.75))
+    iqr = q3 - q1
+    if not math.isfinite(iqr):
+        return 0, ""
+    lower = q1 - 1.5 * iqr
+    upper = q3 + 1.5 * iqr
+    outliers = [float(value) for value in clean if float(value) < lower or float(value) > upper]
+    if not outliers:
+        return 0, ""
+    outlier_seconds = sorted(value / 1000.0 for value in outliers)
+    return len(outlier_seconds), "; ".join(f"{value:.3f}" for value in outlier_seconds)
 
 
 @dataclass
@@ -219,6 +241,9 @@ class DistributionStats:
     normal_fit_std_s: float | None
     normal_fit_variance_s2: float | None
     distribution_status: str
+    outlier_count: int = 0
+    outlier_values: str = ""
+    chart_uses_outlier_trimmed_axis: bool = False
     chart_file: str | None = None
     chart_status: str = "NotGenerated"
     chart_sheet_anchor: str | None = None
@@ -288,6 +313,8 @@ class ReferenceDurationInputRow:
     pwm_percent: float | None = None
     pwm_raw_value: float | None = None
     pwm_direction: str = ""
+    included_in_reference_distribution: bool = True
+    reference_exclusion_reason: str = ""
 
 
 @dataclass
@@ -324,6 +351,9 @@ class ReferenceDurationStats:
     hardware_reference_evidence_found_count: int
     hardware_reference_evidence_missing_count: int
     distribution_status: str
+    outlier_count: int = 0
+    outlier_values: str = ""
+    chart_uses_outlier_trimmed_axis: bool = False
     chart_file: str | None = None
     chart_status: str = "NotGenerated"
     chart_sheet_anchor: str | None = None
@@ -345,6 +375,7 @@ class ReferenceDurationAnalysisResult:
     input_rows: list[ReferenceDurationInputRow] = field(default_factory=list)
     grouped_rows: dict[str, list[ReferenceDurationInputRow]] = field(default_factory=dict)
     stats: list[ReferenceDurationStats] = field(default_factory=list)
+    exclusion_counts: Counter = field(default_factory=Counter)
     chart_output_dir: Path | None = None
 
 
@@ -723,6 +754,7 @@ class DistributionAnalyzer:
         p25_ms = self._finite_or_none(series.quantile(0.25)) if sample_count > 0 else None
         p75_ms = self._finite_or_none(series.quantile(0.75)) if sample_count > 0 else None
         p95_ms = self._finite_or_none(series.quantile(0.95)) if sample_count > 0 else None
+        outlier_count, outlier_values = _outlier_summary_from_ms_series(series)
         sample_std_s = sample_std_ms / 1000.0 if sample_std_ms is not None else None
         sample_var_s2 = sample_var_ms2 / 1_000_000.0 if sample_var_ms2 is not None else None
         mean_s = mean_ms / 1000.0 if mean_ms is not None else None
@@ -800,6 +832,8 @@ class DistributionAnalyzer:
             normal_fit_std_s=normal_fit_std_s,
             normal_fit_variance_s2=normal_fit_variance_s2,
             distribution_status=distribution_status,
+            outlier_count=outlier_count,
+            outlier_values=outlier_values,
             notes=notes,
         )
 
@@ -1140,20 +1174,36 @@ class ReferenceDurationAnalyzer:
     def __init__(
         self,
         min_samples_for_normal_fit: int = MIN_SAMPLES_FOR_NORMAL_FIT,
+        reference_min_duration_ms: int = REFERENCE_MIN_DURATION_MS,
+        exclude_short_durations_from_distribution: bool = REFERENCE_EXCLUDE_SHORT_DURATIONS_FROM_DISTRIBUTION,
         logger: logging.Logger | None = None,
     ) -> None:
         """Initialize reference-duration analysis options."""
 
         self.min_samples_for_normal_fit = min_samples_for_normal_fit
+        self.reference_min_duration_ms = reference_min_duration_ms
+        self.exclude_short_durations_from_distribution = exclude_short_durations_from_distribution
         self._logger = logger or logging.getLogger(self.__class__.__name__)
 
     def analyze(self, records: list[ActivityRecord], txt_source_file: str) -> ReferenceDurationAnalysisResult:
         """Build reference rows, group them by axis, and compute duration statistics."""
 
         input_rows = self.build_input_rows(records, txt_source_file)
-        grouped_rows = self.group_rows(input_rows)
+        grouped_rows = self.group_rows(
+            [row for row in input_rows if row.included_in_reference_distribution]
+        )
         stats = self.compute_group_stats(grouped_rows)
-        return ReferenceDurationAnalysisResult(input_rows=input_rows, grouped_rows=grouped_rows, stats=stats)
+        exclusion_counts = Counter(
+            row.reference_exclusion_reason
+            for row in input_rows
+            if not row.included_in_reference_distribution and row.reference_exclusion_reason
+        )
+        return ReferenceDurationAnalysisResult(
+            input_rows=input_rows,
+            grouped_rows=grouped_rows,
+            stats=stats,
+            exclusion_counts=exclusion_counts,
+        )
 
     def build_input_rows(
         self,
@@ -1167,6 +1217,15 @@ class ReferenceDurationAnalyzer:
         for record in records:
             if not self._is_valid_reference_record(record):
                 continue
+            duration_ms = float(record.duration_ms)
+            reference_exclusion_reason = ""
+            included_in_reference_distribution = True
+            if (
+                self.exclude_short_durations_from_distribution
+                and duration_ms < self.reference_min_duration_ms
+            ):
+                included_in_reference_distribution = False
+                reference_exclusion_reason = "ReferenceDurationTooShort"
             group_id = self.build_group_id(source_name, record.axis, record.rule_id)
             rows.append(
                 ReferenceDurationInputRow(
@@ -1177,7 +1236,7 @@ class ReferenceDurationAnalyzer:
                     action_label=self._action_label(record),
                     start_time=record.start_time,
                     end_time=record.end_time,
-                    duration_ms=float(record.duration_ms),
+                    duration_ms=duration_ms,
                     duration_s=(
                         float(record.duration_s)
                         if self._is_numeric(record.duration_s)
@@ -1200,6 +1259,8 @@ class ReferenceDurationAnalyzer:
                     pwm_percent=abs(float(record.pwm_percent)) if self._is_numeric(record.pwm_percent) else None,
                     pwm_raw_value=record.pwm_raw_value,
                     pwm_direction=record.pwm_direction,
+                    included_in_reference_distribution=included_in_reference_distribution,
+                    reference_exclusion_reason=reference_exclusion_reason,
                 )
             )
         return rows
@@ -1289,6 +1350,8 @@ class ReferenceDurationAnalyzer:
             hardware_reference_evidence_found_count=evidence_found_count,
             hardware_reference_evidence_missing_count=evidence_missing_count,
             distribution_status=distribution_status,
+            outlier_count=int(duration["outlier_count"]),
+            outlier_values=str(duration["outlier_values"] or ""),
             notes=notes,
         )
 
@@ -1305,6 +1368,7 @@ class ReferenceDurationAnalyzer:
         sample_var_ms2 = self._finite_or_none(series.var(ddof=1)) if sample_count > 1 else None
         population_std_ms = self._finite_or_none(series.std(ddof=0)) if sample_count > 0 else None
         population_var_ms2 = self._finite_or_none(series.var(ddof=0)) if sample_count > 0 else None
+        outlier_count, outlier_values = _outlier_summary_from_ms_series(series)
         return {
             "sample_count": sample_count,
             "mean_ms": mean_ms,
@@ -1324,6 +1388,8 @@ class ReferenceDurationAnalyzer:
             "population_std_s": population_std_ms / 1000.0 if population_std_ms is not None else None,
             "population_var_ms2": population_var_ms2,
             "population_var_s2": population_var_ms2 / 1_000_000.0 if population_var_ms2 is not None else None,
+            "outlier_count": outlier_count,
+            "outlier_values": outlier_values,
             "cv_percent": (
                 sample_std_ms / mean_ms * 100.0
                 if sample_std_ms is not None and mean_ms not in {None, 0}

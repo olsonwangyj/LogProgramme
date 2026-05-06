@@ -380,6 +380,7 @@ class ReportFrames:
     distribution_chart_metadata: object | None = None
     reference_duration_summary: object | None = None
     reference_duration_raw_data: object | None = None
+    reference_exclusion_summary: object | None = None
     reference_duration_chart_metadata: object | None = None
     axis_action_summary: object | None = None
     distribution_eligibility_summary: object | None = None
@@ -415,6 +416,7 @@ class AnalysisRunResult:
     distribution_chart_count: int = 0
     reference_distribution_group_count: int = 0
     reference_distribution_raw_row_count: int = 0
+    reference_distribution_excluded_short_count: int = 0
     reference_distribution_chart_count: int = 0
     distribution_output_dir: Path | None = None
     distribution_excluded_missing_pwm_count: int = 0

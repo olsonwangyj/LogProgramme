@@ -39,7 +39,11 @@ from backend.log_axis_activity_analyzer.config import (
     PWM_STATUS_MATCHED_NEAREST_FUTURE,
     STATUS_MATCHED,
 )
-from backend.log_axis_activity_analyzer.distribution import DistributionAnalyzer, ReferenceDurationAnalyzer
+from backend.log_axis_activity_analyzer.distribution import (
+    DistributionAnalysisResult,
+    DistributionAnalyzer,
+    ReferenceDurationAnalyzer,
+)
 from backend.log_axis_activity_analyzer.excel_exporter import ExcelExporter
 from backend.log_axis_activity_analyzer.file_loader import TextFileLoader
 from backend.log_axis_activity_analyzer.hardware_motion_associator import HardwareMotionAssociator
@@ -280,6 +284,86 @@ def _write_gallery_with_charts(
         layout=layout,
     ).export(gallery_path, result)
     return result, export_result, load_workbook(gallery_path, data_only=True)
+
+
+class _FakeFigure:
+    """Tiny matplotlib Figure stand-in for chart-rendering assertions."""
+
+    def tight_layout(self) -> None:
+        pass
+
+    def savefig(self, chart_path: Path, **_kwargs) -> None:
+        Path(chart_path).write_bytes(b"fake chart")
+
+
+class _FakeAxes:
+    """Record chart calls without creating a real matplotlib image."""
+
+    def __init__(self) -> None:
+        self.hist_calls: list[dict[str, object]] = []
+        self.hist_density: bool | None = None
+        self.plot_calls: list[dict[str, object]] = []
+        self.text_values: list[str] = []
+        self.ylabel: str | None = None
+        self.xlim: tuple[float, float] | None = None
+        self.transAxes = object()
+
+    def hist(self, values, bins=None, density=None, **_kwargs):
+        self.hist_density = density
+        self.hist_calls.append({"values": list(values), "bins": bins, "density": density})
+        values = list(values)
+        lower = min(values)
+        upper = max(values)
+        bin_count = bins if isinstance(bins, int) and bins > 0 else 5
+        width = (upper - lower) / bin_count if upper > lower else 1.0
+        edges = [lower + width * index for index in range(bin_count + 1)]
+        return [1] * bin_count, edges, []
+
+    def plot(self, x, y, *args, **kwargs):
+        self.plot_calls.append({"x": list(x), "y": list(y), "args": args, **kwargs})
+
+    def axvline(self, *_args, **_kwargs):
+        pass
+
+    def axvspan(self, *_args, **_kwargs):
+        pass
+
+    def text(self, _x, _y, value, **_kwargs):
+        self.text_values.append(value)
+
+    def set_xlim(self, lower, upper):
+        self.xlim = (lower, upper)
+
+    def set_ylim(self, *_args):
+        pass
+
+    def set_title(self, *_args, **_kwargs):
+        pass
+
+    def set_xlabel(self, *_args, **_kwargs):
+        pass
+
+    def set_ylabel(self, value, **_kwargs):
+        self.ylabel = value
+
+    def grid(self, *_args, **_kwargs):
+        pass
+
+    def legend(self, *_args, **_kwargs):
+        pass
+
+
+class _FakePyplot:
+    """Tiny pyplot stand-in that returns a preconfigured fake axes."""
+
+    def __init__(self, axes: _FakeAxes) -> None:
+        self.axes = axes
+
+    def subplots(self, **_kwargs):
+        return _FakeFigure(), self.axes
+
+    def close(self, *_args) -> None:
+        pass
 
 
 def test_matcher_keeps_raw_distance_components_until_runtime_selection(tmp_path: Path) -> None:
@@ -1702,8 +1786,24 @@ def test_chart_title_uses_group_distance_display_and_source() -> None:
 
     title = NormalDistributionChartGenerator()._chart_title(stats[0])
 
+    assert "Motion Duration Distribution" in title
     assert "Hardware Actual Distance 23.861 (HardwareActualDistance)" in title
     assert "Distance 23.86 " not in title
+
+
+def test_reference_chart_title_uses_reference_label_and_not_applicable_distance() -> None:
+    """Reference charts should be explicitly labeled as reference duration distributions."""
+
+    result = ReferenceDurationAnalyzer().analyze(
+        [_reference_record(seconds=value, txt_offset=index * 20) for index, value in enumerate([10, 12, 14])],
+        "sample.txt",
+    )
+
+    title = NormalDistributionChartGenerator()._chart_title(result.stats[0])
+
+    assert "Reference Duration Distribution" in title
+    assert "Distance = Not Applicable" in title
+    assert "Hardware Actual Distance" not in title
 
 
 def test_unreliable_pwm_is_excluded_from_distribution() -> None:
@@ -1904,6 +2004,64 @@ def test_distribution_chart_generation_creates_png(tmp_path: Path) -> None:
     assert rows
 
 
+def test_chart_generator_uses_count_axis_and_scaled_normal_curve(tmp_path: Path) -> None:
+    """Default chart rendering should use count histograms, not density histograms."""
+
+    _, rows, _, stats = _stats_for(
+        [_record(seconds=value, txt_offset=index * 20) for index, value in enumerate([10, 11, 12, 13, 14])]
+    )
+    fake_ax = _FakeAxes()
+    generator = NormalDistributionChartGenerator(bins=5)
+    generator._pyplot = lambda: _FakePyplot(fake_ax)  # type: ignore[method-assign]
+
+    generator._draw_chart(rows, stats[0], tmp_path / "count.png")
+
+    assert fake_ax.hist_density is False
+    assert fake_ax.ylabel == "Count"
+    normal_plot = next(call for call in fake_ax.plot_calls if call.get("label") == "Fitted normal curve")
+    assert max(normal_plot["y"]) > 1.0
+
+
+def test_chart_generator_low_variance_uses_dot_style(tmp_path: Path) -> None:
+    """Very stable groups should be shown as samples/rug marks instead of a misleading spike."""
+
+    durations = [10.000, 10.006, 10.010, 10.014, 10.018]
+    _, rows, _, stats = _stats_for(
+        [_record(seconds=value, txt_offset=index * 20) for index, value in enumerate(durations)]
+    )
+    fake_ax = _FakeAxes()
+    generator = NormalDistributionChartGenerator()
+    generator._pyplot = lambda: _FakePyplot(fake_ax)  # type: ignore[method-assign]
+
+    generator._draw_chart(rows, stats[0], tmp_path / "low-variance.png")
+
+    assert fake_ax.hist_calls == []
+    assert "Low variance group" in fake_ax.text_values
+    assert fake_ax.ylabel == "Count"
+
+
+def test_distribution_stats_and_chart_mark_outliers(tmp_path: Path) -> None:
+    """Outlier values should be reported and should not force the visible chart axis wide."""
+
+    durations = [10.0, 10.1, 10.2, 10.3, 60.0]
+    _, rows, _, stats = _stats_for(
+        [_record(seconds=value, txt_offset=index * 80) for index, value in enumerate(durations)]
+    )
+    result = stats[0]
+    assert result.outlier_count == 1
+    assert result.outlier_values == "60.000"
+    fake_ax = _FakeAxes()
+    generator = NormalDistributionChartGenerator(bins=5)
+    generator._pyplot = lambda: _FakePyplot(fake_ax)  # type: ignore[method-assign]
+
+    generator._draw_chart(rows, result, tmp_path / "outlier.png")
+
+    assert result.chart_uses_outlier_trimmed_axis is True
+    assert "Outliers detected; x-axis trimmed for readability." in fake_ax.text_values
+    assert fake_ax.xlim is not None
+    assert fake_ax.xlim[1] < 20
+
+
 def test_zero_variance_chart_generation_does_not_crash(tmp_path: Path) -> None:
     """Identical durations should produce a safe chart and zero-variance status."""
 
@@ -1948,6 +2106,43 @@ def test_reference_duration_summary_and_chart_generation(tmp_path: Path) -> None
     assert len(generated) == 1
     assert stats.chart_status == "ChartGenerated"
     assert next(iter(generated.values())).exists()
+
+
+def test_reference_duration_short_rows_stay_raw_but_leave_summary_and_axis_action() -> None:
+    """Sub-second reference matches should be audited but not distort reference statistics."""
+
+    records = [
+        _reference_record(seconds=value, txt_offset=index * 20, axis="X")
+        for index, value in enumerate([0.349, 10.0, 12.0, 14.0])
+    ]
+    result = ReferenceDurationAnalyzer().analyze(records, "sample.txt")
+
+    assert len(result.input_rows) == 4
+    assert result.exclusion_counts["ReferenceDurationTooShort"] == 1
+    short_row = next(row for row in result.input_rows if row.duration_s < 1.0)
+    assert short_row.included_in_reference_distribution is False
+    assert short_row.reference_exclusion_reason == "ReferenceDurationTooShort"
+    assert len(result.grouped_rows[short_row.group_id]) == 3
+    stats = result.stats[0]
+    assert stats.sample_count == 3
+    assert stats.min_s == pytest.approx(10.0)
+    assert stats.mean_s == pytest.approx(12.0)
+
+    frames = SummaryGenerator().build_report_frames(
+        records,
+        [],
+        reference_duration_result=result,
+    )
+    raw_rows = frames.reference_duration_raw_data.to_dict("records")
+    raw_short = next(row for row in raw_rows if row["Duration (s)"] < 1.0)
+    assert raw_short["Included In Reference Distribution"] is False
+    assert raw_short["Reference Exclusion Reason"] == "ReferenceDurationTooShort"
+    exclusion_rows = frames.reference_exclusion_summary.to_dict("records")
+    assert exclusion_rows[0]["Reference Exclusion Reason"] == "ReferenceDurationTooShort"
+    axis_row = frames.axis_action_summary.to_dict("records")[0]
+    assert axis_row["Action"] == "Search Reference"
+    assert axis_row["n"] == 3
+    assert axis_row["Mean (s)"] == pytest.approx(12.0)
 
 
 def test_axis_action_summary_combines_motion_and_reference_rows(tmp_path: Path) -> None:
@@ -2073,6 +2268,59 @@ def test_axis_action_summary_conditional_formatting_rules(tmp_path: Path) -> Non
     assert "$D2>=25.0" in formula_text
     assert "$D2>=20.0" in formula_text
     assert "$D2<25.0" in formula_text
+
+
+def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_path: Path) -> None:
+    """The chart/statistics workbook should include the clean axis/action table."""
+
+    motion_records = [
+        _record(seconds=value, txt_offset=index * 20, axis="X", rule_id="clear_motor", movement_distance=22.01)
+        for index, value in enumerate([22.0, 25.0, 28.0])
+    ]
+    reference_records = [
+        _reference_record(seconds=value, txt_offset=100 + index * 20, axis="Y")
+        for index, value in enumerate([0.349, 10.0, 12.0, 14.0])
+    ]
+    distribution_result = DistributionAnalyzer().analyze(motion_records, "sample.txt")
+    reference_result = ReferenceDurationAnalyzer().analyze(reference_records, "sample.txt")
+    frames = SummaryGenerator().build_report_frames(
+        motion_records + reference_records,
+        [],
+        distribution_result=distribution_result,
+        reference_duration_result=reference_result,
+    )
+    combined = DistributionAnalysisResult(
+        input_rows=[*distribution_result.input_rows, *reference_result.input_rows],
+        grouped_rows={**distribution_result.grouped_rows, **reference_result.grouped_rows},
+        stats=[*distribution_result.stats, *reference_result.stats],
+    )
+
+    export_result = DistributionImageGalleryExporter().export(
+        tmp_path / "gallery-axis-summary.xlsx",
+        combined,
+        axis_action_summary=frames.axis_action_summary,
+    )
+    workbook = load_workbook(export_result.output_path)
+
+    assert "Axis Action Summary" in workbook.sheetnames
+    sheet = workbook["Axis Action Summary"]
+    headers = [cell.value for cell in sheet[1]]
+    assert headers == [
+        "Axis",
+        "Action",
+        "n",
+        "Mean (s)",
+        "SD (s)",
+        "Var (s^2)",
+        "Median (s)",
+        "Min-Max (s)",
+        "CV (%)",
+    ]
+    rows = list(sheet.iter_rows(min_row=2, values_only=True))
+    ref_row = next(row for row in rows if row[headers.index("Action")] == "Search Reference")
+    assert ref_row[headers.index("n")] == 3
+    assert ref_row[headers.index("Mean (s)")] == pytest.approx(12.0)
+    assert len(sheet.conditional_formatting) > 0
 
 
 def test_distribution_image_gallery_workbook_creation_inserts_images(tmp_path: Path) -> None:
@@ -2788,9 +3036,24 @@ def test_synthetic_multi_image_end_to_end_gallery_exports_images_and_sign_audits
 
     workbook = load_workbook(output_path, data_only=True)
     gallery = load_workbook(result.distribution_image_gallery_path, data_only=True)
+    assert {"Image Gallery", "Image Statistics", "Image Index", "Axis Action Summary"} <= set(gallery.sheetnames)
     assert len(gallery["Image Gallery"]._images) == 3
     assert gallery["Image Statistics"].max_row == 4
     assert gallery["Image Index"].max_row == 4
+    axis_action_sheet = gallery["Axis Action Summary"]
+    axis_action_headers = [cell.value for cell in axis_action_sheet[1]]
+    assert axis_action_headers == [
+        "Axis",
+        "Action",
+        "n",
+        "Mean (s)",
+        "SD (s)",
+        "Var (s^2)",
+        "Median (s)",
+        "Min-Max (s)",
+        "CV (%)",
+    ]
+    assert axis_action_sheet.max_row == 4
     stats_sheet = gallery["Image Statistics"]
     headers = [cell.value for cell in stats_sheet[1]]
     z_row = next(row for row in stats_sheet.iter_rows(min_row=2, values_only=True) if row[headers.index("Axis")] == "Z")

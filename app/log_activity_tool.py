@@ -370,6 +370,7 @@ def _print_summary(result) -> None:
         print(f"Distribution charts: {result.distribution_chart_count}")
         print(f"Reference duration groups: {result.reference_distribution_group_count}")
         print(f"Reference duration raw rows: {result.reference_distribution_raw_row_count}")
+        print(f"Reference duration rows excluded too short: {result.reference_distribution_excluded_short_count}")
         print(f"Reference duration charts: {result.reference_distribution_chart_count}")
         print(f"Distribution chart folder: {result.distribution_output_dir}")
         print(f"Distribution image gallery: {result.distribution_image_gallery_path}")
