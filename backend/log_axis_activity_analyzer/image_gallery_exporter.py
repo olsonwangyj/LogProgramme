@@ -31,6 +31,8 @@ from .config import (
     DISTRIBUTION_IMAGE_STATISTICS_COLUMNS,
     DISTRIBUTION_IMAGE_STATISTICS_SHEET_NAME,
     DISTRIBUTION_IMAGE_WIDTH_PX,
+    OVERALL_AXIS_ACTION_SUMMARY_COLUMNS,
+    OVERALL_AXIS_ACTION_SUMMARY_SHEET_NAME,
 )
 from .distribution import (
     DistributionAnalysisResult,
@@ -107,11 +109,12 @@ class DistributionImageGalleryExporter:
         self._logger.info("Exporting distribution image gallery workbook to %s", path)
 
         workbook = Workbook()
-        gallery_sheet = workbook.active
-        gallery_sheet.title = DISTRIBUTION_IMAGE_GALLERY_SHEET_NAME
-        axis_action_sheet = workbook.create_sheet("Axis Action Summary")
+        overall_sheet = workbook.active
+        overall_sheet.title = OVERALL_AXIS_ACTION_SUMMARY_SHEET_NAME
+        gallery_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_GALLERY_SHEET_NAME)
         statistics_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_STATISTICS_SHEET_NAME)
         index_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_INDEX_SHEET_NAME)
+        axis_action_sheet = workbook.create_sheet("Axis Action Summary")
 
         rows_by_group = distribution_result.grouped_rows
         gallery_rows, index_rows, counts = self._build_gallery_and_index(
@@ -125,10 +128,12 @@ class DistributionImageGalleryExporter:
         ]
         self._write_table(statistics_sheet, DISTRIBUTION_IMAGE_STATISTICS_COLUMNS, statistics_rows)
         self._write_table(index_sheet, DISTRIBUTION_IMAGE_INDEX_COLUMNS, index_rows)
+        self._write_overall_axis_action_summary(overall_sheet, axis_action_summary)
         self._write_axis_action_summary(axis_action_sheet, axis_action_summary)
         self._format_gallery_sheet(gallery_sheet)
         self._format_table_sheet(statistics_sheet)
         self._format_table_sheet(index_sheet)
+        self._format_axis_action_summary_sheet(overall_sheet)
         self._format_axis_action_summary_sheet(axis_action_sheet)
 
         workbook.save(path)
@@ -619,6 +624,41 @@ class DistributionImageGalleryExporter:
             for column_index, column_name in enumerate(AXIS_ACTION_SUMMARY_COLUMNS, start=1):
                 sheet.cell(row=row_index, column=column_index, value=row.get(column_name))
 
+    def _write_overall_axis_action_summary(self, sheet, axis_action_summary) -> None:
+        """Write the consolidated front summary sheet with final report labels."""
+
+        for column_index, column_name in enumerate(OVERALL_AXIS_ACTION_SUMMARY_COLUMNS, start=1):
+            cell = sheet.cell(row=1, column=column_index, value=column_name)
+            cell.font = Font(bold=True)
+        rows = []
+        if axis_action_summary is not None:
+            if hasattr(axis_action_summary, "to_dict"):
+                rows = axis_action_summary.to_dict(orient="records")
+            else:
+                rows = list(axis_action_summary)
+        if not rows:
+            sheet.cell(row=2, column=1, value="No axis/action summary data was available.")
+            return
+        for row_index, row in enumerate(rows, start=2):
+            normalized = self._overall_axis_action_row(row)
+            for column_index, column_name in enumerate(OVERALL_AXIS_ACTION_SUMMARY_COLUMNS, start=1):
+                sheet.cell(row=row_index, column=column_index, value=normalized.get(column_name))
+
+    def _overall_axis_action_row(self, row: dict[str, object]) -> dict[str, object]:
+        """Map internal ASCII summary columns to user-facing front-summary labels."""
+
+        return {
+            "Axis": row.get("Axis"),
+            "Action": row.get("Action"),
+            "n": row.get("n"),
+            "Mean (s)": row.get("Mean (s)"),
+            "SD (s)": row.get("SD (s)"),
+            "Var (s²)": row.get("Var (s^2)", row.get("Var (s²)")),
+            "Median (s)": row.get("Median (s)"),
+            "Min–Max (s)": self._display_min_max(row.get("Min-Max (s)", row.get("Min–Max (s)"))),
+            "CV (%)": row.get("CV (%)"),
+        }
+
     def _format_gallery_sheet(self, sheet) -> None:
         """Apply readable gallery worksheet sizing."""
 
@@ -672,13 +712,14 @@ class DistributionImageGalleryExporter:
             if row_index % 2 == 0:
                 for column in range(1, sheet.max_column + 1):
                     sheet.cell(row=row_index, column=column).fill = alternate_fill
-            for header in ("n", "Mean (s)", "SD (s)", "Var (s^2)", "Median (s)", "CV (%)"):
+            for header in ("n", "Mean (s)", "SD (s)", "Var (s^2)", "Var (s²)", "Median (s)", "CV (%)"):
                 if header in headers:
                     sheet.cell(row=row_index, column=headers[header]).alignment = Alignment(horizontal="center")
             for header, number_format in {
                 "Mean (s)": "0.000",
                 "SD (s)": "0.0000",
                 "Var (s^2)": "0.0000",
+                "Var (s²)": "0.0000",
                 "Median (s)": "0.000",
                 "CV (%)": "0.00",
             }.items():
@@ -857,6 +898,13 @@ class DistributionImageGalleryExporter:
         if min_s is None or max_s is None:
             return ""
         return f"{float(min_s):.3f}-{float(max_s):.3f}"
+
+    def _display_min_max(self, value: object) -> object:
+        """Return min-max display text with the report-facing en dash."""
+
+        if value is None:
+            return None
+        return str(value).replace("-", "–")
 
     def _chart_file_display(self, chart_file: str | Path | None) -> str:
         """Return a user-facing chart image filename."""

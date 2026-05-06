@@ -2325,9 +2325,14 @@ def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_p
     )
     workbook = load_workbook(export_result.output_path)
 
+    assert workbook.sheetnames[:4] == [
+        "Overall Axis Action Summary",
+        "Image Gallery",
+        "Image Statistics",
+        "Image Index",
+    ]
     assert "Axis Action Summary" in workbook.sheetnames
-    assert workbook.sheetnames[:4] == ["Image Gallery", "Axis Action Summary", "Image Statistics", "Image Index"]
-    sheet = workbook["Axis Action Summary"]
+    sheet = workbook["Overall Axis Action Summary"]
     headers = [cell.value for cell in sheet[1]]
     assert headers == [
         "Axis",
@@ -2335,16 +2340,148 @@ def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_p
         "n",
         "Mean (s)",
         "SD (s)",
-        "Var (s^2)",
+        "Var (s²)",
         "Median (s)",
-        "Min-Max (s)",
+        "Min–Max (s)",
         "CV (%)",
     ]
     rows = list(sheet.iter_rows(min_row=2, values_only=True))
     ref_row = next(row for row in rows if row[headers.index("Action")] == "Search Reference")
     assert ref_row[headers.index("n")] == 3
     assert ref_row[headers.index("Mean (s)")] == pytest.approx(12.0)
+    assert "–" in ref_row[headers.index("Min–Max (s)")]
     assert len(sheet.conditional_formatting) > 0
+
+
+def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_action_rows(tmp_path: Path) -> None:
+    """The gallery workbook should add one front summary sheet while preserving existing sheets."""
+
+    axis_action_summary = [
+        {
+            "Axis": "P",
+            "Action": "Search Reference",
+            "n": 32,
+            "Mean (s)": 1.311,
+            "SD (s)": 0.0945,
+            "Var (s^2)": 0.00894,
+            "Median (s)": 1.379,
+            "Min-Max (s)": "1.182-1.406",
+            "CV (%)": 7.21,
+        },
+        {
+            "Axis": "P",
+            "Action": "Clear Motor",
+            "n": 32,
+            "Mean (s)": 10.485,
+            "SD (s)": 0.0874,
+            "Var (s^2)": 0.00765,
+            "Median (s)": 10.434,
+            "Min-Max (s)": "10.391-10.635",
+            "CV (%)": 0.83,
+        },
+        {
+            "Axis": "P",
+            "Action": "Move to Home",
+            "n": 32,
+            "Mean (s)": 10.429,
+            "SD (s)": 0.0913,
+            "Var (s^2)": 0.00834,
+            "Median (s)": 10.371,
+            "Min-Max (s)": "10.347-10.568",
+            "CV (%)": 0.88,
+        },
+        {
+            "Axis": "N",
+            "Action": "Search Reference",
+            "n": 32,
+            "Mean (s)": 5.870,
+            "SD (s)": 0.0956,
+            "Var (s^2)": 0.00914,
+            "Median (s)": 5.819,
+            "Min-Max (s)": "5.765-5.996",
+            "CV (%)": 1.63,
+        },
+        {
+            "Axis": "N",
+            "Action": "Clear Motor",
+            "n": 32,
+            "Mean (s)": 26.027,
+            "SD (s)": 0.1579,
+            "Var (s^2)": 0.0249,
+            "Median (s)": 25.998,
+            "Min-Max (s)": "25.749-26.466",
+            "CV (%)": 0.61,
+        },
+        {
+            "Axis": "N",
+            "Action": "Move to Home",
+            "n": 32,
+            "Mean (s)": 21.187,
+            "SD (s)": 0.1375,
+            "Var (s^2)": 0.0189,
+            "Median (s)": 21.162,
+            "Min-Max (s)": "21.019-21.467",
+            "CV (%)": 0.65,
+        },
+    ]
+
+    export_result = DistributionImageGalleryExporter().export(
+        tmp_path / "overall-summary-gallery.xlsx",
+        DistributionAnalysisResult(),
+        axis_action_summary=axis_action_summary,
+    )
+    workbook = load_workbook(export_result.output_path)
+
+    assert workbook.sheetnames[:4] == [
+        "Overall Axis Action Summary",
+        "Image Gallery",
+        "Image Statistics",
+        "Image Index",
+    ]
+    assert "Axis Action Summary" in workbook.sheetnames
+    assert workbook["Image Gallery"].max_row > 1
+    assert workbook["Image Statistics"].max_row == 1
+    assert workbook["Image Index"].max_row == 1
+
+    sheet = workbook["Overall Axis Action Summary"]
+    headers = [cell.value for cell in sheet[1]]
+    assert headers == [
+        "Axis",
+        "Action",
+        "n",
+        "Mean (s)",
+        "SD (s)",
+        "Var (s²)",
+        "Median (s)",
+        "Min–Max (s)",
+        "CV (%)",
+    ]
+    rows = {
+        (row[headers.index("Axis")], row[headers.index("Action")]): row
+        for row in sheet.iter_rows(min_row=2, values_only=True)
+        if row[0] is not None
+    }
+    for key in [
+        ("P", "Search Reference"),
+        ("P", "Clear Motor"),
+        ("P", "Move to Home"),
+        ("N", "Search Reference"),
+        ("N", "Clear Motor"),
+        ("N", "Move to Home"),
+    ]:
+        assert key in rows
+    assert rows[("P", "Search Reference")][headers.index("Min–Max (s)")] == "1.182–1.406"
+    assert rows[("N", "Clear Motor")][headers.index("Mean (s)")] == pytest.approx(26.027)
+
+    formula_text = "\n".join(
+        formula
+        for conditional_range in sheet.conditional_formatting
+        for rule in sheet.conditional_formatting[conditional_range]
+        for formula in rule.formula
+    )
+    assert "$D2>=25.0" in formula_text
+    assert "AND($D2>=20.0,$D2<25.0)" in formula_text
+    assert "$I2" not in formula_text
 
 
 def test_distribution_image_gallery_workbook_creation_inserts_images(tmp_path: Path) -> None:
@@ -2381,7 +2518,8 @@ def test_distribution_image_gallery_workbook_creation_inserts_images(tmp_path: P
     assert export_result.statistics_count == 3
     assert export_result.groups_without_charts_count == 0
     assert export_result.image_limit_skipped_count == 0
-    assert {"Image Gallery", "Axis Action Summary", "Image Statistics", "Image Index"} <= set(workbook.sheetnames)
+    assert {"Overall Axis Action Summary", "Image Gallery", "Axis Action Summary", "Image Statistics", "Image Index"} <= set(workbook.sheetnames)
+    assert workbook.sheetnames[:4] == ["Overall Axis Action Summary", "Image Gallery", "Image Statistics", "Image Index"]
     assert len(workbook["Image Gallery"]._images) == 3
     gallery_sheet = workbook["Image Gallery"]
     gallery_headers = [cell.value for cell in gallery_sheet[1] if cell.value is not None]

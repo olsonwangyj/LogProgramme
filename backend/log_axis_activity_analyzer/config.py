@@ -360,6 +360,7 @@ EXPORT_DISTRIBUTION_IMAGE_GALLERY = True
 DISTRIBUTION_IMAGE_GALLERY_SHEET_NAME = "Image Gallery"
 DISTRIBUTION_IMAGE_STATISTICS_SHEET_NAME = "Image Statistics"
 DISTRIBUTION_IMAGE_INDEX_SHEET_NAME = "Image Index"
+OVERALL_AXIS_ACTION_SUMMARY_SHEET_NAME = "Overall Axis Action Summary"
 DISTRIBUTION_IMAGE_MAX_IMAGES = 500
 DISTRIBUTION_IMAGE_WIDTH_PX = 900
 DISTRIBUTION_IMAGE_HEIGHT_PX = 600
@@ -995,6 +996,18 @@ AXIS_ACTION_SUMMARY_COLUMNS = [
     "Var (s^2)",
     "Median (s)",
     "Min-Max (s)",
+    "CV (%)",
+]
+
+OVERALL_AXIS_ACTION_SUMMARY_COLUMNS = [
+    "Axis",
+    "Action",
+    "n",
+    "Mean (s)",
+    "SD (s)",
+    "Var (s²)",
+    "Median (s)",
+    "Min–Max (s)",
     "CV (%)",
 ]
 
