@@ -2040,6 +2040,29 @@ def test_chart_generator_low_variance_uses_dot_style(tmp_path: Path) -> None:
     assert fake_ax.ylabel == "Count"
 
 
+def test_low_variance_groups_do_not_report_minor_iqr_outliers(tmp_path: Path) -> None:
+    """Small jitter in very stable groups should not be reported as misleading outliers."""
+
+    durations = [4.205, 4.208, 4.211] + [4.228] * 16 + [4.229, 4.250]
+    _, rows, _, stats = _stats_for(
+        [_record(seconds=value, txt_offset=index * 20) for index, value in enumerate(durations)]
+    )
+    result = stats[0]
+    assert result.sample_std_s is not None
+    assert result.sample_std_s < 0.02
+    assert result.outlier_count == 0
+    assert result.outlier_values == ""
+    assert "Low variance group." in result.notes
+
+    fake_ax = _FakeAxes()
+    generator = NormalDistributionChartGenerator()
+    generator._pyplot = lambda: _FakePyplot(fake_ax)  # type: ignore[method-assign]
+    generator._draw_chart(rows, result, tmp_path / "low-variance-no-outlier.png")
+
+    assert result.chart_uses_outlier_trimmed_axis is False
+    assert "Outliers detected; x-axis trimmed for readability." not in fake_ax.text_values
+
+
 def test_distribution_stats_and_chart_mark_outliers(tmp_path: Path) -> None:
     """Outlier values should be reported and should not force the visible chart axis wide."""
 
@@ -2190,7 +2213,7 @@ def test_axis_action_summary_combines_motion_and_reference_rows(tmp_path: Path) 
 
 
 def test_axis_action_summary_conditional_formatting_rules(tmp_path: Path) -> None:
-    """Axis Action Summary should install the requested red/yellow CV+mean rules."""
+    """Axis Action Summary should install the requested Mean-only red/yellow rules."""
 
     motion_records = [
         _record(seconds=value, txt_offset=index * 20, axis="X", rule_id="clear_motor", movement_distance=22.01)
@@ -2264,10 +2287,10 @@ def test_axis_action_summary_conditional_formatting_rules(tmp_path: Path) -> Non
         for rule in sheet.conditional_formatting[conditional_range]
         for formula in rule.formula
     )
-    assert "$I2>=2.0" in formula_text
     assert "$D2>=25.0" in formula_text
     assert "$D2>=20.0" in formula_text
     assert "$D2<25.0" in formula_text
+    assert "$I2" not in formula_text
 
 
 def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_path: Path) -> None:
@@ -2303,6 +2326,7 @@ def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_p
     workbook = load_workbook(export_result.output_path)
 
     assert "Axis Action Summary" in workbook.sheetnames
+    assert workbook.sheetnames[:4] == ["Image Gallery", "Axis Action Summary", "Image Statistics", "Image Index"]
     sheet = workbook["Axis Action Summary"]
     headers = [cell.value for cell in sheet[1]]
     assert headers == [
@@ -2357,16 +2381,37 @@ def test_distribution_image_gallery_workbook_creation_inserts_images(tmp_path: P
     assert export_result.statistics_count == 3
     assert export_result.groups_without_charts_count == 0
     assert export_result.image_limit_skipped_count == 0
-    assert {"Image Gallery", "Image Statistics", "Image Index"} <= set(workbook.sheetnames)
+    assert {"Image Gallery", "Axis Action Summary", "Image Statistics", "Image Index"} <= set(workbook.sheetnames)
     assert len(workbook["Image Gallery"]._images) == 3
-    gallery_values = {
-        workbook["Image Gallery"].cell(row=row, column=1).value: workbook["Image Gallery"].cell(row=row, column=2).value
-        for row in range(1, 25)
-    }
-    assert gallery_values["Movement Distance Grouping Mode"] == "bin"
-    assert gallery_values["Movement Distance Bin Size"] == 0.1
-    assert gallery_values["Hardware Distance Method"] == "TPOSStartEndRawDifference"
-    assert gallery_values["Hardware Actual Distance Group Display"] is not None
+    gallery_sheet = workbook["Image Gallery"]
+    gallery_headers = [cell.value for cell in gallery_sheet[1] if cell.value is not None]
+    assert gallery_headers == [
+        "Image #",
+        "Chart Type",
+        "Axis",
+        "Action",
+        "n",
+        "Mean (s)",
+        "SD (s)",
+        "Var (s^2)",
+        "Median (s)",
+        "Min-Max (s)",
+        "CV (%)",
+        "PWM (%)",
+        "Distance",
+        "Reference Evidence Status",
+    ]
+    gallery_values = [cell.value for cell in gallery_sheet[2][: len(gallery_headers)]]
+    assert gallery_values[gallery_headers.index("Image #")] == 1
+    assert gallery_values[gallery_headers.index("Chart Type")] == "Motion Duration Distribution"
+    assert gallery_values[gallery_headers.index("Action")] in {"Clear Motor", "Move to Home", "Move to Max"}
+    first_block_first_column = [
+        gallery_sheet.cell(row=row, column=1).value
+        for row in range(1, 20)
+        if gallery_sheet.cell(row=row, column=1).value is not None
+    ]
+    assert "Movement Distance Grouping Mode" not in first_block_first_column
+    assert "Hardware Distance Method" not in first_block_first_column
     assert workbook["Image Statistics"].max_row == 4
     assert workbook["Image Index"].max_row == 4
     index_sheet = workbook["Image Index"]
@@ -2606,7 +2651,11 @@ def test_distribution_image_gallery_only_writes_generated_image_blocks_by_defaul
     assert export_result.statistics_count == 10
     gallery = workbook["Image Gallery"]
     assert len(gallery._images) == 3
-    assert sum(1 for row in gallery.iter_rows(values_only=True) for value in row if value == "Distribution Image") == 3
+    assert sum(
+        1
+        for row in gallery.iter_rows(values_only=True)
+        if row[0] == "Image #" and row[1] == "Chart Type"
+    ) == 3
     assert workbook["Image Statistics"].max_row == 11
     assert workbook["Image Index"].max_row == 4
 
@@ -2680,7 +2729,11 @@ def test_distribution_image_gallery_can_include_skipped_blocks_when_configured(t
 
     assert export_result.image_inserted_count == 0
     gallery = workbook["Image Gallery"]
-    assert sum(1 for row in gallery.iter_rows(values_only=True) for value in row if value == "Distribution Image") == 2
+    assert sum(
+        1
+        for row in gallery.iter_rows(values_only=True)
+        if row[0] == "Image #" and row[1] == "Chart Type"
+    ) == 2
 
 
 def test_distribution_image_gallery_marks_embedding_unavailable(tmp_path: Path, monkeypatch) -> None:

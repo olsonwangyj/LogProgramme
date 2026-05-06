@@ -305,7 +305,7 @@ Each eligible group can get a histogram of `Duration (s)` when there are at leas
 
 `Density` mode still exists as an advanced/debug chart mode through `NORMAL_CHART_Y_AXIS_MODE = "density"`. Density means probability density: the histogram is normalized so its total area equals 1. That is useful for statistical theory, but it is less intuitive for engineering duration reports, so user-facing charts default to `Count`.
 
-Low-variance groups are rendered with sample dots/rug marks, mean and median lines, and a mean +/- 1 SD band instead of a misleading spike. The threshold is `LOW_VARIANCE_STD_THRESHOLD_S`. Groups with IQR outliers keep the raw values in the data sheets and record `Outlier Count` / `Outlier Values`; charts may trim the visible x-axis for readability and annotate that outliers were detected.
+Low-variance groups are rendered with sample dots/rug marks, mean and median lines, and a mean +/- 1 SD band instead of a misleading spike. The threshold is `LOW_VARIANCE_STD_THRESHOLD_S`. By default, ordinary IQR outlier reporting is disabled for low-variance groups (`DISABLE_IQR_OUTLIERS_FOR_LOW_VARIANCE_GROUPS = True`) so small timing jitter is not mislabeled as real outliers. Higher-variance groups with IQR outliers keep the raw values in the data sheets and record `Outlier Count` / `Outlier Values`; charts may trim the visible x-axis for readability and annotate that outliers were detected.
 
 ### Distribution Image Gallery Workbook
 
@@ -326,16 +326,16 @@ python -m app.log_activity_tool ^
   --no-gui
 ```
 
-The main analysis workbook is exported first. The separate gallery workbook is written only after the main workbook succeeds, so a gallery file is not treated as proof that the whole analysis completed. The main workbook records the intended gallery path and a note that final gallery insertion counts are produced after the main workbook is saved; the CLI output and the gallery workbook contain the final image counts. Choose a denser image-first layout with `--distribution-image-gallery-layout compact_grid`; the default `vertical` layout keeps a metadata block above each inserted image.
+The main analysis workbook is exported first. The separate gallery workbook is written only after the main workbook succeeds, so a gallery file is not treated as proof that the whole analysis completed. The main workbook records the intended gallery path and a note that final gallery insertion counts are produced after the main workbook is saved; the CLI output and the gallery workbook contain the final image counts. Choose a denser image-first layout with `--distribution-image-gallery-layout compact_grid`; the default `vertical` layout keeps one compact horizontal summary row above each inserted image.
 
 The gallery workbook is intentionally user-facing and does not expose full local paths, raw output folders, or temporary implementation paths. Chart file columns show filenames only; the workbook uses the chart output folder internally when it needs to embed images.
 
 The gallery workbook contains:
 
-- `Image Gallery`: generated motion and reference chart PNGs. Motion blocks show `Motion Duration Distribution`, PWM, axis, action, and hardware actual grouped distance. Reference blocks show `Reference Duration Distribution`, `Search Reference`, and `Distance = Not Applicable`.
+- `Image Gallery`: generated motion and reference chart PNGs. Each chart has a compact row with image number, chart type, axis, action, n, mean, SD, variance, median, min-max, CV, PWM, and distance. Motion rows show hardware actual distance; reference rows show `Distance = Not Applicable` plus reference evidence status. Debug-only fields such as group ID, chart file paths, grouping mode, and insertion status stay out of this visual sheet.
 - `Image Statistics`: one row per motion or reference distribution group, including skipped/no-image groups, with extracted statistics such as mean, median, sample SD, sample variance, normal fit mean/SD/variance, population SD/variance, min/max, percentiles, coefficient of variation, outlier count/values, distribution status, chart status, and notes. It also shows `Chart Type`, `Action`, `Distance`, `Reference Evidence Status`, `Selected Group Distance`, `PWM Raw Values Seen`, `PWM Directions Seen`, `PWM Direction Mixed`, `Hardware Actual Distance Group Display`, grouping mode, bin size, hardware raw distance example, hardware distance min/max, and whether position values were mixed inside the group.
 - `Image Index`: a compact lookup table with image number, group ID, chart filename, Excel anchor, chart type, axis, action, PWM, hardware actual grouped distance, reference evidence status, normal fit mean/SD/variance, outlier summary, gallery image status, and any image insertion error.
-- `Axis Action Summary`: the same compact axis/action table as the main workbook, including both motion actions and validated `Search Reference` rows, with the same Mean/CV conditional formatting.
+- `Axis Action Summary`: the same compact axis/action table as the main workbook, including both motion actions and validated `Search Reference` rows, with Mean-only conditional formatting.
 
 The gallery reuses PNG files generated by the normal chart generator; it does not regenerate charts. If a group has too few samples, it still appears in `Image Statistics`, but it does not create a large block in `Image Gallery` unless `DISTRIBUTION_IMAGE_GALLERY_INCLUDE_SKIPPED_GROUPS = True`. If no images are inserted, `Image Gallery` shows an `Image Gallery Summary` with statistics-row count, groups with chart paths, existing chart files, inserted images, groups without charts, image-limit skips, missing chart files, embedding-unavailable count, insert failures, and a reason such as insufficient samples or image limit. If a chart path is missing, the workbook records `Chart File Missing` instead of failing. If image embedding is unavailable, the status is `ImageEmbeddingUnavailable`. If one image file is corrupt or cannot be inserted, that row is marked `ImageInsertFailed`, the exception appears in `Image Insert Error`, and remaining images still export. If more than `DISTRIBUTION_IMAGE_MAX_IMAGES` charts are available, statistics are exported for every group and extra image insertions are counted as images skipped due to the image limit. Groups that never produced chart files are reported separately as groups without charts.
 
@@ -584,14 +584,13 @@ Rows include both hardware-distance motion actions and `Search Reference` action
 
 Formatting is intentionally restrained: dark header, alternating row shading, frozen header, autofilter, centered numeric columns, 3 decimal places for mean/median/min/max display, 4 decimals for SD/variance, and 2 decimals for CV.
 
-Conditional formatting highlights only `Mean (s)` and `CV (%)`:
+Conditional formatting highlights only `Mean (s)`:
 
-- red when `CV (%) >= 2.0` and `Mean (s) >= 25.0`
-- yellow when `CV (%) >= 2.0` and `20.0 <= Mean (s) < 25.0`
-- no highlight when `CV (%) < 2.0`
+- red when `Mean (s) >= 25.0`
+- yellow when `20.0 <= Mean (s) < 25.0`
 - no highlight when `Mean (s) < 20.0`
 
-The thresholds live in `config.py` as `AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD`, `AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD`, and `AXIS_SUMMARY_MEAN_RED_THRESHOLD`.
+CV remains visible as data but is not highlighted by default. The thresholds live in `config.py` as `AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD` and `AXIS_SUMMARY_MEAN_RED_THRESHOLD`.
 
 ### Distribution Raw Data
 
@@ -615,7 +614,7 @@ This sheet lists every uncovered TXT interval with gap index, start time, end ti
 
 ### Distribution Charts
 
-When embedding is enabled, each generated PNG appears with a small metadata block including chart type, action, hardware distance source, method, grouping mode, and bin size. Motion chart titles label the displayed group distance as `HardwareActualDistance`. Reference chart titles label the chart as `Reference Duration Distribution` and show `Distance = Not Applicable`. User-facing chart file cells show filenames only, not full local paths. Chart y-axes use `Count` by default, not `Density`.
+When embedding is enabled, the main analysis workbook includes generated PNGs plus audit metadata for each chart. The separate image gallery workbook uses a cleaner compact row above each image for final review. Motion chart titles label the displayed group distance as `HardwareActualDistance`. Reference chart titles label the chart as `Reference Duration Distribution` and show `Distance = Not Applicable`. User-facing chart file cells show filenames only, not full local paths. Chart y-axes use `Count` by default, not `Density`.
 
 ## Troubleshooting
 

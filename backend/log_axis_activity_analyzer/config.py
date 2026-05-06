@@ -336,13 +336,13 @@ DISTRIBUTION_ALLOWED_HARDWARE_MOTION_MATCH_STATUSES = {
 }
 MIN_SAMPLES_FOR_NORMAL_FIT = 3
 MIN_SAMPLES_FOR_DISTRIBUTION_CHART = 2
-AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD = 2.0
 AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD = 20.0
 AXIS_SUMMARY_MEAN_RED_THRESHOLD = 25.0
 NORMAL_CHART_BINS = "auto"
 NORMAL_CHART_Y_AXIS_MODE = "count"
 NORMAL_CHART_Y_AXIS_MODE_OPTIONS = {"count", "density"}
 LOW_VARIANCE_STD_THRESHOLD_S = 0.02
+DISABLE_IQR_OUTLIERS_FOR_LOW_VARIANCE_GROUPS = True
 REFERENCE_MIN_DURATION_MS = 1000
 REFERENCE_EXCLUDE_SHORT_DURATIONS_FROM_DISTRIBUTION = True
 NORMAL_DISTRIBUTION_CHART_DPI = 150
@@ -371,34 +371,20 @@ DISTRIBUTION_IMAGE_GRID_COLUMNS = 2
 DISTRIBUTION_IMAGE_GRID_BLOCK_WIDTH_COLUMNS = 14
 
 DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS = [
-    "Group ID",
+    "Image #",
     "Chart Type",
-    "PWM (%)",
     "Axis",
     "Action",
-    "Hardware Actual Distance",
-    "Hardware Actual Distance Group Value",
-    "Hardware Actual Distance Group Display",
+    "n",
+    "Mean (s)",
+    "SD (s)",
+    "Var (s^2)",
+    "Median (s)",
+    "Min-Max (s)",
+    "CV (%)",
+    "PWM (%)",
     "Distance",
     "Reference Evidence Status",
-    "Hardware Distance Source",
-    "Hardware Distance Method",
-    "Movement Distance Grouping Mode",
-    "Movement Distance Bin Size",
-    "Rule ID",
-    "Action Label",
-    "Sample Count",
-    "Mean Duration (s)",
-    "Sample SD Duration (s)",
-    "Sample Variance Duration (s^2)",
-    "Outlier Count",
-    "Outlier Values",
-    "Chart Uses Outlier-Trimmed Axis",
-    "Chart File",
-    "Distribution Status",
-    "Chart Status",
-    "Gallery Image Status",
-    "Image Insert Error",
 ]
 
 DISTRIBUTION_IMAGE_STATISTICS_COLUMNS = [

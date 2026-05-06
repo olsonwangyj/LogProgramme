@@ -9,7 +9,6 @@ from openpyxl.formatting.rule import FormulaRule
 from openpyxl.styles import Alignment, Font, PatternFill
 
 from .config import (
-    AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD,
     AXIS_SUMMARY_MEAN_RED_THRESHOLD,
     AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD,
     DISTRIBUTION_CHART_BLOCK_HEIGHT,
@@ -615,7 +614,7 @@ class ExcelExporter:
         self._auto_fit_columns(sheet)
 
     def _format_axis_action_summary_sheet(self, writer) -> None:
-        """Apply table styling and CV/mean conditional formatting."""
+        """Apply table styling and Mean-only conditional formatting."""
 
         self._logger.debug("Formatting Axis Action Summary sheet")
         if "Axis Action Summary" not in writer.sheets:
@@ -715,26 +714,20 @@ class ExcelExporter:
         self._auto_fit_columns(sheet)
 
     def _apply_axis_action_conditional_formatting(self, sheet, headers: dict[str, int]) -> None:
-        """Highlight Mean/CV cells when both CV and mean thresholds are exceeded."""
+        """Highlight only Mean cells using the user-facing thresholds."""
 
-        if not {"Mean (s)", "CV (%)"} <= set(headers):
+        if "Mean (s)" not in headers:
             return
         if sheet.max_row < 2:
             return
         mean_col = headers["Mean (s)"]
-        cv_col = headers["CV (%)"]
         mean_letter = sheet.cell(row=1, column=mean_col).column_letter
-        cv_letter = sheet.cell(row=1, column=cv_col).column_letter
         red_fill = PatternFill("solid", fgColor="FFC7CE")
         yellow_fill = PatternFill("solid", fgColor="FFEB9C")
-        target_range = f"{mean_letter}2:{mean_letter}{sheet.max_row} {cv_letter}2:{cv_letter}{sheet.max_row}"
-        red_formula = (
-            f"AND(${cv_letter}2>={AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD},"
-            f"${mean_letter}2>={AXIS_SUMMARY_MEAN_RED_THRESHOLD})"
-        )
+        target_range = f"{mean_letter}2:{mean_letter}{sheet.max_row}"
+        red_formula = f"${mean_letter}2>={AXIS_SUMMARY_MEAN_RED_THRESHOLD}"
         yellow_formula = (
-            f"AND(${cv_letter}2>={AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD},"
-            f"${mean_letter}2>={AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD},"
+            f"AND(${mean_letter}2>={AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD},"
             f"${mean_letter}2<{AXIS_SUMMARY_MEAN_RED_THRESHOLD})"
         )
         sheet.conditional_formatting.add(

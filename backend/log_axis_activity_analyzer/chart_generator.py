@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 
 from .config import (
+    DISABLE_IQR_OUTLIERS_FOR_LOW_VARIANCE_GROUPS,
     LOW_VARIANCE_STD_THRESHOLD_S,
     MIN_SAMPLES_FOR_DISTRIBUTION_CHART,
     MIN_SAMPLES_FOR_NORMAL_FIT,
@@ -166,6 +167,8 @@ class NormalDistributionChartGenerator:
             and stats.sample_std_s < self.low_variance_std_threshold_s
         )
         outlier_info = self._outlier_info(durations_s)
+        if is_low_variance and DISABLE_IQR_OUTLIERS_FOR_LOW_VARIANCE_GROUPS:
+            outlier_info = {"outliers": [], "inliers": durations_s}
         if is_zero_variance:
             value = durations_s[0]
             ax.axvline(value, color="#1f77b4", linewidth=2.5, label="Identical durations")

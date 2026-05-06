@@ -14,7 +14,6 @@ from openpyxl.utils import get_column_letter
 
 from .config import (
     AXIS_ACTION_SUMMARY_COLUMNS,
-    AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD,
     AXIS_SUMMARY_MEAN_RED_THRESHOLD,
     AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD,
     DISTRIBUTION_IMAGE_BLOCK_HEIGHT_ROWS,
@@ -87,7 +86,7 @@ class DistributionImageGalleryExporter:
         self.max_images = max_images
         self.image_width_px = image_width_px
         self.image_height_px = image_height_px
-        image_rows = math.ceil(image_height_px / 18) + len(DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS) + 5
+        image_rows = math.ceil(image_height_px / 18) + 6
         self.block_height_rows = max(block_height_rows, image_rows)
         self.include_skipped_groups = include_skipped_groups
         self.layout = layout if layout in DISTRIBUTION_IMAGE_GALLERY_LAYOUT_OPTIONS else DISTRIBUTION_IMAGE_GALLERY_LAYOUT
@@ -110,9 +109,9 @@ class DistributionImageGalleryExporter:
         workbook = Workbook()
         gallery_sheet = workbook.active
         gallery_sheet.title = DISTRIBUTION_IMAGE_GALLERY_SHEET_NAME
+        axis_action_sheet = workbook.create_sheet("Axis Action Summary")
         statistics_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_STATISTICS_SHEET_NAME)
         index_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_INDEX_SHEET_NAME)
-        axis_action_sheet = workbook.create_sheet("Axis Action Summary")
 
         rows_by_group = distribution_result.grouped_rows
         gallery_rows, index_rows, counts = self._build_gallery_and_index(
@@ -188,7 +187,7 @@ class DistributionImageGalleryExporter:
             )
             image_insert_error = ""
             image_number = None
-            anchor = f"A{current_row + len(DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS) + 2}"
+            anchor = f"A{current_row + 3}"
             compact_position: tuple[int, int, str] | None = None
             if image_status == "ImageInserted":
                 if self.layout == "compact_grid":
@@ -205,7 +204,7 @@ class DistributionImageGalleryExporter:
                     image_insert_error = str(exc)
                     image_number = None
             self._increment_gallery_counts(counts, image_status)
-            gallery_row = self._gallery_metadata_row(stats, first_row, image_status, image_insert_error)
+            gallery_row = self._gallery_metadata_row(stats, first_row, image_status, image_insert_error, image_number)
             gallery_rows[stats.group_id] = gallery_row
             if self._should_write_gallery_block(image_status):
                 wrote_gallery_block = True
@@ -217,7 +216,7 @@ class DistributionImageGalleryExporter:
                     self._write_gallery_block(sheet, current_row, gallery_row)
                 if image_status != "ImageInserted" and self.layout != "compact_grid":
                     sheet.cell(
-                        row=current_row + len(DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS) + 2,
+                        row=current_row + 3,
                         column=1,
                         value=image_status,
                     )
@@ -321,14 +320,19 @@ class DistributionImageGalleryExporter:
         sheet.cell(row=start_row + 1, column=start_column, value=subtitle)
 
     def _write_gallery_block(self, sheet, start_row: int, metadata: dict[str, object]) -> None:
-        """Write one chart metadata block."""
+        """Write one compact chart summary row above the image."""
 
-        sheet.cell(row=start_row, column=1, value="Distribution Image")
-        sheet.cell(row=start_row, column=1).font = Font(bold=True)
-        for offset, key in enumerate(DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS, start=1):
-            sheet.cell(row=start_row + offset, column=1, value=key)
-            sheet.cell(row=start_row + offset, column=2, value=metadata.get(key))
-            sheet.cell(row=start_row + offset, column=1).font = Font(bold=True)
+        header_fill = PatternFill("solid", fgColor="1F2937")
+        header_font = Font(color="FFFFFF", bold=True)
+        value_fill = PatternFill("solid", fgColor="F9FAFB")
+        for column_index, key in enumerate(DISTRIBUTION_IMAGE_GALLERY_METADATA_KEYS, start=1):
+            header_cell = sheet.cell(row=start_row, column=column_index, value=key)
+            header_cell.fill = header_fill
+            header_cell.font = header_font
+            header_cell.alignment = Alignment(horizontal="center")
+            value_cell = sheet.cell(row=start_row + 1, column=column_index, value=metadata.get(key))
+            value_cell.fill = value_fill
+            value_cell.alignment = Alignment(horizontal="center", vertical="center")
 
     def _statistics_row(
         self,
@@ -430,16 +434,25 @@ class DistributionImageGalleryExporter:
         first_row: RowLike | None,
         image_status: str,
         image_insert_error: str = "",
+        image_number: int | None = None,
     ) -> dict[str, object]:
         """Build one Image Gallery metadata block row."""
 
         return {
+            "Image #": image_number,
             "Group ID": stats.group_id,
             "Chart Type": self._chart_type(stats),
             "TXT Source File": self._basename(getattr(stats, "txt_source_file", "")),
             "PWM (%)": self._abs_optional(getattr(stats, "pwm_percent", None)),
             "Axis": stats.axis,
             "Action": self._action(stats),
+            "n": stats.sample_count,
+            "Mean (s)": stats.mean_s,
+            "SD (s)": stats.sample_std_s,
+            "Var (s^2)": stats.sample_var_s2,
+            "Median (s)": stats.median_s,
+            "Min-Max (s)": self._min_max_display(stats),
+            "CV (%)": stats.cv_percent,
             "Hardware Actual Distance": self._abs_optional(getattr(stats, "movement_distance", None)),
             "Hardware Actual Distance Group Value": self._abs_optional(
                 getattr(stats, "movement_distance_group_value", None)
@@ -610,8 +623,24 @@ class DistributionImageGalleryExporter:
         """Apply readable gallery worksheet sizing."""
 
         sheet.freeze_panes = "A2"
-        sheet.column_dimensions["A"].width = 36
-        sheet.column_dimensions["B"].width = 96
+        widths = {
+            "A": 10,
+            "B": 30,
+            "C": 10,
+            "D": 18,
+            "E": 8,
+            "F": 11,
+            "G": 11,
+            "H": 12,
+            "I": 12,
+            "J": 16,
+            "K": 10,
+            "L": 10,
+            "M": 14,
+            "N": 22,
+        }
+        for column, width in widths.items():
+            sheet.column_dimensions[column].width = width
         if self.layout == "compact_grid":
             for column_index in range(1, self.grid_columns * self.grid_block_width_columns + 1):
                 sheet.column_dimensions[get_column_letter(column_index)].width = 14
@@ -627,7 +656,7 @@ class DistributionImageGalleryExporter:
             sheet.column_dimensions[get_column_letter(column[0].column)].width = width
 
     def _format_axis_action_summary_sheet(self, sheet) -> None:
-        """Apply summary table styling and Mean/CV conditional formatting."""
+        """Apply summary table styling and Mean-only conditional formatting."""
 
         sheet.freeze_panes = "A2"
         sheet.auto_filter.ref = sheet.dimensions
@@ -659,24 +688,18 @@ class DistributionImageGalleryExporter:
         self._format_table_sheet(sheet)
 
     def _apply_axis_action_conditional_formatting(self, sheet, headers: dict[str, int]) -> None:
-        """Highlight only Mean and CV cells when both thresholds are met."""
+        """Highlight only Mean cells based on the latest report thresholds."""
 
-        if not {"Mean (s)", "CV (%)"} <= set(headers):
+        if "Mean (s)" not in headers:
             return
         if sheet.max_row < 2:
             return
         mean_col = headers["Mean (s)"]
-        cv_col = headers["CV (%)"]
         mean_letter = sheet.cell(row=1, column=mean_col).column_letter
-        cv_letter = sheet.cell(row=1, column=cv_col).column_letter
-        target_range = f"{mean_letter}2:{mean_letter}{sheet.max_row} {cv_letter}2:{cv_letter}{sheet.max_row}"
-        red_formula = (
-            f"AND(${cv_letter}2>={AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD},"
-            f"${mean_letter}2>={AXIS_SUMMARY_MEAN_RED_THRESHOLD})"
-        )
+        target_range = f"{mean_letter}2:{mean_letter}{sheet.max_row}"
+        red_formula = f"${mean_letter}2>={AXIS_SUMMARY_MEAN_RED_THRESHOLD}"
         yellow_formula = (
-            f"AND(${cv_letter}2>={AXIS_SUMMARY_CV_HIGHLIGHT_THRESHOLD},"
-            f"${mean_letter}2>={AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD},"
+            f"AND(${mean_letter}2>={AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD},"
             f"${mean_letter}2<{AXIS_SUMMARY_MEAN_RED_THRESHOLD})"
         )
         sheet.conditional_formatting.add(
@@ -819,6 +842,21 @@ class DistributionImageGalleryExporter:
             return value
         value = getattr(stats, "population_var_ms2", None)
         return value / 1_000_000.0 if value is not None else None
+
+    def _min_max_display(self, stats: StatsLike) -> str:
+        """Return compact duration min-max text for gallery summary rows."""
+
+        min_s = getattr(stats, "min_s", None)
+        max_s = getattr(stats, "max_s", None)
+        if min_s is None:
+            min_ms = getattr(stats, "min_ms", None)
+            min_s = min_ms / 1000.0 if min_ms is not None else None
+        if max_s is None:
+            max_ms = getattr(stats, "max_ms", None)
+            max_s = max_ms / 1000.0 if max_ms is not None else None
+        if min_s is None or max_s is None:
+            return ""
+        return f"{float(min_s):.3f}-{float(max_s):.3f}"
 
     def _chart_file_display(self, chart_file: str | Path | None) -> str:
         """Return a user-facing chart image filename."""

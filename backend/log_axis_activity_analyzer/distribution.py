@@ -20,7 +20,9 @@ from .config import (
     DISTRIBUTION_ALLOWED_PWM_MATCH_STATUSES,
     DISTRIBUTION_DISTANCE_GROUPING_MODE,
     DISTRIBUTION_DISTANCE_SOURCE,
+    DISABLE_IQR_OUTLIERS_FOR_LOW_VARIANCE_GROUPS,
     DURATION_STATUS_VALID,
+    LOW_VARIANCE_STD_THRESHOLD_S,
     MIN_SAMPLES_FOR_NORMAL_FIT,
     MOVEMENT_DISTANCE_BIN_SIZE,
     MOVEMENT_DISTANCE_GROUPING_MODES,
@@ -99,6 +101,13 @@ def _outlier_summary_from_ms_series(series: pd.Series) -> tuple[int, str]:
 
     clean = pd.Series([float(value) for value in series.dropna()], dtype="float64")
     if int(clean.count()) < 4:
+        return 0, ""
+    sample_std_ms = float(clean.std(ddof=1)) if int(clean.count()) > 1 else math.nan
+    if (
+        DISABLE_IQR_OUTLIERS_FOR_LOW_VARIANCE_GROUPS
+        and math.isfinite(sample_std_ms)
+        and sample_std_ms / 1000.0 < LOW_VARIANCE_STD_THRESHOLD_S
+    ):
         return 0, ""
     q1 = float(clean.quantile(0.25))
     q3 = float(clean.quantile(0.75))
@@ -776,6 +785,8 @@ class DistributionAnalyzer:
             notes = self._merge_notes(notes, f"Mixed distance methods: {', '.join(methods)}.")
         if distance_source == "Mixed":
             notes = self._merge_notes(notes, f"Mixed distance sources: {', '.join(sources)}.")
+        if sample_std_s is not None and sample_std_s < LOW_VARIANCE_STD_THRESHOLD_S:
+            notes = self._merge_notes(notes, "Low variance group.")
         return DistributionStats(
             group_id=group_id,
             txt_source_file=first.txt_source_file,
@@ -1319,6 +1330,8 @@ class ReferenceDurationAnalyzer:
         normal_fit_variance_s2 = duration["sample_var_s2"] if distribution_status == "NormalFitReady" else None
         row_notes = self._combine_unique_notes([row.notes for row in rows])
         notes = self._merge_notes(notes, row_notes)
+        if duration["sample_std_s"] is not None and duration["sample_std_s"] < LOW_VARIANCE_STD_THRESHOLD_S:
+            notes = self._merge_notes(notes, "Low variance group.")
         return ReferenceDurationStats(
             group_id=group_id,
             txt_source_file=first.txt_source_file,
