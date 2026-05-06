@@ -6,3 +6,5 @@ output/
 *.xlsx
 Log/
 *.tmp
+build/
+dist/

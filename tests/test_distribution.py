@@ -8,6 +8,7 @@ import subprocess
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from openpyxl import load_workbook
@@ -3895,6 +3896,117 @@ def test_cli_rejects_old_software_distance_source(tmp_path: Path) -> None:
     assert "invalid choice" in (result.stdout + result.stderr)
     assert "hardware_actual" in (result.stdout + result.stderr)
     assert not output_path.exists()
+
+
+def test_cli_help_describes_file_picker_and_no_file_picker_mode() -> None:
+    """CLI help should describe optional file pickers and the explicit no-picker mode."""
+
+    result = subprocess.run(
+        [sys.executable, "-m", "app.log_activity_tool", "--help"],
+        cwd=Path(__file__).resolve().parents[1],
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+
+    help_text = result.stdout
+    assert "--no-file-picker" in help_text
+    assert "file picker dialogs" in help_text
+    assert "--no-gui" not in help_text
+
+
+def test_no_file_picker_requires_cli_paths_without_prompt(monkeypatch, tmp_path: Path) -> None:
+    """--no-file-picker should fail clearly instead of opening dialogs when paths are missing."""
+
+    from app import log_activity_tool
+
+    def fail_prompt(_missing_keys):
+        raise AssertionError("file picker should not be opened")
+
+    monkeypatch.setattr(log_activity_tool, "_prompt_for_missing_paths", fail_prompt)
+    args = log_activity_tool._parse_arguments(["--txt-file", str(tmp_path / "sample.txt"), "--no-file-picker"])
+
+    with pytest.raises(ValueError, match="File picker dialogs are disabled"):
+        log_activity_tool._resolve_paths(args)
+
+
+def test_file_picker_mode_resolves_paths_and_shows_completion(monkeypatch, tmp_path: Path) -> None:
+    """No-argument mode should use file picker paths, run analysis, and show a completion message."""
+
+    from app import log_activity_tool
+
+    txt_path = tmp_path / "UroBiopsy.txt"
+    log_folder = tmp_path / "logs"
+    output_path = tmp_path / "analysis.xlsx"
+    gallery_path = tmp_path / "analysis_distribution_image_gallery.xlsx"
+    chart_folder = tmp_path / "analysis_distribution_charts"
+    log_folder.mkdir()
+    calls: dict[str, object] = {}
+    messages: list[tuple[str, str, str]] = []
+
+    def fake_prompt(missing_keys):
+        calls["missing_keys"] = missing_keys
+        return {
+            "txt_file": txt_path,
+            "log_folder": log_folder,
+            "output": output_path,
+        }
+
+    class FakeService:
+        def __init__(self, _logger):
+            pass
+
+        def run_analysis(self, **kwargs):
+            calls["run_kwargs"] = kwargs
+            return SimpleNamespace(
+                output_path=output_path,
+                distribution_image_gallery_path=gallery_path,
+                distribution_output_dir=chart_folder,
+            )
+
+    monkeypatch.setattr(log_activity_tool, "_prompt_for_missing_paths", fake_prompt)
+    monkeypatch.setattr(log_activity_tool, "LogAnalysisService", FakeService)
+    monkeypatch.setattr(log_activity_tool, "_print_summary", lambda result: calls.setdefault("printed", result))
+    monkeypatch.setattr(
+        log_activity_tool,
+        "_show_messagebox",
+        lambda title, message, kind="info": messages.append((title, message, kind)),
+    )
+
+    assert log_activity_tool.main([]) == 0
+    assert calls["missing_keys"] == ["txt_file", "log_folder", "output"]
+    assert calls["run_kwargs"]["txt_file_path"] == txt_path
+    assert calls["run_kwargs"]["log_folder_path"] == log_folder
+    assert calls["run_kwargs"]["output_path"] == output_path
+    assert messages
+    assert messages[0][0] == "Analysis Complete"
+    assert "Main workbook:" in messages[0][1]
+    assert str(output_path) in messages[0][1]
+    assert str(gallery_path) in messages[0][1]
+    assert str(chart_folder) in messages[0][1]
+
+
+def test_file_picker_cancellation_is_graceful(monkeypatch) -> None:
+    """Cancelling a picker should return a clear cancellation result without crashing."""
+
+    from app import log_activity_tool
+
+    messages: list[tuple[str, str, str]] = []
+    monkeypatch.setattr(
+        log_activity_tool,
+        "_prompt_for_missing_paths",
+        lambda _missing_keys: {"txt_file": None, "log_folder": None, "output": None},
+    )
+    monkeypatch.setattr(
+        log_activity_tool,
+        "_show_messagebox",
+        lambda title, message, kind="info": messages.append((title, message, kind)),
+    )
+
+    assert log_activity_tool.main([]) == 1
+    assert messages
+    assert messages[0][0] == "Analysis Cancelled"
+    assert "cancelled" in messages[0][1].lower()
 
 
 def _workbook_rows(workbook, sheet_name: str) -> tuple[dict[str, int], list[tuple[object, ...]]]:

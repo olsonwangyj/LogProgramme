@@ -30,18 +30,36 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## CLI Usage
+## Usage Modes
+
+LogProgramme is a command-line executable with optional file-picker dialogs. It is not a full GUI application.
+
+If all required paths are provided, the tool runs directly from the command line and does not show dialogs:
 
 ```powershell
 python -m app.log_activity_tool ^
   --txt-file "D:\LogProgramme\Log\UroBiopsy_20260410.txt" ^
   --log-folder "D:\LogProgramme\Log\RobotMovingValues\20260410" ^
   --output "D:\LogProgramme\output\april10-analysis-reviewed.xlsx" ^
-  --no-gui ^
+  --no-file-picker ^
   --verbose
 ```
 
-Required arguments:
+If one or more required paths are omitted, simple file-picker dialogs are shown by default:
+
+```powershell
+python -m app.log_activity_tool
+```
+
+The dialog sequence is:
+
+1. Select main UroBiopsy TXT log file.
+2. Select folder containing hardware `.log` files.
+3. Choose output Excel workbook path.
+
+After the run completes in file-picker mode, a small completion message shows the generated main workbook, distribution image gallery workbook, and chart folder paths. If the user cancels a dialog, the program exits gracefully with a cancellation message.
+
+Required command-line paths when `--no-file-picker` is used:
 
 - `--txt-file`
 - `--log-folder`
@@ -53,7 +71,7 @@ Useful optional arguments:
 - `--encoding-logs`
 - `--recursive`
 - `--association-strategy same_file_then_nearest|latest_before_start|latest_known`
-- `--no-gui`
+- `--no-file-picker`
 - `--no-distribution`
 - `--distribution-output-dir`
 - `--max-distribution-charts`
@@ -79,10 +97,46 @@ Backward-compatible aliases:
 
 - `--log-a` maps to `--txt-file`
 - `--log-b` is treated as a legacy control-log input; if a `.log` file is passed, its parent folder is scanned and every `.log` file in that folder is parsed
+- `--no-gui` is accepted as a hidden legacy alias for `--no-file-picker`
 
 `--log-folder` is the preferred workflow for new runs.
 
 Hardware actual distance is the only supported distance source. `--distance-source` / `--distribution-distance-source` is strictly limited to `hardware_actual`; legacy software choices such as `commanded_only` are rejected by the CLI before analysis so a run cannot silently mix TXT software distances into distribution grouping.
+
+## Packaging
+
+Build a Windows executable with PyInstaller:
+
+```powershell
+.\.venv\Scripts\python.exe -m PyInstaller --clean --noconfirm LogProgramme.spec
+```
+
+The packaged executable is written to:
+
+```text
+dist\LogProgramme.exe
+```
+
+The spec keeps the command-line/file-picker entrypoint and includes Tkinter/Tcl/Tk support for open-file, folder, save-file, and message-box dialogs. It also collects the analysis dependencies used by the packaged run: pandas, openpyxl, Pillow, matplotlib, and numpy. Matplotlib charts use the non-interactive `Agg` backend.
+
+Packaged CLI mode:
+
+```powershell
+dist\LogProgramme.exe ^
+  --txt-file "D:\LogProgramme\Log\UroBiopsy_20260410.txt" ^
+  --log-folder "D:\LogProgramme\Log\RobotMovingValues\20260410" ^
+  --output "D:\LogProgramme\output\april10-packaged.xlsx" ^
+  --distribution-image-gallery ^
+  --no-file-picker
+```
+
+Packaged file-picker mode:
+
+```powershell
+dist\LogProgramme.exe
+```
+
+Double-clicking `LogProgramme.exe` follows the same file-picker sequence and shows a completion or error message box. No full GUI window is provided or required.
 
 ## Duration Matching
 
@@ -323,7 +377,7 @@ python -m app.log_activity_tool ^
   --log-folder "D:\LogProgramme\Log\RobotMovingValues\20260410" ^
   --output "D:\LogProgramme\output\april10-analysis.xlsx" ^
   --distribution-image-gallery-output "D:\LogProgramme\output\april10-images.xlsx" ^
-  --no-gui
+  --no-file-picker
 ```
 
 The main analysis workbook is exported first. The separate gallery workbook is written only after the main workbook succeeds, so a gallery file is not treated as proof that the whole analysis completed. The main workbook records the intended gallery path and a note that final gallery insertion counts are produced after the main workbook is saved; the CLI output and the gallery workbook contain the final image counts. Choose a denser image-first layout with `--distribution-image-gallery-layout compact_grid`; the default `vertical` layout keeps one compact horizontal summary row above each inserted image.
@@ -371,7 +425,7 @@ python -m app.log_activity_tool ^
   --log-folder "D:\LogProgramme\Log\RobotMovingValues\20260410" ^
   --output "D:\LogProgramme\output\april10-analysis.xlsx" ^
   --no-distribution ^
-  --no-gui
+  --no-file-picker
 ```
 
 Save external chart files without embedding them in Excel with `--no-embed-distribution-charts`.
@@ -660,7 +714,7 @@ python -m app.log_activity_tool ^
   --txt-file "D:\LogProgramme\Log\UroBiopsy_20260410.txt" ^
   --log-folder "D:\LogProgramme\Log\RobotMovingValues\20260410" ^
   --output "D:\LogProgramme\output\april10-analysis-reviewed.xlsx" ^
-  --no-gui ^
+  --no-file-picker ^
   --verbose
 ```
 

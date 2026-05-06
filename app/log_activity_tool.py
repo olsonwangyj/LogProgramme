@@ -15,21 +15,30 @@ else:
     IMPORT_ERROR = None
 
 
+class AnalysisCancelled(Exception):
+    """Raised when the user cancels the file-picker workflow."""
+
+
 def main(argv: list[str] | None = None) -> int:
     """Parse user input, run the analysis service, and return a process exit code."""
 
     args = _parse_arguments(argv)
     _configure_logging(args.verbose, args.trace_lines)
+    file_picker_mode = _should_use_file_picker(args)
     if args.distribution_distance_source != "hardware_actual":
-        logging.getLogger("log_activity_tool").error(
-            "Software distance sources are no longer supported. Hardware actual distance is the only supported distance source."
-        )
+        message = "Software distance sources are no longer supported. Hardware actual distance is the only supported distance source."
+        logging.getLogger("log_activity_tool").error(message)
+        if file_picker_mode:
+            _show_messagebox("Analysis Error", message, kind="error")
         return 1
     if IMPORT_ERROR is not None or LogAnalysisService is None:
-        logging.getLogger("log_activity_tool").error(
-            "Missing dependency %s. Install packages with `pip install -r requirements.txt`.",
-            getattr(IMPORT_ERROR, "name", "unknown"),
+        message = (
+            f"Missing dependency {getattr(IMPORT_ERROR, 'name', 'unknown')}. "
+            "Install packages with `pip install -r requirements.txt`."
         )
+        logging.getLogger("log_activity_tool").error(message)
+        if file_picker_mode:
+            _show_messagebox("Analysis Error", message, kind="error")
         return 1
     try:
         resolved = _resolve_paths(args)
@@ -61,9 +70,25 @@ def main(argv: list[str] | None = None) -> int:
             distribution_image_gallery_layout=args.distribution_image_gallery_layout,
         )
         _print_summary(result)
+        if file_picker_mode:
+            _show_messagebox("Analysis Complete", _completion_message(result), kind="info")
         return 0
+    except AnalysisCancelled as exc:
+        message = str(exc)
+        logging.getLogger("log_activity_tool").warning(message)
+        if file_picker_mode:
+            _show_messagebox("Analysis Cancelled", message, kind="info")
+        return 1
+    except ValueError as exc:
+        message = str(exc)
+        logging.getLogger("log_activity_tool").error(message)
+        if file_picker_mode:
+            _show_messagebox("Analysis Error", message, kind="error")
+        return 1
     except Exception as exc:  # pragma: no cover - integration-oriented guard clause.
         logging.getLogger("log_activity_tool").exception("Analysis failed: %s", exc)
+        if file_picker_mode:
+            _show_messagebox("Analysis Error", f"Analysis failed:\n\n{exc}", kind="error")
         return 1
 
 
@@ -71,13 +96,24 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
     """Build the CLI parser and return parsed arguments."""
 
     parser = argparse.ArgumentParser(
-        description="Analyze axis activity durations from one TXT file plus a folder of robot control logs.",
+        description=(
+            "Analyze axis activity durations from one TXT file plus a folder of hardware control logs. "
+            "If paths are omitted, file picker dialogs are shown by default."
+        ),
+        epilog=(
+            "Usage modes: run with --txt-file, --log-folder, and --output for command-line mode. "
+            "Run with no paths to use simple file-picker dialogs. Use --no-file-picker to require all paths on the command line."
+        ),
     )
     parser.add_argument(
         "--txt-file",
-        "--log-a",
         dest="txt_file",
         help="Path to the main UroBiopsy TXT log file.",
+    )
+    parser.add_argument(
+        "--log-a",
+        dest="txt_file",
+        help=argparse.SUPPRESS,
     )
     parser.add_argument(
         "--log-folder",
@@ -87,10 +123,7 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--log-b",
         dest="legacy_log_b",
-        help=(
-            "Backward-compatible legacy control-log input. If a .log file is provided, "
-            "its parent folder is scanned for all .log files and a warning is logged."
-        ),
+        help=argparse.SUPPRESS,
     )
     parser.add_argument("--output", help="Destination .xlsx workbook path.")
     parser.add_argument(
@@ -119,9 +152,16 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
         help="Recursively scan subfolders under the selected log folder for .log files.",
     )
     parser.add_argument(
-        "--no-gui",
+        "--no-file-picker",
+        dest="no_file_picker",
         action="store_true",
-        help="Disable file-picker dialogs and require all three paths on the command line.",
+        help="Disable file picker dialogs and require all paths from CLI.",
+    )
+    parser.add_argument(
+        "--no-gui",
+        dest="no_file_picker",
+        action="store_true",
+        help=argparse.SUPPRESS,
     )
     parser.add_argument(
         "--no-distribution",
@@ -273,15 +313,23 @@ def _resolve_paths(args: argparse.Namespace) -> dict[str, Path]:
     missing_keys = [key for key, value in resolved.items() if value is None]
     if not missing_keys:
         return resolved
-    if args.no_gui:
+    if args.no_file_picker:
         missing_labels = ", ".join(missing_keys)
-        raise ValueError(f"Missing required path arguments: {missing_labels}")
+        raise ValueError(f"Missing required path arguments: {missing_labels}. File picker dialogs are disabled.")
     dialog_paths = _prompt_for_missing_paths(missing_keys)
     for key, value in dialog_paths.items():
         resolved[key] = value
     if any(value is None for value in resolved.values()):
-        raise ValueError("Analysis cancelled because not all required paths were selected.")
+        raise AnalysisCancelled("Analysis cancelled because not all required paths were selected.")
     return resolved
+
+
+def _should_use_file_picker(args: argparse.Namespace) -> bool:
+    """Return whether this invocation may use file-picker dialogs."""
+
+    if getattr(args, "no_file_picker", False):
+        return False
+    return not (args.txt_file and (args.log_folder or args.legacy_log_b) and args.output)
 
 
 def _resolve_legacy_log_folder(legacy_value: str | None) -> Path | None:
@@ -314,14 +362,17 @@ def _prompt_for_missing_paths(missing_keys: list[str]) -> dict[str, Path | None]
     selected: dict[str, Path | None] = {}
     try:
         if "txt_file" in missing_keys:
-            selected_value = filedialog.askopenfilename(title="Select Main TXT File")
+            selected_value = filedialog.askopenfilename(
+                title="Select main UroBiopsy TXT log file",
+                filetypes=[("Text log files", "*.txt"), ("All files", "*.*")],
+            )
             selected["txt_file"] = Path(selected_value) if selected_value else None
         if "log_folder" in missing_keys:
-            selected_value = filedialog.askdirectory(title="Select Log Folder")
+            selected_value = filedialog.askdirectory(title="Select folder containing hardware .log files")
             selected["log_folder"] = Path(selected_value) if selected_value else None
         if "output" in missing_keys:
             selected_value = filedialog.asksaveasfilename(
-                title="Select Output Workbook",
+                title="Choose output Excel workbook path",
                 defaultextension=".xlsx",
                 filetypes=[("Excel Workbook", "*.xlsx")],
             )
@@ -329,6 +380,44 @@ def _prompt_for_missing_paths(missing_keys: list[str]) -> dict[str, Path | None]
     finally:
         root.destroy()
     return selected
+
+
+def _show_messagebox(title: str, message: str, kind: str = "info") -> None:
+    """Show a small Tkinter message box when file-picker mode is active."""
+
+    try:
+        import tkinter as tk
+        from tkinter import messagebox
+    except Exception as exc:  # pragma: no cover - depends on local GUI support.
+        logging.getLogger("log_activity_tool").warning("Tkinter message box unavailable: %s", exc)
+        return
+    root = tk.Tk()
+    root.withdraw()
+    try:
+        if kind == "error":
+            messagebox.showerror(title, message, parent=root)
+        else:
+            messagebox.showinfo(title, message, parent=root)
+    finally:
+        root.destroy()
+
+
+def _completion_message(result) -> str:
+    """Build the file-picker completion message."""
+
+    lines = [
+        "Analysis complete.",
+        "",
+        "Main workbook:",
+        str(result.output_path),
+    ]
+    gallery_path = getattr(result, "distribution_image_gallery_path", None)
+    if gallery_path:
+        lines.extend(["", "Distribution image gallery:", str(gallery_path)])
+    chart_folder = getattr(result, "distribution_output_dir", None)
+    if chart_folder:
+        lines.extend(["", "Chart folder:", str(chart_folder)])
+    return "\n".join(lines)
 
 
 def _print_summary(result) -> None:
