@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import math
 import statistics
 from collections import Counter, defaultdict
 from datetime import datetime
@@ -906,6 +907,7 @@ class SummaryGenerator:
                     "SD (s)": stats["sd"],
                     "Var (s^2)": stats["var"],
                     "Median (s)": stats["median"],
+                    "IQR (s)": stats["iqr"],
                     "Min-Max (s)": self._min_max_display(stats["min"], stats["max"]),
                     "CV (%)": stats["cv"],
                 }
@@ -1003,9 +1005,21 @@ class SummaryGenerator:
         return (axis, action_order.get(action, 99), action)
 
     def _duration_stats_seconds(self, values: list[float]) -> dict[str, float | int | None]:
-        """Compute common stats for already-second duration values."""
+        """Compute common stats for already-second duration values.
 
-        numeric = [float(value) for value in values if value is not None]
+        A single valid sample has IQR 0.0 because Q1 and Q3 are both that value.
+        """
+
+        numeric: list[float] = []
+        for value in values:
+            if value is None:
+                continue
+            try:
+                numeric_value = float(value)
+            except (TypeError, ValueError):
+                continue
+            if math.isfinite(numeric_value):
+                numeric.append(numeric_value)
         if not numeric:
             return {
                 "n": 0,
@@ -1013,6 +1027,9 @@ class SummaryGenerator:
                 "sd": None,
                 "var": None,
                 "median": None,
+                "q1": None,
+                "q3": None,
+                "iqr": None,
                 "min": None,
                 "max": None,
                 "cv": None,
@@ -1021,12 +1038,18 @@ class SummaryGenerator:
         mean = statistics.mean(numeric)
         sd = statistics.stdev(numeric) if count > 1 else None
         var = statistics.variance(numeric) if count > 1 else None
+        series = pd.Series(numeric, dtype="float64")
+        q1 = float(series.quantile(0.25, interpolation="linear"))
+        q3 = float(series.quantile(0.75, interpolation="linear"))
         return {
             "n": count,
             "mean": mean,
             "sd": sd,
             "var": var,
             "median": statistics.median(numeric),
+            "q1": q1,
+            "q3": q3,
+            "iqr": q3 - q1,
             "min": min(numeric),
             "max": max(numeric),
             "cv": sd / mean * 100.0 if sd is not None and mean else None,

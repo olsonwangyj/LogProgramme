@@ -995,6 +995,7 @@ AXIS_ACTION_SUMMARY_COLUMNS = [
     "SD (s)",
     "Var (s^2)",
     "Median (s)",
+    "IQR (s)",
     "Min-Max (s)",
     "CV (%)",
 ]
@@ -1007,6 +1008,7 @@ OVERALL_AXIS_ACTION_SUMMARY_COLUMNS = [
     "SD (s)",
     "Var (s²)",
     "Median (s)",
+    "IQR (s)",
     "Min–Max (s)",
     "CV (%)",
 ]

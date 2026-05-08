@@ -276,6 +276,7 @@ def _write_gallery_with_charts(
     """Generate charts and export a gallery workbook for synthetic records."""
 
     result = _distribution_result_for(records)
+    frames = SummaryGenerator().build_report_frames(records, [], distribution_result=result)
     stats_by_group = {item.group_id: item for item in result.stats}
     NormalDistributionChartGenerator(max_charts=20).generate_charts(result.grouped_rows, stats_by_group, tmp_path / "charts")
     gallery_path = tmp_path / "gallery.xlsx"
@@ -283,7 +284,7 @@ def _write_gallery_with_charts(
         max_images=max_images,
         include_skipped_groups=include_skipped_groups,
         layout=layout,
-    ).export(gallery_path, result)
+    ).export(gallery_path, result, axis_action_summary=frames.axis_action_summary)
     return result, export_result, load_workbook(gallery_path, data_only=True)
 
 
@@ -2169,6 +2170,36 @@ def test_reference_duration_short_rows_stay_raw_but_leave_summary_and_axis_actio
     assert axis_row["Mean (s)"] == pytest.approx(12.0)
 
 
+def test_duration_stats_seconds_iqr_for_simple_known_values() -> None:
+    """IQR should use pandas-style linear percentiles for odd sample counts."""
+
+    stats = SummaryGenerator()._duration_stats_seconds([1, 2, 3, 4, 5])
+
+    assert stats["q1"] == pytest.approx(2.0)
+    assert stats["q3"] == pytest.approx(4.0)
+    assert stats["iqr"] == pytest.approx(2.0)
+
+
+def test_duration_stats_seconds_iqr_for_even_sample_count() -> None:
+    """Even-sized samples should interpolate Q1 and Q3 linearly."""
+
+    stats = SummaryGenerator()._duration_stats_seconds([10, 12, 14, 16])
+
+    assert stats["q1"] == pytest.approx(11.5)
+    assert stats["q3"] == pytest.approx(14.5)
+    assert stats["iqr"] == pytest.approx(3.0)
+
+
+def test_duration_stats_seconds_iqr_for_single_sample() -> None:
+    """A single valid sample has Q1 == Q3, so IQR is 0.0."""
+
+    stats = SummaryGenerator()._duration_stats_seconds([10])
+
+    assert stats["q1"] == pytest.approx(10.0)
+    assert stats["q3"] == pytest.approx(10.0)
+    assert stats["iqr"] == pytest.approx(0.0)
+
+
 def test_axis_action_summary_combines_motion_and_reference_rows(tmp_path: Path) -> None:
     """Axis Action Summary should use the same motion/reference stats inputs as workbook sheets."""
 
@@ -2207,10 +2238,12 @@ def test_axis_action_summary_combines_motion_and_reference_rows(tmp_path: Path) 
     assert clear_row["Mean (s)"] == pytest.approx(25.0)
     assert clear_row["SD (s)"] == pytest.approx(3.0)
     assert clear_row["Var (s^2)"] == pytest.approx(9.0)
+    assert clear_row["IQR (s)"] == pytest.approx(3.0)
     assert clear_row["CV (%)"] == pytest.approx(12.0)
     assert ref_row["n"] == 3
     assert ref_row["Mean (s)"] == pytest.approx(12.0)
     assert ref_row["SD (s)"] == pytest.approx(2.0)
+    assert ref_row["IQR (s)"] == pytest.approx(2.0)
 
 
 def test_axis_action_summary_conditional_formatting_rules(tmp_path: Path) -> None:
@@ -2280,7 +2313,19 @@ def test_axis_action_summary_conditional_formatting_rules(tmp_path: Path) -> Non
     workbook = load_workbook(output)
     sheet = workbook["Axis Action Summary"]
     headers = [cell.value for cell in sheet[1]]
-    assert headers[:9] == ["Axis", "Action", "n", "Mean (s)", "SD (s)", "Var (s^2)", "Median (s)", "Min-Max (s)", "CV (%)"]
+    assert headers[:10] == [
+        "Axis",
+        "Action",
+        "n",
+        "Mean (s)",
+        "SD (s)",
+        "Var (s^2)",
+        "Median (s)",
+        "IQR (s)",
+        "Min-Max (s)",
+        "CV (%)",
+    ]
+    assert sheet.cell(row=2, column=headers.index("IQR (s)") + 1).number_format == "0.0000"
     rules = list(sheet.conditional_formatting)
     formula_text = "\n".join(
         formula
@@ -2291,7 +2336,9 @@ def test_axis_action_summary_conditional_formatting_rules(tmp_path: Path) -> Non
     assert "$D2>=25.0" in formula_text
     assert "$D2>=20.0" in formula_text
     assert "$D2<25.0" in formula_text
+    assert "$H2" not in formula_text
     assert "$I2" not in formula_text
+    assert "$J2" not in formula_text
 
 
 def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_path: Path) -> None:
@@ -2343,13 +2390,29 @@ def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_p
         "SD (s)",
         "Var (s²)",
         "Median (s)",
+        "IQR (s)",
         "Min–Max (s)",
+        "CV (%)",
+    ]
+    axis_action_sheet = workbook["Axis Action Summary"]
+    axis_action_headers = [cell.value for cell in axis_action_sheet[1]]
+    assert axis_action_headers == [
+        "Axis",
+        "Action",
+        "n",
+        "Mean (s)",
+        "SD (s)",
+        "Var (s^2)",
+        "Median (s)",
+        "IQR (s)",
+        "Min-Max (s)",
         "CV (%)",
     ]
     rows = list(sheet.iter_rows(min_row=2, values_only=True))
     ref_row = next(row for row in rows if row[headers.index("Action")] == "Search Reference")
     assert ref_row[headers.index("n")] == 3
     assert ref_row[headers.index("Mean (s)")] == pytest.approx(12.0)
+    assert ref_row[headers.index("IQR (s)")] == pytest.approx(2.0)
     assert "–" in ref_row[headers.index("Min–Max (s)")]
     assert len(sheet.conditional_formatting) > 0
 
@@ -2366,6 +2429,7 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
             "SD (s)": 0.0945,
             "Var (s^2)": 0.00894,
             "Median (s)": 1.379,
+            "IQR (s)": 0.141,
             "Min-Max (s)": "1.182-1.406",
             "CV (%)": 7.21,
         },
@@ -2377,6 +2441,7 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
             "SD (s)": 0.0874,
             "Var (s^2)": 0.00765,
             "Median (s)": 10.434,
+            "IQR (s)": 0.132,
             "Min-Max (s)": "10.391-10.635",
             "CV (%)": 0.83,
         },
@@ -2388,6 +2453,7 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
             "SD (s)": 0.0913,
             "Var (s^2)": 0.00834,
             "Median (s)": 10.371,
+            "IQR (s)": 0.124,
             "Min-Max (s)": "10.347-10.568",
             "CV (%)": 0.88,
         },
@@ -2399,6 +2465,7 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
             "SD (s)": 0.0956,
             "Var (s^2)": 0.00914,
             "Median (s)": 5.819,
+            "IQR (s)": 0.148,
             "Min-Max (s)": "5.765-5.996",
             "CV (%)": 1.63,
         },
@@ -2410,6 +2477,7 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
             "SD (s)": 0.1579,
             "Var (s^2)": 0.0249,
             "Median (s)": 25.998,
+            "IQR (s)": 0.237,
             "Min-Max (s)": "25.749-26.466",
             "CV (%)": 0.61,
         },
@@ -2421,6 +2489,7 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
             "SD (s)": 0.1375,
             "Var (s^2)": 0.0189,
             "Median (s)": 21.162,
+            "IQR (s)": 0.211,
             "Min-Max (s)": "21.019-21.467",
             "CV (%)": 0.65,
         },
@@ -2454,6 +2523,7 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
         "SD (s)",
         "Var (s²)",
         "Median (s)",
+        "IQR (s)",
         "Min–Max (s)",
         "CV (%)",
     ]
@@ -2471,6 +2541,7 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
         ("N", "Move to Home"),
     ]:
         assert key in rows
+    assert rows[("P", "Search Reference")][headers.index("IQR (s)")] == pytest.approx(0.141)
     assert rows[("P", "Search Reference")][headers.index("Min–Max (s)")] == "1.182–1.406"
     assert rows[("N", "Clear Motor")][headers.index("Mean (s)")] == pytest.approx(26.027)
 
@@ -2482,7 +2553,9 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
     )
     assert "$D2>=25.0" in formula_text
     assert "AND($D2>=20.0,$D2<25.0)" in formula_text
+    assert "$H2" not in formula_text
     assert "$I2" not in formula_text
+    assert "$J2" not in formula_text
 
 
 def test_distribution_image_gallery_workbook_creation_inserts_images(tmp_path: Path) -> None:
@@ -2521,6 +2594,26 @@ def test_distribution_image_gallery_workbook_creation_inserts_images(tmp_path: P
     assert export_result.image_limit_skipped_count == 0
     assert {"Overall Axis Action Summary", "Image Gallery", "Axis Action Summary", "Image Statistics", "Image Index"} <= set(workbook.sheetnames)
     assert workbook.sheetnames[:4] == ["Overall Axis Action Summary", "Image Gallery", "Image Statistics", "Image Index"]
+    overall_sheet = workbook["Overall Axis Action Summary"]
+    overall_headers = [cell.value for cell in overall_sheet[1]]
+    assert overall_headers == [
+        "Axis",
+        "Action",
+        "n",
+        "Mean (s)",
+        "SD (s)",
+        "Var (s²)",
+        "Median (s)",
+        "IQR (s)",
+        "Min–Max (s)",
+        "CV (%)",
+    ]
+    iqr_values = [
+        row[overall_headers.index("IQR (s)")]
+        for row in overall_sheet.iter_rows(min_row=2, values_only=True)
+        if row[overall_headers.index("Axis")] is not None
+    ]
+    assert any(isinstance(value, (int, float)) for value in iqr_values)
     assert len(workbook["Image Gallery"]._images) == 3
     gallery_sheet = workbook["Image Gallery"]
     gallery_headers = [cell.value for cell in gallery_sheet[1] if cell.value is not None]
@@ -3242,6 +3335,7 @@ def test_synthetic_multi_image_end_to_end_gallery_exports_images_and_sign_audits
         "SD (s)",
         "Var (s^2)",
         "Median (s)",
+        "IQR (s)",
         "Min-Max (s)",
         "CV (%)",
     ]

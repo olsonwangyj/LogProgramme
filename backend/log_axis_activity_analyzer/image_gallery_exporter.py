@@ -655,6 +655,7 @@ class DistributionImageGalleryExporter:
             "SD (s)": row.get("SD (s)"),
             "Var (s²)": row.get("Var (s^2)", row.get("Var (s²)")),
             "Median (s)": row.get("Median (s)"),
+            "IQR (s)": row.get("IQR (s)"),
             "Min–Max (s)": self._display_min_max(row.get("Min-Max (s)", row.get("Min–Max (s)"))),
             "CV (%)": row.get("CV (%)"),
         }
@@ -712,7 +713,7 @@ class DistributionImageGalleryExporter:
             if row_index % 2 == 0:
                 for column in range(1, sheet.max_column + 1):
                     sheet.cell(row=row_index, column=column).fill = alternate_fill
-            for header in ("n", "Mean (s)", "SD (s)", "Var (s^2)", "Var (s²)", "Median (s)", "CV (%)"):
+            for header in ("n", "Mean (s)", "SD (s)", "Var (s^2)", "Var (s²)", "Median (s)", "IQR (s)", "CV (%)"):
                 if header in headers:
                     sheet.cell(row=row_index, column=headers[header]).alignment = Alignment(horizontal="center")
             for header, number_format in {
@@ -721,6 +722,7 @@ class DistributionImageGalleryExporter:
                 "Var (s^2)": "0.0000",
                 "Var (s²)": "0.0000",
                 "Median (s)": "0.000",
+                "IQR (s)": "0.0000",
                 "CV (%)": "0.00",
             }.items():
                 if header in headers:

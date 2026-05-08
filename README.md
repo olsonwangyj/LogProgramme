@@ -386,7 +386,7 @@ The gallery workbook is intentionally user-facing and does not expose full local
 
 The gallery workbook contains:
 
-- `Overall Axis Action Summary`: the first sheet in the gallery workbook. It is one consolidated user-facing table with `Axis`, `Action`, `n`, `Mean (s)`, `SD (s)`, `Var (s²)`, `Median (s)`, `Min–Max (s)`, and `CV (%)`, including both motion actions and validated `Search Reference` rows.
+- `Overall Axis Action Summary`: the first sheet in the gallery workbook. It is one consolidated user-facing table with `Axis`, `Action`, `n`, `Mean (s)`, `SD (s)`, `Var (s²)`, `Median (s)`, `IQR (s)`, `Min–Max (s)`, and `CV (%)`, including both motion actions and validated `Search Reference` rows.
 - `Image Gallery`: generated motion and reference chart PNGs. Each chart has a compact row with image number, chart type, axis, action, n, mean, SD, variance, median, min-max, CV, PWM, and distance. Motion rows show hardware actual distance; reference rows show `Distance = Not Applicable` plus reference evidence status. Debug-only fields such as group ID, chart file paths, grouping mode, and insertion status stay out of this visual sheet.
 - `Image Statistics`: one row per motion or reference distribution group, including skipped/no-image groups, with extracted statistics such as mean, median, sample SD, sample variance, normal fit mean/SD/variance, population SD/variance, min/max, percentiles, coefficient of variation, outlier count/values, distribution status, chart status, and notes. It also shows `Chart Type`, `Action`, `Distance`, `Reference Evidence Status`, `Selected Group Distance`, `PWM Raw Values Seen`, `PWM Directions Seen`, `PWM Direction Mixed`, `Hardware Actual Distance Group Display`, grouping mode, bin size, hardware raw distance example, hardware distance min/max, and whether position values were mixed inside the group.
 - `Image Index`: a compact lookup table with image number, group ID, chart filename, Excel anchor, chart type, axis, action, PWM, hardware actual grouped distance, reference evidence status, normal fit mean/SD/variance, outlier summary, gallery image status, and any image insertion error.
@@ -410,7 +410,7 @@ New workbook sheets:
 - `Reference Duration Raw Data`: all valid matched `search_reference` rows, including rows excluded from reference statistics because they were shorter than `REFERENCE_MIN_DURATION_MS`.
 - `Reference Exclusion Summary`: grouped reasons for reference-duration rows excluded from reference statistics, such as `ReferenceDurationTooShort`.
 - `Reference Duration Charts`: embedded reference-duration chart PNGs when chart embedding is enabled.
-- `Axis Action Summary`: a clean axis/action table combining motion rows and `Search Reference` rows.
+- `Axis Action Summary`: a clean axis/action table combining motion rows and `Search Reference` rows, including IQR.
 - `Distribution Eligibility`: rows that never became distribution candidates, such as unmatched rows, diagnostics, parse warnings, and invalid durations.
 - `Distribution Exclusion Summary`: grouped reasons for records excluded from distribution analysis.
 - `Distribution Charts`: embedded PNG charts and group metadata when chart embedding is enabled.
@@ -632,12 +632,14 @@ The row reports `Sample Count`, mean, median, sample SD, sample variance, popula
 `Axis Action Summary` is the compact table for quick review. In the distribution image gallery workbook, the first sheet is named `Overall Axis Action Summary` and uses the final user-facing labels:
 
 ```text
-Axis | Action | n | Mean (s) | SD (s) | Var (s²) | Median (s) | Min–Max (s) | CV (%)
+Axis | Action | n | Mean (s) | SD (s) | Var (s²) | Median (s) | IQR (s) | Min–Max (s) | CV (%)
 ```
 
-Rows include both hardware-distance motion actions and `Search Reference` actions. Motion rows use the same validated hardware-overlap rows used by `Distribution Summary`. Search-reference rows use the same validated duration rows used by `Reference Duration Summary`. This keeps mean, SD, variance, median, min/max, and CV consistent across all statistics sheets.
+Rows include both hardware-distance motion actions and `Search Reference` actions. Motion rows use the same validated hardware-overlap rows used by `Distribution Summary`. Search-reference rows use the same validated duration rows used by `Reference Duration Summary`. This keeps mean, SD, variance, median, IQR, min/max, and CV consistent across all statistics sheets.
 
-Formatting is intentionally restrained: dark header, alternating row shading, frozen header, autofilter, centered numeric columns, 3 decimal places for mean/median/min/max display, 4 decimals for SD/variance, and 2 decimals for CV.
+`IQR (s)` is the interquartile range, calculated as Q3 - Q1 where Q1 is the 25th percentile and Q3 is the 75th percentile. SD shows spread around the mean; IQR shows the robust spread of the middle 50% of duration samples and is less sensitive to outliers. Both are useful for checking motion stability.
+
+Formatting is intentionally restrained: dark header, alternating row shading, frozen header, autofilter, centered numeric columns, 3 decimal places for mean/median/min/max display, 4 decimals for SD/variance/IQR, and 2 decimals for CV.
 
 Conditional formatting highlights only `Mean (s)`:
 
