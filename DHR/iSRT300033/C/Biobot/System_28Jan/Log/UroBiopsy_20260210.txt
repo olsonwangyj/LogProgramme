@@ -1,0 +1,148 @@
+
+2026-02-10 10:02:58:947 Info  @UtlLogger instance created
+2026-02-10 10:02:58:947 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:02:59:413 Info  @MainWindow instance created
+
+2026-02-10 10:03:12:428 User  @user 'Service' login
+
+2026-02-10 10:03:19:903 User  @user cancelled Change Password dialog
+2026-02-10 10:03:19:910 Info  @SurgeryController instance created
+2026-02-10 10:03:19:939 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:03:26:806 Info  @UtlLogger instance created
+2026-02-10 10:03:26:806 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:03:27:285 Info  @MainWindow instance created
+2026-02-10 10:03:58:794 Sec   @failed login by user Service
+
+2026-02-10 10:04:06:372 User  @user 'Service' login
+
+2026-02-10 10:05:36:744 User  @user cancelled Change Password dialog
+2026-02-10 10:05:36:748 Info  @SurgeryController instance created
+2026-02-10 10:05:36:774 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:07:49:220 Info  @UtlLogger instance created
+2026-02-10 10:07:49:221 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:07:49:698 Info  @MainWindow instance created
+
+2026-02-10 10:08:11:736 User  @user 'Admin' login
+
+2026-02-10 10:09:06:181 User  @user cancelled Change Password dialog
+2026-02-10 10:09:06:185 Info  @SurgeryController instance created
+2026-02-10 10:09:06:208 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:09:13:349 Info  @UtlLogger instance created
+2026-02-10 10:09:13:350 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:09:13:822 Info  @MainWindow instance created
+
+2026-02-10 10:09:32:624 User  @user 'Admin' login
+2026-02-10 10:09:50:050 Sec   @user Admin changed password
+
+2026-02-10 10:09:51:747 User  @user updated password
+2026-02-10 10:10:25:278 Sec   @admin changed password for user Service
+
+2026-02-10 10:10:25:306 User  @admin saved user accounts/settings
+2026-02-10 10:10:36:896 Sec   @admin changed password for user Doctor
+
+2026-02-10 10:10:36:922 User  @admin saved user accounts/settings
+
+2026-02-10 10:10:57:826 User  @admin cancelled the Administrator Setting dialog
+2026-02-10 10:10:57:830 Info  @SurgeryController instance created
+2026-02-10 10:10:57:860 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:11:16:051 Info  @UtlLogger instance created
+2026-02-10 10:11:16:051 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:11:16:498 Info  @MainWindow instance created
+
+2026-02-10 10:11:31:757 User  @user 'Admin' login
+2026-02-10 10:11:45:802 Sec   @admin changed password for user Service
+
+2026-02-10 10:11:45:832 User  @admin saved user accounts/settings
+2026-02-10 10:11:52:309 Sec   @admin changed password for user Doctor
+
+2026-02-10 10:11:52:332 User  @admin saved user accounts/settings
+
+2026-02-10 10:12:07:776 User  @admin cancelled the Administrator Setting dialog
+2026-02-10 10:12:07:783 Info  @SurgeryController instance created
+2026-02-10 10:12:07:815 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:12:11:358 Info  @UtlLogger instance created
+2026-02-10 10:12:11:359 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:12:11:820 Info  @MainWindow instance created
+
+2026-02-10 10:13:06:597 User  @user 'Service' login
+2026-02-10 10:13:14:361 Sec   @user Service changed password
+
+2026-02-10 10:13:15:768 User  @user updated password
+2026-02-10 10:13:15:822 Info  @UroBiopsy launched
+2026-02-10 10:13:15:823 Info  @SurgeryController instance created
+2026-02-10 10:13:15:866 Info  @Robot Unit: TX-05-00
+2026-02-10 10:13:16:000 Info  @VisualEngine instance created
+2026-02-10 10:13:18:088 MCU   @firmware version (Master): 1.0.0_004
+2026-02-10 10:13:18:089 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-10 10:13:18:241 MCU   @firmware version (Node 3): 1.0.0.14
+2026-02-10 10:13:18:345 MCU   @firmware version (Node 4): 1.0.0.14
+2026-02-10 10:13:18:429 MCU   @firmware version (Node 5): 1.0.0.14
+2026-02-10 10:13:18:554 MCU   @firmware version (Node 6): 1.0.0.14
+2026-02-10 10:13:18:637 MCU   @firmware version (Node 7): 1.0.0.14
+2026-02-10 10:13:18:761 MCU   @firmware version (Node 8): 1.0.0.14
+2026-02-10 10:13:18:845 MCU   @firmware version (Node 9): 1.0.0.14
+2026-02-10 10:13:18:949 MCU   @firmware version (Node 10): 1.0.0.14
+2026-02-10 10:13:19:052 MCU   @firmware version (Node 11): 1.0.0.16
+2026-02-10 10:13:19:157 MCU   @firmware version (Node 12): 1.0.0.14
+2026-02-10 10:13:19:242 MCU   @firmware operation mode (Node 3): 1
+2026-02-10 10:13:19:288 DEBUG @S.SC state (7, 24)
+2026-02-10 10:13:19:289 DEBUG @E.SC state (7, 24)
+2026-02-10 10:13:19:289 DEBUG @S.VE state (7, 24)
+2026-02-10 10:13:19:289 DEBUG @E.VE state (7, 24)
+2026-02-10 10:13:19:290 DEBUG @S.MW state (7, 24)
+2026-02-10 10:13:19:348 MCU   @firmware operation mode (Node 4): 1
+2026-02-10 10:13:19:348 MCU   @firmware support speed control
+2026-02-10 10:13:19:451 MCU   @firmware operation mode (Node 5): 1
+2026-02-10 10:13:19:556 MCU   @firmware operation mode (Node 6): 1
+2026-02-10 10:13:19:661 MCU   @firmware operation mode (Node 7): 1
+2026-02-10 10:13:19:662 DEBUG @E.MW state (7, 24)
+2026-02-10 10:13:19:745 MCU   @firmware operation mode (Node 8): 1
+2026-02-10 10:13:19:847 MCU   @firmware operation mode (Node 9): 1
+2026-02-10 10:13:19:931 MCU   @firmware operation mode (Node 10): 1
+2026-02-10 10:13:20:158 MCU   @firmware operation mode (Node 12): 1
+2026-02-10 10:13:20:262 MCU   @firmware acceptable error range (Node 3): 512
+2026-02-10 10:13:20:262 MCU   @[X] error range replaced with local set: 11741
+2026-02-10 10:13:20:367 MCU   @firmware acceptable error range (Node 4): 512
+2026-02-10 10:13:20:367 MCU   @[Y] error range replaced with local set: 11741
+2026-02-10 10:13:20:472 MCU   @firmware acceptable error range (Node 5): 512
+2026-02-10 10:13:20:473 MCU   @[V] error range replaced with local set: 6154
+2026-02-10 10:13:20:576 MCU   @firmware acceptable error range (Node 6): 512
+2026-02-10 10:13:20:576 MCU   @[H] error range replaced with local set: 6154
+2026-02-10 10:13:20:681 MCU   @firmware acceptable error range (Node 7): 512
+2026-02-10 10:13:20:681 MCU   @[N] error range replaced with local set: 19376
+2026-02-10 10:13:20:764 MCU   @firmware acceptable error range (Node 8): 512
+2026-02-10 10:13:20:764 MCU   @[R] error range replaced with local set: 4097
+2026-02-10 10:13:20:765 Info  @needle guide opened
+2026-02-10 10:13:20:868 MCU   @firmware acceptable error range (Node 9): 512
+2026-02-10 10:13:20:869 MCU   @[P] error range replaced with local set: 4097
+2026-02-10 10:13:20:904 Frame @frame grabber UVC device: USB Video
+2026-02-10 10:13:20:973 MCU   @firmware operation mode (Node 11): 1
+2026-02-10 10:13:21:077 MCU   @firmware acceptable error range (Node 12): 512
+2026-02-10 10:13:21:077 MCU   @[Z] error range replaced with local set: 17615
+2026-02-10 10:13:21:193 Frame @frame grabber connected
+2026-02-10 10:13:21:193 Frame @frame grabber started
+2026-02-10 10:13:22:201 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-10 10:13:37:613 User  @system menu selected (Exit)
+2026-02-10 10:13:39:067 Info  @open needle guide command sent
+2026-02-10 10:13:40:120 Frame @frame grabber stopped
+2026-02-10 10:13:40:517 MCU   @robot moving stopped
+2026-02-10 10:13:41:630 MCU   @mcu controller stopped
+2026-02-10 10:13:41:859 Info  @UroBiopsy exited 
+
+

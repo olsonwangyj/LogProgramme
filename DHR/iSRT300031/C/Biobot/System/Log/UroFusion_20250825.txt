@@ -1,0 +1,11 @@
+
+2025-08-25 13:18:36:464 Info  @UtlLogger instance created
+2025-08-25 13:18:36:464 Info  @starting UroFusion (SVN 820)
+
+2025-08-25 13:18:57:228 User  @user 'Service' login
+2025-08-25 13:18:57:298 Info  @UroFusion launched
+
+2025-08-25 13:19:08:618 User  @system menu selected (About)
+
+2025-08-25 13:19:27:404 User  @system menu selected (Exit)
+2025-08-25 13:19:29:753 Info  @UroFusion exited

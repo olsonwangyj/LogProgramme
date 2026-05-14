@@ -1,0 +1,23 @@
+
+2026-03-28 15:28:48:372 Info  @UtlLogger instance created
+2026-03-28 15:28:48:372 Info  @starting UroBiopsy (SVN 1003)
+2026-03-28 15:28:50:170 Info  @MainWindow instance created
+
+2026-03-28 15:29:10:982 User  @user 'service' login
+2026-03-28 15:29:11:037 Info  @UroBiopsy launched
+2026-03-28 15:29:11:038 Info  @SurgeryController instance created
+2026-03-28 15:29:11:067 Info  @Robot Unit: TX-05-07
+2026-03-28 15:29:11:258 Info  @VisualEngine instance created
+2026-03-28 15:29:14:542 DEBUG @S.SC state (7, 24)
+2026-03-28 15:29:14:543 DEBUG @E.SC state (7, 24)
+2026-03-28 15:29:14:543 DEBUG @S.VE state (7, 24)
+2026-03-28 15:29:14:545 DEBUG @E.VE state (7, 24)
+2026-03-28 15:29:14:545 DEBUG @S.MW state (7, 24)
+2026-03-28 15:29:14:917 DEBUG @E.MW state (7, 24)
+2026-03-28 15:29:15:201 MCU   @[ERR] failed to connect com port: COM11 (baudrate: 115200)
+2026-03-28 15:29:16:106 Frame @frame grabber UVC device: USB Video
+2026-03-28 15:29:16:373 Frame @frame grabber connected
+2026-03-28 15:29:16:374 Frame @frame grabber started
+2026-03-28 15:29:17:381 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-03-28 15:29:22:411 User  @system menu selected (System Status Check)

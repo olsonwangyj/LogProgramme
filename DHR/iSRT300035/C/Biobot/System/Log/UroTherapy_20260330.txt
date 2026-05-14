@@ -1,0 +1,6 @@
+
+2026-03-30 16:55:12:578 Info  @UtlLogger instance created
+2026-03-30 16:55:12:579 Info  @starting UroTherapy (SVN 1003)
+2026-03-30 16:55:13:091 Info  @MainWindow instance created
+2026-03-30 17:10:59:662 Info  @an instance of UroTherapy is already running ... exit
+2026-03-30 17:11:00:525 Info  @SurgeryController instance created

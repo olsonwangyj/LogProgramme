@@ -1,0 +1,82 @@
+
+2026-02-06 09:20:32:015 Info  @UtlLogger instance created
+2026-02-06 09:20:32:016 Info  @starting UroBiopsy (SVN 858)
+2026-02-06 09:20:32:584 Info  @MainWindow instance created
+
+2026-02-06 09:20:47:448 User  @user 'service' login
+
+2026-02-06 09:24:24:659 User  @user cancelled Change Password dialog
+2026-02-06 09:24:24:668 Info  @SurgeryController instance created
+2026-02-06 09:24:24:707 Info  @UroBiopsy exited 
+
+
+
+2026-02-06 09:24:28:202 Info  @UtlLogger instance created
+2026-02-06 09:24:28:202 Info  @starting UroBiopsy (SVN 858)
+2026-02-06 09:24:28:638 Info  @MainWindow instance created
+2026-02-06 09:24:48:761 Sec   @failed login by user Admin
+
+2026-02-06 09:24:56:954 User  @user 'Admin' login
+2026-02-06 09:25:36:898 Sec   @user Admin changed password
+
+2026-02-06 09:25:38:574 User  @user updated password
+2026-02-06 09:25:56:678 Sec   @admin changed password for user Service
+2026-02-06 09:25:56:680 Sec   @admin changed password for user Doctor
+
+2026-02-06 09:25:56:707 User  @admin saved user accounts/settings
+
+2026-02-06 09:26:11:584 User  @admin cancelled the Administrator Setting dialog
+2026-02-06 09:26:11:602 Info  @SurgeryController instance created
+2026-02-06 09:26:11:639 Info  @UroBiopsy exited 
+
+
+
+2026-02-06 09:26:19:905 Info  @UtlLogger instance created
+2026-02-06 09:26:19:905 Info  @starting UroBiopsy (SVN 858)
+2026-02-06 09:26:20:353 Info  @MainWindow instance created
+
+2026-02-06 09:26:34:367 User  @user 'Service' login
+2026-02-06 09:26:44:479 Sec   @user Service changed password
+
+2026-02-06 09:26:45:854 User  @user updated password
+2026-02-06 09:26:45:922 Info  @UroBiopsy launched
+2026-02-06 09:26:45:923 Info  @SurgeryController instance created
+2026-02-06 09:26:45:967 Info  @Robot Unit: TX-05-04
+2026-02-06 09:26:46:090 Info  @VisualEngine instance created
+2026-02-06 09:26:48:189 MCU   @firmware version (Master): 1.0.0_004
+2026-02-06 09:26:48:191 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-06 09:26:49:404 DEBUG @S.SC state (7, 24)
+2026-02-06 09:26:49:405 DEBUG @E.SC state (7, 24)
+2026-02-06 09:26:49:405 DEBUG @S.VE state (7, 24)
+2026-02-06 09:26:49:406 DEBUG @E.VE state (7, 24)
+2026-02-06 09:26:49:406 DEBUG @S.MW state (7, 24)
+2026-02-06 09:26:49:800 DEBUG @E.MW state (7, 24)
+2026-02-06 09:26:50:208 MCU   @[WRN] Node 3 (GETVER) response timeout (2016). Try again.
+2026-02-06 09:26:50:229 MCU   @[WRN] Node 4 (GETVER) response timeout (2016). Try again.
+2026-02-06 09:26:50:250 MCU   @[WRN] Node 5 (GETVER) response timeout (2015). Try again.
+2026-02-06 09:26:50:272 MCU   @[WRN] Node 6 (GETVER) response timeout (2016). Try again.
+2026-02-06 09:26:50:294 MCU   @[WRN] Node 7 (GETVER) response timeout (2015). Try again.
+2026-02-06 09:26:50:315 MCU   @[WRN] Node 8 (GETVER) response timeout (2016). Try again.
+2026-02-06 09:26:50:337 MCU   @[WRN] Node 9 (GETVER) response timeout (2031). Try again.
+2026-02-06 09:26:50:358 MCU   @[WRN] Node 10 (GETVER) response timeout (2016). Try again.
+2026-02-06 09:26:50:380 MCU   @[WRN] Node 11 (GETVER) response timeout (2015). Try again.
+2026-02-06 09:26:50:401 MCU   @[WRN] Node 12 (GETVER) response timeout (2032). Try again.
+2026-02-06 09:26:51:014 Frame @frame grabber UVC device: USB Video
+2026-02-06 09:26:51:881 Frame @frame grabber connected
+2026-02-06 09:26:51:881 Frame @frame grabber started
+2026-02-06 09:26:52:230 MCU   @[ERR] Node 3 (GETVER) response timeout (2031). Check connection.
+2026-02-06 09:26:52:251 MCU   @[ERR] Node 4 (GETVER) response timeout (2015). Check connection.
+2026-02-06 09:26:52:272 MCU   @[ERR] Node 5 (GETVER) response timeout (2016). Check connection.
+2026-02-06 09:26:52:294 MCU   @[ERR] Node 6 (GETVER) response timeout (2031). Check connection.
+2026-02-06 09:26:52:316 MCU   @[ERR] Node 7 (GETVER) response timeout (2016). Check connection.
+2026-02-06 09:26:52:336 MCU   @[ERR] Node 8 (GETVER) response timeout (2031). Check connection.
+2026-02-06 09:26:52:357 MCU   @[ERR] Node 9 (GETVER) response timeout (2016). Check connection.
+2026-02-06 09:26:52:379 MCU   @[ERR] Node 10 (GETVER) response timeout (2015). Check connection.
+2026-02-06 09:26:52:400 MCU   @[ERR] Node 11 (GETVER) response timeout (2032). Check connection.
+2026-02-06 09:26:52:423 MCU   @[ERR] Node 12 (GETVER) response timeout (2015). Check connection.
+2026-02-06 09:26:52:889 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-06 09:26:53:376 User  @system menu selected (About)
+2026-02-06 09:26:54:423 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2015). Try again.
+2026-02-06 09:26:56:436 MCU   @[ERR] Node 11 (LOG_NGSW) response timeout (2016). Check connection.
+2026-02-06 09:32:16:679 Info  @screen auto locked (Service)

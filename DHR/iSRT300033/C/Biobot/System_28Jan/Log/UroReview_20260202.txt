@@ -1,0 +1,14 @@
+
+2026-02-02 10:34:51:298 Info  @UtlLogger instance created
+2026-02-02 10:34:51:298 Info  @starting UroReview (SVN 820)
+2026-02-02 10:34:51:736 Info  @ReviewMainWindow instance created
+2026-02-02 10:34:53:149 Info  @UroReview launched
+2026-02-02 10:34:53:151 Info  @ReviewController instance created
+
+2026-02-02 10:34:57:776 User  @on_startOpenCase_clicked
+
+2026-02-02 10:35:16:890 User  @system menu selected (Exit)
+2026-02-02 10:35:16:981 Info  @UroReview exited
+2026-02-02 10:35:17:854 Info  @an instance of UroReview is already running ... exit
+2026-02-02 10:35:19:118 Info  @ReviewController instance created
+2026-02-02 10:35:19:169 Info  @UroReview exited

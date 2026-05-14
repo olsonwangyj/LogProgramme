@@ -1,0 +1,453 @@
+
+=== Analyzing UroBiopsy_20260423.txt ===
+Error Found: 2026-04-23 09:27:16:362 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:27:16.362
+→ Related Movement File: 20260423_092726396_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:33:30:862 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:33:30.862
+→ Related Movement File: 20260423_093340897_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:35:53:366 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:35:53.366
+→ Related Movement File: 20260423_093603424_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:38:16:136 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:38:16.136
+→ Related Movement File: 20260423_093826192_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:39:26:891 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:39:26.891
+→ Related Movement File: 20260423_093936945_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:41:50:716 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:41:50.716
+→ Related Movement File: 20260423_094200963_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:43:01:498 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:43:01.498
+→ Related Movement File: 20260423_094311553_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:44:12:192 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:44:12.192
+→ Related Movement File: 20260423_094422212_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:45:22:708 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:45:22.708
+→ Related Movement File: 20260423_094532736_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:46:33:309 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:46:33.309
+→ Related Movement File: 20260423_094643335_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:47:43:975 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:47:43.975
+→ Related Movement File: 20260423_094754007_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:48:54:715 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:48:54.715
+→ Related Movement File: 20260423_094904721_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:50:05:284 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:50:05.284
+→ Related Movement File: 20260423_095015488_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:51:16:106 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:51:16.106
+→ Related Movement File: 20260423_095126122_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:52:26:746 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:52:26.746
+→ Related Movement File: 20260423_095236805_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:53:37:611 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:53:37.611
+→ Related Movement File: 20260423_095347649_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:54:48:427 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:54:48.427
+→ Related Movement File: 20260423_095458470_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:55:59:178 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:55:59.178
+→ Related Movement File: 20260423_095609214_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:57:10:094 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:57:10.094
+→ Related Movement File: 20260423_095720134_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:58:21:039 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:58:21.039
+→ Related Movement File: 20260423_095831077_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 09:59:31:855 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 09:59:31.855
+→ Related Movement File: 20260423_095941897_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:00:42:918 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:00:42.918
+→ Related Movement File: 20260423_100052956_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:01:53:902 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:01:53.902
+→ Related Movement File: 20260423_100203961_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:03:04:890 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:03:04.890
+→ Related Movement File: 20260423_100314926_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:04:15:696 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:04:15.696
+→ Related Movement File: 20260423_100425735_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:05:26:750 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:05:26.750
+→ Related Movement File: 20260423_100536784_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:06:37:627 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:06:37.627
+→ Related Movement File: 20260423_100647667_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:07:48:584 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:07:48.584
+→ Related Movement File: 20260423_100758622_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:08:59:570 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:08:59.570
+→ Related Movement File: 20260423_100909609_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:10:10:409 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:10:10.409
+→ Related Movement File: 20260423_101020450_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:11:21:242 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:11:21.242
+→ Related Movement File: 20260423_101131307_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:12:32:221 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:12:32.221
+→ Related Movement File: 20260423_101242260_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:13:43:168 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:13:43.168
+→ Related Movement File: 20260423_101353209_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:14:54:288 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:14:54.288
+→ Related Movement File: 20260423_101504327_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:16:05:425 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:16:05.425
+→ Related Movement File: 20260423_101615467_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:17:16:518 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:17:16.518
+→ Related Movement File: 20260423_101726558_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:18:27:579 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:18:27.579
+→ Related Movement File: 20260423_101837596_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:19:38:549 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:19:38.549
+→ Related Movement File: 20260423_101948587_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:20:49:695 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:20:49.695
+→ Related Movement File: 20260423_102059735_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:22:00:758 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:22:00.758
+→ Related Movement File: 20260423_102210798_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:23:11:734 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:23:11.734
+→ Related Movement File: 20260423_102321778_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:24:22:799 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:24:22.799
+→ Related Movement File: 20260423_102432836_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:25:33:777 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:25:33.777
+→ Related Movement File: 20260423_102543838_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:26:44:976 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:26:44.976
+→ Related Movement File: 20260423_102655017_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:27:56:126 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:27:56.126
+→ Related Movement File: 20260423_102806165_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:29:07:158 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:29:07.158
+→ Related Movement File: 20260423_102917197_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:30:18:157 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:30:18.157
+→ Related Movement File: 20260423_103028193_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:31:29:245 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:31:29.245
+→ Related Movement File: 20260423_103139286_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:32:40:201 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:32:40.201
+→ Related Movement File: 20260423_103250238_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:33:51:356 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:33:51.356
+→ Related Movement File: 20260423_103401575_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:35:02:543 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:35:02.543
+→ Related Movement File: 20260423_103512580_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:36:13:610 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:36:13.610
+→ Related Movement File: 20260423_103623631_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:37:24:588 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:37:24.588
+→ Related Movement File: 20260423_103734645_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:38:35:803 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:38:35.803
+→ Related Movement File: 20260423_103845878_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:39:46:841 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:39:46.841
+→ Related Movement File: 20260423_103956879_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:40:57:992 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:40:57.992
+→ Related Movement File: 20260423_104108030_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:42:09:108 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:42:09.108
+→ Related Movement File: 20260423_104219146_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:43:20:271 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:43:20.271
+→ Related Movement File: 20260423_104330312_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:44:31:186 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:44:31.186
+→ Related Movement File: 20260423_104441225_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:45:42:249 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:45:42.249
+→ Related Movement File: 20260423_104552489_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:46:53:659 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:46:53.659
+→ Related Movement File: 20260423_104703725_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 10:48:04:855 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 10:48:04.855
+→ No matching movement file found.
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:07:07:212 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:07:07.212
+→ Related Movement File: 20260423_130620242_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:12:10:208 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:12:10.208
+→ Related Movement File: 20260423_131117679_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:31:45:502 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:31:45.502
+→ Related Movement File: 20260423_133235336_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:34:48:020 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:34:48.020
+→ Related Movement File: 20260423_133458058_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:37:10:380 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:37:10.380
+→ Related Movement File: 20260423_133720418_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:39:32:290 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:39:32.290
+→ Related Movement File: 20260423_133942331_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:41:54:513 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:41:54.513
+→ Related Movement File: 20260423_134204553_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:44:16:439 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:44:16.439
+→ Related Movement File: 20260423_134426476_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:46:38:385 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:46:38.385
+→ Related Movement File: 20260423_134648427_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:49:00:498 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:49:00.498
+→ Related Movement File: 20260423_134910539_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:51:22:254 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:51:22.254
+→ Related Movement File: 20260423_135132294_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:53:44:444 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:53:44.444
+→ Related Movement File: 20260423_135354487_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+Error Found: 2026-04-23 13:56:06:431 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+→ Timestamp: 2026-04-23 13:56:06.431
+→ Related Movement File: 20260423_135513989_initialization.log
+→ Classification: Case 3: Delay – Check CAN Bus and controller. Check physical position of Z axis
+→ Axis: Z
+
+

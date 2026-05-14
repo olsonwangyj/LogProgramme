@@ -1,0 +1,103 @@
+
+2026-02-03 17:59:41:441 Info  @UtlLogger instance created
+2026-02-03 17:59:41:441 Info  @starting UroBiopsy (SVN 1003)
+2026-02-03 17:59:46:500 Info  @MainWindow instance created
+
+2026-02-03 18:00:06:738 User  @user 'Admin' login
+2026-02-03 18:00:15:497 Sec   @user Admin changed password
+
+2026-02-03 18:00:29:925 User  @user updated password
+2026-02-03 18:01:07:512 Sec   @admin changed password for user Admin
+2026-02-03 18:01:07:515 Sec   @admin changed password for user Service
+2026-02-03 18:01:07:517 Sec   @admin added user Doctor
+
+2026-02-03 18:01:07:555 User  @admin saved user accounts/settings
+
+2026-02-03 18:01:54:531 User  @admin cancelled the Administrator Setting dialog
+2026-02-03 18:01:54:536 Info  @SurgeryController instance created
+2026-02-03 18:01:54:568 Info  @UroBiopsy exited 
+
+
+
+2026-02-03 18:01:57:831 Info  @UtlLogger instance created
+2026-02-03 18:01:57:832 Info  @starting UroBiopsy (SVN 1003)
+2026-02-03 18:01:58:244 Info  @MainWindow instance created
+
+2026-02-03 18:02:37:737 User  @user 'Admin' login
+2026-02-03 18:03:07:490 Sec   @admin changed password for user Admin
+
+2026-02-03 18:03:07:530 User  @admin saved user accounts/settings
+
+2026-02-03 18:03:22:640 User  @admin cancelled the Administrator Setting dialog
+2026-02-03 18:03:22:646 Info  @SurgeryController instance created
+2026-02-03 18:03:22:674 Info  @UroBiopsy exited 
+
+
+
+2026-02-03 18:03:24:110 Info  @UtlLogger instance created
+2026-02-03 18:03:24:110 Info  @starting UroBiopsy (SVN 1003)
+2026-02-03 18:03:24:520 Info  @MainWindow instance created
+
+2026-02-03 18:03:59:463 User  @user 'Service' login
+2026-02-03 18:04:15:857 Sec   @user Service changed password
+
+2026-02-03 18:04:22:564 User  @user updated password
+2026-02-03 18:04:22:631 Info  @UroBiopsy launched
+2026-02-03 18:04:22:631 Info  @SurgeryController instance created
+2026-02-03 18:05:40:466 Info  @Robot Unit: TX-05-00
+2026-02-03 18:05:40:602 Info  @VisualEngine instance created
+2026-02-03 18:05:42:469 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2026-02-03 18:05:42:475 DEBUG @S.SC state (7, 24)
+2026-02-03 18:05:42:475 DEBUG @E.SC state (7, 24)
+2026-02-03 18:05:42:476 DEBUG @S.VE state (7, 24)
+2026-02-03 18:05:42:476 DEBUG @E.VE state (7, 24)
+2026-02-03 18:05:42:476 DEBUG @S.MW state (7, 24)
+2026-02-03 18:05:42:836 DEBUG @E.MW state (7, 24)
+2026-02-03 18:05:45:499 Frame @[ERR] failed to connect frame grabber
+
+2026-02-03 18:06:10:327 User  @factory menu selected (System Settings)
+
+2026-02-03 18:06:54:920 User  @system menu selected (About)
+
+2026-02-03 18:07:11:641 User  @system menu selected (System Status Check)
+
+2026-02-03 18:07:20:799 User  @system menu selected (Exit)
+2026-02-03 18:07:22:996 Info  @open needle guide command sent
+2026-02-03 18:07:24:640 Frame @frame grabber stopped
+2026-02-03 18:07:25:681 MCU   @mcu controller stopped
+2026-02-03 18:07:25:941 Info  @UroBiopsy exited 
+
+
+
+2026-02-03 18:07:30:035 Info  @UtlLogger instance created
+2026-02-03 18:07:30:036 Info  @starting UroBiopsy (SVN 1003)
+2026-02-03 18:07:30:521 Info  @MainWindow instance created
+
+2026-02-03 18:08:03:964 User  @user 'Doctor' login
+2026-02-03 18:08:21:895 Sec   @user Doctor changed password
+
+2026-02-03 18:08:30:008 User  @user updated password
+2026-02-03 18:08:30:066 Info  @UroBiopsy launched
+2026-02-03 18:08:30:067 Info  @SurgeryController instance created
+2026-02-03 18:08:30:069 Info  @Robot Unit: TX-05-00
+2026-02-03 18:08:30:131 Info  @VisualEngine instance created
+2026-02-03 18:08:32:071 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2026-02-03 18:08:33:450 DEBUG @S.SC state (7, 24)
+2026-02-03 18:08:33:451 DEBUG @E.SC state (7, 24)
+2026-02-03 18:08:33:451 DEBUG @S.VE state (7, 24)
+2026-02-03 18:08:33:452 DEBUG @E.VE state (7, 24)
+2026-02-03 18:08:33:452 DEBUG @S.MW state (7, 24)
+2026-02-03 18:08:33:820 DEBUG @E.MW state (7, 24)
+2026-02-03 18:08:35:078 Frame @[ERR] failed to connect frame grabber
+
+2026-02-03 18:09:00:656 User  @system menu selected (Exit)
+
+2026-02-03 18:09:04:796 User  @system menu selected (About)
+
+2026-02-03 18:09:33:622 User  @system menu selected (Exit)
+2026-02-03 18:09:34:865 Info  @open needle guide command sent
+2026-02-03 18:09:36:151 Frame @frame grabber stopped
+2026-02-03 18:09:37:250 MCU   @mcu controller stopped
+2026-02-03 18:09:37:497 Info  @UroBiopsy exited 
+
+

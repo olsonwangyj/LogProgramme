@@ -1,0 +1,180 @@
+
+2025-08-25 13:13:14:101 Info  @UtlLogger instance created
+2025-08-25 13:13:14:101 Info  @starting UroTherapy (SVN 858)
+2025-08-25 13:13:14:521 Info  @MainWindow instance created
+
+2025-08-25 13:13:30:564 User  @user 'Service' login
+2025-08-25 13:13:30:624 Info  @UroTherapy launched
+2025-08-25 13:13:30:624 Info  @SurgeryController instance created
+2025-08-25 13:13:30:629 Info  @Robot Unit: TX-05-00
+2025-08-25 13:13:30:712 Info  @VisualEngine instance created
+2025-08-25 13:13:33:050 MCU   @firmware version (Master): 1.0.1_000
+2025-08-25 13:13:33:051 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-08-25 13:13:33:188 Info  @needle guide closed
+2025-08-25 13:13:33:689 MCU   @firmware version (Node 3): 1.0.0.14
+2025-08-25 13:13:33:815 MCU   @firmware version (Node 4): 1.0.0.14
+2025-08-25 13:13:33:866 DEBUG @S.SC state (7, 24)
+2025-08-25 13:13:33:866 DEBUG @E.SC state (7, 24)
+2025-08-25 13:13:33:866 DEBUG @S.VE state (7, 24)
+2025-08-25 13:13:33:867 DEBUG @E.VE state (7, 24)
+2025-08-25 13:13:33:867 DEBUG @S.MW state (7, 24)
+2025-08-25 13:13:34:003 MCU   @firmware version (Node 5): 1.0.0.14
+2025-08-25 13:13:34:216 DEBUG @E.MW state (7, 24)
+2025-08-25 13:13:34:294 MCU   @firmware version (Node 6): 1.0.0.14
+2025-08-25 13:13:34:419 MCU   @firmware version (Node 7): 1.0.0.14
+2025-08-25 13:13:34:729 MCU   @firmware version (Node 8): 1.0.0.14
+2025-08-25 13:13:34:895 MCU   @firmware version (Node 9): 1.0.0.14
+2025-08-25 13:13:35:185 MCU   @firmware version (Node 10): 1.0.0.14
+2025-08-25 13:13:35:247 MCU   @[WRN] Node 11 (GETVER) response timeout (2031). Try again.
+2025-08-25 13:13:35:247 MCU   @[WRN] Node 12 (GETVER) response timeout (2015). Try again.
+2025-08-25 13:13:35:310 MCU   @firmware version (Node 11): 1.0.0.16
+2025-08-25 13:13:35:622 MCU   @firmware version (Node 12): 1.0.0.14
+2025-08-25 13:13:35:650 Frame @[ERR] failed to connect frame grabber
+2025-08-25 13:13:35:727 MCU   @[WRN] Node 3 (OPMODE) response timeout (2031). Try again.
+2025-08-25 13:13:35:811 MCU   @firmware operation mode (Node 3): 1
+2025-08-25 13:13:35:854 MCU   @[WRN] Node 4 (OPMODE) response timeout (2031). Try again.
+2025-08-25 13:13:35:978 MCU   @firmware operation mode (Node 4): 1
+2025-08-25 13:13:35:978 MCU   @firmware support speed control
+2025-08-25 13:13:36:042 MCU   @[WRN] Node 5 (OPMODE) response timeout (2015). Try again.
+2025-08-25 13:13:36:289 MCU   @firmware operation mode (Node 5): 1
+2025-08-25 13:13:36:332 MCU   @[WRN] Node 6 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:13:36:415 MCU   @firmware operation mode (Node 6): 1
+2025-08-25 13:13:36:457 MCU   @[WRN] Node 7 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:13:36:583 MCU   @firmware operation mode (Node 7): 1
+2025-08-25 13:13:36:770 MCU   @[WRN] Node 8 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:13:36:873 MCU   @firmware operation mode (Node 8): 1
+2025-08-25 13:13:36:936 MCU   @[WRN] Node 9 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:13:37:000 MCU   @firmware operation mode (Node 9): 1
+2025-08-25 13:13:37:230 MCU   @[WRN] Node 10 (OPMODE) response timeout (2031). Try again.
+2025-08-25 13:13:37:311 MCU   @firmware operation mode (Node 10): 1
+2025-08-25 13:13:37:354 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2031). Try again.
+
+2025-08-25 13:13:37:470 User  @factory menu selected (System Settings)
+2025-08-25 13:13:37:664 MCU   @[WRN] Node 12 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:13:37:850 MCU   @[WRN] Node 3 (RD_OFFSET) response timeout (2015). Try again.
+2025-08-25 13:13:38:015 MCU   @[WRN] Node 4 (RD_OFFSET) response timeout (2016). Try again.
+2025-08-25 13:13:38:201 MCU   @firmware operation mode (Node 12): 1
+2025-08-25 13:13:38:325 MCU   @[WRN] Node 5 (RD_OFFSET) response timeout (2016). Try again.
+2025-08-25 13:13:38:451 MCU   @[WRN] Node 6 (RD_OFFSET) response timeout (2016). Try again.
+2025-08-25 13:13:38:574 MCU   @firmware acceptable error range (Node 3): 512
+2025-08-25 13:13:38:575 MCU   @[X] error range replaced with local set: 11741
+2025-08-25 13:13:38:618 MCU   @[WRN] Node 7 (RD_OFFSET) response timeout (2015). Try again.
+2025-08-25 13:13:38:906 MCU   @[WRN] Node 8 (RD_OFFSET) response timeout (2016). Try again.
+2025-08-25 13:13:39:009 MCU   @firmware acceptable error range (Node 4): 512
+2025-08-25 13:13:39:009 MCU   @[Y] error range replaced with local set: 11741
+2025-08-25 13:13:39:031 MCU   @[WRN] Node 9 (RD_OFFSET) response timeout (2016). Try again.
+2025-08-25 13:13:39:421 MCU   @firmware acceptable error range (Node 5): 512
+2025-08-25 13:13:39:421 MCU   @[V] error range replaced with local set: 6154
+2025-08-25 13:13:39:874 MCU   @firmware acceptable error range (Node 6): 512
+2025-08-25 13:13:39:874 MCU   @[H] error range replaced with local set: 6154
+2025-08-25 13:13:39:917 MCU   @[WRN] Node 11 (OPMODE) response timeout (2015). Try again.
+2025-08-25 13:13:40:245 MCU   @[WRN] Node 12 (RD_OFFSET) response timeout (2031). Try again.
+2025-08-25 13:13:40:308 MCU   @firmware acceptable error range (Node 7): 512
+2025-08-25 13:13:40:309 MCU   @[N] error range replaced with local set: 19376
+2025-08-25 13:13:40:786 MCU   @firmware acceptable error range (Node 8): 512
+2025-08-25 13:13:40:786 MCU   @[R] error range replaced with local set: 4097
+2025-08-25 13:13:41:053 MCU   @[ERR] Node 9 (RD_OFFSET) response timeout (2015). Check connection.
+2025-08-25 13:13:41:218 MCU   @firmware acceptable error range (Node 9): 512
+2025-08-25 13:13:41:218 MCU   @[P] error range replaced with local set: 4097
+2025-08-25 13:13:41:941 MCU   @[ERR] Node 11 (OPMODE) response timeout (2016). Check connection.
+2025-08-25 13:13:42:271 MCU   @[ERR] Node 12 (RD_OFFSET) response timeout (2016). Check connection.
+2025-08-25 13:13:42:271 MCU   @firmware operation mode (Node 11): 1
+2025-08-25 13:13:42:873 MCU   @firmware acceptable error range (Node 12): 512
+2025-08-25 13:13:42:874 MCU   @[Z] error range replaced with local set: 17615
+
+2025-08-25 13:13:45:120 User  @system menu selected (Exit)
+2025-08-25 13:13:46:152 Info  @open needle guide command sent
+2025-08-25 13:13:47:663 Frame @frame grabber stopped
+2025-08-25 13:13:47:780 MCU   @robot moving stopped
+2025-08-25 13:13:48:888 MCU   @mcu controller stopped
+2025-08-25 13:13:49:137 Info  @UroTherapy exited 
+
+
+
+2025-08-25 13:17:37:743 Info  @UtlLogger instance created
+2025-08-25 13:17:37:743 Info  @starting UroTherapy (SVN 858)
+2025-08-25 13:17:38:173 Info  @MainWindow instance created
+
+2025-08-25 13:17:52:515 User  @user 'Service' login
+2025-08-25 13:17:52:570 Info  @UroTherapy launched
+2025-08-25 13:17:52:570 Info  @SurgeryController instance created
+2025-08-25 13:17:52:570 Info  @Robot Unit: TX-05-00
+2025-08-25 13:17:52:639 Info  @VisualEngine instance created
+2025-08-25 13:17:54:996 MCU   @firmware version (Master): 1.0.1_000
+2025-08-25 13:17:54:997 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-08-25 13:17:55:333 Info  @needle guide closed
+2025-08-25 13:17:55:552 MCU   @firmware version (Node 3): 1.0.0.14
+2025-08-25 13:17:55:824 DEBUG @S.SC state (7, 24)
+2025-08-25 13:17:55:825 DEBUG @E.SC state (7, 24)
+2025-08-25 13:17:55:825 DEBUG @S.VE state (7, 24)
+2025-08-25 13:17:55:825 DEBUG @E.VE state (7, 24)
+2025-08-25 13:17:55:826 DEBUG @S.MW state (7, 24)
+2025-08-25 13:17:55:845 MCU   @firmware version (Node 4): 1.0.0.14
+2025-08-25 13:17:56:033 MCU   @firmware version (Node 5): 1.0.0.14
+2025-08-25 13:17:56:159 MCU   @firmware version (Node 6): 1.0.0.14
+2025-08-25 13:17:56:175 DEBUG @E.MW state (7, 24)
+2025-08-25 13:17:56:448 MCU   @firmware version (Node 7): 1.0.0.14
+2025-08-25 13:17:56:614 MCU   @firmware version (Node 8): 1.0.0.14
+2025-08-25 13:17:56:924 MCU   @firmware version (Node 9): 1.0.0.14
+2025-08-25 13:17:57:047 MCU   @firmware version (Node 10): 1.0.0.14
+2025-08-25 13:17:57:172 MCU   @[WRN] Node 11 (GETVER) response timeout (2015). Try again.
+2025-08-25 13:17:57:214 MCU   @[WRN] Node 12 (GETVER) response timeout (2031). Try again.
+2025-08-25 13:17:57:215 MCU   @firmware version (Node 11): 1.0.0.16
+2025-08-25 13:17:57:485 MCU   @firmware version (Node 12): 1.0.0.14
+2025-08-25 13:17:57:581 Frame @[ERR] failed to connect frame grabber
+2025-08-25 13:17:57:590 MCU   @[WRN] Node 3 (OPMODE) response timeout (2015). Try again.
+2025-08-25 13:17:57:715 MCU   @firmware operation mode (Node 3): 1
+2025-08-25 13:17:57:839 MCU   @firmware operation mode (Node 4): 1
+2025-08-25 13:17:57:839 MCU   @firmware support speed control
+2025-08-25 13:17:58:065 MCU   @[WRN] Node 5 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:17:58:149 MCU   @firmware operation mode (Node 5): 1
+2025-08-25 13:17:58:191 MCU   @[WRN] Node 6 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:17:58:336 MCU   @firmware operation mode (Node 6): 1
+2025-08-25 13:17:58:482 MCU   @[WRN] Node 7 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:17:58:627 MCU   @firmware operation mode (Node 7): 1
+2025-08-25 13:17:58:669 MCU   @[WRN] Node 8 (OPMODE) response timeout (2031). Try again.
+2025-08-25 13:17:58:752 MCU   @firmware operation mode (Node 8): 1
+2025-08-25 13:17:58:917 MCU   @firmware operation mode (Node 9): 1
+2025-08-25 13:17:59:083 MCU   @[WRN] Node 10 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:17:59:229 MCU   @firmware operation mode (Node 10): 1
+2025-08-25 13:17:59:250 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2015). Try again.
+2025-08-25 13:17:59:517 MCU   @[WRN] Node 12 (OPMODE) response timeout (2016). Try again.
+2025-08-25 13:17:59:744 MCU   @[WRN] Node 3 (RD_OFFSET) response timeout (2015). Try again.
+2025-08-25 13:17:59:868 MCU   @[WRN] Node 4 (RD_OFFSET) response timeout (2015). Try again.
+2025-08-25 13:18:00:054 MCU   @firmware operation mode (Node 12): 1
+2025-08-25 13:18:00:197 MCU   @[WRN] Node 5 (RD_OFFSET) response timeout (2032). Try again.
+2025-08-25 13:18:00:381 MCU   @[WRN] Node 6 (RD_OFFSET) response timeout (2015). Try again.
+2025-08-25 13:18:00:566 MCU   @firmware acceptable error range (Node 3): 512
+2025-08-25 13:18:00:567 MCU   @[X] error range replaced with local set: 11741
+2025-08-25 13:18:00:652 MCU   @[WRN] Node 7 (RD_OFFSET) response timeout (2016). Try again.
+2025-08-25 13:18:00:715 MCU   @firmware acceptable error range (Node 4): 512
+2025-08-25 13:18:00:715 MCU   @[Y] error range replaced with local set: 11741
+2025-08-25 13:18:00:798 MCU   @[WRN] Node 8 (RD_OFFSET) response timeout (2015). Try again.
+2025-08-25 13:18:00:962 MCU   @[WRN] Node 9 (RD_OFFSET) response timeout (2031). Try again.
+2025-08-25 13:18:01:147 MCU   @firmware acceptable error range (Node 5): 512
+2025-08-25 13:18:01:147 MCU   @[V] error range replaced with local set: 6154
+2025-08-25 13:18:01:622 MCU   @firmware acceptable error range (Node 6): 512
+2025-08-25 13:18:01:622 MCU   @[H] error range replaced with local set: 6154
+2025-08-25 13:18:01:972 MCU   @[WRN] Node 11 (OPMODE) response timeout (2015). Try again.
+2025-08-25 13:18:02:055 MCU   @firmware acceptable error range (Node 7): 512
+2025-08-25 13:18:02:056 MCU   @[N] error range replaced with local set: 19376
+2025-08-25 13:18:02:097 MCU   @[WRN] Node 12 (RD_OFFSET) response timeout (2015). Try again.
+2025-08-25 13:18:02:505 MCU   @firmware acceptable error range (Node 8): 512
+2025-08-25 13:18:02:506 MCU   @[R] error range replaced with local set: 4097
+2025-08-25 13:18:02:651 MCU   @firmware acceptable error range (Node 9): 512
+2025-08-25 13:18:02:652 MCU   @[P] error range replaced with local set: 4097
+2025-08-25 13:18:03:941 MCU   @firmware operation mode (Node 11): 1
+2025-08-25 13:18:04:106 MCU   @[ERR] Node 12 (RD_OFFSET) response timeout (2016). Check connection.
+2025-08-25 13:18:04:306 MCU   @firmware acceptable error range (Node 12): 512
+2025-08-25 13:18:04:307 MCU   @[Z] error range replaced with local set: 17615
+
+2025-08-25 13:18:11:267 User  @system menu selected (About)
+
+2025-08-25 13:18:29:242 User  @system menu selected (Exit)
+2025-08-25 13:18:30:375 Info  @open needle guide command sent
+2025-08-25 13:18:31:617 Frame @frame grabber stopped
+2025-08-25 13:18:31:692 MCU   @robot moving stopped
+2025-08-25 13:18:32:805 MCU   @mcu controller stopped
+2025-08-25 13:18:33:047 Info  @UroTherapy exited 
+
+

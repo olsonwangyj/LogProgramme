@@ -1,0 +1,19 @@
+
+2026-03-06 16:25:39:080 Info  @UtlLogger instance created
+2026-03-06 16:25:39:080 Info  @starting UroFusion (SVN 820)
+
+2026-03-06 16:25:41:890 User  @user cancelled Login dialog
+2026-03-06 16:25:41:899 Info  @UroFusion exited
+
+2026-03-06 16:28:10:600 Info  @UtlLogger instance created
+2026-03-06 16:28:10:600 Info  @starting UroFusion (SVN 820)
+
+2026-03-06 16:28:21:920 User  @user 'Service' login
+2026-03-06 16:28:21:980 Info  @UroFusion launched
+
+2026-03-06 16:28:33:520 User  @system menu selected (About)
+
+2026-03-06 16:28:59:160 User  @tool menu selected (Application Settings)
+
+2026-03-06 16:29:11:040 User  @on_startOpenCase_clicked
+2026-03-06 16:29:33:450 Info  @UroFusion exited

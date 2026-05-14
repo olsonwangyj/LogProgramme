@@ -1,0 +1,1466 @@
+
+2026-02-10 10:51:46:691 Info  @UtlLogger instance created
+2026-02-10 10:51:46:692 Info  @starting UroTherapy (SVN 1003)
+2026-02-10 10:51:47:180 Info  @MainWindow instance created
+
+2026-02-10 10:51:58:795 User  @user 'Doctor' login
+2026-02-10 10:51:58:853 Info  @UroTherapy launched
+2026-02-10 10:51:58:854 Info  @SurgeryController instance created
+2026-02-10 10:51:58:856 Info  @Robot Unit: TX-05-07
+2026-02-10 10:51:58:937 Info  @VisualEngine instance created
+2026-02-10 10:52:01:078 MCU   @firmware version (Master): 1.0.0_004
+2026-02-10 10:52:01:079 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-10 10:52:01:153 Info  @needle guide opened
+2026-02-10 10:52:01:248 MCU   @firmware version (Node 3): 1.0.0.14
+2026-02-10 10:52:01:353 MCU   @firmware version (Node 4): 1.0.0.14
+2026-02-10 10:52:01:436 MCU   @firmware version (Node 5): 1.0.0.14
+2026-02-10 10:52:01:542 MCU   @firmware version (Node 6): 1.0.0.14
+2026-02-10 10:52:01:627 MCU   @firmware version (Node 7): 1.0.0.14
+2026-02-10 10:52:01:752 MCU   @firmware version (Node 8): 1.0.0.14
+2026-02-10 10:52:01:837 MCU   @firmware version (Node 9): 1.0.0.14
+2026-02-10 10:52:01:942 MCU   @firmware version (Node 10): 1.0.0.14
+2026-02-10 10:52:02:025 MCU   @firmware version (Node 11): 1.0.0.16
+2026-02-10 10:52:02:150 MCU   @firmware version (Node 12): 1.0.0.14
+2026-02-10 10:52:02:162 DEBUG @S.SC state (7, 24)
+2026-02-10 10:52:02:163 DEBUG @E.SC state (7, 24)
+2026-02-10 10:52:02:164 DEBUG @S.VE state (7, 24)
+2026-02-10 10:52:02:164 DEBUG @E.VE state (7, 24)
+2026-02-10 10:52:02:164 DEBUG @S.MW state (7, 24)
+2026-02-10 10:52:02:234 MCU   @firmware operation mode (Node 3): 1
+2026-02-10 10:52:02:339 MCU   @firmware operation mode (Node 4): 1
+2026-02-10 10:52:02:339 MCU   @firmware support speed control
+2026-02-10 10:52:02:444 MCU   @firmware operation mode (Node 5): 1
+2026-02-10 10:52:02:491 DEBUG @E.MW state (7, 24)
+2026-02-10 10:52:02:549 MCU   @firmware operation mode (Node 6): 1
+2026-02-10 10:52:02:632 MCU   @firmware operation mode (Node 7): 1
+2026-02-10 10:52:02:757 MCU   @firmware operation mode (Node 8): 1
+2026-02-10 10:52:02:839 MCU   @firmware operation mode (Node 9): 1
+2026-02-10 10:52:02:923 MCU   @firmware operation mode (Node 10): 1
+2026-02-10 10:52:03:154 MCU   @firmware operation mode (Node 12): 1
+2026-02-10 10:52:03:260 MCU   @firmware acceptable error range (Node 3): 512
+2026-02-10 10:52:03:260 MCU   @[X] error range replaced with local set: 11741
+2026-02-10 10:52:03:365 MCU   @firmware acceptable error range (Node 4): 512
+2026-02-10 10:52:03:365 MCU   @[Y] error range replaced with local set: 11741
+2026-02-10 10:52:03:448 MCU   @firmware acceptable error range (Node 5): 512
+2026-02-10 10:52:03:448 MCU   @[V] error range replaced with local set: 6154
+2026-02-10 10:52:03:573 MCU   @firmware acceptable error range (Node 6): 512
+2026-02-10 10:52:03:573 MCU   @[H] error range replaced with local set: 6154
+2026-02-10 10:52:03:658 MCU   @firmware acceptable error range (Node 7): 512
+2026-02-10 10:52:03:659 MCU   @[N] error range replaced with local set: 19376
+2026-02-10 10:52:03:782 MCU   @firmware acceptable error range (Node 8): 512
+2026-02-10 10:52:03:782 MCU   @[R] error range replaced with local set: 4097
+2026-02-10 10:52:03:866 MCU   @firmware acceptable error range (Node 9): 512
+2026-02-10 10:52:03:866 MCU   @[P] error range replaced with local set: 4097
+2026-02-10 10:52:03:868 Frame @frame grabber UVC device: USB Video
+2026-02-10 10:52:03:944 Frame @frame grabber connected
+2026-02-10 10:52:03:944 Frame @frame grabber started
+2026-02-10 10:52:03:950 MCU   @firmware operation mode (Node 11): 1
+2026-02-10 10:52:04:074 MCU   @firmware acceptable error range (Node 12): 512
+2026-02-10 10:52:04:075 MCU   @[Z] error range replaced with local set: 17615
+2026-02-10 10:52:04:968 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-10 10:52:53:399 User  @system menu selected (About)
+
+2026-02-10 10:52:58:809 User  @system menu selected (Exit)
+2026-02-10 10:53:00:080 Info  @open needle guide command sent
+2026-02-10 10:53:01:142 Frame @frame grabber stopped
+2026-02-10 10:53:01:551 MCU   @robot moving stopped
+2026-02-10 10:53:02:661 MCU   @mcu controller stopped
+2026-02-10 10:53:02:915 Info  @UroTherapy exited 
+
+
+
+2026-02-10 13:14:56:434 Info  @UtlLogger instance created
+2026-02-10 13:14:56:435 Info  @starting UroTherapy (SVN 1003)
+2026-02-10 13:14:56:965 Info  @MainWindow instance created
+
+2026-02-10 13:15:39:580 User  @user 'Service' login
+2026-02-10 13:15:39:633 Info  @UroTherapy launched
+2026-02-10 13:15:39:633 Info  @SurgeryController instance created
+2026-02-10 13:15:39:636 Info  @Robot Unit: TX-05-07
+2026-02-10 13:15:39:704 Info  @VisualEngine instance created
+2026-02-10 13:15:41:857 MCU   @firmware version (Master): 1.0.0_004
+2026-02-10 13:15:41:858 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-10 13:15:43:043 DEBUG @S.SC state (7, 24)
+2026-02-10 13:15:43:044 DEBUG @E.SC state (7, 24)
+2026-02-10 13:15:43:044 DEBUG @S.VE state (7, 24)
+2026-02-10 13:15:43:045 DEBUG @E.VE state (7, 24)
+2026-02-10 13:15:43:045 DEBUG @S.MW state (7, 24)
+2026-02-10 13:15:43:409 DEBUG @E.MW state (7, 24)
+2026-02-10 13:15:43:868 MCU   @[WRN] Node 3 (GETVER) response timeout (2015). Try again.
+2026-02-10 13:15:43:909 MCU   @[WRN] Node 4 (GETVER) response timeout (2016). Try again.
+2026-02-10 13:15:43:930 MCU   @[WRN] Node 5 (GETVER) response timeout (2031). Try again.
+2026-02-10 13:15:43:930 MCU   @[WRN] Node 6 (GETVER) response timeout (2016). Try again.
+2026-02-10 13:15:43:973 MCU   @[WRN] Node 7 (GETVER) response timeout (2031). Try again.
+2026-02-10 13:15:43:973 MCU   @[WRN] Node 8 (GETVER) response timeout (2016). Try again.
+2026-02-10 13:15:43:995 MCU   @[WRN] Node 9 (GETVER) response timeout (2015). Try again.
+2026-02-10 13:15:44:038 MCU   @[WRN] Node 10 (GETVER) response timeout (2031). Try again.
+2026-02-10 13:15:44:038 MCU   @[WRN] Node 11 (GETVER) response timeout (2015). Try again.
+2026-02-10 13:15:44:060 MCU   @[WRN] Node 12 (GETVER) response timeout (2016). Try again.
+2026-02-10 13:15:44:645 Frame @frame grabber UVC device: USB Video
+2026-02-10 13:15:44:736 Frame @frame grabber connected
+2026-02-10 13:15:44:737 Frame @frame grabber started
+2026-02-10 13:15:45:746 Frame @frame grabber screen size updated: 1920 x 1080
+2026-02-10 13:15:45:888 MCU   @[ERR] Node 3 (GETVER) response timeout (2016). Check connection.
+2026-02-10 13:15:45:930 MCU   @[ERR] Node 4 (GETVER) response timeout (2031). Check connection.
+2026-02-10 13:15:45:952 MCU   @[ERR] Node 5 (GETVER) response timeout (2016). Check connection.
+2026-02-10 13:15:45:952 MCU   @[ERR] Node 6 (GETVER) response timeout (2016). Check connection.
+2026-02-10 13:15:45:994 MCU   @[ERR] Node 7 (GETVER) response timeout (2015). Check connection.
+2026-02-10 13:15:45:994 MCU   @[ERR] Node 8 (GETVER) response timeout (2015). Check connection.
+2026-02-10 13:15:46:016 MCU   @[ERR] Node 9 (GETVER) response timeout (2016). Check connection.
+2026-02-10 13:15:46:058 MCU   @[ERR] Node 10 (GETVER) response timeout (2016). Check connection.
+2026-02-10 13:15:46:060 MCU   @[ERR] Node 11 (GETVER) response timeout (2016). Check connection.
+2026-02-10 13:15:46:083 MCU   @[ERR] Node 12 (GETVER) response timeout (2031). Check connection.
+2026-02-10 13:15:48:072 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2016). Try again.
+2026-02-10 13:15:50:088 MCU   @[ERR] Node 11 (LOG_NGSW) response timeout (2015). Check connection.
+
+2026-02-10 13:16:00:840 User  @on_startInitRobot_clicked
+2026-02-10 13:16:05:341 Info  @switch LED light to Red
+2026-02-10 13:16:05:342 DEBUG @S.SC state (7, 25)
+2026-02-10 13:16:05:342 DEBUG @E.SC state (7, 25)
+2026-02-10 13:16:05:343 DEBUG @S.VE state (7, 25)
+2026-02-10 13:16:05:343 DEBUG @E.VE state (7, 25)
+2026-02-10 13:16:05:344 DEBUG @S.MW state (7, 25)
+2026-02-10 13:16:05:404 DEBUG @E.MW state (7, 25)
+2026-02-10 13:16:05:438 MCU   @set motor P sensors to 'stop'
+2026-02-10 13:16:05:439 MCU   @set motor R sensors to 'stop'
+2026-02-10 13:16:05:462 MCU   @[X] start searching reference
+2026-02-10 13:16:08:490 MCU   @[ERR] [N3] 'ExecuteCommand' failed (INTERRUPT)
+2026-02-10 13:16:08:512 MCU   @[WRN] Node 10 (HMILED) response timeout (3047). Try again.
+2026-02-10 13:16:08:513 MCU   @[Y] start searching reference
+2026-02-10 13:16:11:243 MCU   @stop periodic event 'LOGFLAGS' (node 3)
+2026-02-10 13:16:11:265 MCU   @[ERR] Node 10 (HMILED) response timeout (2750). Check connection.
+2026-02-10 13:16:11:266 MCU   @[WRN] Node 9 (LFLAG) response timeout (2750). Try again.
+2026-02-10 13:16:11:267 MCU   @[Z] start searching reference
+2026-02-10 13:16:11:590 MCU   @stop periodic event 'LOGFLAGS' (node 5)
+2026-02-10 13:16:11:591 MCU   @stop periodic event 'LOGFLAGS' (node 6)
+2026-02-10 13:16:11:892 MCU   @stop periodic event 'LOGFLAGS' (node 7)
+2026-02-10 13:16:11:892 MCU   @stop periodic event 'LOGFLAGS' (node 8)
+2026-02-10 13:16:12:194 MCU   @stop periodic event 'LOGFLAGS' (node 9)
+2026-02-10 13:16:12:496 MCU   @[AMD] AMX partially corrupted [ 25 A5 0A 01 31 04 D8 3A 01 01 ]
+2026-02-10 13:16:12:497 MCU   @[AMD] AMX partially corrupted [ 25 A5 0A 01 31 04 D8 3A 01 01 ]
+2026-02-10 13:16:12:497 MCU   @[AMD] [N11] partial AMX amended [ 25 A5 0B 01 31 06 D2 04 10 00 10 00 39 89 ]
+2026-02-10 13:16:12:498 MCU   @[AMD] AMX partially corrupted [ 25 A5 0A 01 31 04 D8 3A 01 01 ]
+2026-02-10 13:16:12:498 MCU   @[AMD] [N11] partial AMX amended [ 25 A5 0B 01 31 04 D8 3A 00 00 53 A7 ]
+2026-02-10 13:16:12:499 MCU   @stop periodic event 'LOGFLAGS' (node 11)
+2026-02-10 13:16:12:801 MCU   @[AMD] [N10] partial AMX amended [ 25 A5 0A 01 31 04 D8 3A 01 01 4D 31 ]
+2026-02-10 13:16:12:801 MCU   @stop periodic event 'LOGFLAGS' (node 10)
+2026-02-10 13:16:13:269 MCU   @[ERR] Node 9 (LFLAG) response timeout (2016). Check connection.
+2026-02-10 13:16:13:271 MCU   @[WRN] Node 8 (LFLAG) response timeout (2016). Try again.
+2026-02-10 13:16:13:648 Info  @needle guide opened
+2026-02-10 13:16:14:848 MCU   @[WRN] Node 3 (LOGFLAGS) response timeout (2015). Try again.
+2026-02-10 13:16:14:849 MCU   @[WRN] Node 4 (LFLAG) response timeout (2016). Try again.
+2026-02-10 13:16:14:893 MCU   @[WRN] Node 5 (LOGFLAGS) response timeout (2016). Try again.
+2026-02-10 13:16:14:895 MCU   @[WRN] Node 6 (LOGFLAGS) response timeout (2016). Try again.
+2026-02-10 13:16:14:938 MCU   @[WRN] Node 7 (LOGFLAGS) response timeout (2016). Try again.
+2026-02-10 13:16:14:961 MCU   @[WRN] Node 11 (LOGFLAGS) response timeout (2031). Try again.
+2026-02-10 13:16:14:962 MCU   @[WRN] Node 10 (LOGFLAGS) response timeout (2015). Try again.
+2026-02-10 13:16:15:004 MCU   @[WRN] Node 12 (LFLAG) response timeout (2031). Try again.
+2026-02-10 13:16:15:300 MCU   @[ERR] Node 8 (LFLAG) response timeout (2015). Check connection.
+2026-02-10 13:16:15:302 MCU   @[WRN] Node 9 (RFLAG) response timeout (2015). Try again.
+2026-02-10 13:16:16:883 MCU   @[ERR] Node 3 (LOGFLAGS) response timeout (2031). Check connection.
+2026-02-10 13:16:16:990 MCU   @[ERR] Node 10 (LOGFLAGS) response timeout (2031). Check connection.
+2026-02-10 13:16:17:032 MCU   @[ERR] Node 12 (LFLAG) response timeout (2016). Check connection.
+2026-02-10 13:16:19:043 MCU   @[WRN] Node 12 (RUN) response timeout (2015). Try again.
+2026-02-10 13:16:22:824 MCU   @[Y] stopped by sensor L
+2026-02-10 13:16:23:026 MCU   @[Y] reset physical position to 0
+2026-02-10 13:16:23:228 MCU   @[Y] reference found (SENSOR)
+2026-02-10 13:16:23:229 MCU   @[Y] max: 0.00
+2026-02-10 13:16:23:230 MCU   @[P] start searching reference
+2026-02-10 13:16:23:554 MCU   @[P] already at sensor position. Set to 0
+2026-02-10 13:16:23:578 MCU   @[P] reference found (SENSOR)
+2026-02-10 13:16:23:580 MCU   @[P] max: 0.00
+2026-02-10 13:16:23:584 MCU   @[N] start searching reference
+2026-02-10 13:16:23:929 MCU   @[Y] start clearing: -19.50
+2026-02-10 13:16:29:003 MCU   @[N] stopped by sensor L
+2026-02-10 13:16:29:003 MCU   @[N] reset physical position to 0
+2026-02-10 13:16:29:205 MCU   @[N] reference found (SENSOR)
+2026-02-10 13:16:29:206 MCU   @[N] min: 0.00
+2026-02-10 13:16:31:005 MCU   @[Y] motor cleared
+2026-02-10 13:16:31:005 MCU   @[Y] min: -29.51
+2026-02-10 13:16:31:006 MCU   @[P] start clearing: -165.00
+2026-02-10 13:16:31:028 MCU   @[Y] start moving to max pos: -3.00
+2026-02-10 13:16:31:049 MCU   @[N] start clearing: 69.50
+2026-02-10 13:16:31:072 MCU   @[H] start searching reference
+2026-02-10 13:16:31:973 MCU   @[ERR] motor Z LEFT sensor cut
+2026-02-10 13:16:36:426 MCU   @[H] stopped by sensor L
+2026-02-10 13:16:36:426 MCU   @[H] reset physical position to 0
+2026-02-10 13:16:36:628 MCU   @[H] reference found (SENSOR)
+2026-02-10 13:16:36:629 MCU   @[H] max: 0.00
+2026-02-10 13:16:36:651 MCU   @[H] start clearing: -49.00
+2026-02-10 13:16:38:628 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2026-02-10 13:16:38:630 DEBUG @S.SC state (7, 28)
+2026-02-10 13:16:38:631 DEBUG @E.SC state (7, 28)
+2026-02-10 13:16:38:632 DEBUG @S.VE state (7, 28)
+2026-02-10 13:16:38:632 DEBUG @E.VE state (7, 28)
+2026-02-10 13:16:38:632 DEBUG @S.MW state (7, 28)
+2026-02-10 13:16:59:778 DEBUG @E.MW state (7, 28)
+
+2026-02-10 13:17:03:779 User  @factory menu selected (System Settings)
+
+2026-02-10 13:17:16:308 User  @on_startInitRobot_clicked
+2026-02-10 13:17:17:329 DEBUG @S.SC state (7, 25)
+2026-02-10 13:17:17:329 DEBUG @E.SC state (7, 25)
+2026-02-10 13:17:17:330 DEBUG @S.VE state (7, 25)
+2026-02-10 13:17:17:330 DEBUG @E.VE state (7, 25)
+2026-02-10 13:17:17:330 DEBUG @S.MW state (7, 25)
+2026-02-10 13:17:17:346 MCU   @set motor P sensors to 'stop'
+2026-02-10 13:17:17:347 MCU   @set motor R sensors to 'stop'
+2026-02-10 13:17:17:371 MCU   @[X] start searching reference
+2026-02-10 13:17:17:376 DEBUG @E.MW state (7, 25)
+2026-02-10 13:17:20:402 MCU   @[ERR] [N3] 'ExecuteCommand' failed (INTERRUPT)
+2026-02-10 13:17:20:423 MCU   @[Y] start searching reference
+2026-02-10 13:17:20:768 MCU   @[Z] start searching reference
+2026-02-10 13:17:21:092 MCU   @[Z] already at sensor position. Set to 0
+2026-02-10 13:17:21:114 MCU   @[Z] reference found (SENSOR)
+2026-02-10 13:17:21:114 MCU   @[Z] max: 0.00
+2026-02-10 13:17:24:162 MCU   @[Y] stopped by sensor L
+2026-02-10 13:17:24:163 MCU   @[Y] reset physical position to 0
+2026-02-10 13:17:24:366 MCU   @[Y] reference found (SENSOR)
+2026-02-10 13:17:24:366 MCU   @[Y] max: 0.00
+2026-02-10 13:17:24:368 MCU   @[P] start searching reference
+2026-02-10 13:17:24:714 MCU   @[N] start searching reference
+2026-02-10 13:17:32:378 MCU   @[P] stopped by sensor L
+2026-02-10 13:17:32:378 MCU   @[P] reset physical position to 0
+2026-02-10 13:17:32:580 MCU   @[P] reference found (SENSOR)
+2026-02-10 13:17:32:580 MCU   @[P] max: 0.00
+2026-02-10 13:17:32:581 MCU   @[Y] start clearing: -19.50
+2026-02-10 13:17:33:321 MCU   @[N] stopped by sensor L
+2026-02-10 13:17:33:321 MCU   @[N] reset physical position to 0
+2026-02-10 13:17:33:523 MCU   @[N] reference found (SENSOR)
+2026-02-10 13:17:33:523 MCU   @[N] min: 0.00
+2026-02-10 13:17:39:354 MCU   @[Y] motor cleared
+2026-02-10 13:17:39:354 MCU   @[Y] min: -29.51
+2026-02-10 13:17:39:355 MCU   @[Z] start clearing: -50.00
+2026-02-10 13:17:39:377 MCU   @[Y] start moving to max pos: -3.00
+2026-02-10 13:17:39:400 MCU   @[P] start clearing: -165.00
+2026-02-10 13:17:39:424 MCU   @[N] start clearing: 69.50
+2026-02-10 13:17:39:445 MCU   @[H] start searching reference
+2026-02-10 13:17:42:435 MCU   @[H] stopped by sensor L
+2026-02-10 13:17:42:436 MCU   @[H] reset physical position to 0
+2026-02-10 13:17:42:638 MCU   @[H] reference found (SENSOR)
+2026-02-10 13:17:42:638 MCU   @[H] max: 0.00
+2026-02-10 13:17:42:661 MCU   @[H] start clearing: -49.00
+2026-02-10 13:17:48:628 MCU   @[Y] motor reached max pos
+2026-02-10 13:17:49:232 MCU   @[P] motor cleared
+2026-02-10 13:17:49:233 MCU   @[P] min: -165.02
+2026-02-10 13:17:49:435 MCU   @[P] start moving to home: -1.00
+2026-02-10 13:17:50:448 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2026-02-10 13:17:50:450 DEBUG @S.SC state (7, 28)
+2026-02-10 13:17:50:450 DEBUG @E.SC state (7, 28)
+2026-02-10 13:17:50:451 DEBUG @S.VE state (7, 28)
+2026-02-10 13:17:50:451 DEBUG @E.VE state (7, 28)
+2026-02-10 13:17:50:451 DEBUG @S.MW state (7, 28)
+2026-02-10 13:18:00:535 DEBUG @E.MW state (7, 28)
+
+2026-02-10 13:18:10:695 User  @factory menu selected (Motion Control)
+2026-02-10 13:18:10:698 DEBUG @S.SC state (5, 20)
+2026-02-10 13:18:10:699 DEBUG @E.SC state (5, 20)
+2026-02-10 13:18:10:700 DEBUG @S.VE state (5, 20)
+2026-02-10 13:18:10:700 DEBUG @E.VE state (5, 20)
+2026-02-10 13:18:10:701 DEBUG @S.MW state (5, 20)
+2026-02-10 13:18:10:739 DEBUG @E.MW state (5, 20)
+
+2026-02-10 13:18:12:908 User  @on_emcAxisX_clicked
+2026-02-10 13:18:12:911 Info  @Motor X selected (motion control)
+
+2026-02-10 13:18:15:126 User  @on_emcShowDebugDialog_clicked
+2026-02-10 13:18:21:631 MCU   @[WRN] Node 10 (NODEIDref) response timeout (2016). Try again.
+
+2026-02-10 13:18:54:522 User  @on_emcBack_clicked
+2026-02-10 13:18:54:524 DEBUG @S.SC state (7, 28)
+2026-02-10 13:18:54:525 DEBUG @E.SC state (7, 28)
+2026-02-10 13:18:54:525 DEBUG @S.VE state (7, 28)
+2026-02-10 13:18:54:525 DEBUG @E.VE state (7, 28)
+2026-02-10 13:18:54:526 DEBUG @S.MW state (7, 28)
+2026-02-10 13:18:55:597 DEBUG @E.MW state (7, 28)
+
+2026-02-10 13:18:56:634 User  @on_startInitRobot_clicked
+2026-02-10 13:18:57:560 DEBUG @S.SC state (7, 25)
+2026-02-10 13:18:57:561 DEBUG @E.SC state (7, 25)
+2026-02-10 13:18:57:561 DEBUG @S.VE state (7, 25)
+2026-02-10 13:18:57:562 DEBUG @E.VE state (7, 25)
+2026-02-10 13:18:57:562 DEBUG @S.MW state (7, 25)
+2026-02-10 13:18:57:563 MCU   @set motor P sensors to 'stop'
+2026-02-10 13:18:57:563 MCU   @set motor R sensors to 'stop'
+2026-02-10 13:18:57:587 MCU   @[X] start searching reference
+2026-02-10 13:18:57:618 DEBUG @E.MW state (7, 25)
+2026-02-10 13:18:57:936 MCU   @[Y] start searching reference
+2026-02-10 13:18:58:282 MCU   @[Z] start searching reference
+2026-02-10 13:19:00:861 MCU   @[Y] stopped by sensor L
+2026-02-10 13:19:00:862 MCU   @[Y] reset physical position to 0
+2026-02-10 13:19:01:063 MCU   @[Y] reference found (SENSOR)
+2026-02-10 13:19:01:064 MCU   @[Y] max: 0.00
+2026-02-10 13:19:01:066 MCU   @[P] start searching reference
+2026-02-10 13:19:01:411 MCU   @[N] start searching reference
+2026-02-10 13:19:03:251 MCU   @[X] stopped by sensor L
+2026-02-10 13:19:03:252 MCU   @[X] reset physical position to 0
+2026-02-10 13:19:03:454 MCU   @[X] reference found (SENSOR)
+2026-02-10 13:19:03:455 MCU   @[X] max: 0.00
+2026-02-10 13:19:10:273 MCU   @[Z] stopped by sensor L
+2026-02-10 13:19:10:273 MCU   @[Z] reset physical position to 0
+2026-02-10 13:19:10:475 MCU   @[Z] reference found (SENSOR)
+2026-02-10 13:19:10:475 MCU   @[Z] max: 0.00
+2026-02-10 13:19:10:476 MCU   @[P] stopped by sensor L
+2026-02-10 13:19:10:476 MCU   @[P] reset physical position to 0
+2026-02-10 13:19:10:499 MCU   @[P] reference found (SENSOR)
+2026-02-10 13:19:10:500 MCU   @[P] max: 0.00
+2026-02-10 13:19:10:501 MCU   @[Y] start clearing: -19.50
+2026-02-10 13:19:13:111 MCU   @[N] stopped by sensor L
+2026-02-10 13:19:13:313 MCU   @[N] reset physical position to 0
+2026-02-10 13:19:13:515 MCU   @[N] reference found (SENSOR)
+2026-02-10 13:19:13:515 MCU   @[N] min: 0.00
+2026-02-10 13:19:17:319 MCU   @[Y] motor cleared
+2026-02-10 13:19:17:320 MCU   @[Y] min: -29.51
+2026-02-10 13:19:17:320 MCU   @[Z] start clearing: -50.00
+2026-02-10 13:19:17:342 MCU   @[Y] start moving to max pos: -3.00
+2026-02-10 13:19:17:364 MCU   @[P] start clearing: -165.00
+2026-02-10 13:19:17:387 MCU   @[N] start clearing: 69.50
+2026-02-10 13:19:17:409 MCU   @[X] start clearing: -22.00
+2026-02-10 13:19:17:432 MCU   @[H] start searching reference
+2026-02-10 13:19:25:166 MCU   @[X] motor cleared
+2026-02-10 13:19:25:166 MCU   @[X] min: -32.01
+2026-02-10 13:19:25:367 MCU   @[X] start moving to max pos: -3.00
+2026-02-10 13:19:26:383 MCU   @[H] stopped by sensor L
+2026-02-10 13:19:26:383 MCU   @[H] reset physical position to 0
+2026-02-10 13:19:26:585 MCU   @[H] reference found (SENSOR)
+2026-02-10 13:19:26:586 MCU   @[H] max: 0.00
+2026-02-10 13:19:26:609 MCU   @[H] start clearing: -49.00
+2026-02-10 13:19:26:755 MCU   @[Y] motor reached max pos
+2026-02-10 13:19:27:013 MCU   @[P] motor cleared
+2026-02-10 13:19:27:013 MCU   @[P] min: -165.03
+2026-02-10 13:19:27:034 MCU   @[P] start moving to home: -1.00
+2026-02-10 13:19:34:956 MCU   @[X] motor reached max pos
+2026-02-10 13:19:35:158 MCU   @[H] motor cleared
+2026-02-10 13:19:35:158 MCU   @[H] min: -49.03
+2026-02-10 13:19:35:360 MCU   @[H] start moving to home: -25.82
+2026-02-10 13:19:36:979 MCU   @[P] motor homed
+2026-02-10 13:19:36:979 MCU   @[R] start searching reference
+2026-02-10 13:19:39:514 MCU   @[H] motor homed
+2026-02-10 13:19:39:514 MCU   @[V] start searching reference
+2026-02-10 13:19:40:642 MCU   @[Z] motor cleared
+2026-02-10 13:19:40:642 MCU   @[Z] min: -50.01
+2026-02-10 13:19:40:844 MCU   @[Z] start moving to home: -33.30
+2026-02-10 13:19:42:663 MCU   @[N] motor cleared
+2026-02-10 13:19:42:663 MCU   @[N] max: 69.51
+2026-02-10 13:19:42:865 MCU   @[N] start moving to home: 12.47
+2026-02-10 13:19:45:284 MCU   @[V] stopped by sensor L
+2026-02-10 13:19:45:285 MCU   @[V] reset physical position to 0
+2026-02-10 13:19:45:488 MCU   @[V] reference found (SENSOR)
+2026-02-10 13:19:45:488 MCU   @[V] max: 0.00
+2026-02-10 13:19:45:489 MCU   @[R] stopped by sensor R
+2026-02-10 13:19:45:489 MCU   @[R] reset physical position to 0
+2026-02-10 13:19:45:513 MCU   @[V] start clearing: -49.00
+2026-02-10 13:19:45:535 MCU   @[R] reference found (SENSOR)
+2026-02-10 13:19:45:535 MCU   @[R] max: 0.00
+2026-02-10 13:19:45:558 MCU   @[R] start clearing: -119.00
+2026-02-10 13:19:48:581 MCU   @[Z] motor homed
+2026-02-10 13:19:54:403 MCU   @[V] motor cleared
+2026-02-10 13:19:54:403 MCU   @[V] min: -49.03
+2026-02-10 13:19:54:605 MCU   @[V] start moving to home: -24.17
+2026-02-10 13:19:59:455 MCU   @[R] motor cleared
+2026-02-10 13:19:59:455 MCU   @[R] min: -119.04
+2026-02-10 13:19:59:656 MCU   @[R] start moving to home: -60.00
+2026-02-10 13:20:00:469 MCU   @[V] motor homed
+2026-02-10 13:20:00:470 MCU   @[X] start moving to home: -18.78
+2026-02-10 13:20:00:493 MCU   @[Y] start moving to home: -13.60
+2026-02-10 13:20:03:221 MCU   @[N] motor homed
+2026-02-10 13:20:04:628 MCU   @[Y] motor homed
+2026-02-10 13:20:05:834 MCU   @[X] motor homed
+2026-02-10 13:20:06:639 MCU   @[R] motor homed
+2026-02-10 13:20:06:639 MCU   @set motor P sensors to 'nonstop'
+2026-02-10 13:20:06:640 MCU   @set motor R sensors to 'nonstop'
+2026-02-10 13:20:06:640 MCU   @robot initialization done (69078ms)
+2026-02-10 13:20:06:649 Info  @system actual [32.96,-9.99,-0.01,39.95,0.01,0.03,79.98,0.03]
+2026-02-10 13:20:06:649 Info  @switch LED light to Green
+2026-02-10 13:20:07:150 DEBUG @S.SC state (7, 26)
+2026-02-10 13:20:07:150 DEBUG @E.SC state (7, 26)
+2026-02-10 13:20:07:150 DEBUG @S.VE state (7, 26)
+2026-02-10 13:20:07:151 DEBUG @E.VE state (7, 26)
+2026-02-10 13:20:07:151 DEBUG @S.MW state (7, 26)
+2026-02-10 13:20:07:254 DEBUG @E.MW state (7, 26)
+
+2026-02-10 13:20:07:279 User  @on_startCreateCase_clicked
+
+2026-02-10 13:23:10:677 User  @factory menu selected (Imaging Calibration)
+2026-02-10 13:23:10:683 DEBUG @S.SC state (3, 12)
+2026-02-10 13:23:10:683 DEBUG @E.SC state (3, 12)
+2026-02-10 13:23:10:683 DEBUG @S.VE state (3, 12)
+2026-02-10 13:23:10:684 DEBUG @E.VE state (3, 12)
+2026-02-10 13:23:10:684 DEBUG @S.MW state (3, 12)
+2026-02-10 13:23:10:709 DEBUG @E.MW state (3, 12)
+2026-02-10 13:23:10:710 Info  @switch LED light to Red
+2026-02-10 13:23:10:711 DEBUG @S.SC state (3, 13)
+2026-02-10 13:23:10:711 DEBUG @E.SC state (3, 13)
+2026-02-10 13:23:10:712 DEBUG @S.VE state (3, 13)
+2026-02-10 13:23:10:712 DEBUG @E.VE state (3, 13)
+2026-02-10 13:23:10:713 DEBUG @S.MW state (3, 13)
+2026-02-10 13:23:10:733 DEBUG @E.MW state (3, 13)
+2026-02-10 13:23:19:435 MCU   @robot moving (absolute) done (8703ms)
+2026-02-10 13:23:19:454 Info  @system actual [-112.04,-9.99,-0.01,39.95,0.01,0.03,79.98,0.02]
+2026-02-10 13:23:19:455 Info  @switch LED light to Green
+2026-02-10 13:23:19:455 DEBUG @S.SC state (3, 14)
+2026-02-10 13:23:19:456 DEBUG @E.SC state (3, 14)
+2026-02-10 13:23:19:456 DEBUG @S.VE state (3, 14)
+2026-02-10 13:23:19:457 DEBUG @E.VE state (3, 14)
+2026-02-10 13:23:19:457 DEBUG @S.MW state (3, 14)
+2026-02-10 13:23:19:472 DEBUG @E.MW state (3, 14)
+
+2026-02-10 13:23:23:806 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:24:003 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:24:216 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:24:351 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:24:515 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:24:652 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:24:799 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:24:960 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:25:117 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:25:322 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:25:482 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:25:625 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:25:800 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:25:983 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:26:152 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:26:348 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:26:524 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:26:724 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:26:882 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:31:745 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:31:905 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:32:131 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:32:267 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:32:415 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:32:578 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:32:782 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:32:909 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:33:090 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:33:241 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:33:442 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:33:611 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:33:790 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:33:978 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:34:138 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:34:276 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:34:488 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:34:648 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:34:860 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:35:006 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:35:234 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:35:342 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:35:560 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:35:788 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:35:941 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:36:098 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:36:307 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:36:469 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:36:659 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:36:810 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:37:001 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:37:184 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:37:357 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:37:563 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:37:721 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:37:891 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:38:080 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:38:263 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:38:455 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:38:616 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:38:836 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:38:988 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:39:187 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:39:359 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:39:565 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:39:719 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:39:901 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:40:100 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:40:305 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:40:455 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:40:644 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:40:833 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:41:003 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:41:280 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:41:459 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:41:598 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:41:820 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:41:985 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:42:159 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:53:230 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:53:421 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:53:601 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:53:818 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:53:970 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:54:206 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:54:339 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:54:565 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:54:727 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:54:938 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:55:114 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:55:309 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:55:485 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:55:679 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:55:889 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:56:060 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:56:276 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:56:452 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:56:630 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:57:016 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:57:169 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:57:353 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:57:649 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:23:58:088 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:24:01:635 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:24:01:840 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:24:02:025 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:24:02:219 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:24:04:836 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:05:027 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:05:193 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:05:329 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:05:502 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:05:652 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:05:839 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:05:979 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:06:138 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:06:286 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:06:505 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:06:608 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:06:808 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:06:948 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:07:110 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:07:275 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:07:477 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:07:621 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:07:785 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:07:954 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:08:154 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:08:303 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:08:473 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:08:633 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:08:861 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:08:979 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:09:146 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:09:296 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:09:503 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:09:658 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:09:810 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:10:030 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:10:174 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:10:333 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:10:534 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:10:683 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:10:860 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:11:055 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:11:215 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:11:382 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:11:574 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:11:741 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:11:929 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:12:093 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:12:290 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:12:441 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:12:658 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:12:839 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:15:761 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:15:942 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:16:160 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:16:311 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:16:516 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:16:666 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:16:869 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:17:008 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:17:232 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:17:372 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:17:535 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:17:736 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:17:889 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:18:103 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:18:279 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:18:477 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:18:912 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:19:293 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:19:681 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:19:869 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:22:013 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:22:234 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:22:506 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:22:681 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:22:870 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:23:038 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:23:244 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:23:416 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:23:608 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:23:781 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:23:986 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:24:24:220 User  @on_frameGrabDown_clicked
+
+2026-02-10 13:27:03:534 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:27:03:748 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:27:03:984 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:27:04:096 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:27:04:278 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:27:07:339 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:27:07:911 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:27:08:195 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:28:19:306 User  @on_frameGrabRight_clicked
+
+2026-02-10 13:28:19:488 User  @on_frameGrabRight_clicked
+
+2026-02-10 13:28:19:711 User  @on_frameGrabRight_clicked
+
+2026-02-10 13:28:19:864 User  @on_frameGrabRight_clicked
+
+2026-02-10 13:28:21:297 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:28:21:925 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:31:27:999 User  @on_frameGrabRight_clicked
+
+2026-02-10 13:31:28:244 User  @on_frameGrabRight_clicked
+
+2026-02-10 13:31:32:158 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:31:32:357 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:31:32:587 User  @on_frameGrabLeft_clicked
+
+2026-02-10 13:36:25:787 User  @on_markerCalibCenter_clicked
+
+2026-02-10 13:36:27:666 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:27:812 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:27:968 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:28:076 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:28:242 User  @on_markerMovementSmallerAngle_clicked
+
+2026-02-10 13:36:28:542 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:28:678 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:28:854 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:29:004 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:29:222 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:29:358 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:29:525 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:29:685 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:29:890 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:30:055 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:30:243 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:30:394 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:30:599 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:30:732 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:30:898 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:31:053 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:31:208 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:31:371 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:31:608 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:31:734 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:31:897 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:32:062 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:32:270 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:32:432 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:32:613 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:32:814 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:33:197 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:34:639 User  @on_markerMovementLeft_clicked
+
+2026-02-10 13:36:35:678 User  @on_markerMovementLeft_clicked
+
+2026-02-10 13:36:36:787 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:44:196 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:44:372 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:44:551 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:44:683 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:44:849 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:45:007 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:45:211 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:45:353 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:45:506 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:45:687 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:45:904 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:46:046 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:46:233 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:46:430 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:46:606 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:46:799 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:46:968 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:47:110 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:47:319 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:47:481 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:47:653 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:47:850 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:48:008 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:48:174 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:48:393 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:48:531 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:48:688 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:48:854 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:49:105 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:49:256 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:49:474 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:49:705 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:49:909 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:50:090 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:50:290 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:50:462 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:50:702 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:50:877 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:51:086 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:51:326 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:36:54:727 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:36:57:148 User  @on_markerCalibLeft_clicked
+
+2026-02-10 13:37:00:880 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:01:084 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:01:248 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:01:398 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:01:570 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:01:724 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:01:881 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:02:081 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:02:224 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:02:376 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:02:551 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:02:713 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:03:616 User  @on_markerMovementDown_clicked
+
+2026-02-10 13:37:06:630 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:06:831 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:07:001 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:07:146 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:07:379 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:07:516 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:07:739 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:07:902 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:08:176 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:08:335 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:08:556 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:08:721 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:08:892 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:09:186 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:09:419 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:09:601 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:09:773 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:10:144 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:10:536 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:10:745 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:10:953 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:13:606 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:16:249 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:16:579 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:16:808 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:16:972 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:17:175 User  @on_calibImageStepLarge_clicked
+
+2026-02-10 13:37:18:946 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:19:274 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:19:493 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:19:707 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:20:076 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:20:269 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:20:443 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:20:736 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:32:224 User  @on_markerCalibCenter_clicked
+
+2026-02-10 13:37:35:801 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:36:578 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 13:37:43:094 User  @on_imagingCalibNext_clicked
+
+2026-02-10 13:37:53:282 User  @on_functionResetView_clicked
+
+2026-02-10 13:37:58:709 User  @on_functionResetView_clicked
+
+2026-02-10 13:37:59:517 User  @on_functionResetView_clicked
+
+2026-02-10 13:38:00:444 User  @on_functionResetView_clicked
+
+2026-02-10 13:38:01:117 User  @on_functionResetView_clicked
+
+2026-02-10 13:41:00:183 User  @on_functionResetView_clicked
+
+2026-02-10 13:41:01:166 User  @on_functionResetView_clicked
+
+2026-02-10 13:41:01:874 User  @on_functionResetView_clicked
+
+2026-02-10 13:41:04:177 User  @on_functionResetView_clicked
+
+2026-02-10 13:41:05:627 User  @on_functionResetView_clicked
+
+2026-02-10 13:41:07:315 User  @on_functionResetView_clicked
+
+2026-02-10 13:41:08:104 User  @on_functionResetView_clicked
+2026-02-10 13:52:34:624 Info  @screen auto locked (Service)
+
+2026-02-10 13:55:41:442 User  @screen unlocked by user 'Service'
+
+2026-02-10 14:03:41:345 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:41:541 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:41:691 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:41:823 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:41:984 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:42:140 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:42:292 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:43:010 User  @on_markerMovementSmallerAngle_clicked
+
+2026-02-10 14:03:43:808 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:43:975 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:44:152 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:44:311 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:44:810 User  @on_markerMovementSmallerAngle_clicked
+
+2026-02-10 14:03:44:977 User  @on_markerMovementSmallerAngle_clicked
+
+2026-02-10 14:03:46:804 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:46:987 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:47:212 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:47:342 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:47:514 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:47:681 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:03:52:952 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:03:53:164 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:03:53:313 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:03:55:933 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:03:56:131 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:03:56:320 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:03:56:521 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:03:56:680 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:03:56:796 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:03:58:464 User  @on_markerMovementRight_clicked
+
+2026-02-10 14:03:58:699 User  @on_markerMovementRight_clicked
+
+2026-02-10 14:03:58:857 User  @on_markerMovementRight_clicked
+
+2026-02-10 14:05:22:437 User  @on_imagingCalibBack_clicked
+
+2026-02-10 14:05:28:161 User  @on_imagingCalibNext_clicked
+
+2026-02-10 14:05:38:199 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:05:38:424 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:05:38:706 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:06:00:040 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:06:00:175 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:06:00:521 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:06:02:115 User  @on_markerMovementUp_clicked
+
+2026-02-10 14:06:02:290 User  @on_markerMovementUp_clicked
+
+2026-02-10 14:06:02:486 User  @on_markerMovementUp_clicked
+
+2026-02-10 14:06:02:658 User  @on_markerMovementUp_clicked
+
+2026-02-10 14:06:03:886 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:06:11:850 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:06:15:490 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:06:15:652 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:06:15:814 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:06:15:960 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:06:16:119 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:06:18:884 User  @on_markerMovementUp_clicked
+
+2026-02-10 14:06:19:034 User  @on_markerMovementUp_clicked
+
+2026-02-10 14:06:19:215 User  @on_markerMovementUp_clicked
+
+2026-02-10 14:06:19:483 User  @on_markerMovementUp_clicked
+2026-02-10 14:11:19:490 Info  @screen auto locked (Service)
+
+2026-02-10 14:12:26:645 User  @screen unlocked by user 'Service'
+
+2026-02-10 14:12:34:134 User  @on_markerMovementUp_clicked
+
+2026-02-10 14:12:41:023 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:12:42:941 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:12:43:174 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:12:43:370 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:12:43:674 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:12:43:925 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:12:44:351 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:12:46:610 User  @on_calibImageStepSmall_clicked
+
+2026-02-10 14:12:47:456 User  @on_markerMovementUp_clicked
+
+2026-02-10 14:13:22:923 User  @on_markerCalibLeft_clicked
+
+2026-02-10 14:13:27:799 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:28:013 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:28:162 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:28:312 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:28:470 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:28:618 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:28:772 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:29:500 User  @on_markerMovementSmallerAngle_clicked
+
+2026-02-10 14:13:29:851 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:30:016 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:30:176 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:30:397 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:30:579 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:30:755 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:30:920 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:31:152 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:31:277 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:31:454 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:31:618 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:31:788 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:31:954 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:32:155 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:32:309 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:32:491 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:34:327 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:34:472 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:34:645 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:34:797 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:34:954 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:35:152 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:35:315 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:35:455 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:35:605 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:35:770 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:36:080 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:36:312 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:36:479 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:36:608 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:36:774 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:36:928 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:37:137 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:37:254 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:37:462 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:37:607 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:37:818 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:37:932 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:38:104 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:39:595 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:39:757 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:39:929 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:40:118 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:40:277 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:40:436 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:40:610 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:41:108 User  @on_markerMovementDown_clicked
+
+2026-02-10 14:13:44:717 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:44:908 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:45:081 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:45:222 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:45:398 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:45:548 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:45:763 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:45:911 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:46:077 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:46:236 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:46:403 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:46:556 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:46:740 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:47:108 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:47:314 User  @on_markerMovementLeft_clicked
+
+2026-02-10 14:13:52:033 User  @on_markerMovementSmallerAngle_clicked
+
+2026-02-10 14:13:53:151 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:53:609 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:53:750 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:53:908 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:54:077 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:54:253 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:54:403 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:54:572 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:54:775 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:54:922 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:55:082 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:55:254 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:55:457 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:55:621 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:55:775 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:55:992 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:56:390 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:56:601 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:13:57:053 User  @on_markerMovementLargerAngle_clicked
+
+2026-02-10 14:14:00:926 User  @on_imagingCalibDone_clicked
+2026-02-10 14:14:00:929 DEBUG @S.SC state (7, 26)
+2026-02-10 14:14:00:929 DEBUG @E.SC state (7, 26)
+2026-02-10 14:14:00:930 DEBUG @S.VE state (7, 26)
+2026-02-10 14:14:00:930 DEBUG @E.VE state (7, 26)
+2026-02-10 14:14:00:931 DEBUG @S.MW state (7, 26)
+2026-02-10 14:14:00:990 DEBUG @E.MW state (7, 26)
+2026-02-10 14:14:02:870 Info  @switch LED light to Red
+2026-02-10 14:14:02:870 DEBUG @S.SC state (3, 17)
+2026-02-10 14:14:02:870 DEBUG @E.SC state (3, 17)
+2026-02-10 14:14:02:871 DEBUG @S.VE state (3, 17)
+2026-02-10 14:14:02:871 DEBUG @E.VE state (3, 17)
+2026-02-10 14:14:02:871 DEBUG @S.MW state (3, 17)
+2026-02-10 14:14:02:918 DEBUG @E.MW state (3, 17)
+2026-02-10 14:14:12:384 MCU   @robot moving (absolute) done (9375ms)
+2026-02-10 14:14:12:387 Info  @system actual [32.96,-9.99,-0.01,39.95,0.01,0.03,79.98,0.02]
+2026-02-10 14:14:12:388 Info  @switch LED light to Green
+2026-02-10 14:14:12:389 DEBUG @S.SC state (7, 35)
+2026-02-10 14:14:12:389 DEBUG @E.SC state (7, 35)
+2026-02-10 14:14:12:389 DEBUG @S.VE state (7, 35)
+2026-02-10 14:14:12:390 DEBUG @E.VE state (7, 35)
+2026-02-10 14:14:12:390 DEBUG @S.MW state (7, 35)
+2026-02-10 14:14:12:411 DEBUG @E.MW state (7, 35)
+2026-02-10 14:22:07:464 Info  @screen auto locked (Service)
+
+2026-02-10 14:59:01:694 User  @screen unlocked by user 'Service'
+
+2026-02-10 14:59:09:597 User  @system menu selected (Exit)
+2026-02-10 14:59:10:754 Info  @open needle guide command sent
+2026-02-10 14:59:10:757 Info  @switch LED light to Red
+2026-02-10 14:59:10:759 DEBUG @S.SC state (6, 23)
+2026-02-10 14:59:10:760 DEBUG @E.SC state (6, 23)
+2026-02-10 14:59:10:760 DEBUG @S.VE state (6, 23)
+2026-02-10 14:59:10:761 DEBUG @E.VE state (6, 23)
+2026-02-10 14:59:10:761 DEBUG @S.MW state (6, 23)
+2026-02-10 14:59:10:784 DEBUG @E.MW state (6, 23)
+2026-02-10 14:59:14:408 MCU   @robot moving (finalization) done (3453ms)
+2026-02-10 14:59:14:412 Info  @system actual [32.96,-3.91,-0.01,39.95,0.01,0.03,79.98,0.02]
+2026-02-10 14:59:14:412 Info  @switch LED light to Green
+2026-02-10 14:59:15:590 Info  @switch LED light off
+2026-02-10 14:59:15:624 Frame @frame grabber stopped
+2026-02-10 14:59:16:027 MCU   @robot moving stopped
+2026-02-10 14:59:17:141 MCU   @mcu controller stopped
+2026-02-10 14:59:17:652 Info  @UroTherapy exited 
+
+

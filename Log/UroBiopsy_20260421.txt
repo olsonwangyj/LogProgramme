@@ -1,0 +1,1743 @@
+
+2026-04-21 15:10:11:108 Info  @UtlLogger instance created
+2026-04-21 15:10:11:108 Info  @starting UroBiopsy (SVN 1003)
+2026-04-21 15:10:11:688 Info  @MainWindow instance created
+
+2026-04-21 15:10:27:300 User  @user 'service' login
+2026-04-21 15:10:27:331 Info  @UroBiopsy launched
+2026-04-21 15:10:27:331 Info  @SurgeryController instance created
+2026-04-21 15:10:27:363 Info  @Robot Unit: TX-05-04
+2026-04-21 15:10:27:561 Info  @VisualEngine instance created
+2026-04-21 15:10:29:595 MCU   @firmware version (Master): 1.0.0_004
+2026-04-21 15:10:29:597 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 15:10:29:766 MCU   @firmware version (Node 3): 1.0.0.14
+2026-04-21 15:10:29:871 MCU   @firmware version (Node 4): 1.0.0.14
+2026-04-21 15:10:29:953 MCU   @firmware version (Node 5): 1.0.0.14
+2026-04-21 15:10:30:057 MCU   @firmware version (Node 6): 1.0.0.14
+2026-04-21 15:10:30:161 MCU   @firmware version (Node 7): 1.0.0.14
+2026-04-21 15:10:30:263 MCU   @firmware version (Node 8): 1.0.0.14
+2026-04-21 15:10:30:367 MCU   @firmware version (Node 9): 1.0.0.14
+2026-04-21 15:10:30:450 MCU   @firmware version (Node 10): 1.0.0.14
+2026-04-21 15:10:30:555 MCU   @firmware version (Node 11): 1.0.0.16
+2026-04-21 15:10:30:659 MCU   @firmware version (Node 12): 1.0.0.14
+2026-04-21 15:10:30:682 DEBUG @S.SC state (7, 24)
+2026-04-21 15:10:30:682 DEBUG @E.SC state (7, 24)
+2026-04-21 15:10:30:683 DEBUG @S.VE state (7, 24)
+2026-04-21 15:10:30:683 DEBUG @E.VE state (7, 24)
+2026-04-21 15:10:30:683 DEBUG @S.MW state (7, 24)
+2026-04-21 15:10:30:785 MCU   @firmware operation mode (Node 3): 1
+2026-04-21 15:10:30:847 MCU   @firmware operation mode (Node 4): 1
+2026-04-21 15:10:30:847 MCU   @firmware support speed control
+2026-04-21 15:10:30:952 MCU   @firmware operation mode (Node 5): 1
+2026-04-21 15:10:31:030 DEBUG @E.MW state (7, 24)
+2026-04-21 15:10:31:056 MCU   @firmware operation mode (Node 6): 1
+2026-04-21 15:10:31:159 MCU   @firmware operation mode (Node 7): 1
+2026-04-21 15:10:31:262 MCU   @firmware operation mode (Node 8): 1
+2026-04-21 15:10:31:347 MCU   @firmware operation mode (Node 9): 1
+2026-04-21 15:10:31:470 MCU   @firmware operation mode (Node 10): 1
+2026-04-21 15:10:31:695 MCU   @firmware operation mode (Node 12): 1
+2026-04-21 15:10:31:798 MCU   @firmware acceptable error range (Node 3): 512
+2026-04-21 15:10:31:799 MCU   @[X] error range replaced with local set: 11741
+2026-04-21 15:10:31:882 MCU   @firmware acceptable error range (Node 4): 512
+2026-04-21 15:10:31:882 MCU   @[Y] error range replaced with local set: 11741
+2026-04-21 15:10:31:965 MCU   @firmware acceptable error range (Node 5): 512
+2026-04-21 15:10:31:966 MCU   @[V] error range replaced with local set: 6154
+2026-04-21 15:10:32:089 MCU   @firmware acceptable error range (Node 6): 512
+2026-04-21 15:10:32:090 MCU   @[H] error range replaced with local set: 6154
+2026-04-21 15:10:32:173 MCU   @firmware acceptable error range (Node 7): 512
+2026-04-21 15:10:32:173 MCU   @[N] error range replaced with local set: 19376
+2026-04-21 15:10:32:174 Info  @needle guide opened
+2026-04-21 15:10:32:296 MCU   @firmware acceptable error range (Node 8): 512
+2026-04-21 15:10:32:297 MCU   @[R] error range replaced with local set: 4097
+2026-04-21 15:10:32:381 MCU   @firmware acceptable error range (Node 9): 512
+2026-04-21 15:10:32:381 MCU   @[P] error range replaced with local set: 4097
+2026-04-21 15:10:32:392 Frame @frame grabber UVC device: USB Video
+2026-04-21 15:10:32:485 MCU   @firmware operation mode (Node 11): 1
+2026-04-21 15:10:32:588 MCU   @firmware acceptable error range (Node 12): 512
+2026-04-21 15:10:32:589 MCU   @[Z] error range replaced with local set: 17615
+2026-04-21 15:10:32:612 Frame @frame grabber connected
+2026-04-21 15:10:32:613 Frame @frame grabber started
+2026-04-21 15:10:33:625 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-04-21 15:10:34:027 User  @factory menu selected (System Settings)
+2026-04-21 15:11:03:204 MCU   @mcu controller stopped
+2026-04-21 15:11:04:375 Info  @system setting apply
+2026-04-21 15:11:05:227 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 15:11:05:374 MCU   @firmware version (Master): 1.0.0_004
+
+2026-04-21 15:11:05:647 User  @on_startInitRobot_clicked
+2026-04-21 15:11:09:242 Info  @switch LED light to Red
+2026-04-21 15:11:09:242 DEBUG @S.SC state (7, 25)
+2026-04-21 15:11:09:243 DEBUG @E.SC state (7, 25)
+2026-04-21 15:11:09:243 DEBUG @S.VE state (7, 25)
+2026-04-21 15:11:09:243 DEBUG @E.VE state (7, 25)
+2026-04-21 15:11:09:244 DEBUG @S.MW state (7, 25)
+2026-04-21 15:11:09:280 DEBUG @E.MW state (7, 25)
+2026-04-21 15:11:09:379 MCU   @set motor P sensors to 'stop'
+2026-04-21 15:11:09:379 MCU   @set motor R sensors to 'stop'
+2026-04-21 15:11:09:489 MCU   @[Z] start searching reference
+2026-04-21 15:11:22:806 MCU   @[Z] stopped by sensor L
+2026-04-21 15:11:22:807 MCU   @[Z] reset physical position to 0
+2026-04-21 15:11:23:008 MCU   @[Z] reference found (SENSOR)
+2026-04-21 15:11:23:009 MCU   @[Z] max: 0.00
+2026-04-21 15:11:23:031 MCU   @[Z] start clearing: -50.00
+2026-04-21 15:11:45:509 MCU   @[Z] motor cleared
+2026-04-21 15:11:45:509 MCU   @[Z] min: -50.01
+2026-04-21 15:11:45:711 MCU   @[Z] start moving to home: -30.10
+2026-04-21 15:11:54:356 MCU   @[Z] motor homed
+2026-04-21 15:11:54:356 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 15:11:54:357 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 15:11:54:357 MCU   @robot initialization done (44969ms)
+2026-04-21 15:11:54:376 Info  @system actual [34.31,-9.99,-0,40,0,0,80,0]
+2026-04-21 15:11:54:376 Info  @switch LED light to Green
+2026-04-21 15:11:54:878 DEBUG @S.SC state (7, 26)
+2026-04-21 15:11:54:878 DEBUG @E.SC state (7, 26)
+2026-04-21 15:11:54:879 DEBUG @S.VE state (7, 26)
+2026-04-21 15:11:54:879 DEBUG @E.VE state (7, 26)
+2026-04-21 15:11:54:879 DEBUG @S.MW state (7, 26)
+2026-04-21 15:11:55:060 DEBUG @E.MW state (7, 26)
+
+2026-04-21 15:11:55:088 User  @on_startCreateCase_clicked
+
+2026-04-21 15:12:01:798 User  @factory menu selected (System Settings)
+2026-04-21 15:12:11:694 MCU   @mcu controller stopped
+2026-04-21 15:12:12:607 DEBUG @S.SC state (7, 24)
+2026-04-21 15:12:12:607 DEBUG @E.SC state (7, 24)
+2026-04-21 15:12:12:608 DEBUG @S.VE state (7, 24)
+2026-04-21 15:12:12:608 DEBUG @E.VE state (7, 24)
+2026-04-21 15:12:12:608 DEBUG @S.MW state (7, 24)
+2026-04-21 15:12:12:648 DEBUG @E.MW state (7, 24)
+2026-04-21 15:12:12:649 Info  @system setting apply
+
+2026-04-21 15:12:13:453 User  @on_startInitRobot_clicked
+2026-04-21 15:12:13:715 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 15:12:13:864 MCU   @firmware version (Master): 1.0.0_004
+2026-04-21 15:12:14:832 Info  @switch LED light to Red
+2026-04-21 15:12:14:833 DEBUG @S.SC state (7, 25)
+2026-04-21 15:12:14:833 DEBUG @E.SC state (7, 25)
+2026-04-21 15:12:14:833 DEBUG @S.VE state (7, 25)
+2026-04-21 15:12:14:833 DEBUG @E.VE state (7, 25)
+2026-04-21 15:12:14:834 DEBUG @S.MW state (7, 25)
+2026-04-21 15:12:14:873 DEBUG @E.MW state (7, 25)
+2026-04-21 15:12:14:875 MCU   @set motor P sensors to 'stop'
+2026-04-21 15:12:14:875 MCU   @set motor R sensors to 'stop'
+2026-04-21 15:12:14:984 MCU   @[Z] start searching reference
+2026-04-21 15:12:31:279 MCU   @[Z] stopped by sensor L
+2026-04-21 15:12:31:481 MCU   @[Z] reset physical position to 0
+2026-04-21 15:12:31:682 MCU   @[Z] reference found (SENSOR)
+2026-04-21 15:12:31:682 MCU   @[Z] max: 0.00
+2026-04-21 15:12:31:705 MCU   @[Z] start clearing: -50.00
+2026-04-21 15:12:56:788 MCU   @[Z] motor cleared
+2026-04-21 15:12:56:788 MCU   @[Z] min: -50.01
+2026-04-21 15:12:56:990 MCU   @[Z] start moving to home: -30.10
+2026-04-21 15:13:06:256 MCU   @[Z] motor homed
+2026-04-21 15:13:06:256 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 15:13:06:257 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 15:13:06:257 MCU   @robot initialization done (51391ms)
+2026-04-21 15:13:06:275 Info  @system actual [34.31,-9.99,-0,40,0,0,80,0]
+2026-04-21 15:13:06:275 Info  @switch LED light to Green
+2026-04-21 15:13:06:777 DEBUG @S.SC state (7, 26)
+2026-04-21 15:13:06:777 DEBUG @E.SC state (7, 26)
+2026-04-21 15:13:06:778 DEBUG @S.VE state (7, 26)
+2026-04-21 15:13:06:779 DEBUG @E.VE state (7, 26)
+2026-04-21 15:13:06:779 DEBUG @S.MW state (7, 26)
+2026-04-21 15:13:06:964 DEBUG @E.MW state (7, 26)
+
+2026-04-21 15:13:06:983 User  @on_startCreateCase_clicked
+
+2026-04-21 15:13:14:045 User  @factory menu selected (System Settings)
+2026-04-21 15:13:38:045 MCU   @mcu controller stopped
+2026-04-21 15:13:39:117 DEBUG @S.SC state (7, 24)
+2026-04-21 15:13:39:118 DEBUG @E.SC state (7, 24)
+2026-04-21 15:13:39:118 DEBUG @S.VE state (7, 24)
+2026-04-21 15:13:39:118 DEBUG @E.VE state (7, 24)
+2026-04-21 15:13:39:119 DEBUG @S.MW state (7, 24)
+2026-04-21 15:13:39:157 DEBUG @E.MW state (7, 24)
+2026-04-21 15:13:39:158 Info  @system setting apply
+2026-04-21 15:13:40:066 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 15:13:40:235 MCU   @firmware version (Master): 1.0.0_004
+
+2026-04-21 15:16:37:447 User  @on_startInitRobot_clicked
+2026-04-21 15:16:38:692 Info  @switch LED light to Red
+2026-04-21 15:16:38:693 DEBUG @S.SC state (7, 25)
+2026-04-21 15:16:38:694 DEBUG @E.SC state (7, 25)
+2026-04-21 15:16:38:694 DEBUG @S.VE state (7, 25)
+2026-04-21 15:16:38:695 DEBUG @E.VE state (7, 25)
+2026-04-21 15:16:38:695 DEBUG @S.MW state (7, 25)
+2026-04-21 15:16:38:734 DEBUG @E.MW state (7, 25)
+2026-04-21 15:16:38:879 MCU   @set motor P sensors to 'stop'
+2026-04-21 15:16:38:880 MCU   @set motor R sensors to 'stop'
+2026-04-21 15:16:38:902 MCU   @[X] start searching reference
+2026-04-21 15:16:39:248 MCU   @[Y] start searching reference
+2026-04-21 15:16:39:594 MCU   @[Z] start searching reference
+2026-04-21 15:16:48:922 MCU   @[Y] stopped by sensor L
+2026-04-21 15:16:48:925 MCU   @[Y] reset physical position to 0
+2026-04-21 15:16:49:127 MCU   @[Y] reference found (SENSOR)
+2026-04-21 15:16:49:127 MCU   @[Y] max: 0.00
+2026-04-21 15:16:49:128 MCU   @[P] start searching reference
+2026-04-21 15:16:49:450 MCU   @[X] stopped by sensor L
+2026-04-21 15:16:49:450 MCU   @[X] reset physical position to 0
+2026-04-21 15:16:49:473 MCU   @[X] reference found (SENSOR)
+2026-04-21 15:16:49:473 MCU   @[X] max: 0.00
+2026-04-21 15:16:49:473 MCU   @[N] start searching reference
+2026-04-21 15:16:56:055 MCU   @[Z] stopped by sensor L
+2026-04-21 15:16:56:057 MCU   @[Z] reset physical position to 0
+2026-04-21 15:16:56:258 MCU   @[Z] reference found (SENSOR)
+2026-04-21 15:16:56:258 MCU   @[Z] max: 0.00
+2026-04-21 15:16:57:474 MCU   @[P] stopped by sensor L
+2026-04-21 15:16:57:474 MCU   @[P] reset physical position to 0
+2026-04-21 15:16:57:676 MCU   @[P] reference found (SENSOR)
+2026-04-21 15:16:57:676 MCU   @[P] max: 0.00
+2026-04-21 15:16:57:677 MCU   @[Y] start clearing: -19.50
+2026-04-21 15:17:04:420 MCU   @[Y] motor cleared
+2026-04-21 15:17:04:420 MCU   @[Y] min: -29.51
+2026-04-21 15:17:04:421 MCU   @[Z] start clearing: -50.00
+2026-04-21 15:17:04:443 MCU   @[Y] start moving to max pos: -3.00
+2026-04-21 15:17:04:466 MCU   @[P] start clearing: -168.00
+2026-04-21 15:17:04:490 MCU   @[X] start clearing: -22.00
+2026-04-21 15:17:04:511 MCU   @[H] start searching reference
+2026-04-21 15:17:07:523 MCU   @[N] stopped by sensor L
+2026-04-21 15:17:07:523 MCU   @[N] reset physical position to 0
+2026-04-21 15:17:07:725 MCU   @[N] reference found (SENSOR)
+2026-04-21 15:17:07:725 MCU   @[N] min: 0.00
+2026-04-21 15:17:07:747 MCU   @[N] start clearing: 69.50
+2026-04-21 15:17:09:753 MCU   @[H] stopped by sensor L
+2026-04-21 15:17:09:754 MCU   @[H] reset physical position to 0
+2026-04-21 15:17:09:955 MCU   @[H] reference found (SENSOR)
+2026-04-21 15:17:09:955 MCU   @[H] max: 0.00
+2026-04-21 15:17:09:978 MCU   @[H] start clearing: -49.00
+2026-04-21 15:17:12:552 MCU   @[X] motor cleared
+2026-04-21 15:17:12:552 MCU   @[X] min: -32.01
+2026-04-21 15:17:12:754 MCU   @[X] start moving to max pos: -3.00
+2026-04-21 15:17:12:840 MCU   @[Y] motor reached max pos
+2026-04-21 15:17:14:551 MCU   @[P] motor cleared
+2026-04-21 15:17:14:552 MCU   @[P] min: -168.06
+2026-04-21 15:17:14:755 MCU   @[P] start moving to home: -1.00
+2026-04-21 15:17:18:600 MCU   @[H] motor cleared
+2026-04-21 15:17:18:600 MCU   @[H] min: -49.03
+2026-04-21 15:17:18:802 MCU   @[H] start moving to home: -25.16
+2026-04-21 15:17:22:854 MCU   @[X] motor reached max pos
+2026-04-21 15:17:23:056 MCU   @[H] motor homed
+2026-04-21 15:17:23:056 MCU   @[V] start searching reference
+2026-04-21 15:17:24:961 MCU   @[P] motor homed
+2026-04-21 15:17:24:961 MCU   @[R] start searching reference
+2026-04-21 15:17:29:077 MCU   @[V] stopped by sensor L
+2026-04-21 15:17:29:078 MCU   @[V] reset physical position to 0
+2026-04-21 15:17:29:280 MCU   @[V] reference found (SENSOR)
+2026-04-21 15:17:29:281 MCU   @[V] max: 0.00
+2026-04-21 15:17:29:303 MCU   @[Z] motor cleared
+2026-04-21 15:17:29:304 MCU   @[Z] min: -50.01
+2026-04-21 15:17:29:306 MCU   @[V] start clearing: -49.00
+2026-04-21 15:17:29:328 MCU   @[Z] start moving to home: -30.10
+2026-04-21 15:17:32:527 MCU   @[R] stopped by sensor R
+2026-04-21 15:17:32:528 MCU   @[R] reset physical position to 0
+2026-04-21 15:17:32:729 MCU   @[R] reference found (SENSOR)
+2026-04-21 15:17:32:730 MCU   @[R] max: 0.00
+2026-04-21 15:17:32:754 MCU   @[R] start clearing: -119.00
+2026-04-21 15:17:33:714 MCU   @[N] motor cleared
+2026-04-21 15:17:33:714 MCU   @[N] max: 69.51
+2026-04-21 15:17:33:915 MCU   @[N] start moving to home: 12.87
+2026-04-21 15:17:38:344 MCU   @[V] motor cleared
+2026-04-21 15:17:38:344 MCU   @[V] min: -49.03
+2026-04-21 15:17:38:546 MCU   @[V] start moving to home: -24.27
+2026-04-21 15:17:38:568 MCU   @[Z] motor homed
+2026-04-21 15:17:44:600 MCU   @[V] motor homed
+2026-04-21 15:17:44:600 MCU   @[X] start moving to home: -19.11
+2026-04-21 15:17:44:623 MCU   @[Y] start moving to home: -13.37
+2026-04-21 15:17:46:142 MCU   @[R] motor cleared
+2026-04-21 15:17:46:142 MCU   @[R] min: -119.04
+2026-04-21 15:17:46:344 MCU   @[R] start moving to home: -60.00
+2026-04-21 15:17:48:566 MCU   @[Y] motor homed
+2026-04-21 15:17:50:174 MCU   @[X] motor homed
+2026-04-21 15:17:53:384 MCU   @[R] motor homed
+2026-04-21 15:17:55:194 MCU   @[N] motor homed
+2026-04-21 15:17:55:194 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 15:17:55:195 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 15:17:55:195 MCU   @robot initialization done (76313ms)
+2026-04-21 15:17:55:198 Info  @system actual [34.34,-9.99,0,39.94,0.01,0.03,79.99,0.03]
+2026-04-21 15:17:55:199 Info  @switch LED light to Green
+2026-04-21 15:17:55:700 DEBUG @S.SC state (7, 26)
+2026-04-21 15:17:55:700 DEBUG @E.SC state (7, 26)
+2026-04-21 15:17:55:701 DEBUG @S.VE state (7, 26)
+2026-04-21 15:17:55:701 DEBUG @E.VE state (7, 26)
+2026-04-21 15:17:55:701 DEBUG @S.MW state (7, 26)
+2026-04-21 15:17:55:787 DEBUG @E.MW state (7, 26)
+
+2026-04-21 15:17:55:944 User  @on_startCreateCase_clicked
+
+2026-04-21 15:18:00:907 User  @on_startInitRobot_clicked
+2026-04-21 15:18:01:844 Info  @switch LED light to Red
+2026-04-21 15:18:01:844 DEBUG @S.SC state (7, 25)
+2026-04-21 15:18:01:845 DEBUG @E.SC state (7, 25)
+2026-04-21 15:18:01:845 DEBUG @S.VE state (7, 25)
+2026-04-21 15:18:01:845 DEBUG @E.VE state (7, 25)
+2026-04-21 15:18:01:846 DEBUG @S.MW state (7, 25)
+2026-04-21 15:18:01:886 DEBUG @E.MW state (7, 25)
+2026-04-21 15:18:01:908 MCU   @set motor P sensors to 'stop'
+2026-04-21 15:18:01:909 MCU   @set motor R sensors to 'stop'
+2026-04-21 15:18:01:931 MCU   @[X] start searching reference
+2026-04-21 15:18:02:276 MCU   @[Y] start searching reference
+2026-04-21 15:18:02:621 MCU   @[Z] start searching reference
+2026-04-21 15:18:10:127 MCU   @[Y] stopped by sensor L
+2026-04-21 15:18:10:329 MCU   @[Y] reset physical position to 0
+2026-04-21 15:18:10:531 MCU   @[Y] reference found (SENSOR)
+2026-04-21 15:18:10:531 MCU   @[Y] max: 0.00
+2026-04-21 15:18:10:531 MCU   @[P] start searching reference
+2026-04-21 15:18:10:878 MCU   @[N] start searching reference
+2026-04-21 15:18:11:693 MCU   @[P] stopped by sensor L
+2026-04-21 15:18:11:715 MCU   @[P] reset physical position to 0
+2026-04-21 15:18:11:916 MCU   @[P] reference found (SENSOR)
+2026-04-21 15:18:11:916 MCU   @[P] max: 0.00
+2026-04-21 15:18:11:917 MCU   @[Y] start clearing: -19.50
+2026-04-21 15:18:12:858 MCU   @[X] stopped by sensor L
+2026-04-21 15:18:13:060 MCU   @[X] reset physical position to 0
+2026-04-21 15:18:13:262 MCU   @[X] reference found (SENSOR)
+2026-04-21 15:18:13:262 MCU   @[X] max: 0.00
+2026-04-21 15:18:16:465 MCU   @[N] stopped by sensor L
+2026-04-21 15:18:16:666 MCU   @[N] reset physical position to 0
+2026-04-21 15:18:16:868 MCU   @[N] reference found (SENSOR)
+2026-04-21 15:18:16:868 MCU   @[N] min: 0.00
+2026-04-21 15:18:18:467 MCU   @[Y] motor cleared
+2026-04-21 15:18:18:467 MCU   @[Y] min: -29.51
+2026-04-21 15:18:18:467 MCU   @[P] start clearing: -168.00
+2026-04-21 15:18:18:490 MCU   @[Y] start moving to max pos: -3.00
+2026-04-21 15:18:18:512 MCU   @[N] start clearing: 69.50
+2026-04-21 15:18:18:534 MCU   @[X] start clearing: -22.00
+2026-04-21 15:18:18:556 MCU   @[H] start searching reference
+2026-04-21 15:18:18:878 MCU   @[Z] stopped by sensor L
+2026-04-21 15:18:18:878 MCU   @[Z] reset physical position to 0
+2026-04-21 15:18:19:201 MCU   @[Z] reference found (SENSOR)
+2026-04-21 15:18:19:202 MCU   @[Z] max: 0.00
+2026-04-21 15:18:19:223 MCU   @[Z] start clearing: -50.00
+2026-04-21 15:18:23:746 MCU   @[H] stopped by sensor L
+2026-04-21 15:18:23:747 MCU   @[H] reset physical position to 0
+2026-04-21 15:18:23:948 MCU   @[H] reference found (SENSOR)
+2026-04-21 15:18:23:948 MCU   @[H] max: 0.00
+2026-04-21 15:18:23:971 MCU   @[H] start clearing: -49.00
+2026-04-21 15:18:26:367 MCU   @[X] motor cleared
+2026-04-21 15:18:26:367 MCU   @[X] min: -32.01
+2026-04-21 15:18:26:569 MCU   @[X] start moving to max pos: -3.00
+2026-04-21 15:18:27:181 MCU   @[Y] motor reached max pos
+2026-04-21 15:18:28:588 MCU   @[P] motor cleared
+2026-04-21 15:18:28:589 MCU   @[P] min: -168.06
+2026-04-21 15:18:28:791 MCU   @[P] start moving to home: -1.00
+2026-04-21 15:18:32:597 MCU   @[H] motor cleared
+2026-04-21 15:18:32:597 MCU   @[H] min: -49.03
+2026-04-21 15:18:32:799 MCU   @[H] start moving to home: -25.16
+2026-04-21 15:18:36:422 MCU   @[X] motor reached max pos
+2026-04-21 15:18:37:026 MCU   @[H] motor homed
+2026-04-21 15:18:37:026 MCU   @[V] start searching reference
+2026-04-21 15:18:39:158 MCU   @[P] motor homed
+2026-04-21 15:18:39:158 MCU   @[R] start searching reference
+2026-04-21 15:18:43:052 MCU   @[V] stopped by sensor L
+2026-04-21 15:18:43:053 MCU   @[V] reset physical position to 0
+2026-04-21 15:18:43:254 MCU   @[V] reference found (SENSOR)
+2026-04-21 15:18:43:255 MCU   @[V] max: 0.00
+2026-04-21 15:18:43:277 MCU   @[V] start clearing: -49.00
+2026-04-21 15:18:44:626 MCU   @[N] motor cleared
+2026-04-21 15:18:44:627 MCU   @[N] max: 69.51
+2026-04-21 15:18:44:829 MCU   @[Z] motor cleared
+2026-04-21 15:18:44:830 MCU   @[Z] min: -50.01
+2026-04-21 15:18:44:830 MCU   @[N] start moving to home: 12.87
+2026-04-21 15:18:44:853 MCU   @[Z] start moving to home: -30.10
+2026-04-21 15:18:46:754 MCU   @[R] stopped by sensor R
+2026-04-21 15:18:46:756 MCU   @[R] reset physical position to 0
+2026-04-21 15:18:46:959 MCU   @[R] reference found (SENSOR)
+2026-04-21 15:18:46:960 MCU   @[R] max: 0.00
+2026-04-21 15:18:46:982 MCU   @[R] start clearing: -119.00
+2026-04-21 15:18:52:381 MCU   @[V] motor cleared
+2026-04-21 15:18:52:381 MCU   @[V] min: -49.03
+2026-04-21 15:18:52:582 MCU   @[V] start moving to home: -24.27
+2026-04-21 15:18:54:397 MCU   @[Z] motor homed
+2026-04-21 15:18:58:615 MCU   @[V] motor homed
+2026-04-21 15:18:58:616 MCU   @[X] start moving to home: -19.11
+2026-04-21 15:18:58:638 MCU   @[Y] start moving to home: -13.37
+2026-04-21 15:19:00:359 MCU   @[R] motor cleared
+2026-04-21 15:19:00:359 MCU   @[R] min: -119.04
+2026-04-21 15:19:00:560 MCU   @[R] start moving to home: -60.00
+2026-04-21 15:19:02:380 MCU   @[Y] motor homed
+2026-04-21 15:19:04:190 MCU   @[X] motor homed
+2026-04-21 15:19:06:197 MCU   @[N] motor homed
+2026-04-21 15:19:07:402 MCU   @[R] motor homed
+2026-04-21 15:19:07:402 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 15:19:07:403 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 15:19:07:404 MCU   @robot initialization done (65500ms)
+2026-04-21 15:19:07:408 Info  @system actual [34.34,-9.99,0,39.94,0.01,0.03,79.99,0.03]
+2026-04-21 15:19:07:409 Info  @switch LED light to Green
+2026-04-21 15:19:07:910 DEBUG @S.SC state (7, 26)
+2026-04-21 15:19:07:910 DEBUG @E.SC state (7, 26)
+2026-04-21 15:19:07:910 DEBUG @S.VE state (7, 26)
+2026-04-21 15:19:07:911 DEBUG @E.VE state (7, 26)
+2026-04-21 15:19:07:911 DEBUG @S.MW state (7, 26)
+2026-04-21 15:19:08:001 DEBUG @E.MW state (7, 26)
+
+2026-04-21 15:19:08:156 User  @on_startCreateCase_clicked
+
+2026-04-21 15:19:18:021 User  @factory menu selected (System Settings)
+2026-04-21 15:19:41:219 Info  @needle guide closed
+2026-04-21 15:19:52:663 Info  @needle guide opened
+2026-04-21 15:20:03:111 Info  @needle guide closed
+2026-04-21 15:20:14:732 Info  @needle guide opened
+2026-04-21 15:20:17:539 Info  @needle guide closed
+2026-04-21 15:20:18:141 Info  @needle guide opened
+2026-04-21 15:20:18:348 Info  @needle guide closed
+2026-04-21 15:20:40:426 Info  @needle guide opened
+2026-04-21 15:20:49:663 Info  @needle guide closed
+2026-04-21 15:21:03:915 Info  @needle guide opened
+2026-04-21 15:21:04:316 Info  @needle guide closed
+2026-04-21 15:21:05:120 Info  @needle guide opened
+
+2026-04-21 15:21:26:477 User  @on_startInitRobot_clicked
+2026-04-21 15:21:27:422 Info  @switch LED light to Red
+2026-04-21 15:21:27:423 DEBUG @S.SC state (7, 25)
+2026-04-21 15:21:27:423 DEBUG @E.SC state (7, 25)
+2026-04-21 15:21:27:423 DEBUG @S.VE state (7, 25)
+2026-04-21 15:21:27:424 DEBUG @E.VE state (7, 25)
+2026-04-21 15:21:27:424 DEBUG @S.MW state (7, 25)
+2026-04-21 15:21:27:455 DEBUG @E.MW state (7, 25)
+2026-04-21 15:21:27:624 MCU   @set motor P sensors to 'stop'
+2026-04-21 15:21:27:625 MCU   @set motor R sensors to 'stop'
+2026-04-21 15:21:27:647 MCU   @[X] start searching reference
+2026-04-21 15:21:27:992 MCU   @[Y] start searching reference
+2026-04-21 15:21:28:336 MCU   @[Z] start searching reference
+2026-04-21 15:21:35:639 MCU   @[Y] stopped by sensor L
+2026-04-21 15:21:35:639 MCU   @[Y] reset physical position to 0
+2026-04-21 15:21:35:841 MCU   @[Y] reference found (SENSOR)
+2026-04-21 15:21:35:842 MCU   @[Y] max: 0.00
+2026-04-21 15:21:35:843 MCU   @[P] start searching reference
+2026-04-21 15:21:36:189 MCU   @[N] start searching reference
+2026-04-21 15:21:36:980 MCU   @[P] stopped by sensor L
+2026-04-21 15:21:37:224 MCU   @[P] reset physical position to 0
+2026-04-21 15:21:37:426 MCU   @[P] reference found (SENSOR)
+2026-04-21 15:21:37:427 MCU   @[P] max: 0.00
+2026-04-21 15:21:37:427 MCU   @[Y] start clearing: -19.50
+2026-04-21 15:21:38:546 MCU   @[X] stopped by sensor L
+2026-04-21 15:21:38:748 MCU   @[X] reset physical position to 0
+2026-04-21 15:21:38:950 MCU   @[X] reference found (SENSOR)
+2026-04-21 15:21:38:951 MCU   @[X] max: 0.00
+2026-04-21 15:21:41:749 MCU   @[N] stopped by sensor L
+2026-04-21 15:21:41:951 MCU   @[N] reset physical position to 0
+2026-04-21 15:21:42:155 MCU   @[N] reference found (SENSOR)
+2026-04-21 15:21:42:155 MCU   @[N] min: 0.00
+2026-04-21 15:21:43:948 MCU   @[Y] motor cleared
+2026-04-21 15:21:43:949 MCU   @[Y] min: -29.51
+2026-04-21 15:21:43:949 MCU   @[P] start clearing: -168.00
+2026-04-21 15:21:43:971 MCU   @[Y] start moving to max pos: -3.00
+2026-04-21 15:21:43:993 MCU   @[N] start clearing: 69.50
+2026-04-21 15:21:44:015 MCU   @[X] start clearing: -22.00
+2026-04-21 15:21:44:037 MCU   @[H] start searching reference
+2026-04-21 15:21:44:661 MCU   @[Z] stopped by sensor L
+2026-04-21 15:21:44:662 MCU   @[Z] reset physical position to 0
+2026-04-21 15:21:44:685 MCU   @[Z] reference found (SENSOR)
+2026-04-21 15:21:44:685 MCU   @[Z] max: 0.00
+2026-04-21 15:21:44:706 MCU   @[Z] start clearing: -50.00
+2026-04-21 15:21:49:207 MCU   @[H] stopped by sensor L
+2026-04-21 15:21:49:208 MCU   @[H] reset physical position to 0
+2026-04-21 15:21:49:410 MCU   @[H] reference found (SENSOR)
+2026-04-21 15:21:49:410 MCU   @[H] max: 0.00
+2026-04-21 15:21:49:432 MCU   @[H] start clearing: -49.00
+2026-04-21 15:21:51:825 MCU   @[X] motor cleared
+2026-04-21 15:21:51:825 MCU   @[X] min: -32.01
+2026-04-21 15:21:52:027 MCU   @[X] start moving to max pos: -3.00
+2026-04-21 15:21:52:049 MCU   @[Y] motor reached max pos
+2026-04-21 15:21:54:046 MCU   @[P] motor cleared
+2026-04-21 15:21:54:046 MCU   @[P] min: -168.06
+2026-04-21 15:21:54:248 MCU   @[P] start moving to home: -1.00
+2026-04-21 15:21:58:074 MCU   @[H] motor cleared
+2026-04-21 15:21:58:075 MCU   @[H] min: -49.03
+2026-04-21 15:21:58:275 MCU   @[H] start moving to home: -25.16
+2026-04-21 15:22:01:922 MCU   @[X] motor reached max pos
+2026-04-21 15:22:02:528 MCU   @[H] motor homed
+2026-04-21 15:22:02:528 MCU   @[V] start searching reference
+2026-04-21 15:22:04:656 MCU   @[P] motor homed
+2026-04-21 15:22:04:656 MCU   @[R] start searching reference
+2026-04-21 15:22:08:549 MCU   @[V] stopped by sensor L
+2026-04-21 15:22:08:550 MCU   @[V] reset physical position to 0
+2026-04-21 15:22:08:752 MCU   @[V] reference found (SENSOR)
+2026-04-21 15:22:08:753 MCU   @[V] max: 0.00
+2026-04-21 15:22:08:775 MCU   @[V] start clearing: -49.00
+2026-04-21 15:22:10:145 MCU   @[Z] motor cleared
+2026-04-21 15:22:10:145 MCU   @[Z] min: -50.01
+2026-04-21 15:22:10:146 MCU   @[N] motor cleared
+2026-04-21 15:22:10:146 MCU   @[N] max: 69.51
+2026-04-21 15:22:10:347 MCU   @[Z] start moving to home: -30.10
+2026-04-21 15:22:10:370 MCU   @[N] start moving to home: 12.87
+2026-04-21 15:22:12:090 MCU   @[R] stopped by sensor R
+2026-04-21 15:22:12:292 MCU   @[R] reset physical position to 0
+2026-04-21 15:22:12:493 MCU   @[R] reference found (SENSOR)
+2026-04-21 15:22:12:493 MCU   @[R] max: 0.00
+2026-04-21 15:22:12:514 MCU   @[R] start clearing: -119.00
+2026-04-21 15:22:17:704 MCU   @[V] motor cleared
+2026-04-21 15:22:17:705 MCU   @[V] min: -49.03
+2026-04-21 15:22:17:906 MCU   @[V] start moving to home: -24.27
+2026-04-21 15:22:19:725 MCU   @[Z] motor homed
+2026-04-21 15:22:23:937 MCU   @[V] motor homed
+2026-04-21 15:22:23:937 MCU   @[X] start moving to home: -19.11
+2026-04-21 15:22:23:959 MCU   @[Y] start moving to home: -13.37
+2026-04-21 15:22:25:884 MCU   @[R] motor cleared
+2026-04-21 15:22:25:884 MCU   @[R] min: -119.04
+2026-04-21 15:22:26:085 MCU   @[R] start moving to home: -60.00
+2026-04-21 15:22:27:701 MCU   @[Y] motor homed
+2026-04-21 15:22:29:511 MCU   @[X] motor homed
+2026-04-21 15:22:31:719 MCU   @[N] motor homed
+2026-04-21 15:22:33:125 MCU   @[R] motor homed
+2026-04-21 15:22:33:125 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 15:22:33:126 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 15:22:33:127 MCU   @robot initialization done (65500ms)
+2026-04-21 15:22:33:132 Info  @system actual [34.35,-9.99,0.01,39.93,0.01,0.04,79.99,0.03]
+2026-04-21 15:22:33:133 Info  @switch LED light to Green
+2026-04-21 15:22:33:635 DEBUG @S.SC state (7, 26)
+2026-04-21 15:22:33:635 DEBUG @E.SC state (7, 26)
+2026-04-21 15:22:33:636 DEBUG @S.VE state (7, 26)
+2026-04-21 15:22:33:636 DEBUG @E.VE state (7, 26)
+2026-04-21 15:22:33:636 DEBUG @S.MW state (7, 26)
+2026-04-21 15:22:33:726 DEBUG @E.MW state (7, 26)
+
+2026-04-21 15:22:33:880 User  @on_startCreateCase_clicked
+2026-04-21 15:27:54:561 Info  @needle guide closed
+2026-04-21 15:27:54:775 Info  @needle guide opened
+2026-04-21 15:27:54:964 Info  @needle guide closed
+2026-04-21 15:27:55:166 Info  @needle guide opened
+2026-04-21 15:27:55:365 Info  @needle guide closed
+2026-04-21 15:27:55:366 Info  @needle guide opened
+2026-04-21 15:27:55:566 MCU   @[ERR] NG status updated 10 times within 813 milliseconds
+2026-04-21 15:27:55:567 Info  @needle guide closed
+2026-04-21 15:27:55:568 Info  @needle guide opened
+
+2026-04-21 15:29:18:314 User  @factory menu selected (System Settings)
+
+2026-04-21 15:29:28:846 User  @on_startInitRobot_clicked
+2026-04-21 15:29:29:574 Info  @switch LED light to Red
+2026-04-21 15:29:29:575 DEBUG @S.SC state (7, 25)
+2026-04-21 15:29:29:575 DEBUG @E.SC state (7, 25)
+2026-04-21 15:29:29:575 DEBUG @S.VE state (7, 25)
+2026-04-21 15:29:29:576 DEBUG @E.VE state (7, 25)
+2026-04-21 15:29:29:576 DEBUG @S.MW state (7, 25)
+2026-04-21 15:29:29:614 DEBUG @E.MW state (7, 25)
+2026-04-21 15:29:29:737 MCU   @set motor P sensors to 'stop'
+2026-04-21 15:29:29:737 MCU   @set motor R sensors to 'stop'
+2026-04-21 15:29:29:759 MCU   @[X] start searching reference
+2026-04-21 15:29:30:105 MCU   @[Y] start searching reference
+2026-04-21 15:29:30:450 MCU   @[Z] start searching reference
+2026-04-21 15:29:37:743 MCU   @[Y] stopped by sensor L
+2026-04-21 15:29:37:945 MCU   @[Y] reset physical position to 0
+2026-04-21 15:29:38:147 MCU   @[Y] reference found (SENSOR)
+2026-04-21 15:29:38:147 MCU   @[Y] max: 0.00
+2026-04-21 15:29:38:148 MCU   @[P] start searching reference
+2026-04-21 15:29:38:492 MCU   @[N] start searching reference
+2026-04-21 15:29:39:297 MCU   @[P] stopped by sensor L
+2026-04-21 15:29:39:521 MCU   @[P] reset physical position to 0
+2026-04-21 15:29:39:723 MCU   @[P] reference found (SENSOR)
+2026-04-21 15:29:39:723 MCU   @[P] max: 0.00
+2026-04-21 15:29:39:724 MCU   @[Y] start clearing: -19.50
+2026-04-21 15:29:40:645 MCU   @[X] stopped by sensor L
+2026-04-21 15:29:40:847 MCU   @[X] reset physical position to 0
+2026-04-21 15:29:41:049 MCU   @[X] reference found (SENSOR)
+2026-04-21 15:29:41:049 MCU   @[X] max: 0.00
+2026-04-21 15:29:44:251 MCU   @[N] stopped by sensor L
+2026-04-21 15:29:44:251 MCU   @[N] reset physical position to 0
+2026-04-21 15:29:44:453 MCU   @[N] reference found (SENSOR)
+2026-04-21 15:29:44:454 MCU   @[N] min: 0.00
+2026-04-21 15:29:46:249 MCU   @[Y] motor cleared
+2026-04-21 15:29:46:251 MCU   @[Y] min: -29.51
+2026-04-21 15:29:46:253 MCU   @[P] start clearing: -168.00
+2026-04-21 15:29:46:275 MCU   @[Y] start moving to max pos: -3.00
+2026-04-21 15:29:46:297 MCU   @[N] start clearing: 69.50
+2026-04-21 15:29:46:319 MCU   @[X] start clearing: -22.00
+2026-04-21 15:29:46:343 MCU   @[H] start searching reference
+2026-04-21 15:29:46:668 MCU   @[Z] stopped by sensor L
+2026-04-21 15:29:46:669 MCU   @[Z] reset physical position to 0
+2026-04-21 15:29:46:992 MCU   @[Z] reference found (SENSOR)
+2026-04-21 15:29:46:992 MCU   @[Z] max: 0.00
+2026-04-21 15:29:47:014 MCU   @[Z] start clearing: -50.00
+2026-04-21 15:29:51:515 MCU   @[H] stopped by sensor L
+2026-04-21 15:29:51:516 MCU   @[H] reset physical position to 0
+2026-04-21 15:29:51:718 MCU   @[H] reference found (SENSOR)
+2026-04-21 15:29:51:718 MCU   @[H] max: 0.00
+2026-04-21 15:29:51:740 MCU   @[H] start clearing: -49.00
+2026-04-21 15:29:54:113 MCU   @[X] motor cleared
+2026-04-21 15:29:54:113 MCU   @[X] min: -32.01
+2026-04-21 15:29:54:314 MCU   @[X] start moving to max pos: -3.00
+2026-04-21 15:29:54:336 MCU   @[Y] motor reached max pos
+2026-04-21 15:29:56:333 MCU   @[P] motor cleared
+2026-04-21 15:29:56:334 MCU   @[P] min: -168.06
+2026-04-21 15:29:56:535 MCU   @[P] start moving to home: -1.00
+2026-04-21 15:30:00:361 MCU   @[H] motor cleared
+2026-04-21 15:30:00:362 MCU   @[H] min: -49.03
+2026-04-21 15:30:00:565 MCU   @[H] start moving to home: -25.16
+2026-04-21 15:30:04:193 MCU   @[X] motor reached max pos
+2026-04-21 15:30:04:797 MCU   @[H] motor homed
+2026-04-21 15:30:04:799 MCU   @[V] start searching reference
+2026-04-21 15:30:06:907 MCU   @[P] motor homed
+2026-04-21 15:30:06:907 MCU   @[R] start searching reference
+2026-04-21 15:30:10:829 MCU   @[V] stopped by sensor L
+2026-04-21 15:30:10:829 MCU   @[V] reset physical position to 0
+2026-04-21 15:30:11:031 MCU   @[V] reference found (SENSOR)
+2026-04-21 15:30:11:032 MCU   @[V] max: 0.00
+2026-04-21 15:30:11:053 MCU   @[V] start clearing: -49.00
+2026-04-21 15:30:12:428 MCU   @[Z] motor cleared
+2026-04-21 15:30:12:428 MCU   @[Z] min: -50.01
+2026-04-21 15:30:12:428 MCU   @[N] motor cleared
+2026-04-21 15:30:12:428 MCU   @[N] max: 69.51
+2026-04-21 15:30:12:631 MCU   @[Z] start moving to home: -30.10
+2026-04-21 15:30:12:654 MCU   @[N] start moving to home: 12.87
+2026-04-21 15:30:14:398 MCU   @[R] stopped by sensor R
+2026-04-21 15:30:14:399 MCU   @[R] reset physical position to 0
+2026-04-21 15:30:14:599 MCU   @[R] reference found (SENSOR)
+2026-04-21 15:30:14:599 MCU   @[R] max: 0.00
+2026-04-21 15:30:14:622 MCU   @[R] start clearing: -119.00
+2026-04-21 15:30:20:040 MCU   @[V] motor cleared
+2026-04-21 15:30:20:040 MCU   @[V] min: -49.03
+2026-04-21 15:30:20:241 MCU   @[V] start moving to home: -24.27
+2026-04-21 15:30:22:081 MCU   @[Z] motor homed
+2026-04-21 15:30:26:298 MCU   @[V] motor homed
+2026-04-21 15:30:26:299 MCU   @[X] start moving to home: -19.11
+2026-04-21 15:30:26:320 MCU   @[Y] start moving to home: -13.37
+2026-04-21 15:30:28:043 MCU   @[R] motor cleared
+2026-04-21 15:30:28:044 MCU   @[R] min: -119.04
+2026-04-21 15:30:28:246 MCU   @[R] start moving to home: -60.00
+2026-04-21 15:30:30:064 MCU   @[Y] motor homed
+2026-04-21 15:30:31:871 MCU   @[X] motor homed
+2026-04-21 15:30:34:080 MCU   @[N] motor homed
+2026-04-21 15:30:35:288 MCU   @[R] motor homed
+2026-04-21 15:30:35:289 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 15:30:35:289 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 15:30:35:289 MCU   @robot initialization done (65547ms)
+2026-04-21 15:30:35:308 Info  @system actual [34.35,-9.99,0.01,39.93,0.01,0.04,79.99,0.03]
+2026-04-21 15:30:35:308 Info  @switch LED light to Green
+2026-04-21 15:30:35:810 DEBUG @S.SC state (7, 26)
+2026-04-21 15:30:35:810 DEBUG @E.SC state (7, 26)
+2026-04-21 15:30:35:811 DEBUG @S.VE state (7, 26)
+2026-04-21 15:30:35:811 DEBUG @E.VE state (7, 26)
+2026-04-21 15:30:35:811 DEBUG @S.MW state (7, 26)
+2026-04-21 15:30:35:998 DEBUG @E.MW state (7, 26)
+
+2026-04-21 15:30:36:013 User  @on_startCreateCase_clicked
+
+2026-04-21 15:31:52:877 User  @tool menu selected (Application Settings)
+
+2026-04-21 15:31:58:191 User  @system menu selected (System Status Check)
+
+2026-04-21 15:32:09:455 User  @factory menu selected (System Settings)
+
+2026-04-21 15:33:35:396 User  @tool menu selected (Application Settings)
+
+2026-04-21 15:40:15:709 User  @tool menu selected (Application Settings)
+
+2026-04-21 15:40:20:273 User  @factory menu selected (System Settings)
+
+2026-04-21 15:41:49:878 User  @on_startInitRobot_clicked
+2026-04-21 15:41:50:756 Info  @switch LED light to Red
+2026-04-21 15:41:50:756 DEBUG @S.SC state (7, 25)
+2026-04-21 15:41:50:757 DEBUG @E.SC state (7, 25)
+2026-04-21 15:41:50:757 DEBUG @S.VE state (7, 25)
+2026-04-21 15:41:50:757 DEBUG @E.VE state (7, 25)
+2026-04-21 15:41:50:758 DEBUG @S.MW state (7, 25)
+2026-04-21 15:41:50:805 DEBUG @E.MW state (7, 25)
+2026-04-21 15:41:50:905 MCU   @set motor P sensors to 'stop'
+2026-04-21 15:41:50:907 MCU   @set motor R sensors to 'stop'
+2026-04-21 15:41:50:930 MCU   @[X] start searching reference
+2026-04-21 15:41:51:276 MCU   @[Y] start searching reference
+2026-04-21 15:41:51:623 MCU   @[Z] start searching reference
+2026-04-21 15:41:59:120 MCU   @[Y] stopped by sensor L
+2026-04-21 15:41:59:120 MCU   @[Y] reset physical position to 0
+2026-04-21 15:41:59:322 MCU   @[Y] reference found (SENSOR)
+2026-04-21 15:41:59:323 MCU   @[Y] max: 0.00
+2026-04-21 15:41:59:323 MCU   @[P] start searching reference
+2026-04-21 15:41:59:669 MCU   @[N] start searching reference
+2026-04-21 15:42:00:478 MCU   @[P] stopped by sensor L
+2026-04-21 15:42:00:500 MCU   @[P] reset physical position to 0
+2026-04-21 15:42:00:703 MCU   @[P] reference found (SENSOR)
+2026-04-21 15:42:00:703 MCU   @[P] max: 0.00
+2026-04-21 15:42:00:704 MCU   @[Y] start clearing: -19.50
+2026-04-21 15:42:01:846 MCU   @[X] stopped by sensor L
+2026-04-21 15:42:02:049 MCU   @[X] reset physical position to 0
+2026-04-21 15:42:02:251 MCU   @[X] reference found (SENSOR)
+2026-04-21 15:42:02:251 MCU   @[X] max: 0.00
+2026-04-21 15:42:05:251 MCU   @[N] stopped by sensor L
+2026-04-21 15:42:05:454 MCU   @[N] reset physical position to 0
+2026-04-21 15:42:05:657 MCU   @[N] reference found (SENSOR)
+2026-04-21 15:42:05:657 MCU   @[N] min: 0.00
+2026-04-21 15:42:07:254 MCU   @[Y] motor cleared
+2026-04-21 15:42:07:254 MCU   @[Y] min: -29.51
+2026-04-21 15:42:07:255 MCU   @[P] start clearing: -168.00
+2026-04-21 15:42:07:277 MCU   @[Y] start moving to max pos: -3.00
+2026-04-21 15:42:07:301 MCU   @[N] start clearing: 69.50
+2026-04-21 15:42:07:323 MCU   @[X] start clearing: -22.00
+2026-04-21 15:42:07:346 MCU   @[H] start searching reference
+2026-04-21 15:42:07:971 MCU   @[Z] stopped by sensor L
+2026-04-21 15:42:07:971 MCU   @[Z] reset physical position to 0
+2026-04-21 15:42:07:994 MCU   @[Z] reference found (SENSOR)
+2026-04-21 15:42:07:994 MCU   @[Z] max: 0.00
+2026-04-21 15:42:08:017 MCU   @[Z] start clearing: -50.00
+2026-04-21 15:42:12:520 MCU   @[H] stopped by sensor L
+2026-04-21 15:42:12:520 MCU   @[H] reset physical position to 0
+2026-04-21 15:42:12:722 MCU   @[H] reference found (SENSOR)
+2026-04-21 15:42:12:722 MCU   @[H] max: 0.00
+2026-04-21 15:42:12:745 MCU   @[H] start clearing: -49.00
+2026-04-21 15:42:15:140 MCU   @[X] motor cleared
+2026-04-21 15:42:15:141 MCU   @[X] min: -32.01
+2026-04-21 15:42:15:342 MCU   @[X] start moving to max pos: -3.00
+2026-04-21 15:42:15:365 MCU   @[Y] motor reached max pos
+2026-04-21 15:42:17:361 MCU   @[P] motor cleared
+2026-04-21 15:42:17:361 MCU   @[P] min: -168.06
+2026-04-21 15:42:17:562 MCU   @[P] start moving to home: -1.00
+2026-04-21 15:42:21:368 MCU   @[H] motor cleared
+2026-04-21 15:42:21:368 MCU   @[H] min: -49.03
+2026-04-21 15:42:21:569 MCU   @[H] start moving to home: -25.16
+2026-04-21 15:42:25:195 MCU   @[X] motor reached max pos
+2026-04-21 15:42:25:799 MCU   @[H] motor homed
+2026-04-21 15:42:25:799 MCU   @[V] start searching reference
+2026-04-21 15:42:27:932 MCU   @[P] motor homed
+2026-04-21 15:42:27:932 MCU   @[R] start searching reference
+2026-04-21 15:42:31:665 MCU   @[V] stopped by sensor L
+2026-04-21 15:42:31:667 MCU   @[V] reset physical position to 0
+2026-04-21 15:42:31:869 MCU   @[V] reference found (SENSOR)
+2026-04-21 15:42:31:869 MCU   @[V] max: 0.00
+2026-04-21 15:42:31:892 MCU   @[V] start clearing: -49.00
+2026-04-21 15:42:33:265 MCU   @[N] motor cleared
+2026-04-21 15:42:33:265 MCU   @[N] max: 69.51
+2026-04-21 15:42:33:467 MCU   @[Z] motor cleared
+2026-04-21 15:42:33:468 MCU   @[Z] min: -50.01
+2026-04-21 15:42:33:469 MCU   @[N] start moving to home: 12.87
+2026-04-21 15:42:33:492 MCU   @[Z] start moving to home: -30.10
+2026-04-21 15:42:35:415 MCU   @[R] stopped by sensor R
+2026-04-21 15:42:35:416 MCU   @[R] reset physical position to 0
+2026-04-21 15:42:35:618 MCU   @[R] reference found (SENSOR)
+2026-04-21 15:42:35:619 MCU   @[R] max: 0.00
+2026-04-21 15:42:35:642 MCU   @[R] start clearing: -119.00
+2026-04-21 15:42:40:842 MCU   @[V] motor cleared
+2026-04-21 15:42:40:843 MCU   @[V] min: -49.03
+2026-04-21 15:42:41:044 MCU   @[V] start moving to home: -24.27
+2026-04-21 15:42:43:062 MCU   @[Z] motor homed
+2026-04-21 15:42:47:080 MCU   @[V] motor homed
+2026-04-21 15:42:47:081 MCU   @[X] start moving to home: -19.11
+2026-04-21 15:42:47:103 MCU   @[Y] start moving to home: -13.37
+2026-04-21 15:42:49:025 MCU   @[R] motor cleared
+2026-04-21 15:42:49:026 MCU   @[R] min: -119.04
+2026-04-21 15:42:49:228 MCU   @[R] start moving to home: -60.00
+2026-04-21 15:42:50:847 MCU   @[Y] motor homed
+2026-04-21 15:42:52:653 MCU   @[X] motor homed
+2026-04-21 15:42:54:663 MCU   @[N] motor homed
+2026-04-21 15:42:56:070 MCU   @[R] motor homed
+2026-04-21 15:42:56:071 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 15:42:56:072 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 15:42:56:073 MCU   @robot initialization done (65172ms)
+2026-04-21 15:42:56:077 Info  @system actual [34.35,-9.99,0,39.93,0.01,0.04,79.99,0.03]
+2026-04-21 15:42:56:077 Info  @switch LED light to Green
+2026-04-21 15:42:56:578 DEBUG @S.SC state (7, 26)
+2026-04-21 15:42:56:578 DEBUG @E.SC state (7, 26)
+2026-04-21 15:42:56:579 DEBUG @S.VE state (7, 26)
+2026-04-21 15:42:56:580 DEBUG @E.VE state (7, 26)
+2026-04-21 15:42:56:580 DEBUG @S.MW state (7, 26)
+2026-04-21 15:42:56:665 DEBUG @E.MW state (7, 26)
+
+2026-04-21 15:42:56:826 User  @on_startCreateCase_clicked
+
+2026-04-21 15:43:00:068 User  @system menu selected (Exit)
+2026-04-21 15:43:01:040 Info  @open needle guide command sent
+2026-04-21 15:43:01:042 Info  @switch LED light to Red
+2026-04-21 15:43:01:043 DEBUG @S.SC state (6, 23)
+2026-04-21 15:43:01:043 DEBUG @E.SC state (6, 23)
+2026-04-21 15:43:01:044 DEBUG @S.VE state (6, 23)
+2026-04-21 15:43:01:044 DEBUG @E.VE state (6, 23)
+2026-04-21 15:43:01:044 DEBUG @S.MW state (6, 23)
+2026-04-21 15:43:01:093 DEBUG @E.MW state (6, 23)
+2026-04-21 15:43:01:605 Info  @needle guide opened
+2026-04-21 15:43:03:257 MCU   @robot moving (finalization) done (2062ms)
+2026-04-21 15:43:03:262 Info  @system actual [34.35,-7.12,0,39.93,0.01,0.04,79.99,0.03]
+2026-04-21 15:43:03:262 Info  @switch LED light to Green
+2026-04-21 15:43:04:401 Info  @switch LED light off
+2026-04-21 15:43:04:428 Frame @frame grabber stopped
+2026-04-21 15:43:04:895 MCU   @robot moving stopped
+2026-04-21 15:43:06:009 MCU   @mcu controller stopped
+2026-04-21 15:43:06:287 Info  @UroBiopsy exited 
+
+
+
+2026-04-21 15:43:38:566 Info  @UtlLogger instance created
+2026-04-21 15:43:38:566 Info  @starting UroBiopsy (SVN 1003)
+2026-04-21 15:43:38:979 Info  @MainWindow instance created
+
+2026-04-21 15:43:57:425 User  @user 'service' login
+2026-04-21 15:43:57:456 Info  @UroBiopsy launched
+2026-04-21 15:43:57:456 Info  @SurgeryController instance created
+2026-04-21 15:43:57:456 Info  @Robot Unit: TX-05-04
+2026-04-21 15:43:57:526 Info  @VisualEngine instance created
+2026-04-21 15:43:59:691 MCU   @firmware version (Master): 1.0.0_004
+2026-04-21 15:43:59:692 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 15:43:59:859 MCU   @firmware version (Node 3): 1.0.0.14
+2026-04-21 15:43:59:963 MCU   @firmware version (Node 4): 1.0.0.14
+2026-04-21 15:44:00:067 MCU   @firmware version (Node 5): 1.0.0.14
+2026-04-21 15:44:00:078 Info  @needle guide opened
+2026-04-21 15:44:00:170 MCU   @firmware version (Node 6): 1.0.0.14
+2026-04-21 15:44:00:251 MCU   @firmware version (Node 7): 1.0.0.14
+2026-04-21 15:44:00:354 MCU   @firmware version (Node 8): 1.0.0.14
+2026-04-21 15:44:00:457 MCU   @firmware version (Node 9): 1.0.0.14
+2026-04-21 15:44:00:561 MCU   @firmware version (Node 10): 1.0.0.14
+2026-04-21 15:44:00:665 MCU   @firmware version (Node 11): 1.0.0.16
+2026-04-21 15:44:00:692 DEBUG @S.SC state (7, 24)
+2026-04-21 15:44:00:692 DEBUG @E.SC state (7, 24)
+2026-04-21 15:44:00:693 DEBUG @S.VE state (7, 24)
+2026-04-21 15:44:00:693 DEBUG @E.VE state (7, 24)
+2026-04-21 15:44:00:694 DEBUG @S.MW state (7, 24)
+2026-04-21 15:44:00:750 MCU   @firmware version (Node 12): 1.0.0.14
+2026-04-21 15:44:00:855 MCU   @firmware operation mode (Node 3): 1
+2026-04-21 15:44:00:960 MCU   @firmware operation mode (Node 4): 1
+2026-04-21 15:44:00:960 MCU   @firmware support speed control
+2026-04-21 15:44:01:015 DEBUG @E.MW state (7, 24)
+2026-04-21 15:44:01:063 MCU   @firmware operation mode (Node 5): 1
+2026-04-21 15:44:01:166 MCU   @firmware operation mode (Node 6): 1
+2026-04-21 15:44:01:250 MCU   @firmware operation mode (Node 7): 1
+2026-04-21 15:44:01:354 MCU   @firmware operation mode (Node 8): 1
+2026-04-21 15:44:01:456 MCU   @firmware operation mode (Node 9): 1
+2026-04-21 15:44:01:558 MCU   @firmware operation mode (Node 10): 1
+2026-04-21 15:44:01:783 MCU   @firmware operation mode (Node 12): 1
+2026-04-21 15:44:01:885 MCU   @firmware acceptable error range (Node 3): 512
+2026-04-21 15:44:01:886 MCU   @[X] error range replaced with local set: 11741
+2026-04-21 15:44:01:990 MCU   @firmware acceptable error range (Node 4): 512
+2026-04-21 15:44:01:991 MCU   @[Y] error range replaced with local set: 11741
+2026-04-21 15:44:02:094 MCU   @firmware acceptable error range (Node 5): 512
+2026-04-21 15:44:02:095 MCU   @[V] error range replaced with local set: 6154
+2026-04-21 15:44:02:177 MCU   @firmware acceptable error range (Node 6): 512
+2026-04-21 15:44:02:177 MCU   @[H] error range replaced with local set: 6154
+2026-04-21 15:44:02:278 MCU   @firmware acceptable error range (Node 7): 512
+2026-04-21 15:44:02:278 MCU   @[N] error range replaced with local set: 19376
+2026-04-21 15:44:02:381 MCU   @firmware acceptable error range (Node 8): 512
+2026-04-21 15:44:02:382 MCU   @[R] error range replaced with local set: 4097
+2026-04-21 15:44:02:478 Frame @frame grabber UVC device: USB Video
+2026-04-21 15:44:02:486 MCU   @firmware acceptable error range (Node 9): 512
+2026-04-21 15:44:02:486 MCU   @[P] error range replaced with local set: 4097
+2026-04-21 15:44:02:550 Frame @frame grabber connected
+2026-04-21 15:44:02:551 Frame @frame grabber started
+2026-04-21 15:44:02:590 MCU   @firmware operation mode (Node 11): 1
+2026-04-21 15:44:02:673 MCU   @firmware acceptable error range (Node 12): 512
+2026-04-21 15:44:02:674 MCU   @[Z] error range replaced with local set: 17615
+2026-04-21 15:44:03:559 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-04-21 15:44:04:810 User  @factory menu selected (System Settings)
+
+2026-04-21 15:44:59:834 User  @system menu selected (Exit)
+2026-04-21 15:45:00:803 Info  @open needle guide command sent
+2026-04-21 15:45:01:867 Frame @frame grabber stopped
+2026-04-21 15:45:02:285 MCU   @robot moving stopped
+2026-04-21 15:45:03:402 MCU   @mcu controller stopped
+2026-04-21 15:45:03:595 Info  @UroBiopsy exited 
+
+
+
+2026-04-21 16:12:32:009 Info  @UtlLogger instance created
+2026-04-21 16:12:32:009 Info  @starting UroBiopsy (SVN 1003)
+2026-04-21 16:12:32:416 Info  @MainWindow instance created
+
+2026-04-21 16:12:50:111 User  @user 'service' login
+2026-04-21 16:12:50:142 Info  @UroBiopsy launched
+2026-04-21 16:12:50:142 Info  @SurgeryController instance created
+2026-04-21 16:12:50:142 Info  @Robot Unit: TX-05-04
+2026-04-21 16:12:50:196 Info  @VisualEngine instance created
+2026-04-21 16:12:52:371 MCU   @stop periodic event 'POSCHANGE' (node 12)
+2026-04-21 16:12:52:372 MCU   @firmware version (Master): 1.0.0_004
+2026-04-21 16:12:52:373 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 16:12:52:643 MCU   @firmware version (Node 3): 1.0.0.14
+2026-04-21 16:12:52:746 MCU   @firmware version (Node 4): 1.0.0.14
+2026-04-21 16:12:52:849 MCU   @firmware version (Node 5): 1.0.0.14
+2026-04-21 16:12:52:953 MCU   @firmware version (Node 6): 1.0.0.14
+2026-04-21 16:12:53:056 MCU   @firmware version (Node 7): 1.0.0.14
+2026-04-21 16:12:53:159 MCU   @firmware version (Node 8): 1.0.0.14
+2026-04-21 16:12:53:243 MCU   @firmware version (Node 9): 1.0.0.14
+2026-04-21 16:12:53:368 MCU   @firmware version (Node 10): 1.0.0.14
+2026-04-21 16:12:53:382 DEBUG @S.SC state (7, 24)
+2026-04-21 16:12:53:383 DEBUG @E.SC state (7, 24)
+2026-04-21 16:12:53:384 DEBUG @S.VE state (7, 24)
+2026-04-21 16:12:53:385 DEBUG @E.VE state (7, 24)
+2026-04-21 16:12:53:385 DEBUG @S.MW state (7, 24)
+2026-04-21 16:12:53:453 MCU   @firmware version (Node 11): 1.0.0.16
+2026-04-21 16:12:53:557 MCU   @firmware version (Node 12): 1.0.0.14
+2026-04-21 16:12:53:641 MCU   @firmware operation mode (Node 3): 1
+2026-04-21 16:12:53:698 DEBUG @E.MW state (7, 24)
+2026-04-21 16:12:53:766 MCU   @firmware operation mode (Node 4): 1
+2026-04-21 16:12:53:766 MCU   @firmware support speed control
+2026-04-21 16:12:53:850 MCU   @firmware operation mode (Node 5): 1
+2026-04-21 16:12:53:973 MCU   @firmware operation mode (Node 6): 1
+2026-04-21 16:12:54:057 MCU   @firmware operation mode (Node 7): 1
+2026-04-21 16:12:54:160 MCU   @firmware operation mode (Node 8): 1
+2026-04-21 16:12:54:264 MCU   @firmware operation mode (Node 9): 1
+2026-04-21 16:12:54:347 MCU   @firmware operation mode (Node 10): 1
+2026-04-21 16:12:54:572 MCU   @firmware operation mode (Node 12): 1
+2026-04-21 16:12:54:675 MCU   @firmware acceptable error range (Node 3): 512
+2026-04-21 16:12:54:675 MCU   @[X] error range replaced with local set: 11741
+2026-04-21 16:12:54:778 MCU   @firmware acceptable error range (Node 4): 512
+2026-04-21 16:12:54:779 MCU   @[Y] error range replaced with local set: 11741
+2026-04-21 16:12:54:882 MCU   @firmware acceptable error range (Node 5): 512
+2026-04-21 16:12:54:883 MCU   @[V] error range replaced with local set: 6154
+2026-04-21 16:12:54:987 MCU   @firmware acceptable error range (Node 6): 512
+2026-04-21 16:12:54:988 MCU   @[H] error range replaced with local set: 6154
+2026-04-21 16:12:55:090 MCU   @firmware acceptable error range (Node 7): 512
+2026-04-21 16:12:55:090 MCU   @[N] error range replaced with local set: 19376
+2026-04-21 16:12:55:157 Frame @frame grabber UVC device: USB Video
+2026-04-21 16:12:55:172 MCU   @firmware acceptable error range (Node 8): 512
+2026-04-21 16:12:55:172 MCU   @[R] error range replaced with local set: 4097
+2026-04-21 16:12:55:230 Frame @frame grabber connected
+2026-04-21 16:12:55:230 Frame @frame grabber started
+2026-04-21 16:12:55:277 MCU   @firmware acceptable error range (Node 9): 512
+2026-04-21 16:12:55:277 MCU   @[P] error range replaced with local set: 4097
+2026-04-21 16:12:55:380 MCU   @firmware operation mode (Node 11): 1
+
+2026-04-21 16:12:55:415 User  @on_startInitRobot_clicked
+2026-04-21 16:12:55:486 MCU   @firmware acceptable error range (Node 12): 512
+2026-04-21 16:12:55:487 MCU   @[Z] error range replaced with local set: 17615
+2026-04-21 16:12:56:238 Frame @frame grabber screen size updated: 1920 x 1080
+2026-04-21 16:12:57:079 Info  @switch LED light to Red
+2026-04-21 16:12:57:080 DEBUG @S.SC state (7, 25)
+2026-04-21 16:12:57:080 DEBUG @E.SC state (7, 25)
+2026-04-21 16:12:57:081 DEBUG @S.VE state (7, 25)
+2026-04-21 16:12:57:081 DEBUG @E.VE state (7, 25)
+2026-04-21 16:12:57:081 DEBUG @S.MW state (7, 25)
+2026-04-21 16:12:57:117 MCU   @set motor P sensors to 'stop'
+2026-04-21 16:12:57:118 MCU   @set motor R sensors to 'stop'
+2026-04-21 16:12:57:122 DEBUG @E.MW state (7, 25)
+2026-04-21 16:12:57:143 MCU   @[X] start searching reference
+2026-04-21 16:12:57:492 MCU   @[Y] start searching reference
+2026-04-21 16:12:57:838 MCU   @[Z] start searching reference
+2026-04-21 16:12:58:791 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:12:58:834 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-21 16:13:05:159 MCU   @[Y] stopped by sensor L
+2026-04-21 16:13:05:160 MCU   @[Y] reset physical position to 0
+2026-04-21 16:13:05:361 MCU   @[Y] reference found (SENSOR)
+2026-04-21 16:13:05:361 MCU   @[Y] max: 0.00
+2026-04-21 16:13:05:362 MCU   @[P] start searching reference
+2026-04-21 16:13:05:709 MCU   @[N] start searching reference
+2026-04-21 16:13:06:525 MCU   @[P] stopped by sensor L
+2026-04-21 16:13:06:568 MCU   @[P] reset physical position to 0
+2026-04-21 16:13:06:769 MCU   @[P] reference found (SENSOR)
+2026-04-21 16:13:06:770 MCU   @[P] max: 0.00
+2026-04-21 16:13:06:770 MCU   @[Y] start clearing: -19.50
+2026-04-21 16:13:08:097 MCU   @[X] stopped by sensor L
+2026-04-21 16:13:08:298 MCU   @[X] reset physical position to 0
+2026-04-21 16:13:08:500 MCU   @[X] reference found (SENSOR)
+2026-04-21 16:13:08:501 MCU   @[X] max: 0.00
+2026-04-21 16:13:11:313 MCU   @[N] stopped by sensor L
+2026-04-21 16:13:11:314 MCU   @[N] reset physical position to 0
+2026-04-21 16:13:11:516 MCU   @[N] reference found (SENSOR)
+2026-04-21 16:13:11:516 MCU   @[N] min: 0.00
+2026-04-21 16:13:13:319 MCU   @[Y] motor cleared
+2026-04-21 16:13:13:319 MCU   @[Y] min: -29.51
+2026-04-21 16:13:13:320 MCU   @[P] start clearing: -168.00
+2026-04-21 16:13:13:342 MCU   @[Y] start moving to max pos: -3.00
+2026-04-21 16:13:13:365 MCU   @[N] start clearing: 69.50
+2026-04-21 16:13:13:390 MCU   @[X] start clearing: -22.00
+2026-04-21 16:13:13:412 MCU   @[H] start searching reference
+2026-04-21 16:13:18:428 MCU   @[H] stopped by sensor L
+2026-04-21 16:13:18:633 MCU   @[H] reset physical position to 0
+2026-04-21 16:13:18:835 MCU   @[H] reference found (SENSOR)
+2026-04-21 16:13:18:836 MCU   @[H] max: 0.00
+2026-04-21 16:13:18:859 MCU   @[H] start clearing: -49.00
+2026-04-21 16:13:19:214 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:13:19:299 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 50 2D 10 ]
+2026-04-21 16:13:21:237 MCU   @[X] motor cleared
+2026-04-21 16:13:21:237 MCU   @[X] min: -32.01
+2026-04-21 16:13:21:440 MCU   @[X] start moving to max pos: -3.00
+2026-04-21 16:13:21:464 MCU   @[Y] motor reached max pos
+2026-04-21 16:13:21:651 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:13:21:854 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 50 2D 10 ]
+2026-04-21 16:13:23:467 MCU   @[P] motor cleared
+2026-04-21 16:13:23:467 MCU   @[P] min: -168.06
+2026-04-21 16:13:23:468 MCU   @[Z] stopped by sensor L
+2026-04-21 16:13:23:468 MCU   @[Z] reset physical position to 0
+2026-04-21 16:13:23:671 MCU   @[Z] reference found (SENSOR)
+2026-04-21 16:13:23:673 MCU   @[Z] max: 0.00
+2026-04-21 16:13:23:673 MCU   @[P] start moving to home: -1.00
+2026-04-21 16:13:23:696 MCU   @[Z] start clearing: -50.00
+2026-04-21 16:13:27:374 MCU   @[H] motor cleared
+2026-04-21 16:13:27:375 MCU   @[H] min: -49.03
+2026-04-21 16:13:27:576 MCU   @[H] start moving to home: -25.16
+2026-04-21 16:13:31:393 MCU   @[X] motor reached max pos
+2026-04-21 16:13:31:798 MCU   @[H] motor homed
+2026-04-21 16:13:31:798 MCU   @[V] start searching reference
+2026-04-21 16:13:32:505 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 FF ]
+2026-04-21 16:13:32:706 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 FF B0 8C 6E ]
+2026-04-21 16:13:34:119 MCU   @[P] motor homed
+2026-04-21 16:13:34:120 MCU   @[R] start searching reference
+2026-04-21 16:13:36:674 MCU   @[WRN] Node 8 (RUN) response timeout (2015). Try again.
+2026-04-21 16:13:37:650 MCU   @[V] stopped by sensor L
+2026-04-21 16:13:37:853 MCU   @[V] reset physical position to 0
+2026-04-21 16:13:38:056 MCU   @[V] reference found (SENSOR)
+2026-04-21 16:13:38:057 MCU   @[V] max: 0.00
+2026-04-21 16:13:38:079 MCU   @[V] start clearing: -49.00
+2026-04-21 16:13:39:453 MCU   @[N] motor cleared
+2026-04-21 16:13:39:453 MCU   @[N] max: 69.52
+2026-04-21 16:13:39:655 MCU   @[N] start moving to home: 12.87
+2026-04-21 16:13:41:660 MCU   @[R] stopped by sensor R
+2026-04-21 16:13:41:660 MCU   @[R] reset physical position to 0
+2026-04-21 16:13:41:862 MCU   @[R] reference found (SENSOR)
+2026-04-21 16:13:41:862 MCU   @[R] max: 0.00
+2026-04-21 16:13:41:886 MCU   @[R] start clearing: -119.00
+2026-04-21 16:13:42:266 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 FF ]
+2026-04-21 16:13:42:267 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 FF B0 8C 6E ]
+2026-04-21 16:13:47:106 MCU   @[V] motor cleared
+2026-04-21 16:13:47:107 MCU   @[V] min: -49.03
+2026-04-21 16:13:47:308 MCU   @[V] start moving to home: -24.27
+2026-04-21 16:13:48:912 MCU   @[Z] motor cleared
+2026-04-21 16:13:48:912 MCU   @[Z] min: -50.01
+2026-04-21 16:13:49:114 MCU   @[Z] start moving to home: -30.10
+2026-04-21 16:13:53:155 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:13:53:156 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 50 2D 10 ]
+2026-04-21 16:13:53:359 MCU   @[V] motor homed
+2026-04-21 16:13:53:359 MCU   @[X] start moving to home: -19.11
+2026-04-21 16:13:53:382 MCU   @[Y] start moving to home: -13.37
+2026-04-21 16:13:55:316 MCU   @[R] motor cleared
+2026-04-21 16:13:55:316 MCU   @[R] min: -119.04
+2026-04-21 16:13:55:517 MCU   @[R] start moving to home: -60.00
+2026-04-21 16:13:57:138 MCU   @[Y] motor homed
+2026-04-21 16:13:58:549 MCU   @[Z] motor homed
+2026-04-21 16:13:58:953 MCU   @[X] motor homed
+2026-04-21 16:14:00:972 MCU   @[N] motor homed
+2026-04-21 16:14:02:386 MCU   @[R] motor homed
+2026-04-21 16:14:02:387 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 16:14:02:387 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 16:14:02:388 MCU   @robot initialization done (65266ms)
+2026-04-21 16:14:02:406 Info  @system actual [34.35,-9.99,0,39.94,0.01,0.04,79.99,0.03]
+2026-04-21 16:14:02:407 Info  @switch LED light to Green
+2026-04-21 16:14:02:701 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:14:02:744 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-21 16:14:02:908 Info  @open needle guide command sent
+2026-04-21 16:14:02:909 DEBUG @S.SC state (7, 26)
+2026-04-21 16:14:02:909 DEBUG @E.SC state (7, 26)
+2026-04-21 16:14:02:910 DEBUG @S.VE state (7, 26)
+2026-04-21 16:14:02:910 DEBUG @E.VE state (7, 26)
+2026-04-21 16:14:02:911 DEBUG @S.MW state (7, 26)
+2026-04-21 16:14:03:142 DEBUG @E.MW state (7, 26)
+
+2026-04-21 16:14:03:171 User  @on_startCreateCase_clicked
+2026-04-21 16:14:03:456 Info  @needle guide opened
+2026-04-21 16:14:31:689 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:14:31:690 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-21 16:14:44:751 Info  @needle guide closed
+2026-04-21 16:14:54:791 Info  @needle guide opened
+
+2026-04-21 16:15:03:874 User  @factory menu selected (System Settings)
+2026-04-21 16:15:26:740 MCU   @mcu controller stopped
+2026-04-21 16:15:28:156 DEBUG @S.SC state (7, 24)
+2026-04-21 16:15:28:157 DEBUG @E.SC state (7, 24)
+2026-04-21 16:15:28:157 DEBUG @S.VE state (7, 24)
+2026-04-21 16:15:28:157 DEBUG @E.VE state (7, 24)
+2026-04-21 16:15:28:158 DEBUG @S.MW state (7, 24)
+2026-04-21 16:15:28:194 DEBUG @E.MW state (7, 24)
+2026-04-21 16:15:28:195 Info  @system setting apply
+2026-04-21 16:15:28:761 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 16:15:28:908 MCU   @firmware version (Master): 1.0.0_004
+
+2026-04-21 16:15:40:649 User  @factory menu selected (System Settings)
+2026-04-21 16:15:51:996 Info  @needle guide closed
+2026-04-21 16:15:52:683 MCU   @mcu controller stopped
+2026-04-21 16:15:54:253 Info  @system setting apply
+2026-04-21 16:15:54:703 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 16:15:54:852 MCU   @firmware version (Master): 1.0.0_004
+
+2026-04-21 16:15:55:733 User  @on_startInitRobot_clicked
+2026-04-21 16:15:57:245 Info  @switch LED light to Red
+2026-04-21 16:15:57:246 DEBUG @S.SC state (7, 25)
+2026-04-21 16:15:57:246 DEBUG @E.SC state (7, 25)
+2026-04-21 16:15:57:246 DEBUG @S.VE state (7, 25)
+2026-04-21 16:15:57:247 DEBUG @E.VE state (7, 25)
+2026-04-21 16:15:57:247 DEBUG @S.MW state (7, 25)
+2026-04-21 16:15:57:277 DEBUG @E.MW state (7, 25)
+2026-04-21 16:15:57:451 MCU   @set motor P sensors to 'stop'
+2026-04-21 16:15:57:451 MCU   @set motor R sensors to 'stop'
+2026-04-21 16:15:57:561 MCU   @[Z] start searching reference
+2026-04-21 16:16:17:094 MCU   @[Z] stopped by sensor L
+2026-04-21 16:16:17:296 MCU   @[Z] reset physical position to 0
+2026-04-21 16:16:17:498 MCU   @[Z] reference found (SENSOR)
+2026-04-21 16:16:17:498 MCU   @[Z] max: 0.00
+2026-04-21 16:16:17:521 MCU   @[Z] start clearing: -50.00
+2026-04-21 16:16:46:886 MCU   @[Z] motor cleared
+2026-04-21 16:16:46:886 MCU   @[Z] min: -50.01
+2026-04-21 16:16:47:088 MCU   @[Z] start moving to home: -30.10
+2026-04-21 16:16:57:377 MCU   @[Z] motor homed
+2026-04-21 16:16:57:378 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 16:16:57:378 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 16:16:57:378 MCU   @robot initialization done (59937ms)
+2026-04-21 16:16:57:391 Info  @system actual [34.31,-10,-0,40,0,0,80,0]
+2026-04-21 16:16:57:392 Info  @switch LED light to Green
+2026-04-21 16:16:57:893 Info  @open needle guide command sent
+2026-04-21 16:16:57:894 DEBUG @S.SC state (7, 26)
+2026-04-21 16:16:57:895 DEBUG @E.SC state (7, 26)
+2026-04-21 16:16:57:896 DEBUG @S.VE state (7, 26)
+2026-04-21 16:16:57:897 DEBUG @E.VE state (7, 26)
+2026-04-21 16:16:57:898 DEBUG @S.MW state (7, 26)
+2026-04-21 16:16:58:083 DEBUG @E.MW state (7, 26)
+
+2026-04-21 16:16:58:097 User  @on_startCreateCase_clicked
+2026-04-21 16:17:10:810 Info  @needle guide closed
+2026-04-21 16:17:11:011 Info  @needle guide opened
+2026-04-21 16:17:14:023 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:17:14:023 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:17:14:024 MCU   @[AMD] [N11] partial AMX amended [ 25 A5 0B 01 31 02 DE 00 1D CD ]
+2026-04-21 16:17:14:025 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:17:14:025 MCU   @[AMD] [N11] partial AMX amended [ 25 A5 0B 01 31 02 DE 02 1F CF ]
+2026-04-21 16:17:14:025 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-21 16:17:14:027 Info  @needle guide closed
+2026-04-21 16:17:15:231 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:17:15:231 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-21 16:17:15:233 Info  @needle guide opened
+2026-04-21 16:17:17:645 Info  @needle guide closed
+2026-04-21 16:17:18:650 Info  @needle guide opened
+2026-04-21 16:17:21:059 Info  @needle guide closed
+2026-04-21 16:17:21:862 Info  @needle guide opened
+2026-04-21 16:17:23:873 Info  @needle guide closed
+2026-04-21 16:17:24:678 Info  @needle guide opened
+2026-04-21 16:17:25:489 Info  @needle guide closed
+2026-04-21 16:17:53:225 Info  @needle guide opened
+
+2026-04-21 16:17:58:687 User  @factory menu selected (System Settings)
+2026-04-21 16:18:03:241 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:18:03:443 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:18:03:443 MCU   @[AMD] [N11] partial AMX amended [ 25 A5 0B 01 31 02 DE 01 1E CE ]
+2026-04-21 16:18:03:444 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-21 16:18:04:651 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:18:04:651 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-21 16:18:07:272 MCU   @mcu controller stopped
+2026-04-21 16:18:08:273 DEBUG @S.SC state (7, 24)
+2026-04-21 16:18:08:274 DEBUG @E.SC state (7, 24)
+2026-04-21 16:18:08:274 DEBUG @S.VE state (7, 24)
+2026-04-21 16:18:08:274 DEBUG @E.VE state (7, 24)
+2026-04-21 16:18:08:275 DEBUG @S.MW state (7, 24)
+2026-04-21 16:18:08:315 DEBUG @E.MW state (7, 24)
+2026-04-21 16:18:08:316 Info  @system setting apply
+2026-04-21 16:18:09:292 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 16:18:09:444 MCU   @firmware version (Master): 1.0.0_004
+2026-04-21 16:18:10:418 Info  @needle guide closed
+2026-04-21 16:18:15:437 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:18:15:439 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-21 16:18:25:084 Info  @needle guide opened
+2026-04-21 16:18:27:495 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:18:27:698 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+
+2026-04-21 16:18:33:068 User  @on_startInitRobot_clicked
+2026-04-21 16:18:33:525 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-21 16:18:33:726 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-21 16:18:34:641 Info  @switch LED light to Red
+2026-04-21 16:18:34:642 DEBUG @S.SC state (7, 25)
+2026-04-21 16:18:34:642 DEBUG @E.SC state (7, 25)
+2026-04-21 16:18:34:642 DEBUG @S.VE state (7, 25)
+2026-04-21 16:18:34:643 DEBUG @E.VE state (7, 25)
+2026-04-21 16:18:34:643 DEBUG @S.MW state (7, 25)
+2026-04-21 16:18:34:691 DEBUG @E.MW state (7, 25)
+2026-04-21 16:18:34:751 MCU   @set motor P sensors to 'stop'
+2026-04-21 16:18:34:751 MCU   @set motor R sensors to 'stop'
+2026-04-21 16:18:34:862 MCU   @[Z] start searching reference
+2026-04-21 16:18:51:234 MCU   @[Z] stopped by sensor L
+2026-04-21 16:18:51:236 MCU   @[Z] reset physical position to 0
+2026-04-21 16:18:51:440 MCU   @[Z] reference found (SENSOR)
+2026-04-21 16:18:51:440 MCU   @[Z] max: 0.00
+2026-04-21 16:18:51:462 MCU   @[Z] start clearing: -50.00
+2026-04-21 16:19:16:427 MCU   @[Z] motor cleared
+2026-04-21 16:19:16:428 MCU   @[Z] min: -50.01
+2026-04-21 16:19:16:630 MCU   @[Z] start moving to home: -30.10
+2026-04-21 16:19:25:928 MCU   @[Z] motor homed
+2026-04-21 16:19:25:929 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 16:19:25:929 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 16:19:25:929 MCU   @robot initialization done (51188ms)
+2026-04-21 16:19:25:941 Info  @system actual [34.31,-9.99,-0,40,0,0,80,0]
+2026-04-21 16:19:25:942 Info  @switch LED light to Green
+2026-04-21 16:19:26:443 DEBUG @S.SC state (7, 26)
+2026-04-21 16:19:26:443 DEBUG @E.SC state (7, 26)
+2026-04-21 16:19:26:444 DEBUG @S.VE state (7, 26)
+2026-04-21 16:19:26:444 DEBUG @E.VE state (7, 26)
+2026-04-21 16:19:26:444 DEBUG @S.MW state (7, 26)
+2026-04-21 16:19:26:620 DEBUG @E.MW state (7, 26)
+
+2026-04-21 16:19:26:637 User  @on_startCreateCase_clicked
+
+2026-04-21 16:19:38:240 User  @system menu selected (Exit)
+2026-04-21 16:19:40:046 Info  @open needle guide command sent
+2026-04-21 16:19:40:047 Info  @switch LED light to Red
+2026-04-21 16:19:40:047 DEBUG @S.SC state (6, 23)
+2026-04-21 16:19:40:047 DEBUG @E.SC state (6, 23)
+2026-04-21 16:19:40:048 DEBUG @S.VE state (6, 23)
+2026-04-21 16:19:40:048 DEBUG @E.VE state (6, 23)
+2026-04-21 16:19:40:048 DEBUG @S.MW state (6, 23)
+2026-04-21 16:19:40:097 DEBUG @E.MW state (6, 23)
+2026-04-21 16:19:41:161 Info  @needle guide opened
+2026-04-21 16:19:42:158 MCU   @robot moving (finalization) done (2047ms)
+2026-04-21 16:19:42:171 Info  @system actual [34.31,-7.12,-0,40,0,0,80,0]
+2026-04-21 16:19:42:171 Info  @switch LED light to Green
+2026-04-21 16:19:43:475 Info  @switch LED light off
+2026-04-21 16:19:43:519 Frame @frame grabber stopped
+2026-04-21 16:19:43:979 MCU   @robot moving stopped
+2026-04-21 16:19:44:889 MCU   @mcu controller stopped
+2026-04-21 16:19:45:098 Info  @UroBiopsy exited 
+
+
+
+2026-04-21 16:36:32:071 Info  @UtlLogger instance created
+2026-04-21 16:36:32:071 Info  @starting UroBiopsy (SVN 1003)
+2026-04-21 16:36:32:508 Info  @MainWindow instance created
+
+2026-04-21 16:36:55:068 User  @user 'service' login
+2026-04-21 16:36:55:099 Info  @UroBiopsy launched
+2026-04-21 16:36:55:099 Info  @SurgeryController instance created
+2026-04-21 16:36:55:099 Info  @Robot Unit: TX-05-04
+2026-04-21 16:36:55:157 Info  @VisualEngine instance created
+2026-04-21 16:36:57:329 MCU   @firmware version (Master): 1.0.0_004
+2026-04-21 16:36:57:330 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 16:36:58:333 DEBUG @S.SC state (7, 24)
+2026-04-21 16:36:58:333 DEBUG @E.SC state (7, 24)
+2026-04-21 16:36:58:334 DEBUG @S.VE state (7, 24)
+2026-04-21 16:36:58:334 DEBUG @E.VE state (7, 24)
+2026-04-21 16:36:58:335 DEBUG @S.MW state (7, 24)
+2026-04-21 16:36:58:651 DEBUG @E.MW state (7, 24)
+2026-04-21 16:36:59:360 MCU   @[WRN] Node 3 (GETVER) response timeout (2016). Try again.
+2026-04-21 16:36:59:382 MCU   @[WRN] Node 4 (GETVER) response timeout (2031). Try again.
+2026-04-21 16:36:59:383 MCU   @[WRN] Node 5 (GETVER) response timeout (2016). Try again.
+2026-04-21 16:36:59:425 MCU   @[WRN] Node 6 (GETVER) response timeout (2031). Try again.
+2026-04-21 16:36:59:425 MCU   @[WRN] Node 7 (GETVER) response timeout (2016). Try again.
+2026-04-21 16:36:59:446 MCU   @[WRN] Node 8 (GETVER) response timeout (2016). Try again.
+2026-04-21 16:36:59:488 MCU   @[WRN] Node 9 (GETVER) response timeout (2031). Try again.
+2026-04-21 16:36:59:488 MCU   @[WRN] Node 10 (GETVER) response timeout (2015). Try again.
+2026-04-21 16:36:59:509 MCU   @[WRN] Node 11 (GETVER) response timeout (2016). Try again.
+2026-04-21 16:36:59:550 MCU   @[WRN] Node 12 (GETVER) response timeout (2031). Try again.
+2026-04-21 16:37:00:120 Frame @frame grabber UVC device: USB Video
+2026-04-21 16:37:00:188 Frame @frame grabber connected
+2026-04-21 16:37:00:189 Frame @frame grabber started
+
+2026-04-21 16:37:00:869 User  @on_startInitRobot_clicked
+2026-04-21 16:37:01:212 Frame @frame grabber screen size updated: 1920 x 1080
+2026-04-21 16:37:01:367 MCU   @[ERR] Node 3 (GETVER) response timeout (2015). Check connection.
+2026-04-21 16:37:01:409 MCU   @[ERR] Node 4 (GETVER) response timeout (2031). Check connection.
+2026-04-21 16:37:01:410 MCU   @[ERR] Node 5 (GETVER) response timeout (2031). Check connection.
+2026-04-21 16:37:01:452 MCU   @[ERR] Node 6 (GETVER) response timeout (2016). Check connection.
+2026-04-21 16:37:01:452 MCU   @[ERR] Node 7 (GETVER) response timeout (2016). Check connection.
+2026-04-21 16:37:01:474 MCU   @[ERR] Node 8 (GETVER) response timeout (2031). Check connection.
+2026-04-21 16:37:01:517 MCU   @[ERR] Node 9 (GETVER) response timeout (2016). Check connection.
+2026-04-21 16:37:01:517 MCU   @[ERR] Node 10 (GETVER) response timeout (2016). Check connection.
+2026-04-21 16:37:01:538 MCU   @[ERR] Node 11 (GETVER) response timeout (2031). Check connection.
+2026-04-21 16:37:01:580 MCU   @[ERR] Node 12 (GETVER) response timeout (2016). Check connection.
+2026-04-21 16:37:02:171 Info  @switch LED light to Red
+2026-04-21 16:37:02:171 DEBUG @S.SC state (7, 25)
+2026-04-21 16:37:02:171 DEBUG @E.SC state (7, 25)
+2026-04-21 16:37:02:172 DEBUG @S.VE state (7, 25)
+2026-04-21 16:37:02:172 DEBUG @E.VE state (7, 25)
+2026-04-21 16:37:02:172 DEBUG @S.MW state (7, 25)
+2026-04-21 16:37:02:209 MCU   @set motor P sensors to 'stop'
+2026-04-21 16:37:02:210 MCU   @set motor R sensors to 'stop'
+2026-04-21 16:37:02:230 DEBUG @E.MW state (7, 25)
+2026-04-21 16:37:02:318 MCU   @[Z] start searching reference
+2026-04-21 16:37:05:348 MCU   @[ERR] [N12] 'ExecuteCommand' failed (INTERRUPT)
+2026-04-21 16:37:05:370 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (3828). Try again.
+2026-04-21 16:37:05:371 MCU   @[WRN] Node 10 (HMILED) response timeout (3140). Try again.
+2026-04-21 16:37:05:372 MCU   @[WRN] Node 9 (LFLAG) response timeout (3093). Try again.
+2026-04-21 16:37:05:373 MCU   @[WRN] Node 8 (LFLAG) response timeout (3046). Try again.
+2026-04-21 16:37:07:383 MCU   @[ERR] Node 11 (LOG_NGSW) response timeout (2016). Check connection.
+2026-04-21 16:37:07:384 MCU   @[ERR] Node 10 (HMILED) response timeout (2016). Check connection.
+2026-04-21 16:37:07:385 MCU   @[ERR] Node 9 (LFLAG) response timeout (2016). Check connection.
+2026-04-21 16:37:07:385 MCU   @[ERR] Node 8 (LFLAG) response timeout (2016). Check connection.
+2026-04-21 16:37:09:415 MCU   @[WRN] Node 9 (RFLAG) response timeout (2031). Try again.
+2026-04-21 16:37:09:417 MCU   @[WRN] Node 8 (RFLAG) response timeout (2015). Try again.
+2026-04-21 16:37:11:424 MCU   @[ERR] Node 9 (RFLAG) response timeout (2016). Check connection.
+2026-04-21 16:37:11:425 MCU   @[ERR] Node 8 (RFLAG) response timeout (2016). Check connection.
+2026-04-21 16:37:35:504 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+2026-04-21 16:37:35:506 Info  @open needle guide command sent
+2026-04-21 16:37:35:506 DEBUG @S.SC state (7, 28)
+2026-04-21 16:37:35:507 DEBUG @E.SC state (7, 28)
+2026-04-21 16:37:35:507 DEBUG @S.VE state (7, 28)
+2026-04-21 16:37:35:507 DEBUG @E.VE state (7, 28)
+2026-04-21 16:37:35:507 DEBUG @S.MW state (7, 28)
+2026-04-21 16:37:37:751 MCU   @[WRN] Node 11 (RUN) response timeout (2015). Try again.
+2026-04-21 16:37:39:757 MCU   @[ERR] Node 11 (RUN) response timeout (2016). Check connection.
+2026-04-21 16:37:46:481 DEBUG @E.MW state (7, 28)
+
+2026-04-21 16:37:50:531 User  @system menu selected (Exit)
+2026-04-21 16:37:52:288 Info  @open needle guide command sent
+2026-04-21 16:37:53:291 Info  @switch LED light off
+2026-04-21 16:37:53:366 Frame @frame grabber stopped
+2026-04-21 16:37:53:641 MCU   @robot moving stopped
+2026-04-21 16:37:54:746 MCU   @mcu controller stopped
+2026-04-21 16:37:54:967 Info  @UroBiopsy exited 
+
+
+
+2026-04-21 16:39:44:314 Info  @UtlLogger instance created
+2026-04-21 16:39:44:314 Info  @starting UroBiopsy (SVN 1003)
+2026-04-21 16:39:44:721 Info  @MainWindow instance created
+
+2026-04-21 16:39:58:295 User  @user 'service' login
+2026-04-21 16:39:58:342 Info  @UroBiopsy launched
+2026-04-21 16:39:58:342 Info  @SurgeryController instance created
+2026-04-21 16:39:58:342 Info  @Robot Unit: TX-05-04
+2026-04-21 16:39:58:397 Info  @VisualEngine instance created
+2026-04-21 16:40:00:570 MCU   @firmware version (Master): 1.0.0_004
+2026-04-21 16:40:00:571 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 16:40:00:739 MCU   @firmware version (Node 3): 1.0.0.14
+2026-04-21 16:40:00:843 MCU   @firmware version (Node 4): 1.0.0.14
+2026-04-21 16:40:00:926 MCU   @firmware version (Node 5): 1.0.0.14
+2026-04-21 16:40:01:028 MCU   @firmware version (Node 6): 1.0.0.14
+2026-04-21 16:40:01:131 MCU   @firmware version (Node 7): 1.0.0.14
+2026-04-21 16:40:01:234 MCU   @firmware version (Node 8): 1.0.0.14
+2026-04-21 16:40:01:337 MCU   @firmware version (Node 9): 1.0.0.14
+2026-04-21 16:40:01:441 MCU   @firmware version (Node 10): 1.0.0.14
+2026-04-21 16:40:01:524 MCU   @firmware version (Node 11): 1.0.0.16
+2026-04-21 16:40:01:576 DEBUG @S.SC state (7, 24)
+2026-04-21 16:40:01:576 DEBUG @E.SC state (7, 24)
+2026-04-21 16:40:01:577 DEBUG @S.VE state (7, 24)
+2026-04-21 16:40:01:577 DEBUG @E.VE state (7, 24)
+2026-04-21 16:40:01:577 DEBUG @S.MW state (7, 24)
+2026-04-21 16:40:01:649 MCU   @firmware version (Node 12): 1.0.0.14
+2026-04-21 16:40:01:733 MCU   @firmware operation mode (Node 3): 1
+2026-04-21 16:40:01:837 MCU   @firmware operation mode (Node 4): 1
+2026-04-21 16:40:01:837 MCU   @firmware support speed control
+2026-04-21 16:40:01:895 DEBUG @E.MW state (7, 24)
+2026-04-21 16:40:01:921 MCU   @firmware operation mode (Node 5): 1
+2026-04-21 16:40:02:045 MCU   @firmware operation mode (Node 6): 1
+2026-04-21 16:40:02:129 MCU   @firmware operation mode (Node 7): 1
+2026-04-21 16:40:02:253 MCU   @firmware operation mode (Node 8): 1
+2026-04-21 16:40:02:316 MCU   @firmware operation mode (Node 9): 1
+2026-04-21 16:40:02:439 MCU   @firmware operation mode (Node 10): 1
+2026-04-21 16:40:02:606 Info  @needle guide opened
+2026-04-21 16:40:02:666 MCU   @firmware operation mode (Node 12): 1
+2026-04-21 16:40:02:748 MCU   @firmware acceptable error range (Node 3): 512
+2026-04-21 16:40:02:749 MCU   @[X] error range replaced with local set: 11741
+2026-04-21 16:40:02:853 MCU   @firmware acceptable error range (Node 4): 512
+2026-04-21 16:40:02:854 MCU   @[Y] error range replaced with local set: 11741
+2026-04-21 16:40:02:959 MCU   @firmware acceptable error range (Node 5): 512
+2026-04-21 16:40:02:960 MCU   @[V] error range replaced with local set: 6154
+2026-04-21 16:40:03:062 MCU   @firmware acceptable error range (Node 6): 512
+2026-04-21 16:40:03:064 MCU   @[H] error range replaced with local set: 6154
+2026-04-21 16:40:03:167 MCU   @firmware acceptable error range (Node 7): 512
+2026-04-21 16:40:03:167 MCU   @[N] error range replaced with local set: 19376
+2026-04-21 16:40:03:269 MCU   @firmware acceptable error range (Node 8): 512
+2026-04-21 16:40:03:270 MCU   @[R] error range replaced with local set: 4097
+2026-04-21 16:40:03:354 MCU   @firmware acceptable error range (Node 9): 512
+2026-04-21 16:40:03:355 MCU   @[P] error range replaced with local set: 4097
+2026-04-21 16:40:03:360 Frame @frame grabber UVC device: USB Video
+2026-04-21 16:40:03:425 Frame @frame grabber connected
+2026-04-21 16:40:03:426 Frame @frame grabber started
+2026-04-21 16:40:03:459 MCU   @firmware operation mode (Node 11): 1
+2026-04-21 16:40:03:564 MCU   @firmware acceptable error range (Node 12): 512
+2026-04-21 16:40:03:565 MCU   @[Z] error range replaced with local set: 17615
+
+2026-04-21 16:40:03:658 User  @on_startInitRobot_clicked
+2026-04-21 16:40:04:433 Frame @frame grabber screen size updated: 1920 x 1080
+2026-04-21 16:40:06:714 Info  @switch LED light to Red
+2026-04-21 16:40:06:715 DEBUG @S.SC state (7, 25)
+2026-04-21 16:40:06:716 DEBUG @E.SC state (7, 25)
+2026-04-21 16:40:06:716 DEBUG @S.VE state (7, 25)
+2026-04-21 16:40:06:716 DEBUG @E.VE state (7, 25)
+2026-04-21 16:40:06:717 DEBUG @S.MW state (7, 25)
+2026-04-21 16:40:06:759 DEBUG @E.MW state (7, 25)
+2026-04-21 16:40:06:797 MCU   @set motor P sensors to 'stop'
+2026-04-21 16:40:06:797 MCU   @set motor R sensors to 'stop'
+2026-04-21 16:40:06:903 MCU   @[Z] start searching reference
+2026-04-21 16:40:11:557 MCU   @[Z] stopped by sensor L
+2026-04-21 16:40:11:558 MCU   @[Z] reset physical position to 0
+2026-04-21 16:40:11:760 MCU   @[Z] reference found (SENSOR)
+2026-04-21 16:40:11:760 MCU   @[Z] max: 0.00
+2026-04-21 16:40:11:782 MCU   @[Z] start clearing: -50.00
+2026-04-21 16:40:36:877 MCU   @[Z] motor cleared
+2026-04-21 16:40:36:877 MCU   @[Z] min: -50.01
+2026-04-21 16:40:37:080 MCU   @[Z] start moving to home: -30.10
+2026-04-21 16:40:46:529 MCU   @[Z] motor homed
+2026-04-21 16:40:46:529 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 16:40:46:530 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 16:40:46:530 MCU   @robot initialization done (39735ms)
+2026-04-21 16:40:46:533 Info  @system actual [34.31,-9.99,-0,40,0,0,80,0]
+2026-04-21 16:40:46:534 Info  @switch LED light to Green
+2026-04-21 16:40:47:035 DEBUG @S.SC state (7, 26)
+2026-04-21 16:40:47:035 DEBUG @E.SC state (7, 26)
+2026-04-21 16:40:47:036 DEBUG @S.VE state (7, 26)
+2026-04-21 16:40:47:036 DEBUG @E.VE state (7, 26)
+2026-04-21 16:40:47:036 DEBUG @S.MW state (7, 26)
+2026-04-21 16:40:47:123 DEBUG @E.MW state (7, 26)
+
+2026-04-21 16:40:47:292 User  @on_startCreateCase_clicked
+
+2026-04-21 16:41:14:550 User  @on_startInitRobot_clicked
+2026-04-21 16:41:16:108 Info  @switch LED light to Red
+2026-04-21 16:41:16:109 DEBUG @S.SC state (7, 25)
+2026-04-21 16:41:16:109 DEBUG @E.SC state (7, 25)
+2026-04-21 16:41:16:110 DEBUG @S.VE state (7, 25)
+2026-04-21 16:41:16:110 DEBUG @E.VE state (7, 25)
+2026-04-21 16:41:16:110 DEBUG @S.MW state (7, 25)
+2026-04-21 16:41:16:152 DEBUG @E.MW state (7, 25)
+2026-04-21 16:41:16:314 MCU   @set motor P sensors to 'stop'
+2026-04-21 16:41:16:314 MCU   @set motor R sensors to 'stop'
+2026-04-21 16:41:16:423 MCU   @[Z] start searching reference
+2026-04-21 16:41:32:723 MCU   @[Z] stopped by sensor L
+2026-04-21 16:41:32:723 MCU   @[Z] reset physical position to 0
+2026-04-21 16:41:32:926 MCU   @[Z] reference found (SENSOR)
+2026-04-21 16:41:32:926 MCU   @[Z] max: 0.00
+2026-04-21 16:41:32:950 MCU   @[Z] start clearing: -50.00
+2026-04-21 16:41:58:036 MCU   @[Z] motor cleared
+2026-04-21 16:41:58:036 MCU   @[Z] min: -50.01
+2026-04-21 16:41:58:238 MCU   @[Z] start moving to home: -30.10
+2026-04-21 16:42:07:701 MCU   @[Z] motor homed
+2026-04-21 16:42:07:701 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 16:42:07:702 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 16:42:07:703 MCU   @robot initialization done (51391ms)
+2026-04-21 16:42:07:707 Info  @system actual [34.31,-9.99,-0,40,0,0,80,0]
+2026-04-21 16:42:07:708 Info  @switch LED light to Green
+2026-04-21 16:42:08:209 DEBUG @S.SC state (7, 26)
+2026-04-21 16:42:08:209 DEBUG @E.SC state (7, 26)
+2026-04-21 16:42:08:210 DEBUG @S.VE state (7, 26)
+2026-04-21 16:42:08:210 DEBUG @E.VE state (7, 26)
+2026-04-21 16:42:08:210 DEBUG @S.MW state (7, 26)
+2026-04-21 16:42:08:290 DEBUG @E.MW state (7, 26)
+
+2026-04-21 16:42:08:452 User  @on_startCreateCase_clicked
+
+2026-04-21 16:42:42:822 User  @factory menu selected (System Settings)
+2026-04-21 16:43:01:557 MCU   @mcu controller stopped
+2026-04-21 16:43:02:685 DEBUG @S.SC state (7, 24)
+2026-04-21 16:43:02:686 DEBUG @E.SC state (7, 24)
+2026-04-21 16:43:02:687 DEBUG @S.VE state (7, 24)
+2026-04-21 16:43:02:688 DEBUG @E.VE state (7, 24)
+2026-04-21 16:43:02:688 DEBUG @S.MW state (7, 24)
+2026-04-21 16:43:02:724 DEBUG @E.MW state (7, 24)
+2026-04-21 16:43:02:725 Info  @system setting apply
+2026-04-21 16:43:03:577 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-21 16:43:03:726 MCU   @firmware version (Master): 1.0.0_004
+
+2026-04-21 16:43:10:175 User  @on_startInitRobot_clicked
+2026-04-21 16:43:11:793 Info  @switch LED light to Red
+2026-04-21 16:43:11:794 DEBUG @S.SC state (7, 25)
+2026-04-21 16:43:11:794 DEBUG @E.SC state (7, 25)
+2026-04-21 16:43:11:794 DEBUG @S.VE state (7, 25)
+2026-04-21 16:43:11:795 DEBUG @E.VE state (7, 25)
+2026-04-21 16:43:11:795 DEBUG @S.MW state (7, 25)
+2026-04-21 16:43:11:834 DEBUG @E.MW state (7, 25)
+2026-04-21 16:43:11:962 MCU   @set motor P sensors to 'stop'
+2026-04-21 16:43:11:962 MCU   @set motor R sensors to 'stop'
+2026-04-21 16:43:11:985 MCU   @[X] start searching reference
+2026-04-21 16:43:12:331 MCU   @[Y] start searching reference
+2026-04-21 16:43:12:677 MCU   @[Z] start searching reference
+2026-04-21 16:43:20:178 MCU   @[Y] stopped by sensor L
+2026-04-21 16:43:20:179 MCU   @[Y] reset physical position to 0
+2026-04-21 16:43:20:381 MCU   @[Y] reference found (SENSOR)
+2026-04-21 16:43:20:381 MCU   @[Y] max: 0.00
+2026-04-21 16:43:20:381 MCU   @[P] start searching reference
+2026-04-21 16:43:20:726 MCU   @[N] start searching reference
+2026-04-21 16:43:21:533 MCU   @[P] stopped by sensor L
+2026-04-21 16:43:21:555 MCU   @[P] reset physical position to 0
+2026-04-21 16:43:21:577 MCU   @[P] reference found (SENSOR)
+2026-04-21 16:43:21:578 MCU   @[P] max: 0.00
+2026-04-21 16:43:21:578 MCU   @[Y] start clearing: -19.50
+2026-04-21 16:43:22:897 MCU   @[X] stopped by sensor L
+2026-04-21 16:43:22:898 MCU   @[X] reset physical position to 0
+2026-04-21 16:43:23:101 MCU   @[X] reference found (SENSOR)
+2026-04-21 16:43:23:102 MCU   @[X] max: 0.00
+2026-04-21 16:43:26:323 MCU   @[N] stopped by sensor L
+2026-04-21 16:43:26:525 MCU   @[N] reset physical position to 0
+2026-04-21 16:43:26:728 MCU   @[N] reference found (SENSOR)
+2026-04-21 16:43:26:728 MCU   @[N] min: 0.00
+2026-04-21 16:43:28:123 MCU   @[Y] motor cleared
+2026-04-21 16:43:28:123 MCU   @[Y] min: -29.51
+2026-04-21 16:43:28:124 MCU   @[P] start clearing: -168.00
+2026-04-21 16:43:28:146 MCU   @[Y] start moving to max pos: -3.00
+2026-04-21 16:43:28:167 MCU   @[N] start clearing: 69.50
+2026-04-21 16:43:28:189 MCU   @[X] start clearing: -22.00
+2026-04-21 16:43:28:212 MCU   @[H] start searching reference
+2026-04-21 16:43:28:837 MCU   @[Z] stopped by sensor L
+2026-04-21 16:43:28:838 MCU   @[Z] reset physical position to 0
+2026-04-21 16:43:28:860 MCU   @[Z] reference found (SENSOR)
+2026-04-21 16:43:28:861 MCU   @[Z] max: 0.00
+2026-04-21 16:43:28:883 MCU   @[Z] start clearing: -50.00
+2026-04-21 16:43:33:408 MCU   @[H] stopped by sensor L
+2026-04-21 16:43:33:408 MCU   @[H] reset physical position to 0
+2026-04-21 16:43:33:609 MCU   @[H] reference found (SENSOR)
+2026-04-21 16:43:33:610 MCU   @[H] max: 0.00
+2026-04-21 16:43:33:633 MCU   @[H] start clearing: -49.00
+2026-04-21 16:43:36:006 MCU   @[X] motor cleared
+2026-04-21 16:43:36:007 MCU   @[X] min: -32.01
+2026-04-21 16:43:36:208 MCU   @[X] start moving to max pos: -3.00
+2026-04-21 16:43:36:822 MCU   @[Y] motor reached max pos
+2026-04-21 16:43:38:229 MCU   @[P] motor cleared
+2026-04-21 16:43:38:231 MCU   @[P] min: -168.06
+2026-04-21 16:43:38:433 MCU   @[P] start moving to home: -1.00
+2026-04-21 16:43:42:257 MCU   @[H] motor cleared
+2026-04-21 16:43:42:257 MCU   @[H] min: -49.03
+2026-04-21 16:43:42:459 MCU   @[H] start moving to home: -25.16
+2026-04-21 16:43:46:085 MCU   @[X] motor reached max pos
+2026-04-21 16:43:46:689 MCU   @[H] motor homed
+2026-04-21 16:43:46:689 MCU   @[V] start searching reference
+2026-04-21 16:43:48:800 MCU   @[P] motor homed
+2026-04-21 16:43:48:802 MCU   @[R] start searching reference
+2026-04-21 16:43:52:515 MCU   @[V] stopped by sensor L
+2026-04-21 16:43:52:515 MCU   @[V] reset physical position to 0
+2026-04-21 16:43:52:718 MCU   @[V] reference found (SENSOR)
+2026-04-21 16:43:52:718 MCU   @[V] max: 0.00
+2026-04-21 16:43:52:741 MCU   @[V] start clearing: -49.00
+2026-04-21 16:43:54:112 MCU   @[N] motor cleared
+2026-04-21 16:43:54:112 MCU   @[N] max: 69.51
+2026-04-21 16:43:54:313 MCU   @[N] start moving to home: 12.87
+2026-04-21 16:43:54:337 MCU   @[Z] motor cleared
+2026-04-21 16:43:54:337 MCU   @[Z] min: -50.01
+2026-04-21 16:43:54:359 MCU   @[Z] start moving to home: -30.10
+2026-04-21 16:43:56:259 MCU   @[R] stopped by sensor R
+2026-04-21 16:43:56:461 MCU   @[R] reset physical position to 0
+2026-04-21 16:43:56:662 MCU   @[R] reference found (SENSOR)
+2026-04-21 16:43:56:663 MCU   @[R] max: 0.00
+2026-04-21 16:43:56:685 MCU   @[R] start clearing: -119.00
+2026-04-21 16:44:01:839 MCU   @[V] motor cleared
+2026-04-21 16:44:01:840 MCU   @[V] min: -49.02
+2026-04-21 16:44:02:042 MCU   @[V] start moving to home: -24.27
+2026-04-21 16:44:03:837 MCU   @[Z] motor homed
+2026-04-21 16:44:08:052 MCU   @[V] motor homed
+2026-04-21 16:44:08:052 MCU   @[X] start moving to home: -19.11
+2026-04-21 16:44:08:075 MCU   @[Y] start moving to home: -13.37
+2026-04-21 16:44:09:996 MCU   @[R] motor cleared
+2026-04-21 16:44:09:997 MCU   @[R] min: -119.04
+2026-04-21 16:44:10:198 MCU   @[R] start moving to home: -60.00
+2026-04-21 16:44:11:815 MCU   @[Y] motor homed
+2026-04-21 16:44:13:622 MCU   @[X] motor homed
+2026-04-21 16:44:15:634 MCU   @[N] motor homed
+2026-04-21 16:44:17:241 MCU   @[R] motor homed
+2026-04-21 16:44:17:243 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 16:44:17:244 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 16:44:17:244 MCU   @robot initialization done (65281ms)
+2026-04-21 16:44:17:263 Info  @system actual [34.35,-9.99,-0,39.95,0.01,0.04,79.99,0.03]
+2026-04-21 16:44:17:263 Info  @switch LED light to Green
+2026-04-21 16:44:17:765 DEBUG @S.SC state (7, 26)
+2026-04-21 16:44:17:765 DEBUG @E.SC state (7, 26)
+2026-04-21 16:44:17:765 DEBUG @S.VE state (7, 26)
+2026-04-21 16:44:17:766 DEBUG @E.VE state (7, 26)
+2026-04-21 16:44:17:766 DEBUG @S.MW state (7, 26)
+2026-04-21 16:44:17:950 DEBUG @E.MW state (7, 26)
+
+2026-04-21 16:44:17:967 User  @on_startCreateCase_clicked
+
+2026-04-21 16:44:52:052 User  @on_startInitRobot_clicked
+2026-04-21 16:44:54:424 Info  @switch LED light to Red
+2026-04-21 16:44:54:424 DEBUG @S.SC state (7, 25)
+2026-04-21 16:44:54:425 DEBUG @E.SC state (7, 25)
+2026-04-21 16:44:54:425 DEBUG @S.VE state (7, 25)
+2026-04-21 16:44:54:425 DEBUG @E.VE state (7, 25)
+2026-04-21 16:44:54:426 DEBUG @S.MW state (7, 25)
+2026-04-21 16:44:54:460 MCU   @set motor P sensors to 'stop'
+2026-04-21 16:44:54:461 MCU   @set motor R sensors to 'stop'
+2026-04-21 16:44:54:476 DEBUG @E.MW state (7, 25)
+2026-04-21 16:44:54:485 MCU   @[X] start searching reference
+2026-04-21 16:44:54:831 MCU   @[Y] start searching reference
+2026-04-21 16:44:55:176 MCU   @[Z] start searching reference
+2026-04-21 16:45:02:699 MCU   @[Y] stopped by sensor L
+2026-04-21 16:45:02:700 MCU   @[Y] reset physical position to 0
+2026-04-21 16:45:02:902 MCU   @[Y] reference found (SENSOR)
+2026-04-21 16:45:02:902 MCU   @[Y] max: 0.00
+2026-04-21 16:45:02:903 MCU   @[P] start searching reference
+2026-04-21 16:45:03:247 MCU   @[N] start searching reference
+2026-04-21 16:45:04:057 MCU   @[P] stopped by sensor L
+2026-04-21 16:45:04:082 MCU   @[P] reset physical position to 0
+2026-04-21 16:45:04:286 MCU   @[P] reference found (SENSOR)
+2026-04-21 16:45:04:286 MCU   @[P] max: 0.00
+2026-04-21 16:45:04:287 MCU   @[Y] start clearing: -19.50
+2026-04-21 16:45:05:224 MCU   @[X] stopped by sensor L
+2026-04-21 16:45:05:225 MCU   @[X] reset physical position to 0
+2026-04-21 16:45:05:427 MCU   @[X] reference found (SENSOR)
+2026-04-21 16:45:05:428 MCU   @[X] max: 0.00
+2026-04-21 16:45:08:834 MCU   @[N] stopped by sensor L
+2026-04-21 16:45:08:836 MCU   @[N] reset physical position to 0
+2026-04-21 16:45:09:039 MCU   @[N] reference found (SENSOR)
+2026-04-21 16:45:09:041 MCU   @[N] min: 0.00
+2026-04-21 16:45:10:838 MCU   @[Y] motor cleared
+2026-04-21 16:45:10:839 MCU   @[Y] min: -29.51
+2026-04-21 16:45:10:839 MCU   @[P] start clearing: -168.00
+2026-04-21 16:45:10:861 MCU   @[Y] start moving to max pos: -3.00
+2026-04-21 16:45:10:884 MCU   @[N] start clearing: 69.50
+2026-04-21 16:45:10:906 MCU   @[X] start clearing: -22.00
+2026-04-21 16:45:10:928 MCU   @[H] start searching reference
+2026-04-21 16:45:11:552 MCU   @[Z] stopped by sensor L
+2026-04-21 16:45:11:553 MCU   @[Z] reset physical position to 0
+2026-04-21 16:45:11:576 MCU   @[Z] reference found (SENSOR)
+2026-04-21 16:45:11:576 MCU   @[Z] max: 0.00
+2026-04-21 16:45:11:598 MCU   @[Z] start clearing: -50.00
+2026-04-21 16:45:16:102 MCU   @[H] stopped by sensor L
+2026-04-21 16:45:16:103 MCU   @[H] reset physical position to 0
+2026-04-21 16:45:16:305 MCU   @[H] reference found (SENSOR)
+2026-04-21 16:45:16:305 MCU   @[H] max: 0.00
+2026-04-21 16:45:16:328 MCU   @[H] start clearing: -49.00
+2026-04-21 16:45:18:704 MCU   @[X] motor cleared
+2026-04-21 16:45:18:704 MCU   @[X] min: -32.01
+2026-04-21 16:45:18:906 MCU   @[X] start moving to max pos: -3.00
+2026-04-21 16:45:19:116 MCU   @[Y] motor reached max pos
+2026-04-21 16:45:20:927 MCU   @[P] motor cleared
+2026-04-21 16:45:20:928 MCU   @[P] min: -168.06
+2026-04-21 16:45:21:131 MCU   @[P] start moving to home: -1.00
+2026-04-21 16:45:24:956 MCU   @[H] motor cleared
+2026-04-21 16:45:24:956 MCU   @[H] min: -49.03
+2026-04-21 16:45:25:158 MCU   @[H] start moving to home: -25.16
+2026-04-21 16:45:28:780 MCU   @[X] motor reached max pos
+2026-04-21 16:45:29:383 MCU   @[H] motor homed
+2026-04-21 16:45:29:384 MCU   @[V] start searching reference
+2026-04-21 16:45:31:490 MCU   @[P] motor homed
+2026-04-21 16:45:31:490 MCU   @[R] start searching reference
+2026-04-21 16:45:35:226 MCU   @[V] stopped by sensor L
+2026-04-21 16:45:35:227 MCU   @[V] reset physical position to 0
+2026-04-21 16:45:35:429 MCU   @[V] reference found (SENSOR)
+2026-04-21 16:45:35:429 MCU   @[V] max: 0.00
+2026-04-21 16:45:35:452 MCU   @[V] start clearing: -49.00
+2026-04-21 16:45:36:823 MCU   @[N] motor cleared
+2026-04-21 16:45:36:823 MCU   @[N] max: 69.52
+2026-04-21 16:45:37:025 MCU   @[N] start moving to home: 12.87
+2026-04-21 16:45:37:048 MCU   @[Z] motor cleared
+2026-04-21 16:45:37:048 MCU   @[Z] min: -50.01
+2026-04-21 16:45:37:070 MCU   @[Z] start moving to home: -30.10
+2026-04-21 16:45:38:970 MCU   @[R] stopped by sensor R
+2026-04-21 16:45:39:171 MCU   @[R] reset physical position to 0
+2026-04-21 16:45:39:373 MCU   @[R] reference found (SENSOR)
+2026-04-21 16:45:39:373 MCU   @[R] max: 0.00
+2026-04-21 16:45:39:395 MCU   @[R] start clearing: -119.00
+2026-04-21 16:45:44:391 MCU   @[V] motor cleared
+2026-04-21 16:45:44:391 MCU   @[V] min: -49.03
+2026-04-21 16:45:44:593 MCU   @[V] start moving to home: -24.27
+2026-04-21 16:45:46:613 MCU   @[Z] motor homed
+2026-04-21 16:45:50:629 MCU   @[V] motor homed
+2026-04-21 16:45:50:631 MCU   @[X] start moving to home: -19.11
+2026-04-21 16:45:50:654 MCU   @[Y] start moving to home: -13.37
+2026-04-21 16:45:52:777 MCU   @[R] motor cleared
+2026-04-21 16:45:52:777 MCU   @[R] min: -119.04
+2026-04-21 16:45:52:979 MCU   @[R] start moving to home: -60.00
+2026-04-21 16:45:54:396 MCU   @[Y] motor homed
+2026-04-21 16:45:56:202 MCU   @[X] motor homed
+2026-04-21 16:45:58:211 MCU   @[N] motor homed
+2026-04-21 16:46:00:019 MCU   @[R] motor homed
+2026-04-21 16:46:00:019 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 16:46:00:020 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 16:46:00:020 MCU   @robot initialization done (65563ms)
+2026-04-21 16:46:00:024 Info  @system actual [34.35,-9.99,-0,39.94,0.01,0.04,79.99,0.03]
+2026-04-21 16:46:00:024 Info  @switch LED light to Green
+2026-04-21 16:46:00:526 DEBUG @S.SC state (7, 26)
+2026-04-21 16:46:00:527 DEBUG @E.SC state (7, 26)
+2026-04-21 16:46:00:527 DEBUG @S.VE state (7, 26)
+2026-04-21 16:46:00:527 DEBUG @E.VE state (7, 26)
+2026-04-21 16:46:00:527 DEBUG @S.MW state (7, 26)
+2026-04-21 16:46:00:630 DEBUG @E.MW state (7, 26)
+
+2026-04-21 16:46:00:645 User  @on_startCreateCase_clicked
+
+2026-04-21 16:54:39:518 User  @on_startInitRobot_clicked
+2026-04-21 16:54:40:685 Info  @switch LED light to Red
+2026-04-21 16:54:40:686 DEBUG @S.SC state (7, 25)
+2026-04-21 16:54:40:686 DEBUG @E.SC state (7, 25)
+2026-04-21 16:54:40:687 DEBUG @S.VE state (7, 25)
+2026-04-21 16:54:40:687 DEBUG @E.VE state (7, 25)
+2026-04-21 16:54:40:688 DEBUG @S.MW state (7, 25)
+2026-04-21 16:54:40:737 DEBUG @E.MW state (7, 25)
+2026-04-21 16:54:40:837 MCU   @set motor P sensors to 'stop'
+2026-04-21 16:54:40:838 MCU   @set motor R sensors to 'stop'
+2026-04-21 16:54:40:860 MCU   @[X] start searching reference
+2026-04-21 16:54:41:206 MCU   @[Y] start searching reference
+2026-04-21 16:54:41:550 MCU   @[Z] start searching reference
+2026-04-21 16:54:49:069 MCU   @[Y] stopped by sensor L
+2026-04-21 16:54:49:070 MCU   @[Y] reset physical position to 0
+2026-04-21 16:54:49:273 MCU   @[Y] reference found (SENSOR)
+2026-04-21 16:54:49:274 MCU   @[Y] max: 0.00
+2026-04-21 16:54:49:274 MCU   @[P] start searching reference
+2026-04-21 16:54:49:619 MCU   @[N] start searching reference
+2026-04-21 16:54:50:409 MCU   @[P] stopped by sensor L
+2026-04-21 16:54:50:451 MCU   @[P] reset physical position to 0
+2026-04-21 16:54:50:473 MCU   @[P] reference found (SENSOR)
+2026-04-21 16:54:50:474 MCU   @[P] max: 0.00
+2026-04-21 16:54:50:474 MCU   @[Y] start clearing: -19.50
+2026-04-21 16:54:51:794 MCU   @[X] stopped by sensor L
+2026-04-21 16:54:51:795 MCU   @[X] reset physical position to 0
+2026-04-21 16:54:51:997 MCU   @[X] reference found (SENSOR)
+2026-04-21 16:54:51:997 MCU   @[X] max: 0.00
+2026-04-21 16:54:55:181 MCU   @[N] stopped by sensor L
+2026-04-21 16:54:55:384 MCU   @[N] reset physical position to 0
+2026-04-21 16:54:55:586 MCU   @[N] reference found (SENSOR)
+2026-04-21 16:54:55:586 MCU   @[N] min: 0.00
+2026-04-21 16:54:57:003 MCU   @[Y] motor cleared
+2026-04-21 16:54:57:003 MCU   @[Y] min: -29.51
+2026-04-21 16:54:57:003 MCU   @[P] start clearing: -168.00
+2026-04-21 16:54:57:026 MCU   @[Y] start moving to max pos: -3.00
+2026-04-21 16:54:57:048 MCU   @[N] start clearing: 69.50
+2026-04-21 16:54:57:070 MCU   @[X] start clearing: -22.00
+2026-04-21 16:54:57:093 MCU   @[H] start searching reference
+2026-04-21 16:54:57:717 MCU   @[Z] stopped by sensor L
+2026-04-21 16:54:57:717 MCU   @[Z] reset physical position to 0
+2026-04-21 16:54:57:739 MCU   @[Z] reference found (SENSOR)
+2026-04-21 16:54:57:740 MCU   @[Z] max: 0.00
+2026-04-21 16:54:57:761 MCU   @[Z] start clearing: -50.00
+2026-04-21 16:55:02:260 MCU   @[H] stopped by sensor L
+2026-04-21 16:55:02:260 MCU   @[H] reset physical position to 0
+2026-04-21 16:55:02:463 MCU   @[H] reference found (SENSOR)
+2026-04-21 16:55:02:463 MCU   @[H] max: 0.00
+2026-04-21 16:55:02:487 MCU   @[H] start clearing: -49.00
+2026-04-21 16:55:04:862 MCU   @[X] motor cleared
+2026-04-21 16:55:04:862 MCU   @[X] min: -32.01
+2026-04-21 16:55:05:065 MCU   @[X] start moving to max pos: -3.00
+2026-04-21 16:55:05:477 MCU   @[Y] motor reached max pos
+2026-04-21 16:55:07:087 MCU   @[P] motor cleared
+2026-04-21 16:55:07:090 MCU   @[P] min: -168.06
+2026-04-21 16:55:07:291 MCU   @[P] start moving to home: -1.00
+2026-04-21 16:55:11:118 MCU   @[H] motor cleared
+2026-04-21 16:55:11:118 MCU   @[H] min: -49.03
+2026-04-21 16:55:11:320 MCU   @[H] start moving to home: -25.16
+2026-04-21 16:55:14:945 MCU   @[X] motor reached max pos
+2026-04-21 16:55:15:548 MCU   @[H] motor homed
+2026-04-21 16:55:15:548 MCU   @[V] start searching reference
+2026-04-21 16:55:17:656 MCU   @[P] motor homed
+2026-04-21 16:55:17:657 MCU   @[R] start searching reference
+2026-04-21 16:55:21:551 MCU   @[V] stopped by sensor L
+2026-04-21 16:55:21:551 MCU   @[V] reset physical position to 0
+2026-04-21 16:55:21:753 MCU   @[V] reference found (SENSOR)
+2026-04-21 16:55:21:753 MCU   @[V] max: 0.00
+2026-04-21 16:55:21:776 MCU   @[V] start clearing: -49.00
+2026-04-21 16:55:22:971 MCU   @[N] motor cleared
+2026-04-21 16:55:22:972 MCU   @[N] max: 69.52
+2026-04-21 16:55:23:173 MCU   @[N] start moving to home: 12.87
+2026-04-21 16:55:23:279 MCU   @[Z] motor cleared
+2026-04-21 16:55:23:279 MCU   @[Z] min: -50.01
+2026-04-21 16:55:23:301 MCU   @[Z] start moving to home: -30.10
+2026-04-21 16:55:25:140 MCU   @[R] stopped by sensor R
+2026-04-21 16:55:25:140 MCU   @[R] reset physical position to 0
+2026-04-21 16:55:25:342 MCU   @[R] reference found (SENSOR)
+2026-04-21 16:55:25:342 MCU   @[R] max: 0.00
+2026-04-21 16:55:25:365 MCU   @[R] start clearing: -119.00
+2026-04-21 16:55:30:745 MCU   @[V] motor cleared
+2026-04-21 16:55:30:745 MCU   @[V] min: -49.03
+2026-04-21 16:55:30:947 MCU   @[V] start moving to home: -24.27
+2026-04-21 16:55:32:765 MCU   @[Z] motor homed
+2026-04-21 16:55:36:983 MCU   @[V] motor homed
+2026-04-21 16:55:36:984 MCU   @[X] start moving to home: -19.11
+2026-04-21 16:55:37:006 MCU   @[Y] start moving to home: -13.37
+2026-04-21 16:55:38:724 MCU   @[R] motor cleared
+2026-04-21 16:55:38:725 MCU   @[R] min: -119.04
+2026-04-21 16:55:38:927 MCU   @[R] start moving to home: -60.00
+2026-04-21 16:55:40:743 MCU   @[Y] motor homed
+2026-04-21 16:55:42:550 MCU   @[X] motor homed
+2026-04-21 16:55:44:358 MCU   @[N] motor homed
+2026-04-21 16:55:45:965 MCU   @[R] motor homed
+2026-04-21 16:55:45:965 MCU   @set motor P sensors to 'nonstop'
+2026-04-21 16:55:45:966 MCU   @set motor R sensors to 'nonstop'
+2026-04-21 16:55:45:967 MCU   @robot initialization done (65125ms)
+2026-04-21 16:55:45:972 Info  @system actual [34.35,-9.99,-0,39.94,0.01,0.04,79.99,0.03]
+2026-04-21 16:55:45:973 Info  @switch LED light to Green
+2026-04-21 16:55:46:474 DEBUG @S.SC state (7, 26)
+2026-04-21 16:55:46:474 DEBUG @E.SC state (7, 26)
+2026-04-21 16:55:46:474 DEBUG @S.VE state (7, 26)
+2026-04-21 16:55:46:475 DEBUG @E.VE state (7, 26)
+2026-04-21 16:55:46:475 DEBUG @S.MW state (7, 26)
+2026-04-21 16:55:46:565 DEBUG @E.MW state (7, 26)
+
+2026-04-21 16:55:46:733 User  @on_startCreateCase_clicked
+
+2026-04-21 17:00:34:702 User  @system menu selected (Exit)
+2026-04-21 17:00:35:871 Info  @open needle guide command sent
+2026-04-21 17:00:35:872 Info  @switch LED light to Red
+2026-04-21 17:00:35:872 DEBUG @S.SC state (6, 23)
+2026-04-21 17:00:35:873 DEBUG @E.SC state (6, 23)
+2026-04-21 17:00:35:873 DEBUG @S.VE state (6, 23)
+2026-04-21 17:00:35:873 DEBUG @E.VE state (6, 23)
+2026-04-21 17:00:35:873 DEBUG @S.MW state (6, 23)
+2026-04-21 17:00:35:888 DEBUG @E.MW state (6, 23)
+2026-04-21 17:00:36:370 Info  @needle guide opened
+2026-04-21 17:00:38:154 MCU   @robot moving (finalization) done (2063ms)
+2026-04-21 17:00:38:157 Info  @system actual [34.35,-7.12,-0,39.94,0.01,0.04,79.99,0.03]
+2026-04-21 17:00:38:157 Info  @switch LED light to Green
+2026-04-21 17:00:39:303 Info  @switch LED light off
+2026-04-21 17:00:39:354 Frame @frame grabber stopped
+2026-04-21 17:00:39:770 MCU   @robot moving stopped
+2026-04-21 17:00:40:882 MCU   @mcu controller stopped
+2026-04-21 17:00:41:171 Info  @UroBiopsy exited 
+
+

@@ -1,0 +1,79 @@
+
+2026-02-05 11:04:47:067 Info  @UtlLogger instance created
+2026-02-05 11:04:47:068 Info  @starting UroTherapy (SVN 1003)
+2026-02-05 11:04:47:507 Info  @MainWindow instance created
+
+2026-02-05 11:04:51:422 User  @user cancelled Login dialog
+2026-02-05 11:04:51:424 Info  @SurgeryController instance created
+2026-02-05 11:04:51:458 Info  @UroTherapy exited 
+
+
+
+2026-02-05 11:06:48:774 Info  @UtlLogger instance created
+2026-02-05 11:06:48:774 Info  @starting UroTherapy (SVN 1003)
+2026-02-05 11:06:49:253 Info  @MainWindow instance created
+
+2026-02-05 11:07:25:941 User  @user 'Service' login
+2026-02-05 11:07:26:003 Info  @UroTherapy launched
+2026-02-05 11:07:26:004 Info  @SurgeryController instance created
+2026-02-05 11:07:26:007 Info  @Robot Unit: TX-05-07
+2026-02-05 11:07:26:129 Info  @VisualEngine instance created
+2026-02-05 11:07:28:010 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2026-02-05 11:07:29:342 DEBUG @S.SC state (7, 24)
+2026-02-05 11:07:29:342 DEBUG @E.SC state (7, 24)
+2026-02-05 11:07:29:343 DEBUG @S.VE state (7, 24)
+2026-02-05 11:07:29:343 DEBUG @E.VE state (7, 24)
+2026-02-05 11:07:29:343 DEBUG @S.MW state (7, 24)
+2026-02-05 11:07:29:666 DEBUG @E.MW state (7, 24)
+2026-02-05 11:07:31:051 Frame @[ERR] failed to connect frame grabber
+
+2026-02-05 11:08:15:231 User  @factory menu selected (System Settings)
+
+2026-02-05 11:08:27:862 User  @factory menu selected (System Settings)
+
+2026-02-05 11:11:09:080 User  @factory menu selected (System Settings)
+2026-02-05 11:11:27:570 MCU   @mcu controller stopped
+2026-02-05 11:11:28:955 Info  @system setting apply
+2026-02-05 11:11:31:703 MCU   @[ERR] failed to connect com port: COM11 (baudrate: 115200)
+
+2026-02-05 11:11:33:944 User  @factory menu selected (System Settings)
+
+2026-02-05 11:12:09:729 User  @factory menu selected (System Settings)
+
+2026-02-05 11:12:15:055 User  @system menu selected (Exit)
+2026-02-05 11:12:18:077 Info  @open needle guide command sent
+2026-02-05 11:12:19:359 Frame @frame grabber stopped
+2026-02-05 11:12:22:926 MCU   @mcu controller stopped
+2026-02-05 11:12:23:186 Info  @UroTherapy exited 
+
+
+
+2026-02-05 11:13:11:291 Info  @UtlLogger instance created
+2026-02-05 11:13:11:291 Info  @starting UroTherapy (SVN 1003)
+2026-02-05 11:13:11:734 Info  @MainWindow instance created
+
+2026-02-05 11:13:45:964 User  @user 'Service' login
+2026-02-05 11:13:46:016 Info  @UroTherapy launched
+2026-02-05 11:13:46:017 Info  @SurgeryController instance created
+2026-02-05 11:13:46:020 Info  @Robot Unit: TX-05-07
+2026-02-05 11:13:46:077 Info  @VisualEngine instance created
+2026-02-05 11:13:49:373 DEBUG @S.SC state (7, 24)
+2026-02-05 11:13:49:373 DEBUG @E.SC state (7, 24)
+2026-02-05 11:13:49:374 DEBUG @S.VE state (7, 24)
+2026-02-05 11:13:49:374 DEBUG @E.VE state (7, 24)
+2026-02-05 11:13:49:375 DEBUG @S.MW state (7, 24)
+2026-02-05 11:13:49:699 DEBUG @E.MW state (7, 24)
+2026-02-05 11:13:50:154 MCU   @[ERR] failed to connect com port: COM11 (baudrate: 115200)
+2026-02-05 11:13:51:033 Frame @[ERR] failed to connect frame grabber
+
+2026-02-05 11:14:09:512 User  @tool menu selected (Application Settings)
+
+2026-02-05 11:15:07:195 User  @factory menu selected (System Settings)
+
+2026-02-05 11:15:14:700 User  @system menu selected (Exit)
+2026-02-05 11:15:18:499 Info  @open needle guide command sent
+2026-02-05 11:15:20:129 Frame @frame grabber stopped
+2026-02-05 11:15:23:362 MCU   @mcu controller stopped
+2026-02-05 11:15:23:624 Info  @UroTherapy exited 
+
+

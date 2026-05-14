@@ -1,0 +1,375 @@
+
+2025-04-29 18:17:04:288 Info  @UtlLogger instance created
+2025-04-29 18:17:04:288 Info  @starting UroBiopsy (SVN 858)
+2025-04-29 18:17:05:154 Info  @MainWindow instance created
+2025-04-29 18:17:17:412 Sec   @failed login by user service
+2025-04-29 18:17:23:620 Sec   @failed login by user service
+2025-04-29 18:17:34:003 Sec   @failed login by user Biobot
+2025-04-29 18:17:35:787 Sec   @failed login by user Biobot
+2025-04-29 18:17:40:555 Sec   @failed login by user biobot
+2025-04-29 18:18:13:756 Sec   @failed login by user Service
+
+2025-04-29 18:18:16:458 User  @user 'Service' login
+2025-04-29 18:18:16:505 Info  @UroBiopsy launched
+2025-04-29 18:18:16:506 Info  @SurgeryController instance created
+2025-04-29 18:18:16:541 Info  @Robot Unit: TX-05-00
+2025-04-29 18:18:16:727 Info  @VisualEngine instance created
+2025-04-29 18:18:18:763 MCU   @firmware version (Master): 1.0.0_004
+2025-04-29 18:18:18:763 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-04-29 18:18:18:775 Info  @C:/Biobot/System/Log/RobotMovingValues/20250326 deleted
+2025-04-29 18:18:18:780 Info  @C:/Biobot/System/Log/RobotMovingValues/20250327 deleted
+2025-04-29 18:18:18:782 Info  @C:/Biobot/System/Log/RobotMovingValues/20250328 deleted
+2025-04-29 18:18:18:947 MCU   @firmware version (Node 3): 1.0.0.14
+2025-04-29 18:18:19:029 MCU   @firmware version (Node 4): 1.0.0.14
+2025-04-29 18:18:19:131 MCU   @firmware version (Node 5): 1.0.0.14
+2025-04-29 18:18:19:232 MCU   @firmware version (Node 6): 1.0.0.14
+2025-04-29 18:18:19:334 MCU   @firmware version (Node 7): 1.0.0.14
+2025-04-29 18:18:19:456 MCU   @firmware version (Node 8): 1.0.0.14
+2025-04-29 18:18:19:538 MCU   @firmware version (Node 9): 1.0.0.14
+2025-04-29 18:18:19:640 MCU   @firmware version (Node 10): 1.0.0.14
+2025-04-29 18:18:19:743 MCU   @firmware version (Node 11): 1.0.0.16
+2025-04-29 18:18:19:822 DEBUG @S.SC state (7, 24)
+2025-04-29 18:18:19:823 DEBUG @E.SC state (7, 24)
+2025-04-29 18:18:19:823 DEBUG @S.VE state (7, 24)
+2025-04-29 18:18:19:823 DEBUG @E.VE state (7, 24)
+2025-04-29 18:18:19:824 DEBUG @S.MW state (7, 24)
+2025-04-29 18:18:19:845 MCU   @firmware version (Node 12): 1.0.0.14
+2025-04-29 18:18:19:928 MCU   @firmware operation mode (Node 3): 1
+2025-04-29 18:18:20:031 MCU   @firmware operation mode (Node 4): 1
+2025-04-29 18:18:20:032 MCU   @firmware support speed control
+2025-04-29 18:18:20:136 MCU   @firmware operation mode (Node 5): 1
+2025-04-29 18:18:20:147 DEBUG @E.MW state (7, 24)
+2025-04-29 18:18:20:238 MCU   @firmware operation mode (Node 6): 1
+2025-04-29 18:18:20:340 MCU   @firmware operation mode (Node 7): 1
+2025-04-29 18:18:20:442 MCU   @firmware operation mode (Node 8): 1
+2025-04-29 18:18:20:544 MCU   @firmware operation mode (Node 9): 1
+2025-04-29 18:18:20:646 MCU   @firmware operation mode (Node 10): 1
+2025-04-29 18:18:20:848 MCU   @firmware operation mode (Node 12): 1
+2025-04-29 18:18:20:950 MCU   @firmware acceptable error range (Node 3): 512
+2025-04-29 18:18:20:951 MCU   @[X] error range replaced with local set: 11741
+2025-04-29 18:18:21:053 MCU   @firmware acceptable error range (Node 4): 512
+2025-04-29 18:18:21:053 MCU   @[Y] error range replaced with local set: 11741
+2025-04-29 18:18:21:155 MCU   @firmware acceptable error range (Node 5): 512
+2025-04-29 18:18:21:156 MCU   @[V] error range replaced with local set: 6154
+2025-04-29 18:18:21:278 MCU   @firmware acceptable error range (Node 6): 512
+2025-04-29 18:18:21:278 MCU   @[H] error range replaced with local set: 6154
+2025-04-29 18:18:21:360 MCU   @firmware acceptable error range (Node 7): 512
+2025-04-29 18:18:21:361 MCU   @[N] error range replaced with local set: 19376
+2025-04-29 18:18:21:463 MCU   @firmware acceptable error range (Node 8): 512
+2025-04-29 18:18:21:463 MCU   @[R] error range replaced with local set: 4097
+2025-04-29 18:18:21:565 MCU   @firmware acceptable error range (Node 9): 512
+2025-04-29 18:18:21:566 MCU   @[P] error range replaced with local set: 4097
+2025-04-29 18:18:21:574 Frame @frame grabber UVC device: AV.io HD+
+2025-04-29 18:18:21:648 MCU   @firmware operation mode (Node 11): 1
+
+2025-04-29 18:18:21:752 User  @on_startInitRobot_clicked
+2025-04-29 18:18:21:770 MCU   @firmware acceptable error range (Node 12): 512
+2025-04-29 18:18:21:770 MCU   @[Z] error range replaced with local set: 17615
+2025-04-29 18:18:22:026 Frame @frame grabber connected
+2025-04-29 18:18:22:026 Frame @frame grabber started
+2025-04-29 18:18:22:574 Info  @switch LED light to Red
+2025-04-29 18:18:22:575 DEBUG @S.SC state (7, 25)
+2025-04-29 18:18:22:575 DEBUG @E.SC state (7, 25)
+2025-04-29 18:18:22:575 DEBUG @S.VE state (7, 25)
+2025-04-29 18:18:22:576 DEBUG @E.VE state (7, 25)
+2025-04-29 18:18:22:576 DEBUG @S.MW state (7, 25)
+2025-04-29 18:18:22:613 DEBUG @E.MW state (7, 25)
+2025-04-29 18:18:22:792 MCU   @set motor P sensors to 'stop'
+2025-04-29 18:18:22:793 MCU   @set motor R sensors to 'stop'
+2025-04-29 18:18:22:815 MCU   @[X] start searching reference
+2025-04-29 18:18:23:033 Frame @frame grabber screen size updated: 1920 x 1080
+2025-04-29 18:18:23:159 MCU   @[Y] start searching reference
+2025-04-29 18:18:23:503 MCU   @[Z] start searching reference
+2025-04-29 18:18:23:826 MCU   @[Z] already at sensor position. Set to 0
+2025-04-29 18:18:23:848 MCU   @[Z] reference found (SENSOR)
+2025-04-29 18:18:23:849 MCU   @[Z] max: 0.00
+2025-04-29 18:18:24:616 MCU   @[ERR] motor X RIGHT sensor cut
+2025-04-29 18:18:43:259 MCU   @[ERR] motor Y RIGHT sensor cut
+2025-04-29 18:18:49:071 MCU   @stop periodic event 'LOGFLAGS' (node 3)
+2025-04-29 18:18:49:218 MCU   @stop periodic event 'LOGFLAGS' (node 4)
+2025-04-29 18:18:49:365 MCU   @stop periodic event 'LOGFLAGS' (node 5)
+2025-04-29 18:18:49:531 MCU   @stop periodic event 'LOGFLAGS' (node 6)
+2025-04-29 18:18:49:739 MCU   @stop periodic event 'LOGFLAGS' (node 7)
+2025-04-29 18:18:49:884 MCU   @stop periodic event 'LOGFLAGS' (node 8)
+2025-04-29 18:18:50:031 MCU   @stop periodic event 'LOGFLAGS' (node 9)
+2025-04-29 18:18:50:196 MCU   @stop periodic event 'LOGFLAGS' (node 10)
+2025-04-29 18:18:50:584 MCU   @stop periodic event 'LOGFLAGS' (node 11)
+2025-04-29 18:18:50:586 MCU   @stop periodic event 'LOGFLAGS' (node 12)
+2025-04-29 18:18:53:304 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2025-04-29 18:18:53:306 DEBUG @S.SC state (7, 28)
+2025-04-29 18:18:53:306 DEBUG @E.SC state (7, 28)
+2025-04-29 18:18:53:307 DEBUG @S.VE state (7, 28)
+2025-04-29 18:18:53:307 DEBUG @E.VE state (7, 28)
+2025-04-29 18:18:53:307 DEBUG @S.MW state (7, 28)
+2025-04-29 18:18:55:859 DEBUG @E.MW state (7, 28)
+
+2025-04-29 18:18:57:072 User  @on_startInitRobot_clicked
+2025-04-29 18:18:57:899 DEBUG @S.SC state (7, 25)
+2025-04-29 18:18:57:900 DEBUG @E.SC state (7, 25)
+2025-04-29 18:18:57:900 DEBUG @S.VE state (7, 25)
+2025-04-29 18:18:57:900 DEBUG @E.VE state (7, 25)
+2025-04-29 18:18:57:901 DEBUG @S.MW state (7, 25)
+2025-04-29 18:18:57:941 DEBUG @E.MW state (7, 25)
+2025-04-29 18:18:58:040 MCU   @set motor P sensors to 'stop'
+2025-04-29 18:18:58:042 MCU   @set motor R sensors to 'stop'
+2025-04-29 18:18:58:065 MCU   @[X] start searching reference
+2025-04-29 18:18:58:411 MCU   @[Y] start searching reference
+2025-04-29 18:18:58:755 MCU   @[Z] start searching reference
+2025-04-29 18:18:59:078 MCU   @[Z] already at sensor position. Set to 0
+2025-04-29 18:18:59:100 MCU   @[Z] reference found (SENSOR)
+2025-04-29 18:18:59:100 MCU   @[Z] max: 0.00
+2025-04-29 18:19:28:413 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2025-04-29 18:19:28:415 DEBUG @S.SC state (7, 28)
+2025-04-29 18:19:28:415 DEBUG @E.SC state (7, 28)
+2025-04-29 18:19:28:415 DEBUG @S.VE state (7, 28)
+2025-04-29 18:19:28:416 DEBUG @E.VE state (7, 28)
+2025-04-29 18:19:28:416 DEBUG @S.MW state (7, 28)
+2025-04-29 18:19:30:077 DEBUG @E.MW state (7, 28)
+
+2025-04-29 18:19:32:391 User  @on_startInitRobot_clicked
+2025-04-29 18:19:33:250 DEBUG @S.SC state (7, 25)
+2025-04-29 18:19:33:251 DEBUG @E.SC state (7, 25)
+2025-04-29 18:19:33:251 DEBUG @S.VE state (7, 25)
+2025-04-29 18:19:33:252 DEBUG @E.VE state (7, 25)
+2025-04-29 18:19:33:253 DEBUG @S.MW state (7, 25)
+2025-04-29 18:19:33:302 DEBUG @E.MW state (7, 25)
+2025-04-29 18:19:33:371 MCU   @set motor P sensors to 'stop'
+2025-04-29 18:19:33:372 MCU   @set motor R sensors to 'stop'
+2025-04-29 18:19:33:394 MCU   @[X] start searching reference
+2025-04-29 18:19:33:740 MCU   @[Y] start searching reference
+2025-04-29 18:19:34:084 MCU   @[Z] start searching reference
+2025-04-29 18:19:34:408 MCU   @[Z] already at sensor position. Set to 0
+2025-04-29 18:19:34:431 MCU   @[Z] reference found (SENSOR)
+2025-04-29 18:19:34:431 MCU   @[Z] max: 0.00
+
+2025-04-29 18:19:36:722 User  @on_functionAbortMotor_clicked
+2025-04-29 18:19:36:723 Info  @switch LED light to Green
+2025-04-29 18:19:36:724 DEBUG @S.SC state (7, 27)
+2025-04-29 18:19:36:724 DEBUG @E.SC state (7, 27)
+2025-04-29 18:19:36:724 DEBUG @S.VE state (7, 27)
+2025-04-29 18:19:36:725 DEBUG @E.VE state (7, 27)
+2025-04-29 18:19:36:725 DEBUG @S.MW state (7, 27)
+2025-04-29 18:19:36:770 DEBUG @E.MW state (7, 27)
+2025-04-29 18:19:36:887 MCU   @robot moving stopped
+
+2025-04-29 18:19:39:209 User  @system menu selected (Exit)
+2025-04-29 18:19:41:269 Info  @switch LED light off
+2025-04-29 18:19:41:270 Frame @frame grabber stopped
+2025-04-29 18:19:41:290 MCU   @robot moving stopped
+2025-04-29 18:19:42:398 MCU   @mcu controller stopped
+2025-04-29 18:19:42:591 Info  @UroBiopsy exited 
+
+
+
+2025-04-29 18:20:50:070 Info  @UtlLogger instance created
+2025-04-29 18:20:50:070 Info  @starting UroBiopsy (SVN 858)
+2025-04-29 18:20:50:473 Info  @MainWindow instance created
+
+2025-04-29 18:20:58:883 User  @user 'Service' login
+2025-04-29 18:20:58:914 Info  @UroBiopsy launched
+2025-04-29 18:20:58:915 Info  @SurgeryController instance created
+2025-04-29 18:20:58:917 Info  @Robot Unit: TX-05-00
+2025-04-29 18:20:58:961 Info  @VisualEngine instance created
+2025-04-29 18:21:01:138 MCU   @firmware version (Master): 1.0.0_004
+2025-04-29 18:21:01:138 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-04-29 18:21:01:303 MCU   @firmware version (Node 3): 1.0.0.14
+2025-04-29 18:21:01:406 MCU   @firmware version (Node 4): 1.0.0.14
+2025-04-29 18:21:01:487 MCU   @firmware version (Node 5): 1.0.0.14
+2025-04-29 18:21:01:609 MCU   @firmware version (Node 6): 1.0.0.14
+2025-04-29 18:21:01:691 MCU   @firmware version (Node 7): 1.0.0.14
+2025-04-29 18:21:01:793 MCU   @firmware version (Node 8): 1.0.0.14
+2025-04-29 18:21:01:895 MCU   @firmware version (Node 9): 1.0.0.14
+2025-04-29 18:21:01:998 MCU   @firmware version (Node 10): 1.0.0.14
+2025-04-29 18:21:02:100 MCU   @firmware version (Node 11): 1.0.0.16
+2025-04-29 18:21:02:123 DEBUG @S.SC state (7, 24)
+2025-04-29 18:21:02:124 DEBUG @E.SC state (7, 24)
+2025-04-29 18:21:02:125 DEBUG @S.VE state (7, 24)
+2025-04-29 18:21:02:125 DEBUG @E.VE state (7, 24)
+2025-04-29 18:21:02:126 DEBUG @S.MW state (7, 24)
+2025-04-29 18:21:02:183 MCU   @firmware version (Node 12): 1.0.0.14
+2025-04-29 18:21:02:306 MCU   @firmware operation mode (Node 3): 1
+2025-04-29 18:21:02:388 MCU   @firmware operation mode (Node 4): 1
+2025-04-29 18:21:02:390 MCU   @firmware support speed control
+2025-04-29 18:21:02:410 DEBUG @E.MW state (7, 24)
+2025-04-29 18:21:02:492 MCU   @firmware operation mode (Node 5): 1
+2025-04-29 18:21:02:594 MCU   @firmware operation mode (Node 6): 1
+2025-04-29 18:21:02:696 MCU   @firmware operation mode (Node 7): 1
+2025-04-29 18:21:02:797 MCU   @firmware operation mode (Node 8): 1
+2025-04-29 18:21:02:919 MCU   @firmware operation mode (Node 9): 1
+2025-04-29 18:21:02:981 MCU   @firmware operation mode (Node 10): 1
+2025-04-29 18:21:03:204 MCU   @firmware operation mode (Node 12): 1
+2025-04-29 18:21:03:327 MCU   @firmware acceptable error range (Node 3): 512
+2025-04-29 18:21:03:327 MCU   @[X] error range replaced with local set: 11741
+2025-04-29 18:21:03:409 MCU   @firmware acceptable error range (Node 4): 512
+2025-04-29 18:21:03:410 MCU   @[Y] error range replaced with local set: 11741
+2025-04-29 18:21:03:512 MCU   @firmware acceptable error range (Node 5): 512
+2025-04-29 18:21:03:512 MCU   @[V] error range replaced with local set: 6154
+2025-04-29 18:21:03:614 MCU   @firmware acceptable error range (Node 6): 512
+2025-04-29 18:21:03:615 MCU   @[H] error range replaced with local set: 6154
+2025-04-29 18:21:03:717 MCU   @firmware acceptable error range (Node 7): 512
+2025-04-29 18:21:03:717 MCU   @[N] error range replaced with local set: 19376
+2025-04-29 18:21:03:819 MCU   @firmware acceptable error range (Node 8): 512
+2025-04-29 18:21:03:819 MCU   @[R] error range replaced with local set: 4097
+2025-04-29 18:21:03:926 Frame @frame grabber UVC device: AV.io HD+
+2025-04-29 18:21:03:942 MCU   @firmware acceptable error range (Node 9): 512
+2025-04-29 18:21:03:942 MCU   @[P] error range replaced with local set: 4097
+2025-04-29 18:21:03:977 Frame @frame grabber connected
+2025-04-29 18:21:03:977 Frame @frame grabber started
+2025-04-29 18:21:04:003 MCU   @firmware operation mode (Node 11): 1
+2025-04-29 18:21:04:125 MCU   @firmware acceptable error range (Node 12): 512
+2025-04-29 18:21:04:126 MCU   @[Z] error range replaced with local set: 17615
+
+2025-04-29 18:21:04:181 User  @on_startInitRobot_clicked
+2025-04-29 18:21:04:982 Frame @frame grabber screen size updated: 1920 x 1080
+2025-04-29 18:21:05:217 Info  @switch LED light to Red
+2025-04-29 18:21:05:217 DEBUG @S.SC state (7, 25)
+2025-04-29 18:21:05:218 DEBUG @E.SC state (7, 25)
+2025-04-29 18:21:05:218 DEBUG @S.VE state (7, 25)
+2025-04-29 18:21:05:218 DEBUG @E.VE state (7, 25)
+2025-04-29 18:21:05:218 DEBUG @S.MW state (7, 25)
+2025-04-29 18:21:05:273 DEBUG @E.MW state (7, 25)
+2025-04-29 18:21:05:350 MCU   @set motor P sensors to 'stop'
+2025-04-29 18:21:05:351 MCU   @set motor R sensors to 'stop'
+2025-04-29 18:21:05:377 MCU   @[X] start searching reference
+2025-04-29 18:21:05:723 MCU   @[Y] start searching reference
+2025-04-29 18:21:06:069 MCU   @[Z] start searching reference
+2025-04-29 18:21:06:392 MCU   @[Z] already at sensor position. Set to 0
+2025-04-29 18:21:06:414 MCU   @[Z] reference found (SENSOR)
+2025-04-29 18:21:06:415 MCU   @[Z] max: 0.00
+2025-04-29 18:21:12:594 MCU   @[ERR] motor Y RIGHT sensor cut
+2025-04-29 18:21:35:857 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2025-04-29 18:21:35:860 DEBUG @S.SC state (7, 28)
+2025-04-29 18:21:35:860 DEBUG @E.SC state (7, 28)
+2025-04-29 18:21:35:861 DEBUG @S.VE state (7, 28)
+2025-04-29 18:21:35:861 DEBUG @E.VE state (7, 28)
+2025-04-29 18:21:35:861 DEBUG @S.MW state (7, 28)
+2025-04-29 18:21:46:219 DEBUG @E.MW state (7, 28)
+
+2025-04-29 18:22:03:226 User  @on_startInitRobot_clicked
+2025-04-29 18:22:06:418 DEBUG @S.SC state (7, 25)
+2025-04-29 18:22:06:419 DEBUG @E.SC state (7, 25)
+2025-04-29 18:22:06:419 DEBUG @S.VE state (7, 25)
+2025-04-29 18:22:06:419 DEBUG @E.VE state (7, 25)
+2025-04-29 18:22:06:420 DEBUG @S.MW state (7, 25)
+2025-04-29 18:22:06:458 MCU   @set motor P sensors to 'stop'
+2025-04-29 18:22:06:460 MCU   @set motor R sensors to 'stop'
+2025-04-29 18:22:06:468 DEBUG @E.MW state (7, 25)
+2025-04-29 18:22:06:484 MCU   @[X] start searching reference
+2025-04-29 18:22:06:831 MCU   @[Y] start searching reference
+2025-04-29 18:22:07:175 MCU   @[Z] start searching reference
+2025-04-29 18:22:07:501 MCU   @[Z] already at sensor position. Set to 0
+2025-04-29 18:22:07:523 MCU   @[Z] reference found (SENSOR)
+2025-04-29 18:22:07:524 MCU   @[Z] max: 0.00
+
+2025-04-29 18:22:14:147 User  @on_functionAbortMotor_clicked
+2025-04-29 18:22:14:148 Info  @switch LED light to Green
+2025-04-29 18:22:14:149 DEBUG @S.SC state (7, 27)
+2025-04-29 18:22:14:149 DEBUG @E.SC state (7, 27)
+2025-04-29 18:22:14:150 DEBUG @S.VE state (7, 27)
+2025-04-29 18:22:14:150 DEBUG @E.VE state (7, 27)
+2025-04-29 18:22:14:150 DEBUG @S.MW state (7, 27)
+2025-04-29 18:22:14:197 MCU   @robot moving stopped
+2025-04-29 18:22:14:205 DEBUG @E.MW state (7, 27)
+
+2025-04-29 18:22:15:860 User  @system menu selected (Exit)
+2025-04-29 18:22:18:313 Info  @switch LED light off
+2025-04-29 18:22:18:326 Frame @frame grabber stopped
+2025-04-29 18:22:18:386 MCU   @robot moving stopped
+2025-04-29 18:22:19:490 MCU   @mcu controller stopped
+2025-04-29 18:22:19:698 Info  @UroBiopsy exited 
+
+
+
+2025-04-29 18:24:44:790 Info  @UtlLogger instance created
+2025-04-29 18:24:44:790 Info  @starting UroBiopsy (SVN 858)
+2025-04-29 18:24:45:191 Info  @MainWindow instance created
+
+2025-04-29 18:24:59:235 User  @user 'Service' login
+2025-04-29 18:24:59:269 Info  @UroBiopsy launched
+2025-04-29 18:24:59:269 Info  @SurgeryController instance created
+2025-04-29 18:24:59:272 Info  @Robot Unit: TX-05-00
+2025-04-29 18:24:59:317 Info  @VisualEngine instance created
+2025-04-29 18:25:01:494 MCU   @firmware version (Master): 1.0.0_004
+2025-04-29 18:25:01:494 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-04-29 18:25:01:659 MCU   @firmware version (Node 3): 1.0.0.14
+2025-04-29 18:25:01:742 MCU   @firmware version (Node 4): 1.0.0.14
+2025-04-29 18:25:01:863 MCU   @firmware version (Node 5): 1.0.0.14
+2025-04-29 18:25:01:965 MCU   @firmware version (Node 6): 1.0.0.14
+2025-04-29 18:25:02:047 MCU   @firmware version (Node 7): 1.0.0.14
+2025-04-29 18:25:02:149 MCU   @firmware version (Node 8): 1.0.0.14
+2025-04-29 18:25:02:250 MCU   @firmware version (Node 9): 1.0.0.14
+2025-04-29 18:25:02:353 MCU   @firmware version (Node 10): 1.0.0.14
+2025-04-29 18:25:02:455 MCU   @firmware version (Node 11): 1.0.0.16
+2025-04-29 18:25:02:472 DEBUG @S.SC state (7, 24)
+2025-04-29 18:25:02:473 DEBUG @E.SC state (7, 24)
+2025-04-29 18:25:02:473 DEBUG @S.VE state (7, 24)
+2025-04-29 18:25:02:473 DEBUG @E.VE state (7, 24)
+2025-04-29 18:25:02:473 DEBUG @S.MW state (7, 24)
+2025-04-29 18:25:02:557 MCU   @firmware version (Node 12): 1.0.0.14
+2025-04-29 18:25:02:639 MCU   @firmware operation mode (Node 3): 1
+2025-04-29 18:25:02:759 DEBUG @E.MW state (7, 24)
+2025-04-29 18:25:02:761 MCU   @firmware operation mode (Node 4): 1
+2025-04-29 18:25:02:762 MCU   @firmware support speed control
+2025-04-29 18:25:02:844 MCU   @firmware operation mode (Node 5): 1
+2025-04-29 18:25:02:966 MCU   @firmware operation mode (Node 6): 1
+2025-04-29 18:25:03:048 MCU   @firmware operation mode (Node 7): 1
+2025-04-29 18:25:03:150 MCU   @firmware operation mode (Node 8): 1
+2025-04-29 18:25:03:252 MCU   @firmware operation mode (Node 9): 1
+2025-04-29 18:25:03:354 MCU   @firmware operation mode (Node 10): 1
+2025-04-29 18:25:03:577 MCU   @firmware operation mode (Node 12): 1
+2025-04-29 18:25:03:658 MCU   @firmware acceptable error range (Node 3): 512
+2025-04-29 18:25:03:659 MCU   @[X] error range replaced with local set: 11741
+2025-04-29 18:25:03:781 MCU   @firmware acceptable error range (Node 4): 512
+2025-04-29 18:25:03:782 MCU   @[Y] error range replaced with local set: 11741
+2025-04-29 18:25:03:864 MCU   @firmware acceptable error range (Node 5): 512
+2025-04-29 18:25:03:864 MCU   @[V] error range replaced with local set: 6154
+2025-04-29 18:25:03:987 MCU   @firmware acceptable error range (Node 6): 512
+2025-04-29 18:25:03:987 MCU   @[H] error range replaced with local set: 6154
+
+2025-04-29 18:25:04:023 User  @on_startInitRobot_clicked
+2025-04-29 18:25:04:070 MCU   @firmware acceptable error range (Node 7): 512
+2025-04-29 18:25:04:071 MCU   @[N] error range replaced with local set: 19376
+2025-04-29 18:25:04:174 MCU   @firmware acceptable error range (Node 8): 512
+2025-04-29 18:25:04:174 MCU   @[R] error range replaced with local set: 4097
+2025-04-29 18:25:04:276 MCU   @firmware acceptable error range (Node 9): 512
+2025-04-29 18:25:04:276 MCU   @[P] error range replaced with local set: 4097
+2025-04-29 18:25:04:281 Frame @frame grabber UVC device: AV.io HD+
+2025-04-29 18:25:04:331 Frame @frame grabber connected
+2025-04-29 18:25:04:331 Frame @frame grabber started
+2025-04-29 18:25:04:380 MCU   @firmware operation mode (Node 11): 1
+2025-04-29 18:25:04:482 MCU   @firmware acceptable error range (Node 12): 512
+2025-04-29 18:25:04:483 MCU   @[Z] error range replaced with local set: 17615
+2025-04-29 18:25:04:921 Info  @switch LED light to Red
+2025-04-29 18:25:04:922 DEBUG @S.SC state (7, 25)
+2025-04-29 18:25:04:922 DEBUG @E.SC state (7, 25)
+2025-04-29 18:25:04:923 DEBUG @S.VE state (7, 25)
+2025-04-29 18:25:04:923 DEBUG @E.VE state (7, 25)
+2025-04-29 18:25:04:923 DEBUG @S.MW state (7, 25)
+2025-04-29 18:25:04:960 DEBUG @E.MW state (7, 25)
+2025-04-29 18:25:05:104 MCU   @set motor P sensors to 'stop'
+2025-04-29 18:25:05:105 MCU   @set motor R sensors to 'stop'
+2025-04-29 18:25:05:128 MCU   @[X] start searching reference
+2025-04-29 18:25:05:338 Frame @frame grabber screen size updated: 1920 x 1080
+2025-04-29 18:25:05:472 MCU   @[Y] start searching reference
+2025-04-29 18:25:05:818 MCU   @[Z] start searching reference
+2025-04-29 18:25:06:143 MCU   @[Z] already at sensor position. Set to 0
+2025-04-29 18:25:06:165 MCU   @[Z] reference found (SENSOR)
+2025-04-29 18:25:06:165 MCU   @[Z] max: 0.00
+2025-04-29 18:25:17:749 MCU   @[ERR] motor Y RIGHT sensor cut
+2025-04-29 18:25:35:588 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2025-04-29 18:25:35:592 DEBUG @S.SC state (7, 28)
+2025-04-29 18:25:35:592 DEBUG @E.SC state (7, 28)
+2025-04-29 18:25:35:593 DEBUG @S.VE state (7, 28)
+2025-04-29 18:25:35:593 DEBUG @E.VE state (7, 28)
+2025-04-29 18:25:35:593 DEBUG @S.MW state (7, 28)
+2025-04-29 18:25:38:978 DEBUG @E.MW state (7, 28)
+
+2025-04-29 18:25:42:019 User  @system menu selected (Exit)
+2025-04-29 18:25:45:850 Info  @switch LED light off
+2025-04-29 18:25:45:879 Frame @frame grabber stopped
+2025-04-29 18:25:45:959 MCU   @robot moving stopped
+2025-04-29 18:25:46:160 MCU   @[ERR] motor X RIGHT sensor cut
+2025-04-29 18:25:47:090 MCU   @mcu controller stopped
+2025-04-29 18:25:47:287 Info  @UroBiopsy exited 
+
+

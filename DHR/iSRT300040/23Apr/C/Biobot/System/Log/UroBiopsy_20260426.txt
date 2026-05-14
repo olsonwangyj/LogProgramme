@@ -1,0 +1,221 @@
+
+2026-04-26 11:02:32:066 Info  @UtlLogger instance created
+2026-04-26 11:02:32:067 Info  @starting UroBiopsy (SVN 1003)
+2026-04-26 11:02:32:569 Info  @MainWindow instance created
+
+2026-04-26 11:02:59:139 User  @user 'Service' login
+2026-04-26 11:02:59:195 Info  @UroBiopsy launched
+2026-04-26 11:02:59:195 Info  @SurgeryController instance created
+2026-04-26 11:02:59:232 Info  @Robot Unit: TX-05-07
+2026-04-26 11:02:59:349 Info  @VisualEngine instance created
+2026-04-26 11:03:01:235 MCU   @[ERR] failed to connect com port: COM11 (baudrate: 115200)
+2026-04-26 11:03:02:478 DEBUG @S.SC state (7, 24)
+2026-04-26 11:03:02:479 DEBUG @E.SC state (7, 24)
+2026-04-26 11:03:02:480 DEBUG @S.VE state (7, 24)
+2026-04-26 11:03:02:480 DEBUG @E.VE state (7, 24)
+2026-04-26 11:03:02:481 DEBUG @S.MW state (7, 24)
+2026-04-26 11:03:02:813 DEBUG @E.MW state (7, 24)
+2026-04-26 11:03:04:248 Frame @frame grabber UVC device: USB Video
+2026-04-26 11:03:04:387 Frame @frame grabber connected
+2026-04-26 11:03:04:387 Frame @frame grabber started
+2026-04-26 11:03:05:404 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-04-26 11:03:09:136 User  @factory menu selected (System Settings)
+
+2026-04-26 11:03:27:063 User  @on_startInitRobot_clicked
+2026-04-26 11:03:28:444 Info  @switch LED light to Red
+2026-04-26 11:03:28:445 DEBUG @S.SC state (7, 25)
+2026-04-26 11:03:28:445 DEBUG @E.SC state (7, 25)
+2026-04-26 11:03:28:445 DEBUG @S.VE state (7, 25)
+2026-04-26 11:03:28:445 DEBUG @E.VE state (7, 25)
+2026-04-26 11:03:28:446 DEBUG @S.MW state (7, 25)
+2026-04-26 11:03:28:503 DEBUG @E.MW state (7, 25)
+2026-04-26 11:04:46:199 MCU   @stop periodic event 'POSCHANGE' (node 12)
+2026-04-26 11:04:46:200 MCU   @firmware version (Master): 1.0.0_004
+2026-04-26 11:04:46:200 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-26 11:04:46:478 MCU   @firmware version (Node 3): 1.0.0.14
+2026-04-26 11:04:46:563 MCU   @firmware version (Node 4): 1.0.0.14
+2026-04-26 11:04:46:668 MCU   @firmware version (Node 5): 1.0.0.14
+2026-04-26 11:04:46:772 MCU   @firmware version (Node 6): 1.0.0.14
+2026-04-26 11:04:46:878 MCU   @firmware version (Node 7): 1.0.0.14
+2026-04-26 11:04:46:984 MCU   @firmware version (Node 8): 1.0.0.14
+2026-04-26 11:04:47:069 MCU   @firmware version (Node 9): 1.0.0.14
+2026-04-26 11:04:47:174 MCU   @firmware version (Node 10): 1.0.0.14
+2026-04-26 11:04:47:259 MCU   @firmware version (Node 11): 1.0.0.16
+2026-04-26 11:04:47:386 MCU   @firmware version (Node 12): 1.0.0.14
+2026-04-26 11:04:47:576 MCU   @firmware operation mode (Node 4): 1
+2026-04-26 11:04:47:682 MCU   @firmware operation mode (Node 5): 1
+2026-04-26 11:04:47:787 MCU   @firmware operation mode (Node 6): 1
+2026-04-26 11:04:47:871 MCU   @firmware operation mode (Node 7): 1
+2026-04-26 11:04:47:977 MCU   @firmware operation mode (Node 8): 1
+2026-04-26 11:04:48:062 MCU   @firmware operation mode (Node 9): 1
+2026-04-26 11:04:48:189 MCU   @firmware operation mode (Node 10): 1
+2026-04-26 11:04:48:399 MCU   @firmware operation mode (Node 12): 1
+2026-04-26 11:04:48:505 MCU   @firmware acceptable error range (Node 4): 512
+2026-04-26 11:04:48:506 MCU   @[Y] error range replaced with local set: 11741
+2026-04-26 11:04:48:529 MCU   @[WRN] Node 3 (OPMODE) response timeout (2032). Try again.
+2026-04-26 11:04:48:593 MCU   @firmware acceptable error range (Node 5): 512
+2026-04-26 11:04:48:594 MCU   @[V] error range replaced with local set: 6154
+2026-04-26 11:04:48:699 MCU   @firmware acceptable error range (Node 6): 512
+2026-04-26 11:04:48:700 MCU   @[H] error range replaced with local set: 6154
+2026-04-26 11:04:48:805 MCU   @firmware acceptable error range (Node 7): 512
+2026-04-26 11:04:48:806 MCU   @[N] error range replaced with local set: 19376
+2026-04-26 11:04:48:891 MCU   @firmware acceptable error range (Node 8): 512
+2026-04-26 11:04:48:893 MCU   @[R] error range replaced with local set: 4097
+2026-04-26 11:04:49:083 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-26 11:04:49:084 MCU   @firmware operation mode (Node 11): 1
+2026-04-26 11:04:49:193 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-26 11:04:49:195 MCU   @firmware acceptable error range (Node 12): 512
+2026-04-26 11:04:49:197 MCU   @[Z] error range replaced with local set: 17615
+2026-04-26 11:04:49:283 MCU   @firmware operation mode (Node 3): 1
+2026-04-26 11:04:49:284 MCU   @firmware support speed control
+2026-04-26 11:04:49:449 MCU   @firmware acceptable error range (Node 3): 512
+2026-04-26 11:04:49:450 MCU   @[X] error range replaced with local set: 11741
+2026-04-26 11:04:50:099 MCU   @[WRN] Node 9 (RD_OFFSET) response timeout (2015). Try again.
+2026-04-26 11:04:50:246 MCU   @firmware acceptable error range (Node 9): 512
+2026-04-26 11:04:50:247 MCU   @[P] error range replaced with local set: 4097
+
+2026-04-26 11:04:53:124 User  @on_functionAbortMotor_clicked
+2026-04-26 11:04:53:125 Info  @switch LED light to Green
+2026-04-26 11:04:53:126 DEBUG @S.SC state (7, 27)
+2026-04-26 11:04:53:127 DEBUG @E.SC state (7, 27)
+2026-04-26 11:04:53:128 DEBUG @S.VE state (7, 27)
+2026-04-26 11:04:53:128 DEBUG @E.VE state (7, 27)
+2026-04-26 11:04:53:129 DEBUG @S.MW state (7, 27)
+2026-04-26 11:04:53:143 DEBUG @E.MW state (7, 27)
+2026-04-26 11:04:53:259 MCU   @robot moving stopped
+2026-04-26 11:04:53:670 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-26 11:04:53:871 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+
+2026-04-26 11:04:56:929 User  @on_startInitRobot_clicked
+2026-04-26 11:04:58:220 Info  @switch LED light to Red
+2026-04-26 11:04:58:221 DEBUG @S.SC state (7, 25)
+2026-04-26 11:04:58:222 DEBUG @E.SC state (7, 25)
+2026-04-26 11:04:58:222 DEBUG @S.VE state (7, 25)
+2026-04-26 11:04:58:223 DEBUG @E.VE state (7, 25)
+2026-04-26 11:04:58:223 DEBUG @S.MW state (7, 25)
+2026-04-26 11:04:58:262 DEBUG @E.MW state (7, 25)
+2026-04-26 11:04:58:312 MCU   @set motor P sensors to 'stop'
+2026-04-26 11:04:58:312 MCU   @set motor R sensors to 'stop'
+2026-04-26 11:04:58:337 MCU   @[X] start searching reference
+2026-04-26 11:04:58:684 MCU   @[Y] start searching reference
+2026-04-26 11:04:59:032 MCU   @[Z] start searching reference
+2026-04-26 11:04:59:357 MCU   @[Z] already at sensor position. Set to 0
+2026-04-26 11:04:59:378 MCU   @[Z] reference found (SENSOR)
+2026-04-26 11:04:59:379 MCU   @[Z] max: 0.00
+2026-04-26 11:05:06:597 MCU   @[Y] stopped by sensor L
+2026-04-26 11:05:06:597 MCU   @[Y] reset physical position to 0
+2026-04-26 11:05:06:799 MCU   @[Y] reference found (SENSOR)
+2026-04-26 11:05:06:799 MCU   @[Y] max: 0.00
+2026-04-26 11:05:06:800 MCU   @[P] start searching reference
+2026-04-26 11:05:07:145 MCU   @[N] start searching reference
+2026-04-26 11:05:07:470 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-26 11:05:07:470 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-26 11:05:07:945 MCU   @[P] stopped by sensor L
+2026-04-26 11:05:09:199 MCU   @[X] stopped by sensor L
+2026-04-26 11:05:09:199 MCU   @[X] reset physical position to 0
+2026-04-26 11:05:09:401 MCU   @[X] reference found (SENSOR)
+2026-04-26 11:05:09:401 MCU   @[X] max: 0.00
+2026-04-26 11:05:11:812 MCU   @[N] stopped by sensor L
+2026-04-26 11:05:11:813 MCU   @[N] reset physical position to 0
+2026-04-26 11:05:12:015 MCU   @[N] reference found (SENSOR)
+2026-04-26 11:05:12:017 MCU   @[N] min: 0.00
+2026-04-26 11:05:37:220 MCU   @[ERR] [P] cannot reach the target (30 seconds timeout). initialization failed.
+2026-04-26 11:05:37:222 Info  @open needle guide command sent
+2026-04-26 11:05:37:223 DEBUG @S.SC state (7, 28)
+2026-04-26 11:05:37:223 DEBUG @E.SC state (7, 28)
+2026-04-26 11:05:37:224 DEBUG @S.VE state (7, 28)
+2026-04-26 11:05:37:224 DEBUG @E.VE state (7, 28)
+2026-04-26 11:05:37:225 DEBUG @S.MW state (7, 28)
+2026-04-26 11:05:38:013 Info  @needle guide opened
+2026-04-26 11:05:59:110 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-26 11:05:59:312 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-26 11:06:02:326 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-26 11:06:02:327 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-26 11:06:05:341 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-26 11:06:05:341 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-26 11:06:07:068 DEBUG @E.MW state (7, 28)
+
+2026-04-26 11:06:16:153 User  @system menu selected (About)
+
+2026-04-26 11:06:26:384 User  @factory menu selected (System Settings)
+
+2026-04-26 11:06:31:351 User  @on_startInitRobot_clicked
+
+2026-04-26 11:06:35:401 User  @system menu selected (System Status Check)
+2026-04-26 11:06:38:745 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-26 11:06:38:851 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 49 07 50 ]
+2026-04-26 11:06:40:213 MCU   @[WRN] Node 7 (NODEIDref) response timeout (2031). Try again.
+2026-04-26 11:06:43:332 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-26 11:06:43:396 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+
+2026-04-26 11:06:48:174 User  @on_startInitRobot_clicked
+2026-04-26 11:06:49:543 DEBUG @S.SC state (7, 25)
+2026-04-26 11:06:49:544 DEBUG @E.SC state (7, 25)
+2026-04-26 11:06:49:545 DEBUG @S.VE state (7, 25)
+2026-04-26 11:06:49:545 DEBUG @E.VE state (7, 25)
+2026-04-26 11:06:49:545 DEBUG @S.MW state (7, 25)
+2026-04-26 11:06:49:583 DEBUG @E.MW state (7, 25)
+2026-04-26 11:06:49:665 MCU   @set motor P sensors to 'stop'
+2026-04-26 11:06:49:666 MCU   @set motor R sensors to 'stop'
+2026-04-26 11:06:49:689 MCU   @[X] start searching reference
+2026-04-26 11:06:52:729 MCU   @[ERR] [N3] 'ExecuteCommand' failed (INTERRUPT)
+2026-04-26 11:06:52:751 MCU   @[Y] start searching reference
+2026-04-26 11:06:53:075 MCU   @[Y] already at sensor position. Set to 0
+2026-04-26 11:06:53:098 MCU   @[Y] reference found (SENSOR)
+2026-04-26 11:06:53:098 MCU   @[Y] max: 0.00
+2026-04-26 11:06:53:099 MCU   @[Z] start searching reference
+2026-04-26 11:06:53:422 MCU   @[Z] already at sensor position. Set to 0
+2026-04-26 11:06:53:444 MCU   @[Z] reference found (SENSOR)
+2026-04-26 11:06:53:444 MCU   @[Z] max: 0.00
+2026-04-26 11:06:53:444 MCU   @[P] start searching reference
+2026-04-26 11:06:53:768 MCU   @[P] already at sensor position. Set to 0
+2026-04-26 11:06:53:790 MCU   @[P] reference found (SENSOR)
+2026-04-26 11:06:53:790 MCU   @[P] max: 0.00
+2026-04-26 11:06:53:791 MCU   @[N] start searching reference
+2026-04-26 11:06:54:114 MCU   @[N] already at sensor position. Set to 0
+2026-04-26 11:06:54:137 MCU   @[N] reference found (SENSOR)
+2026-04-26 11:06:54:137 MCU   @[N] min: 0.00
+2026-04-26 11:06:54:137 MCU   @[Y] start clearing: -19.50
+2026-04-26 11:07:00:826 MCU   @[Y] motor cleared
+2026-04-26 11:07:00:826 MCU   @[Y] min: -29.51
+2026-04-26 11:07:00:827 MCU   @[Z] start clearing: -50.00
+2026-04-26 11:07:00:850 MCU   @[Y] start moving to max pos: -3.00
+2026-04-26 11:07:00:872 MCU   @[P] start clearing: -165.00
+2026-04-26 11:07:00:894 MCU   @[N] start clearing: 69.50
+2026-04-26 11:07:00:918 MCU   @[H] start searching reference
+2026-04-26 11:07:01:543 MCU   @[AMD] AMX partially corrupted [ 25 A5 0C 01 31 05 E6 3D 77 00 ]
+2026-04-26 11:07:01:543 MCU   @[AMD] [N12] partial AMX amended [ 25 A5 0C 01 31 05 E6 3D 77 00 00 DD C0 ]
+2026-04-26 11:07:06:073 MCU   @[H] stopped by sensor L
+2026-04-26 11:07:06:074 MCU   @[H] reset physical position to 0
+2026-04-26 11:07:06:277 MCU   @[H] reference found (SENSOR)
+2026-04-26 11:07:06:277 MCU   @[H] max: 0.00
+2026-04-26 11:07:06:301 MCU   @[H] start clearing: -49.00
+2026-04-26 11:07:09:264 MCU   @[Y] motor reached max pos
+2026-04-26 11:07:10:676 MCU   @[P] motor cleared
+2026-04-26 11:07:10:676 MCU   @[P] min: -165.02
+2026-04-26 11:07:10:879 MCU   @[P] start moving to home: -1.00
+2026-04-26 11:07:14:731 MCU   @[H] motor cleared
+2026-04-26 11:07:14:732 MCU   @[H] min: -49.04
+2026-04-26 11:07:14:933 MCU   @[H] start moving to home: -25.00
+2026-04-26 11:07:18:980 MCU   @[H] motor homed
+2026-04-26 11:07:18:980 MCU   @[V] start searching reference
+2026-04-26 11:07:20:700 MCU   @[P] motor homed
+2026-04-26 11:07:20:701 MCU   @[R] start searching reference
+2026-04-26 11:07:22:816 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2026-04-26 11:07:22:832 DEBUG @S.SC state (7, 28)
+2026-04-26 11:07:22:832 DEBUG @E.SC state (7, 28)
+2026-04-26 11:07:22:833 DEBUG @S.VE state (7, 28)
+2026-04-26 11:07:22:833 DEBUG @E.VE state (7, 28)
+2026-04-26 11:07:22:833 DEBUG @S.MW state (7, 28)
+2026-04-26 11:08:10:886 DEBUG @E.MW state (7, 28)
+
+2026-04-26 11:08:15:635 User  @system menu selected (Exit)
+2026-04-26 11:08:17:280 Info  @open needle guide command sent
+2026-04-26 11:08:18:284 Info  @switch LED light off
+2026-04-26 11:08:18:327 Frame @frame grabber stopped
+2026-04-26 11:08:18:615 MCU   @robot moving stopped
+2026-04-26 11:08:19:722 MCU   @mcu controller stopped
+2026-04-26 11:08:19:958 Info  @UroBiopsy exited 
+
+

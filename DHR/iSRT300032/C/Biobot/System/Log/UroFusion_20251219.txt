@@ -1,0 +1,24 @@
+
+2025-12-19 15:36:28:763 Info  @UtlLogger instance created
+2025-12-19 15:36:28:765 Info  @starting UroFusion (SVN 820)
+
+2025-12-19 15:36:42:412 User  @user 'Service' login
+2025-12-19 15:36:42:496 Info  @UroFusion launched
+
+2025-12-19 15:36:54:329 User  @on_startOpenCase_clicked
+
+2025-12-19 15:37:12:044 User  @system menu selected (About)
+
+2025-12-19 15:37:48:012 User  @system menu selected (About)
+2025-12-19 15:38:02:852 Info  @UroFusion exited
+
+2025-12-19 15:41:05:780 Info  @UtlLogger instance created
+2025-12-19 15:41:05:780 Info  @starting UroFusion (SVN 820)
+
+2025-12-19 15:41:19:459 User  @user 'Service' login
+2025-12-19 15:41:19:536 Info  @UroFusion launched
+
+2025-12-19 15:41:29:315 User  @system menu selected (About)
+
+2025-12-19 15:41:48:246 User  @system menu selected (Exit)
+2025-12-19 15:41:50:583 Info  @UroFusion exited

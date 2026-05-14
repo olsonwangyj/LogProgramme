@@ -1,0 +1,66 @@
+2026-02-26 17:09:26:402 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+2026-02-26 17:11:13:465 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2026-02-26 17:12:12:736 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2026-02-26 18:11:54:770 MCU   @[ERR] Node 3 (GETVER) response timeout (2016). Check connection.
+2026-02-26 18:12:19:660 MCU   @[ERR] Node 3 (NODEIDref) response timeout (2015). Check connection.
+2026-02-26 18:12:38:833 MCU   @[ERR] Node 3 (GETVER) response timeout (2015). Check connection.
+2026-02-26 18:14:26:372 MCU   @[ERR] Node 3 (NODEIDref) response timeout (2015). Check connection.
+2026-02-26 18:15:00:350 MCU   @[ERR] Node 11 (RUN) response timeout (2016). Check connection.
+2026-02-26 18:15:00:373 MCU   @[ERR] Node 10 (HMILED) response timeout (2015). Check connection.
+2026-02-26 18:15:00:395 MCU   @[ERR] Node 12 (TPOS) response timeout (2032). Check connection.
+2026-02-26 18:15:16:301 MCU   @[ERR] robot moving (finalization) failed (timeout=20s)
+2026-02-26 18:19:51:580 MCU   @[ERR] Node 3 (GETVER) response timeout (2015). Check connection.
+2026-02-26 18:22:57:105 MCU   @[ERR] Node 3 (NODEIDref) response timeout (2016). Check connection.
+2026-02-26 19:21:57:636 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:41:30:222 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:42:20:467 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:43:10:766 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:44:00:924 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:44:51:302 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:45:41:607 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:46:31:965 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:47:22:285 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:48:12:467 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:49:02:856 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:49:53:191 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:50:43:467 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:51:33:621 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:52:23:974 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:53:14:340 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:54:04:461 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:54:54:625 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:55:45:001 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:56:35:408 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:57:25:703 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:58:16:039 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:59:06:354 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 19:59:56:695 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:00:46:921 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:01:37:133 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:02:27:168 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:03:17:377 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:04:07:459 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:04:57:748 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:05:47:998 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:06:38:217 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:07:28:426 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:08:18:737 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:09:08:962 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:09:59:262 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:10:49:469 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:11:39:651 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:12:30:047 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:13:20:349 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:14:10:733 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:15:00:932 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:15:51:199 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:16:41:491 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:17:31:526 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:18:21:930 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:19:12:294 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:20:02:681 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:20:52:900 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:21:42:937 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:22:33:159 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-26 20:23:23:431 MCU   @[ERR] motor Y timeout (50 seconds) (motion control)
+2026-02-27 01:32:11:965 MCU   @[ERR] Node 3 (NODEIDref) response timeout (2015). Check connection.

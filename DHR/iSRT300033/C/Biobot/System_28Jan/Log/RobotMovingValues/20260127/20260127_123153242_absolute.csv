@@ -1,0 +1,4 @@
+DateTime,Axis,CurPosCount,CurPosUnit,CmdID,TgtPosCount,TgtPosUnit,DiffCount,DiffUnit
+2026-01-27 12:31:53:286,P,-9171,-0.94,TPOS,-9784,-0.9999,-613,-0.0626
+2026-01-27 12:31:53:580,P,-9171,-0.94,TPOS_S,-,-,-,-
+2026-01-27 12:31:53:783,P,-9571,-0.98,TPOS_E,-9784,-0.9999,-213,-0.0218

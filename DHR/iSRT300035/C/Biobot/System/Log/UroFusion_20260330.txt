@@ -1,0 +1,596 @@
+
+2026-03-30 16:40:00:802 Info  @UtlLogger instance created
+2026-03-30 16:40:00:803 Info  @starting UroFusion (SVN 820)
+2026-03-30 16:40:02:820 Info  @UroFusion launched
+2026-03-30 16:45:06:446 Info  @screen auto locked (Service)
+
+2026-03-30 16:54:31:336 User  @screen unlocked by user 'Service'
+
+2026-03-30 16:54:45:360 User  @on_startCreateCase_clicked
+2026-03-30 16:54:52:700 Info  @case 'case_20260330_165445482_UF' created by Service
+
+2026-03-30 16:54:53:711 User  @on_imageImportMRIImages_clicked
+2026-03-30 16:55:04:012 Info  @UroFusion exited
+
+2026-03-30 16:55:11:313 Info  @UtlLogger instance created
+2026-03-30 16:55:11:315 Info  @starting UroFusion (SVN 820)
+2026-03-30 16:55:13:635 Info  @UroFusion launched
+
+2026-03-30 16:55:26:096 User  @on_startOpenCase_clicked
+2026-03-30 16:55:29:806 Info  @case 'case_20260330_165445482_UF' opened by Service
+
+2026-03-30 16:55:30:968 User  @on_imageImportMRIImages_clicked
+2026-03-30 16:55:50:949 Sec   @Dicom files in 'D:/UroFusion Test Cases - DICOM Data/DICOM #1' imported by Service
+
+2026-03-30 16:57:24:152 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:57:24:287 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:57:24:460 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:57:24:609 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:57:24:749 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:57:24:899 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:57:25:039 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:57:25:190 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:57:25:340 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:57:25:668 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:25:832 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:25:956 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:26:108 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:26:246 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:26:407 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:26:557 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:26:707 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:26:885 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:27:028 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:27:187 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:27:338 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:27:507 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:27:660 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:27:818 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:27:958 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:28:117 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:28:266 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:28:427 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:57:29:629 User  @on_imageImportApproveImage_clicked
+
+2026-03-30 16:57:36:648 User  @on_functionZoom_clicked
+
+2026-03-30 16:57:39:133 User  @on_functionZoom_clicked
+
+2026-03-30 16:57:48:663 User  @on_modelAutoModel_clicked
+
+2026-03-30 16:58:00:206 User  @on_function3DView_clicked
+
+2026-03-30 16:58:02:672 User  @on_functionPrintScreen_clicked
+
+2026-03-30 16:58:02:751 User  @'screenshot_2026-03-30_16-58-02.png' saved
+
+2026-03-30 16:58:10:365 User  @on_stageImportImage_clicked
+2026-03-30 16:58:11:964 Info  @go back to Import Image
+
+2026-03-30 16:58:12:929 User  @on_imageImportMRIImages_clicked
+2026-03-30 16:58:30:054 Sec   @Dicom files in 'D:/UroFusion Test Cases - DICOM Data/DICOM #1' imported by Service
+
+2026-03-30 16:58:39:110 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:58:39:269 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:58:39:418 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:58:39:568 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:58:39:709 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:58:39:859 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:58:40:018 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:58:40:520 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:40:680 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:40:839 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:40:989 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:41:144 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:41:318 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:41:468 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:41:639 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:41:803 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:41:949 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:42:270 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:58:42:741 User  @on_imageImportApproveImage_clicked
+
+2026-03-30 16:58:56:052 User  @on_modelAutoModel_clicked
+
+2026-03-30 16:59:05:222 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:05:371 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:05:515 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:05:636 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:05:788 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:05:937 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:06:556 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:06:706 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:06:855 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:07:027 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:07:596 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:07:744 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:07:887 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:08:014 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:10:974 User  @on_modelDeleteCurve_clicked
+
+2026-03-30 16:59:13:479 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:14:048 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 16:59:14:378 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:14:560 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:14:699 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:14:838 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:14:990 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:15:139 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:15:297 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:15:456 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:15:618 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:15:776 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:15:928 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:16:099 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:16:287 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:17:543 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:17:817 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 16:59:20:591 User  @on_modelDeleteCurve_clicked
+
+2026-03-30 16:59:32:327 User  @on_functionZoom_clicked
+
+2026-03-30 16:59:35:119 User  @on_functionZoom_clicked
+
+2026-03-30 16:59:35:934 User  @on_functionPan_clicked
+
+2026-03-30 16:59:38:848 User  @on_functionPan_clicked
+
+2026-03-30 16:59:41:135 User  @on_modelApproveModel_clicked
+
+2026-03-30 16:59:43:125 User  @on_lesionCreateLesion_clicked
+
+2026-03-30 16:59:44:676 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 16:59:46:277 User  @on_functionZoom_clicked
+
+2026-03-30 16:59:49:043 User  @on_functionPan_clicked
+
+2026-03-30 16:59:50:898 User  @on_functionPan_clicked
+
+2026-03-30 16:59:55:840 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:00:03:233 User  @on_function3DView_clicked
+
+2026-03-30 17:00:06:905 User  @on_functionPrintScreen_clicked
+
+2026-03-30 17:00:06:981 User  @'screenshot_2026-03-30_17-00-06.png' saved
+
+2026-03-30 17:00:08:942 User  @on_stageModel_clicked
+2026-03-30 17:00:08:943 Info  @go back to Prostate Model
+
+2026-03-30 17:00:12:233 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:00:13:056 User  @on_modelNextContour_clicked
+
+2026-03-30 17:00:13:222 User  @on_modelNextContour_clicked
+
+2026-03-30 17:00:15:843 User  @on_functionZoom_clicked
+
+2026-03-30 17:00:17:518 User  @on_functionZoom_clicked
+
+2026-03-30 17:00:21:286 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:00:25:623 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:00:25:927 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:00:28:223 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:00:30:923 User  @on_modelDeleteCurve_clicked
+
+2026-03-30 17:00:33:332 User  @on_modelApproveModel_clicked
+
+2026-03-30 17:00:38:322 User  @on_lesionApproveLesionModels_clicked
+
+2026-03-30 17:00:42:454 User  @on_functionPrintScreen_clicked
+
+2026-03-30 17:00:42:649 User  @'screenshot_2026-03-30_17-00-42.png' saved
+
+2026-03-30 17:00:44:081 User  @on_finishExportCase_clicked
+
+2026-03-30 17:00:52:109 User  @on_stageStart_clicked
+2026-03-30 17:00:52:993 Info  @go back to Start
+2026-03-30 17:00:53:228 Info  @case closed
+
+2026-03-30 17:00:54:208 User  @on_startCreateCase_clicked
+2026-03-30 17:00:59:889 Info  @case 'case_20260330_170054221_UF' created by Service
+
+2026-03-30 17:01:01:159 User  @on_imageImportMRIImages_clicked
+2026-03-30 17:01:23:799 Sec   @Dicom files in 'D:/UroFusion Test Cases - DICOM Data/DICOM #2' imported by Service
+
+2026-03-30 17:03:01:682 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:03:01:804 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:03:01:940 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:03:02:098 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:03:02:267 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:03:02:418 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:03:02:589 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:03:02:868 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:03:028 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:03:196 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:03:348 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:03:499 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:03:647 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:03:797 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:03:966 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:04:118 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:04:277 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:03:04:869 User  @on_imageImportApproveImage_clicked
+
+2026-03-30 17:03:14:652 User  @on_modelAutoModel_clicked
+
+2026-03-30 17:03:18:892 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:03:19:117 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:03:19:256 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:03:20:039 User  @on_modelDeleteCurve_clicked
+
+2026-03-30 17:03:25:193 User  @on_modelApproveModel_clicked
+
+2026-03-30 17:03:27:470 User  @on_functionZoom_clicked
+
+2026-03-30 17:03:30:474 User  @on_functionZoom_clicked
+
+2026-03-30 17:03:32:244 User  @on_transversalLesionImageNext_clicked
+
+2026-03-30 17:03:32:410 User  @on_transversalLesionImageNext_clicked
+
+2026-03-30 17:03:32:550 User  @on_transversalLesionImageNext_clicked
+
+2026-03-30 17:03:32:705 User  @on_transversalLesionImageNext_clicked
+
+2026-03-30 17:03:32:981 User  @on_transversalLesionImageNext_clicked
+
+2026-03-30 17:03:33:752 User  @on_transversalLesionImageNext_clicked
+
+2026-03-30 17:03:34:761 User  @on_transversalLesionImageNext_clicked
+
+2026-03-30 17:03:37:096 User  @on_lesionCreateLesion_clicked
+
+2026-03-30 17:03:37:118 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:03:38:635 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:03:41:912 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:03:48:224 User  @on_lesionCreateLesion_clicked
+
+2026-03-30 17:03:48:248 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:03:49:447 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:03:51:259 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:03:54:758 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:03:57:259 User  @on_function3DView_clicked
+
+2026-03-30 17:03:59:199 User  @on_functionPrintScreen_clicked
+
+2026-03-30 17:03:59:282 User  @'screenshot_2026-03-30_17-03-59.png' saved
+
+2026-03-30 17:04:00:688 User  @on_function2DView_clicked
+
+2026-03-30 17:04:04:621 User  @on_lesionCreateLesion_clicked
+
+2026-03-30 17:04:04:645 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:04:05:997 User  @on_function3DView_clicked
+
+2026-03-30 17:04:07:758 User  @on_functionPrintScreen_clicked
+
+2026-03-30 17:04:07:835 User  @'screenshot_2026-03-30_17-04-07.png' saved
+
+2026-03-30 17:04:11:139 User  @on_function2DView_clicked
+
+2026-03-30 17:04:15:456 User  @on_functionZoom_clicked
+
+2026-03-30 17:04:16:192 User  @on_stageModelLesion_clicked
+
+2026-03-30 17:04:21:234 User  @on_lesionDeleteLesion_clicked
+
+2026-03-30 17:04:22:096 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:04:27:482 User  @on_lesionCreateLesion_clicked
+
+2026-03-30 17:04:27:509 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:04:29:209 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:04:30:693 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:04:32:643 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:04:34:716 User  @on_function3DView_clicked
+
+2026-03-30 17:04:46:313 User  @on_lesionDeleteLesion_clicked
+
+2026-03-30 17:04:47:932 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:04:53:551 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:05:00:718 User  @on_lesionPreviousLesion_clicked
+
+2026-03-30 17:05:00:796 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:05:02:273 User  @on_lesionDeleteLesion_clicked
+
+2026-03-30 17:05:03:775 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:05:06:732 User  @on_lesionCreateLesion_clicked
+
+2026-03-30 17:05:06:755 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:05:08:254 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:05:09:565 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:05:13:700 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:05:16:086 User  @on_lesionApproveLesionModels_clicked
+
+2026-03-30 17:05:17:410 User  @on_finishExportCase_clicked
+
+2026-03-30 17:05:25:061 User  @on_stageStart_clicked
+2026-03-30 17:05:25:884 Info  @go back to Start
+2026-03-30 17:05:26:021 Info  @case closed
+
+2026-03-30 17:05:28:829 User  @on_startCreateCase_clicked
+2026-03-30 17:05:36:452 Info  @case 'case_20260330_170528841_UF' created by Service
+
+2026-03-30 17:05:38:739 User  @on_imageImportMRIImages_clicked
+2026-03-30 17:05:51:086 Sec   @Dicom files in 'D:/UroFusion Test Cases - DICOM Data/DICOM #3' imported by Service
+
+2026-03-30 17:06:00:611 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:00:767 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:00:898 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:01:038 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:01:197 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:01:337 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:01:489 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:01:628 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:02:069 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:02:207 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:02:340 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:02:491 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:02:629 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:02:797 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:02:958 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:03:107 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:03:269 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:03:439 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:03:580 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:04:088 User  @on_imageImportApproveImage_clicked
+
+2026-03-30 17:06:07:991 User  @on_functionZoom_clicked
+
+2026-03-30 17:06:11:006 User  @on_functionZoom_clicked
+
+2026-03-30 17:06:19:050 User  @on_modelAutoModel_clicked
+
+2026-03-30 17:06:28:195 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:06:28:361 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:06:28:539 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:06:28:648 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:06:28:889 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:29:040 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:29:180 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:29:310 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:30:242 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:30:399 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:30:549 User  @on_transversalModelImagePrevious_clicked
+
+2026-03-30 17:06:31:121 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:31:245 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:31:402 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:31:558 User  @on_transversalModelImageNext_clicked
+
+2026-03-30 17:06:32:106 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:32:261 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:32:430 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:33:039 User  @on_modelApproveModel_clicked
+
+2026-03-30 17:06:37:273 User  @on_stageModel_clicked
+2026-03-30 17:06:37:275 Info  @go back to Prostate Model
+
+2026-03-30 17:06:39:147 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:40:338 User  @on_functionZoom_clicked
+
+2026-03-30 17:06:43:569 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:44:668 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:44:830 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:45:008 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:45:258 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:46:969 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:06:48:951 User  @on_functionZoom_clicked
+
+2026-03-30 17:06:49:938 User  @on_functionZoom_clicked
+
+2026-03-30 17:06:52:513 User  @on_modelNextContour_clicked
+
+2026-03-30 17:06:53:408 User  @on_modelDeleteCurve_clicked
+
+2026-03-30 17:06:55:228 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:06:56:229 User  @on_modelPreviousContour_clicked
+
+2026-03-30 17:06:58:220 User  @on_modelApproveModel_clicked
+
+2026-03-30 17:07:00:279 User  @on_functionZoom_clicked
+
+2026-03-30 17:07:04:798 User  @on_lesionCreateLesion_clicked
+
+2026-03-30 17:07:04:819 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:07:06:366 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:07:10:037 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:07:14:671 User  @on_lesionCreateLesion_clicked
+
+2026-03-30 17:07:14:695 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:07:20:101 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:07:27:182 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:07:37:108 User  @on_lesionCreateLesion_clicked
+
+2026-03-30 17:07:37:134 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:07:38:486 User  @on_lesionPirads_currentIndexChanged
+
+2026-03-30 17:07:43:575 User  @on_transversalLesionImagePrevious_clicked
+
+2026-03-30 17:07:51:182 User  @on_lesionApproveLesionModels_clicked
+
+2026-03-30 17:07:52:665 User  @on_function3DView_clicked
+
+2026-03-30 17:07:54:645 User  @on_functionPrintScreen_clicked
+
+2026-03-30 17:07:54:723 User  @'screenshot_2026-03-30_17-07-54.png' saved
+
+2026-03-30 17:07:55:505 User  @on_finishExportCase_clicked
+
+2026-03-30 17:08:07:719 User  @system menu selected (About)
+
+2026-03-30 17:08:11:788 User  @system menu selected (Exit)
+2026-03-30 17:08:13:884 Info  @UroFusion exited

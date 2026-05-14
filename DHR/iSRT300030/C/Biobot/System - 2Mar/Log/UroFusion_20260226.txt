@@ -1,0 +1,21 @@
+
+2026-02-26 10:56:39:091 Info  @UtlLogger instance created
+2026-02-26 10:56:39:091 Info  @starting UroFusion (SVN 820)
+
+2026-02-26 10:57:49:921 User  @user 'Doctor' login
+2026-02-26 10:57:49:986 Info  @UroFusion launched
+
+2026-02-26 10:58:00:591 User  @tool menu selected (Application Settings)
+
+2026-02-26 10:58:14:062 User  @system menu selected (About)
+
+2026-02-26 10:58:23:491 User  @on_startOpenCase_clicked
+
+2026-02-26 10:58:34:492 User  @tool menu selected (Application Settings)
+
+2026-02-26 10:58:41:491 User  @on_startCreateCase_clicked
+
+2026-02-26 10:58:47:881 User  @on_startOpenCase_clicked
+
+2026-02-26 10:58:57:091 User  @system menu selected (Exit)
+2026-02-26 10:58:59:561 Info  @UroFusion exited

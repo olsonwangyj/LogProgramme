@@ -1,0 +1,288 @@
+
+2026-04-15 17:02:07:551 Info  @UtlLogger instance created
+2026-04-15 17:02:07:551 Info  @starting UroBiopsy (SVN 1003)
+2026-04-15 17:02:08:066 Info  @MainWindow instance created
+
+2026-04-15 17:02:30:518 User  @user 'Service' login
+2026-04-15 17:02:30:565 Info  @UroBiopsy launched
+2026-04-15 17:02:30:565 Info  @SurgeryController instance created
+2026-04-15 17:02:30:596 Info  @Robot Unit: TX-05-07
+2026-04-15 17:02:30:782 Info  @VisualEngine instance created
+2026-04-15 17:02:32:600 MCU   @[ERR] failed to connect com port: COM11 (baudrate: 115200)
+2026-04-15 17:02:33:913 DEBUG @S.SC state (7, 24)
+2026-04-15 17:02:33:914 DEBUG @E.SC state (7, 24)
+2026-04-15 17:02:33:914 DEBUG @S.VE state (7, 24)
+2026-04-15 17:02:33:915 DEBUG @E.VE state (7, 24)
+2026-04-15 17:02:33:915 DEBUG @S.MW state (7, 24)
+2026-04-15 17:02:34:252 DEBUG @E.MW state (7, 24)
+2026-04-15 17:02:35:635 Frame @frame grabber UVC device: USB Video
+2026-04-15 17:02:35:830 Frame @frame grabber connected
+2026-04-15 17:02:35:830 Frame @frame grabber started
+2026-04-15 17:02:36:838 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-04-15 17:02:40:042 User  @factory menu selected (System Settings)
+
+2026-04-15 17:02:43:758 User  @on_startInitRobot_clicked
+2026-04-15 17:02:44:717 Info  @switch LED light to Red
+2026-04-15 17:02:44:717 DEBUG @S.SC state (7, 25)
+2026-04-15 17:02:44:718 DEBUG @E.SC state (7, 25)
+2026-04-15 17:02:44:718 DEBUG @S.VE state (7, 25)
+2026-04-15 17:02:44:718 DEBUG @E.VE state (7, 25)
+2026-04-15 17:02:44:719 DEBUG @S.MW state (7, 25)
+2026-04-15 17:02:44:760 DEBUG @E.MW state (7, 25)
+
+2026-04-15 17:02:59:212 User  @on_functionAbortMotor_clicked
+2026-04-15 17:02:59:212 Info  @switch LED light to Green
+2026-04-15 17:02:59:213 DEBUG @S.SC state (7, 27)
+2026-04-15 17:02:59:213 DEBUG @E.SC state (7, 27)
+2026-04-15 17:02:59:213 DEBUG @S.VE state (7, 27)
+2026-04-15 17:02:59:213 DEBUG @E.VE state (7, 27)
+2026-04-15 17:02:59:214 DEBUG @S.MW state (7, 27)
+2026-04-15 17:02:59:227 DEBUG @E.MW state (7, 27)
+
+2026-04-15 17:03:02:238 User  @factory menu selected (Motion Control)
+2026-04-15 17:03:02:241 DEBUG @S.SC state (5, 20)
+2026-04-15 17:03:02:241 DEBUG @E.SC state (5, 20)
+2026-04-15 17:03:02:242 DEBUG @S.VE state (5, 20)
+2026-04-15 17:03:02:242 DEBUG @E.VE state (5, 20)
+2026-04-15 17:03:02:242 DEBUG @S.MW state (5, 20)
+2026-04-15 17:03:02:298 DEBUG @E.MW state (5, 20)
+
+2026-04-15 17:03:06:984 User  @on_emcAxisP_clicked
+2026-04-15 17:03:06:988 Info  @Motor P selected (motion control)
+
+2026-04-15 17:03:07:448 User  @on_emcAxisZ_clicked
+2026-04-15 17:03:07:449 Info  @Motor Z selected (motion control)
+
+2026-04-15 17:03:07:987 User  @on_emcAxisX_clicked
+2026-04-15 17:03:07:988 Info  @Motor X selected (motion control)
+
+2026-04-15 17:03:08:480 User  @on_emcAxisY_clicked
+2026-04-15 17:03:08:481 Info  @Motor Y selected (motion control)
+
+2026-04-15 17:03:08:955 User  @on_emcAxisV_clicked
+2026-04-15 17:03:08:956 Info  @Motor V selected (motion control)
+
+2026-04-15 17:03:09:407 User  @on_emcAxisH_clicked
+2026-04-15 17:03:09:408 Info  @Motor H selected (motion control)
+
+2026-04-15 17:03:09:859 User  @on_emcAxisN_clicked
+2026-04-15 17:03:09:860 Info  @Motor N selected (motion control)
+
+2026-04-15 17:03:10:337 User  @on_emcAxisR_clicked
+2026-04-15 17:03:10:338 Info  @Motor R selected (motion control)
+
+2026-04-15 17:03:21:896 User  @on_emcBack_clicked
+2026-04-15 17:03:21:897 DEBUG @S.SC state (7, 27)
+2026-04-15 17:03:21:897 DEBUG @E.SC state (7, 27)
+2026-04-15 17:03:21:898 DEBUG @S.VE state (7, 27)
+2026-04-15 17:03:21:898 DEBUG @E.VE state (7, 27)
+2026-04-15 17:03:21:899 DEBUG @S.MW state (7, 27)
+2026-04-15 17:03:21:917 DEBUG @E.MW state (7, 27)
+
+2026-04-15 17:03:25:580 User  @system menu selected (System Status Check)
+
+2026-04-15 17:03:35:054 User  @system menu selected (Exit)
+2026-04-15 17:03:35:971 Info  @open needle guide command sent
+2026-04-15 17:03:36:973 Info  @switch LED light off
+2026-04-15 17:03:37:041 Frame @frame grabber stopped
+2026-04-15 17:03:38:426 MCU   @mcu controller stopped
+2026-04-15 17:03:38:645 Info  @UroBiopsy exited 
+
+
+
+2026-04-15 17:03:45:849 Info  @UtlLogger instance created
+2026-04-15 17:03:45:865 Info  @starting UroBiopsy (SVN 1003)
+2026-04-15 17:03:46:256 Info  @MainWindow instance created
+
+2026-04-15 17:03:57:146 User  @user 'Service' login
+2026-04-15 17:03:57:177 Info  @UroBiopsy launched
+2026-04-15 17:03:57:177 Info  @SurgeryController instance created
+2026-04-15 17:03:57:193 Info  @Robot Unit: TX-05-07
+2026-04-15 17:03:57:244 Info  @VisualEngine instance created
+2026-04-15 17:03:59:414 MCU   @firmware version (Master): 1.0.0_004
+2026-04-15 17:03:59:415 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-04-15 17:03:59:581 MCU   @firmware version (Node 3): 1.0.0.14
+2026-04-15 17:03:59:664 MCU   @firmware version (Node 4): 1.0.0.14
+2026-04-15 17:04:00:073 MCU   @firmware version (Node 8): 1.0.0.14
+2026-04-15 17:04:00:176 MCU   @firmware version (Node 9): 1.0.0.14
+2026-04-15 17:04:00:282 MCU   @firmware version (Node 10): 1.0.0.14
+2026-04-15 17:04:00:410 DEBUG @S.SC state (7, 24)
+2026-04-15 17:04:00:411 DEBUG @E.SC state (7, 24)
+2026-04-15 17:04:00:411 DEBUG @S.VE state (7, 24)
+2026-04-15 17:04:00:411 DEBUG @E.VE state (7, 24)
+2026-04-15 17:04:00:412 DEBUG @S.MW state (7, 24)
+2026-04-15 17:04:00:488 MCU   @firmware version (Node 12): 1.0.0.14
+2026-04-15 17:04:00:572 MCU   @firmware operation mode (Node 3): 1
+2026-04-15 17:04:00:677 MCU   @firmware operation mode (Node 4): 1
+2026-04-15 17:04:00:678 MCU   @firmware support speed control
+2026-04-15 17:04:00:710 DEBUG @E.MW state (7, 24)
+2026-04-15 17:04:00:762 MCU   @firmware operation mode (Node 8): 1
+2026-04-15 17:04:00:867 MCU   @firmware operation mode (Node 9): 1
+2026-04-15 17:04:00:969 MCU   @firmware operation mode (Node 10): 1
+2026-04-15 17:04:01:075 MCU   @firmware operation mode (Node 12): 1
+2026-04-15 17:04:01:178 MCU   @firmware acceptable error range (Node 3): 512
+2026-04-15 17:04:01:180 MCU   @[X] error range replaced with local set: 11741
+2026-04-15 17:04:01:282 MCU   @firmware acceptable error range (Node 4): 512
+2026-04-15 17:04:01:283 MCU   @[Y] error range replaced with local set: 11741
+2026-04-15 17:04:01:387 MCU   @firmware acceptable error range (Node 8): 512
+2026-04-15 17:04:01:388 MCU   @[R] error range replaced with local set: 4097
+2026-04-15 17:04:01:471 MCU   @[WRN] Node 5 (GETVER) response timeout (2016). Try again.
+2026-04-15 17:04:01:492 MCU   @[WRN] Node 6 (GETVER) response timeout (2015). Try again.
+2026-04-15 17:04:01:493 MCU   @firmware acceptable error range (Node 9): 512
+2026-04-15 17:04:01:494 MCU   @[P] error range replaced with local set: 4097
+2026-04-15 17:04:01:516 MCU   @[WRN] Node 7 (GETVER) response timeout (2016). Try again.
+2026-04-15 17:04:01:577 MCU   @firmware acceptable error range (Node 12): 512
+2026-04-15 17:04:01:578 MCU   @[Z] error range replaced with local set: 17615
+2026-04-15 17:04:01:600 MCU   @[WRN] Node 11 (GETVER) response timeout (2016). Try again.
+2026-04-15 17:04:02:208 Frame @frame grabber UVC device: USB Video
+2026-04-15 17:04:02:273 Frame @frame grabber connected
+2026-04-15 17:04:02:274 Frame @frame grabber started
+2026-04-15 17:04:03:291 Frame @frame grabber screen size updated: 1920 x 1080
+2026-04-15 17:04:03:502 MCU   @[ERR] Node 5 (GETVER) response timeout (2031). Check connection.
+2026-04-15 17:04:03:502 MCU   @[ERR] Node 6 (GETVER) response timeout (2016). Check connection.
+2026-04-15 17:04:03:545 MCU   @[ERR] Node 7 (GETVER) response timeout (2015). Check connection.
+2026-04-15 17:04:03:629 MCU   @[ERR] Node 11 (GETVER) response timeout (2031). Check connection.
+2026-04-15 17:04:05:654 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2016). Try again.
+2026-04-15 17:04:07:657 MCU   @[ERR] Node 11 (LOG_NGSW) response timeout (2015). Check connection.
+
+2026-04-15 17:04:07:978 User  @on_startInitRobot_clicked
+2026-04-15 17:04:09:181 Info  @switch LED light to Red
+2026-04-15 17:04:09:182 DEBUG @S.SC state (7, 25)
+2026-04-15 17:04:09:182 DEBUG @E.SC state (7, 25)
+2026-04-15 17:04:09:182 DEBUG @S.VE state (7, 25)
+2026-04-15 17:04:09:183 DEBUG @E.VE state (7, 25)
+2026-04-15 17:04:09:183 DEBUG @S.MW state (7, 25)
+2026-04-15 17:04:09:226 DEBUG @E.MW state (7, 25)
+2026-04-15 17:04:09:284 MCU   @set motor P sensors to 'stop'
+2026-04-15 17:04:09:284 MCU   @set motor R sensors to 'stop'
+2026-04-15 17:04:09:311 MCU   @[X] start searching reference
+2026-04-15 17:04:09:656 MCU   @[Y] start searching reference
+2026-04-15 17:04:10:001 MCU   @[Z] start searching reference
+2026-04-15 17:04:12:483 MCU   @[X] stopped by sensor L
+2026-04-15 17:04:12:484 MCU   @[X] reset physical position to 0
+2026-04-15 17:04:12:685 MCU   @[X] reference found (SENSOR)
+2026-04-15 17:04:12:685 MCU   @[X] max: 0.00
+2026-04-15 17:04:12:685 MCU   @[Y] stopped by sensor L
+2026-04-15 17:04:12:749 MCU   @[Y] reset physical position to 0
+2026-04-15 17:04:12:771 MCU   @[Y] reference found (SENSOR)
+2026-04-15 17:04:12:771 MCU   @[Y] max: 0.00
+2026-04-15 17:04:12:771 MCU   @[P] start searching reference
+2026-04-15 17:04:13:116 MCU   @[N] start searching reference
+2026-04-15 17:04:16:144 MCU   @[ERR] [N7] 'ExecuteCommand' failed (INTERRUPT)
+2026-04-15 17:04:17:930 MCU   @[P] stopped by sensor L
+2026-04-15 17:04:18:133 MCU   @[P] reset physical position to 0
+2026-04-15 17:04:18:335 MCU   @[P] reference found (SENSOR)
+2026-04-15 17:04:18:336 MCU   @[P] max: 0.00
+2026-04-15 17:04:18:337 MCU   @[Y] start clearing: -19.50
+2026-04-15 17:04:22:889 MCU   @[Z] stopped by sensor L
+2026-04-15 17:04:23:091 MCU   @[Z] reset physical position to 0
+2026-04-15 17:04:23:294 MCU   @[Z] reference found (SENSOR)
+2026-04-15 17:04:23:294 MCU   @[Z] max: 0.00
+2026-04-15 17:04:25:290 MCU   @[Y] motor cleared
+2026-04-15 17:04:25:290 MCU   @[Y] min: -29.51
+2026-04-15 17:04:25:291 MCU   @[Z] start clearing: -50.00
+2026-04-15 17:04:25:312 MCU   @[Y] start moving to max pos: -3.00
+2026-04-15 17:04:25:335 MCU   @[P] start clearing: -165.00
+2026-04-15 17:04:25:358 MCU   @[X] start clearing: -22.00
+2026-04-15 17:04:25:380 MCU   @[H] start searching reference
+2026-04-15 17:04:28:410 MCU   @[ERR] [N6] 'ExecuteCommand' failed (INTERRUPT)
+2026-04-15 17:04:33:030 MCU   @[X] motor cleared
+2026-04-15 17:04:33:031 MCU   @[X] min: -32.01
+2026-04-15 17:04:33:232 MCU   @[X] start moving to max pos: -3.00
+2026-04-15 17:04:35:251 MCU   @[Y] motor reached max pos
+2026-04-15 17:04:35:252 MCU   @[P] motor cleared
+2026-04-15 17:04:35:252 MCU   @[P] min: -165.04
+2026-04-15 17:04:35:453 MCU   @[P] start moving to home: -1.00
+2026-04-15 17:04:43:088 MCU   @[X] motor reached max pos
+2026-04-15 17:04:45:299 MCU   @[P] motor homed
+2026-04-15 17:04:45:300 MCU   @[R] start searching reference
+2026-04-15 17:04:46:203 MCU   @[ERR] [N] cannot reach the target (30 seconds timeout). initialization failed.
+2026-04-15 17:04:46:206 Info  @open needle guide command sent
+2026-04-15 17:04:46:207 DEBUG @S.SC state (7, 28)
+2026-04-15 17:04:46:207 DEBUG @E.SC state (7, 28)
+2026-04-15 17:04:46:208 DEBUG @S.VE state (7, 28)
+2026-04-15 17:04:46:208 DEBUG @E.VE state (7, 28)
+2026-04-15 17:04:46:209 DEBUG @S.MW state (7, 28)
+2026-04-15 17:04:48:295 MCU   @[WRN] Node 6 (BRAKEMOTOR) response timeout (2015). Try again.
+2026-04-15 17:04:48:317 MCU   @[WRN] Node 11 (RUN) response timeout (2016). Try again.
+2026-04-15 17:04:50:301 MCU   @[ERR] Node 6 (BRAKEMOTOR) response timeout (2016). Check connection.
+2026-04-15 17:04:50:343 MCU   @[ERR] Node 11 (RUN) response timeout (2015). Check connection.
+2026-04-15 17:04:52:324 MCU   @[WRN] Node 6 (GETPOS) response timeout (2016). Try again.
+2026-04-15 17:04:54:328 MCU   @[ERR] Node 6 (GETPOS) response timeout (2015). Check connection.
+2026-04-15 17:05:08:934 DEBUG @E.MW state (7, 28)
+
+2026-04-15 17:05:21:037 User  @on_startInitRobot_clicked
+2026-04-15 17:05:21:818 DEBUG @S.SC state (7, 25)
+2026-04-15 17:05:21:819 DEBUG @E.SC state (7, 25)
+2026-04-15 17:05:21:819 DEBUG @S.VE state (7, 25)
+2026-04-15 17:05:21:820 DEBUG @E.VE state (7, 25)
+2026-04-15 17:05:21:820 DEBUG @S.MW state (7, 25)
+2026-04-15 17:05:21:826 MCU   @set motor P sensors to 'stop'
+2026-04-15 17:05:21:826 MCU   @set motor R sensors to 'stop'
+2026-04-15 17:05:21:852 MCU   @[X] start searching reference
+2026-04-15 17:05:21:871 DEBUG @E.MW state (7, 25)
+2026-04-15 17:05:22:199 MCU   @[Y] start searching reference
+2026-04-15 17:05:22:543 MCU   @[Z] start searching reference
+2026-04-15 17:05:24:920 MCU   @[X] stopped by sensor L
+2026-04-15 17:05:24:920 MCU   @[X] reset physical position to 0
+2026-04-15 17:05:25:122 MCU   @[X] reference found (SENSOR)
+2026-04-15 17:05:25:122 MCU   @[X] max: 0.00
+2026-04-15 17:05:25:123 MCU   @[Y] stopped by sensor L
+2026-04-15 17:05:25:123 MCU   @[Y] reset physical position to 0
+2026-04-15 17:05:25:146 MCU   @[Y] reference found (SENSOR)
+2026-04-15 17:05:25:146 MCU   @[Y] max: 0.00
+2026-04-15 17:05:25:147 MCU   @[P] start searching reference
+2026-04-15 17:05:25:490 MCU   @[N] start searching reference
+2026-04-15 17:05:28:520 MCU   @[ERR] [N7] 'ExecuteCommand' failed (INTERRUPT)
+2026-04-15 17:05:29:101 MCU   @[P] stopped by sensor L
+2026-04-15 17:05:29:102 MCU   @[P] reset physical position to 0
+2026-04-15 17:05:29:304 MCU   @[P] reference found (SENSOR)
+2026-04-15 17:05:29:304 MCU   @[P] max: 0.00
+2026-04-15 17:05:29:305 MCU   @[Y] start clearing: -19.50
+2026-04-15 17:05:36:241 MCU   @[Y] motor cleared
+2026-04-15 17:05:36:241 MCU   @[Y] min: -29.51
+2026-04-15 17:05:36:241 MCU   @[P] start clearing: -165.00
+2026-04-15 17:05:36:264 MCU   @[Y] start moving to max pos: -3.00
+2026-04-15 17:05:36:287 MCU   @[X] start clearing: -22.00
+2026-04-15 17:05:36:309 MCU   @[H] start searching reference
+2026-04-15 17:05:39:341 MCU   @[ERR] [N6] 'ExecuteCommand' failed (INTERRUPT)
+2026-04-15 17:05:43:556 MCU   @[Z] stopped by sensor L
+2026-04-15 17:05:43:556 MCU   @[Z] reset physical position to 0
+2026-04-15 17:05:43:758 MCU   @[Z] reference found (SENSOR)
+2026-04-15 17:05:43:758 MCU   @[Z] max: 0.00
+2026-04-15 17:05:43:781 MCU   @[Z] start clearing: -50.00
+2026-04-15 17:05:43:802 MCU   @[X] motor cleared
+2026-04-15 17:05:43:802 MCU   @[X] min: -32.01
+2026-04-15 17:05:43:824 MCU   @[X] start moving to max pos: -3.00
+2026-04-15 17:05:46:015 MCU   @[P] motor cleared
+2026-04-15 17:05:46:015 MCU   @[P] min: -165.04
+2026-04-15 17:05:46:217 MCU   @[Y] motor reached max pos
+2026-04-15 17:05:46:218 MCU   @[P] start moving to home: -1.00
+2026-04-15 17:05:53:456 MCU   @[X] motor reached max pos
+2026-04-15 17:05:56:066 MCU   @[P] motor homed
+2026-04-15 17:05:56:066 MCU   @[R] start searching reference
+2026-04-15 17:05:58:597 MCU   @[ERR] [N] cannot reach the target (30 seconds timeout). initialization failed.
+2026-04-15 17:05:58:599 Info  @open needle guide command sent
+2026-04-15 17:05:58:599 DEBUG @S.SC state (7, 28)
+2026-04-15 17:05:58:600 DEBUG @E.SC state (7, 28)
+2026-04-15 17:05:58:600 DEBUG @S.VE state (7, 28)
+2026-04-15 17:05:58:600 DEBUG @E.VE state (7, 28)
+2026-04-15 17:05:58:601 DEBUG @S.MW state (7, 28)
+2026-04-15 17:06:00:685 MCU   @[WRN] Node 6 (BRAKEMOTOR) response timeout (2016). Try again.
+2026-04-15 17:06:00:707 MCU   @[WRN] Node 11 (RUN) response timeout (2015). Try again.
+2026-04-15 17:06:01:753 DEBUG @E.MW state (7, 28)
+2026-04-15 17:06:02:707 MCU   @[ERR] Node 6 (BRAKEMOTOR) response timeout (2031). Check connection.
+2026-04-15 17:06:02:730 MCU   @[ERR] Node 11 (RUN) response timeout (2016). Check connection.
+2026-04-15 17:06:04:726 MCU   @[WRN] Node 6 (GETPOS) response timeout (2016). Try again.
+2026-04-15 17:06:06:752 MCU   @[ERR] Node 6 (GETPOS) response timeout (2031). Check connection.
+
+2026-04-15 17:06:29:894 User  @system menu selected (Exit)
+2026-04-15 17:06:31:361 Info  @open needle guide command sent
+2026-04-15 17:06:32:364 Info  @switch LED light off
+2026-04-15 17:06:32:408 Frame @frame grabber stopped
+2026-04-15 17:06:32:695 MCU   @robot moving stopped
+2026-04-15 17:06:33:803 MCU   @mcu controller stopped
+2026-04-15 17:06:34:012 Info  @UroBiopsy exited 
+
+

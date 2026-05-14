@@ -1,0 +1,104 @@
+
+2026-02-03 18:09:40:430 Info  @UtlLogger instance created
+2026-02-03 18:09:40:430 Info  @starting UroTherapy (SVN 1003)
+2026-02-03 18:09:40:847 Info  @MainWindow instance created
+
+2026-02-03 18:10:10:866 User  @user 'Doctor' login
+2026-02-03 18:10:10:929 Info  @UroTherapy launched
+2026-02-03 18:10:10:930 Info  @SurgeryController instance created
+2026-02-03 18:10:10:933 Info  @Robot Unit: TX-05-00
+2026-02-03 18:10:11:035 Info  @VisualEngine instance created
+2026-02-03 18:10:12:935 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2026-02-03 18:10:14:323 DEBUG @S.SC state (7, 24)
+2026-02-03 18:10:14:324 DEBUG @E.SC state (7, 24)
+2026-02-03 18:10:14:324 DEBUG @S.VE state (7, 24)
+2026-02-03 18:10:14:325 DEBUG @E.VE state (7, 24)
+2026-02-03 18:10:14:325 DEBUG @S.MW state (7, 24)
+2026-02-03 18:10:14:656 DEBUG @E.MW state (7, 24)
+2026-02-03 18:10:15:948 Frame @[ERR] failed to connect frame grabber
+
+2026-02-03 18:10:36:285 User  @system menu selected (About)
+
+2026-02-03 18:10:53:252 User  @system menu selected (Exit)
+2026-02-03 18:10:54:498 Info  @open needle guide command sent
+2026-02-03 18:10:56:013 Frame @frame grabber stopped
+2026-02-03 18:10:57:140 MCU   @mcu controller stopped
+2026-02-03 18:10:57:401 Info  @UroTherapy exited 
+
+
+
+2026-02-03 18:10:59:170 Info  @UtlLogger instance created
+2026-02-03 18:10:59:171 Info  @starting UroTherapy (SVN 1003)
+2026-02-03 18:10:59:632 Info  @MainWindow instance created
+
+2026-02-03 18:11:24:292 User  @user 'Service' login
+2026-02-03 18:11:24:341 Info  @UroTherapy launched
+2026-02-03 18:11:24:342 Info  @SurgeryController instance created
+2026-02-03 18:11:24:343 Info  @Robot Unit: TX-05-00
+2026-02-03 18:11:24:408 Info  @VisualEngine instance created
+2026-02-03 18:11:26:344 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2026-02-03 18:11:27:727 DEBUG @S.SC state (7, 24)
+2026-02-03 18:11:27:728 DEBUG @E.SC state (7, 24)
+2026-02-03 18:11:27:729 DEBUG @S.VE state (7, 24)
+2026-02-03 18:11:27:729 DEBUG @E.VE state (7, 24)
+2026-02-03 18:11:27:730 DEBUG @S.MW state (7, 24)
+2026-02-03 18:11:28:060 DEBUG @E.MW state (7, 24)
+2026-02-03 18:11:29:359 Frame @[ERR] failed to connect frame grabber
+
+2026-02-03 18:11:43:311 User  @system menu selected (About)
+
+2026-02-03 18:12:01:829 User  @factory menu selected (System Settings)
+2026-02-03 18:12:15:918 MCU   @mcu controller stopped
+2026-02-03 18:12:17:408 Info  @system setting apply
+2026-02-03 18:12:18:141 MCU   @firmware version (Master): 1.0.0_004
+2026-02-03 18:12:18:142 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-03 18:12:18:291 MCU   @firmware version (Node 3): 1.0.0.14
+2026-02-03 18:12:18:395 MCU   @firmware version (Node 4): 1.0.0.14
+2026-02-03 18:12:18:498 MCU   @firmware version (Node 5): 1.0.0.14
+2026-02-03 18:12:18:604 MCU   @firmware version (Node 6): 1.0.0.14
+2026-02-03 18:12:18:707 MCU   @firmware version (Node 7): 1.0.0.14
+2026-02-03 18:12:18:810 MCU   @firmware version (Node 8): 1.0.0.14
+2026-02-03 18:12:18:915 MCU   @firmware version (Node 9): 1.0.0.14
+2026-02-03 18:12:18:998 MCU   @firmware version (Node 10): 1.0.0.14
+2026-02-03 18:12:19:101 MCU   @firmware version (Node 11): 1.0.0.16
+2026-02-03 18:12:19:205 MCU   @firmware version (Node 12): 1.0.0.14
+2026-02-03 18:12:19:288 MCU   @firmware operation mode (Node 3): 1
+2026-02-03 18:12:19:393 MCU   @firmware operation mode (Node 4): 1
+2026-02-03 18:12:19:394 MCU   @firmware support speed control
+2026-02-03 18:12:19:497 MCU   @firmware operation mode (Node 5): 1
+2026-02-03 18:12:19:600 MCU   @firmware operation mode (Node 6): 1
+2026-02-03 18:12:19:704 MCU   @firmware operation mode (Node 7): 1
+2026-02-03 18:12:19:809 MCU   @firmware operation mode (Node 8): 1
+2026-02-03 18:12:19:892 MCU   @firmware operation mode (Node 9): 1
+2026-02-03 18:12:19:996 MCU   @firmware operation mode (Node 10): 1
+2026-02-03 18:12:20:224 MCU   @firmware operation mode (Node 12): 1
+2026-02-03 18:12:20:307 MCU   @firmware acceptable error range (Node 3): 512
+2026-02-03 18:12:20:309 MCU   @[X] error range replaced with local set: 11741
+2026-02-03 18:12:20:433 MCU   @firmware acceptable error range (Node 4): 512
+2026-02-03 18:12:20:434 MCU   @[Y] error range replaced with local set: 11741
+2026-02-03 18:12:20:516 MCU   @firmware acceptable error range (Node 5): 512
+2026-02-03 18:12:20:516 MCU   @[V] error range replaced with local set: 6154
+2026-02-03 18:12:20:537 Info  @needle guide closed
+2026-02-03 18:12:20:640 MCU   @firmware acceptable error range (Node 6): 512
+2026-02-03 18:12:20:641 MCU   @[H] error range replaced with local set: 6154
+2026-02-03 18:12:20:724 MCU   @firmware acceptable error range (Node 7): 512
+2026-02-03 18:12:20:725 MCU   @[N] error range replaced with local set: 19376
+2026-02-03 18:12:20:849 MCU   @firmware acceptable error range (Node 8): 512
+2026-02-03 18:12:20:854 MCU   @[R] error range replaced with local set: 4097
+2026-02-03 18:12:20:917 MCU   @firmware acceptable error range (Node 9): 512
+2026-02-03 18:12:20:919 MCU   @[P] error range replaced with local set: 4097
+2026-02-03 18:12:21:024 MCU   @firmware operation mode (Node 11): 1
+2026-02-03 18:12:21:129 MCU   @firmware acceptable error range (Node 12): 512
+2026-02-03 18:12:21:130 MCU   @[Z] error range replaced with local set: 17615
+
+2026-02-03 18:12:22:692 User  @factory menu selected (System Settings)
+
+2026-02-03 18:12:52:038 User  @system menu selected (About)
+
+2026-02-03 18:13:07:413 User  @system menu selected (Exit)
+2026-02-03 18:13:10:454 Frame @frame grabber stopped
+2026-02-03 18:13:10:479 MCU   @robot moving stopped
+2026-02-03 18:13:11:594 MCU   @mcu controller stopped
+2026-02-03 18:13:11:841 Info  @UroTherapy exited 
+
+

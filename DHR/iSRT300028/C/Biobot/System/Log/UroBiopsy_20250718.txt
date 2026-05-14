@@ -1,0 +1,716 @@
+
+2025-07-18 10:09:29:397 Info  @UtlLogger instance created
+2025-07-18 10:09:29:397 Info  @starting UroBiopsy (SVN 858)
+2025-07-18 10:09:30:272 Info  @MainWindow instance created
+
+2025-07-18 10:09:52:330 User  @user 'service' login
+2025-07-18 10:09:52:372 Info  @UroBiopsy launched
+2025-07-18 10:09:52:374 Info  @SurgeryController instance created
+2025-07-18 10:09:52:407 Info  @Robot Unit: TX-05-00
+2025-07-18 10:09:52:597 Info  @VisualEngine instance created
+2025-07-18 10:09:54:630 MCU   @firmware version (Master): 1.0.0_004
+2025-07-18 10:09:54:633 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-18 10:09:55:725 DEBUG @S.SC state (7, 24)
+2025-07-18 10:09:55:725 DEBUG @E.SC state (7, 24)
+2025-07-18 10:09:55:726 DEBUG @S.VE state (7, 24)
+2025-07-18 10:09:55:726 DEBUG @E.VE state (7, 24)
+2025-07-18 10:09:55:726 DEBUG @S.MW state (7, 24)
+2025-07-18 10:09:56:071 DEBUG @E.MW state (7, 24)
+2025-07-18 10:09:56:651 MCU   @[WRN] Node 3 (GETVER) response timeout (2016). Try again.
+2025-07-18 10:09:56:673 MCU   @[WRN] Node 4 (GETVER) response timeout (2016). Try again.
+2025-07-18 10:09:56:695 MCU   @[WRN] Node 5 (GETVER) response timeout (2016). Try again.
+2025-07-18 10:09:56:715 MCU   @[WRN] Node 6 (GETVER) response timeout (2015). Try again.
+2025-07-18 10:09:56:737 MCU   @[WRN] Node 7 (GETVER) response timeout (2031). Try again.
+2025-07-18 10:09:56:758 MCU   @[WRN] Node 8 (GETVER) response timeout (2016). Try again.
+2025-07-18 10:09:56:778 MCU   @[WRN] Node 9 (GETVER) response timeout (2016). Try again.
+2025-07-18 10:09:56:800 MCU   @[WRN] Node 10 (GETVER) response timeout (2031). Try again.
+2025-07-18 10:09:56:821 MCU   @[WRN] Node 11 (GETVER) response timeout (2016). Try again.
+2025-07-18 10:09:56:842 MCU   @[WRN] Node 12 (GETVER) response timeout (2015). Try again.
+2025-07-18 10:09:57:410 Frame @[ERR] failed to connect frame grabber
+2025-07-18 10:09:58:663 MCU   @[ERR] Node 3 (GETVER) response timeout (2015). Check connection.
+2025-07-18 10:09:58:705 MCU   @[ERR] Node 4 (GETVER) response timeout (2031). Check connection.
+2025-07-18 10:09:58:705 MCU   @[ERR] Node 5 (GETVER) response timeout (2015). Check connection.
+2025-07-18 10:09:58:726 MCU   @[ERR] Node 6 (GETVER) response timeout (2016). Check connection.
+2025-07-18 10:09:58:767 MCU   @[ERR] Node 7 (GETVER) response timeout (2032). Check connection.
+2025-07-18 10:09:58:768 MCU   @[ERR] Node 8 (GETVER) response timeout (2016). Check connection.
+2025-07-18 10:09:58:789 MCU   @[ERR] Node 9 (GETVER) response timeout (2015). Check connection.
+2025-07-18 10:09:58:830 MCU   @[ERR] Node 10 (GETVER) response timeout (2031). Check connection.
+2025-07-18 10:09:58:831 MCU   @[ERR] Node 11 (GETVER) response timeout (2015). Check connection.
+2025-07-18 10:09:58:851 MCU   @[ERR] Node 12 (GETVER) response timeout (2016). Check connection.
+2025-07-18 10:10:00:857 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2016). Try again.
+2025-07-18 10:10:02:863 MCU   @[ERR] Node 11 (LOG_NGSW) response timeout (2015). Check connection.
+
+2025-07-18 10:10:18:064 User  @factory menu selected (System Settings)
+2025-07-18 10:10:28:427 Frame @frame grabber stopped
+2025-07-18 10:10:28:428 Info  @system setting apply
+2025-07-18 10:10:33:466 Frame @frame grabber UVC device: AV.io HD+
+2025-07-18 10:10:33:930 Frame @frame grabber connected
+2025-07-18 10:10:33:931 Frame @frame grabber started
+2025-07-18 10:10:34:947 Frame @frame grabber screen size updated: 1920 x 1080
+
+2025-07-18 10:10:50:356 User  @factory menu selected (System Settings)
+2025-07-18 10:11:07:819 Frame @frame grabber stopped
+2025-07-18 10:11:07:839 Info  @system setting apply
+2025-07-18 10:11:12:840 Frame @[ERR] failed to connect frame grabber
+
+2025-07-18 10:11:54:329 User  @factory menu selected (System Settings)
+2025-07-18 10:12:03:868 Frame @frame grabber stopped
+2025-07-18 10:12:03:870 Info  @system setting apply
+2025-07-18 10:12:08:926 Frame @frame grabber connected
+2025-07-18 10:12:08:926 Frame @frame grabber started
+
+2025-07-18 10:13:27:851 User  @on_startInitRobot_clicked
+2025-07-18 10:13:28:968 Info  @switch LED light to Red
+2025-07-18 10:13:28:968 DEBUG @S.SC state (7, 25)
+2025-07-18 10:13:28:969 DEBUG @E.SC state (7, 25)
+2025-07-18 10:13:28:969 DEBUG @S.VE state (7, 25)
+2025-07-18 10:13:28:969 DEBUG @E.VE state (7, 25)
+2025-07-18 10:13:28:970 DEBUG @S.MW state (7, 25)
+2025-07-18 10:13:29:013 DEBUG @E.MW state (7, 25)
+2025-07-18 10:13:29:046 MCU   @set motor P sensors to 'stop'
+2025-07-18 10:13:29:048 MCU   @set motor R sensors to 'stop'
+2025-07-18 10:13:29:071 MCU   @[X] start searching reference
+2025-07-18 10:13:32:097 MCU   @[ERR] [N3] 'ExecuteCommand' failed (INTERRUPT)
+2025-07-18 10:13:32:119 MCU   @[WRN] Node 10 (HMILED) response timeout (3046). Try again.
+2025-07-18 10:13:32:120 MCU   @[Y] start searching reference
+2025-07-18 10:13:35:147 MCU   @[ERR] [N4] 'ExecuteCommand' failed (INTERRUPT)
+2025-07-18 10:13:35:168 MCU   @[ERR] Node 10 (HMILED) response timeout (3047). Check connection.
+2025-07-18 10:13:35:170 MCU   @[WRN] Node 9 (LFLAG) response timeout (3047). Try again.
+2025-07-18 10:13:35:171 MCU   @[Z] start searching reference
+2025-07-18 10:13:38:196 MCU   @[ERR] [N12] 'ExecuteCommand' failed (INTERRUPT)
+2025-07-18 10:13:38:218 MCU   @[ERR] Node 9 (LFLAG) response timeout (3047). Check connection.
+2025-07-18 10:13:38:219 MCU   @[WRN] Node 8 (LFLAG) response timeout (3047). Try again.
+2025-07-18 10:13:40:235 MCU   @[ERR] Node 8 (LFLAG) response timeout (2015). Check connection.
+2025-07-18 10:13:40:240 MCU   @[WRN] Node 9 (RFLAG) response timeout (2015). Try again.
+2025-07-18 10:13:42:265 MCU   @[ERR] Node 9 (RFLAG) response timeout (2016). Check connection.
+2025-07-18 10:13:42:267 MCU   @[WRN] Node 8 (RFLAG) response timeout (2032). Try again.
+2025-07-18 10:13:44:288 MCU   @[ERR] Node 8 (RFLAG) response timeout (2015). Check connection.
+2025-07-18 10:14:02:129 MCU   @[ERR] [X] cannot reach the target (30 seconds timeout). initialization failed.
+2025-07-18 10:14:02:137 Info  @open needle guide command sent
+2025-07-18 10:14:02:138 DEBUG @S.SC state (7, 28)
+2025-07-18 10:14:02:138 DEBUG @E.SC state (7, 28)
+2025-07-18 10:14:02:138 DEBUG @S.VE state (7, 28)
+2025-07-18 10:14:02:139 DEBUG @E.VE state (7, 28)
+2025-07-18 10:14:02:139 DEBUG @S.MW state (7, 28)
+2025-07-18 10:14:04:196 MCU   @[WRN] Node 12 (BRAKEMOTOR) response timeout (2016). Try again.
+2025-07-18 10:14:04:218 MCU   @[WRN] Node 4 (BRAKEMOTOR) response timeout (2015). Try again.
+2025-07-18 10:14:04:219 MCU   @[WRN] Node 11 (RUN) response timeout (2016). Try again.
+2025-07-18 10:14:06:126 DEBUG @E.MW state (7, 28)
+2025-07-18 10:14:06:208 MCU   @[ERR] Node 12 (BRAKEMOTOR) response timeout (2015). Check connection.
+2025-07-18 10:14:06:229 MCU   @[ERR] Node 4 (BRAKEMOTOR) response timeout (2016). Check connection.
+2025-07-18 10:14:06:251 MCU   @[ERR] Node 11 (RUN) response timeout (2031). Check connection.
+2025-07-18 10:14:08:238 MCU   @[WRN] Node 12 (GETPOS) response timeout (2031). Try again.
+2025-07-18 10:14:08:239 MCU   @[WRN] Node 4 (GETPOS) response timeout (2015). Try again.
+2025-07-18 10:14:10:259 MCU   @[ERR] Node 12 (GETPOS) response timeout (2016). Check connection.
+2025-07-18 10:14:10:259 MCU   @[ERR] Node 4 (GETPOS) response timeout (2016). Check connection.
+2025-07-18 10:14:26:900 Info  @needle guide opened
+2025-07-18 10:14:26:901 Info  @needle guide closed
+2025-07-18 10:14:27:300 MCU   @stop periodic event 'LOGFLAGS' (node 3)
+2025-07-18 10:14:27:383 MCU   @stop periodic event 'LOGFLAGS' (node 4)
+2025-07-18 10:14:27:568 MCU   @stop periodic event 'LOGFLAGS' (node 5)
+2025-07-18 10:14:27:733 MCU   @stop periodic event 'LOGFLAGS' (node 6)
+2025-07-18 10:14:27:899 MCU   @stop periodic event 'LOGFLAGS' (node 7)
+2025-07-18 10:14:28:085 MCU   @stop periodic event 'LOGFLAGS' (node 8)
+2025-07-18 10:14:28:250 MCU   @stop periodic event 'LOGFLAGS' (node 9)
+2025-07-18 10:14:28:415 MCU   @stop periodic event 'LOGFLAGS' (node 10)
+2025-07-18 10:14:28:601 MCU   @stop periodic event 'LOGFLAGS' (node 11)
+2025-07-18 10:14:28:767 MCU   @stop periodic event 'LOGFLAGS' (node 12)
+2025-07-18 10:14:29:342 MCU   @[WRN] Node 3 (LOGFLAGS) response timeout (2015). Try again.
+2025-07-18 10:14:29:425 MCU   @[WRN] Node 4 (LOGFLAGS) response timeout (2031). Try again.
+2025-07-18 10:14:29:610 MCU   @[WRN] Node 5 (LOGFLAGS) response timeout (2031). Try again.
+2025-07-18 10:14:29:777 MCU   @[WRN] Node 6 (LOGFLAGS) response timeout (2016). Try again.
+2025-07-18 10:14:29:941 MCU   @[WRN] Node 7 (LOGFLAGS) response timeout (2032). Try again.
+2025-07-18 10:14:30:126 MCU   @[WRN] Node 8 (LOGFLAGS) response timeout (2031). Try again.
+2025-07-18 10:14:30:293 MCU   @[WRN] Node 9 (LOGFLAGS) response timeout (2015). Try again.
+2025-07-18 10:14:30:457 MCU   @[WRN] Node 10 (LOGFLAGS) response timeout (2015). Try again.
+2025-07-18 10:14:30:643 MCU   @[WRN] Node 11 (LOGFLAGS) response timeout (2032). Try again.
+2025-07-18 10:14:30:808 MCU   @[WRN] Node 12 (LOGFLAGS) response timeout (2016). Try again.
+2025-07-18 10:14:31:359 MCU   @[ERR] Node 3 (LOGFLAGS) response timeout (2016). Check connection.
+2025-07-18 10:14:32:158 MCU   @[ERR] Node 8 (LOGFLAGS) response timeout (2031). Check connection.
+2025-07-18 10:14:32:302 MCU   @[ERR] Node 9 (LOGFLAGS) response timeout (2016). Check connection.
+2025-07-18 10:14:32:815 MCU   @[ERR] Node 12 (LOGFLAGS) response timeout (2016). Check connection.
+
+2025-07-18 10:17:37:931 User  @factory menu selected (System Settings)
+2025-07-18 10:17:43:606 Frame @frame grabber stopped
+2025-07-18 10:17:43:624 Info  @system setting apply
+2025-07-18 10:17:48:625 Frame @[ERR] failed to connect frame grabber
+
+2025-07-18 10:18:32:511 User  @factory menu selected (System Settings)
+2025-07-18 10:18:36:650 Frame @frame grabber stopped
+2025-07-18 10:18:36:651 Info  @system setting apply
+2025-07-18 10:18:41:695 Frame @frame grabber connected
+2025-07-18 10:18:41:695 Frame @frame grabber started
+
+2025-07-18 10:20:00:966 User  @factory menu selected (System Settings)
+2025-07-18 10:20:55:909 Frame @frame grabber stopped
+2025-07-18 10:20:55:928 Info  @system setting apply
+2025-07-18 10:21:00:929 Frame @[ERR] failed to connect frame grabber
+
+2025-07-18 10:23:16:948 User  @factory menu selected (System Settings)
+2025-07-18 10:23:24:016 Frame @frame grabber stopped
+2025-07-18 10:23:24:018 Info  @system setting apply
+2025-07-18 10:23:29:065 Frame @frame grabber connected
+2025-07-18 10:23:29:065 Frame @frame grabber started
+
+2025-07-18 10:23:48:584 User  @factory menu selected (System Settings)
+2025-07-18 10:23:54:734 Frame @frame grabber stopped
+2025-07-18 10:23:54:753 Info  @system setting apply
+2025-07-18 10:23:59:754 Frame @[ERR] failed to connect frame grabber
+
+2025-07-18 10:24:31:381 User  @factory menu selected (System Settings)
+2025-07-18 10:24:35:775 Frame @frame grabber stopped
+2025-07-18 10:24:35:777 Info  @system setting apply
+2025-07-18 10:24:40:818 Frame @frame grabber connected
+2025-07-18 10:24:40:819 Frame @frame grabber started
+
+2025-07-18 10:25:29:231 User  @factory menu selected (System Settings)
+
+2025-07-18 10:26:29:993 User  @factory menu selected (System Settings)
+2025-07-18 10:30:24:745 Frame @frame grabber stopped
+2025-07-18 10:30:24:766 Info  @system setting apply
+2025-07-18 10:30:29:766 Frame @[ERR] failed to connect frame grabber
+
+2025-07-18 10:31:08:525 User  @factory menu selected (System Settings)
+2025-07-18 10:31:18:790 Frame @frame grabber stopped
+2025-07-18 10:31:18:792 Info  @system setting apply
+2025-07-18 10:31:23:835 Frame @frame grabber connected
+2025-07-18 10:31:23:835 Frame @frame grabber started
+2025-07-18 10:36:32:897 Info  @screen auto locked (Service)
+
+2025-07-18 10:39:30:682 User  @screen unlocked by user 'Service'
+
+2025-07-18 10:39:34:829 User  @factory menu selected (System Settings)
+2025-07-18 10:44:08:488 Frame @frame grabber stopped
+2025-07-18 10:44:08:505 Info  @system setting apply
+2025-07-18 10:44:13:505 Frame @[ERR] failed to connect frame grabber
+
+2025-07-18 10:44:36:909 User  @factory menu selected (System Settings)
+2025-07-18 10:44:43:525 Frame @frame grabber stopped
+2025-07-18 10:44:43:527 Info  @system setting apply
+2025-07-18 10:44:48:528 Frame @frame grabber simulator started
+
+2025-07-18 10:44:52:646 User  @factory menu selected (System Settings)
+2025-07-18 10:44:57:744 Frame @frame grabber stopped
+2025-07-18 10:44:57:745 Info  @system setting apply
+2025-07-18 10:45:02:747 Frame @[ERR] failed to connect frame grabber
+
+2025-07-18 10:45:41:495 User  @system menu selected (Log Viewer)
+
+2025-07-18 10:47:13:343 User  @factory menu selected (System Settings)
+
+2025-07-18 10:49:05:558 User  @system menu selected (System Status Check)
+2025-07-18 10:49:10:021 MCU   @[WRN] Node 3 (NODEIDref) response timeout (2016). Try again.
+2025-07-18 10:49:10:144 MCU   @[WRN] Node 8 (NODEIDref) response timeout (2032). Try again.
+2025-07-18 10:49:10:145 MCU   @[WRN] Node 9 (NODEIDref) response timeout (2016). Try again.
+2025-07-18 10:49:10:208 MCU   @[WRN] Node 12 (NODEIDref) response timeout (2015). Try again.
+2025-07-18 10:54:07:849 Info  @screen auto locked (Service)
+
+2025-07-18 14:34:01:000 User  @screen unlocked by user 'Service'
+
+2025-07-18 14:34:10:681 User  @factory menu selected (System Settings)
+2025-07-18 14:34:17:401 Frame @frame grabber stopped
+2025-07-18 14:34:17:403 Info  @system setting apply
+2025-07-18 14:34:22:487 Frame @frame grabber connected
+2025-07-18 14:34:22:487 Frame @frame grabber started
+
+2025-07-18 14:38:57:618 User  @on_startInitRobot_clicked
+2025-07-18 14:38:59:083 DEBUG @S.SC state (7, 25)
+2025-07-18 14:38:59:085 DEBUG @E.SC state (7, 25)
+2025-07-18 14:38:59:087 DEBUG @S.VE state (7, 25)
+2025-07-18 14:38:59:088 DEBUG @E.VE state (7, 25)
+2025-07-18 14:38:59:089 DEBUG @S.MW state (7, 25)
+2025-07-18 14:38:59:168 DEBUG @E.MW state (7, 25)
+2025-07-18 14:38:59:209 MCU   @set motor P sensors to 'stop'
+2025-07-18 14:38:59:210 MCU   @set motor R sensors to 'stop'
+2025-07-18 14:38:59:232 MCU   @[X] start searching reference
+2025-07-18 14:38:59:577 MCU   @[Y] start searching reference
+2025-07-18 14:38:59:924 MCU   @[Z] start searching reference
+2025-07-18 14:39:05:106 MCU   @[Y] stopped by sensor L
+2025-07-18 14:39:05:308 MCU   @[Y] reset physical position to 0
+2025-07-18 14:39:05:509 MCU   @[Y] reference found (SENSOR)
+2025-07-18 14:39:05:510 MCU   @[Y] max: 0.00
+2025-07-18 14:39:05:511 MCU   @[P] start searching reference
+2025-07-18 14:39:05:858 MCU   @[N] start searching reference
+2025-07-18 14:39:06:181 MCU   @[X] stopped by sensor L
+2025-07-18 14:39:06:183 MCU   @[X] reset physical position to 0
+2025-07-18 14:39:06:206 MCU   @[X] reference found (SENSOR)
+2025-07-18 14:39:06:206 MCU   @[X] max: 0.00
+2025-07-18 14:39:13:841 MCU   @[P] stopped by sensor L
+2025-07-18 14:39:13:842 MCU   @[P] reset physical position to 0
+2025-07-18 14:39:14:043 MCU   @[P] reference found (SENSOR)
+2025-07-18 14:39:14:044 MCU   @[P] max: 0.00
+2025-07-18 14:39:14:045 MCU   @[Y] start clearing: -19.50
+2025-07-18 14:39:18:594 MCU   @[N] stopped by sensor L
+2025-07-18 14:39:18:595 MCU   @[N] reset physical position to 0
+2025-07-18 14:39:18:798 MCU   @[N] reference found (SENSOR)
+2025-07-18 14:39:18:799 MCU   @[N] min: 0.00
+2025-07-18 14:39:19:787 MCU   @[Z] stopped by sensor L
+2025-07-18 14:39:19:789 MCU   @[Z] reset physical position to 0
+2025-07-18 14:39:19:990 MCU   @[Z] reference found (SENSOR)
+2025-07-18 14:39:19:991 MCU   @[Z] max: 0.00
+2025-07-18 14:39:20:580 MCU   @[Y] motor cleared
+2025-07-18 14:39:20:582 MCU   @[Y] min: -29.51
+2025-07-18 14:39:20:583 MCU   @[Z] start clearing: -50.00
+2025-07-18 14:39:20:606 MCU   @[Y] start moving to max pos: -3.00
+2025-07-18 14:39:20:629 MCU   @[P] start clearing: -165.00
+2025-07-18 14:39:20:658 MCU   @[N] start clearing: 69.50
+2025-07-18 14:39:20:686 MCU   @[X] start clearing: -22.50
+2025-07-18 14:39:20:710 MCU   @[H] start searching reference
+2025-07-18 14:39:26:828 MCU   @[H] stopped by sensor L
+2025-07-18 14:39:26:828 MCU   @[H] reset physical position to 0
+2025-07-18 14:39:27:030 MCU   @[H] reference found (SENSOR)
+2025-07-18 14:39:27:030 MCU   @[H] max: 0.00
+2025-07-18 14:39:27:052 MCU   @[H] start clearing: -49.00
+2025-07-18 14:39:29:036 MCU   @[X] motor cleared
+2025-07-18 14:39:29:036 MCU   @[X] min: -32.50
+2025-07-18 14:39:29:237 MCU   @[X] start moving to max pos: -3.00
+2025-07-18 14:39:29:260 MCU   @[Y] motor reached max pos
+2025-07-18 14:39:30:248 MCU   @[P] motor cleared
+2025-07-18 14:39:30:250 MCU   @[P] min: -165.05
+2025-07-18 14:39:30:451 MCU   @[P] start moving to home: -1.00
+2025-07-18 14:39:37:082 MCU   @[H] motor cleared
+2025-07-18 14:39:37:084 MCU   @[H] min: -49.02
+2025-07-18 14:39:37:285 MCU   @[H] start moving to home: -25.00
+2025-07-18 14:39:39:898 MCU   @[P] motor homed
+2025-07-18 14:39:39:900 MCU   @[R] start searching reference
+2025-07-18 14:39:41:001 MCU   @[X] motor reached max pos
+2025-07-18 14:39:41:607 MCU   @[H] motor homed
+2025-07-18 14:39:41:608 MCU   @[V] start searching reference
+2025-07-18 14:39:46:897 MCU   @[N] motor cleared
+2025-07-18 14:39:46:897 MCU   @[N] max: 69.52
+2025-07-18 14:39:47:098 MCU   @[N] start moving to home: 10.47
+2025-07-18 14:39:47:102 MCU   @[R] stopped by sensor R
+2025-07-18 14:39:47:103 MCU   @[R] reset physical position to 0
+2025-07-18 14:39:47:126 MCU   @[R] reference found (SENSOR)
+2025-07-18 14:39:47:126 MCU   @[R] max: 0.00
+2025-07-18 14:39:47:148 MCU   @[R] start clearing: -119.00
+2025-07-18 14:39:47:543 MCU   @[V] stopped by sensor L
+2025-07-18 14:39:47:590 MCU   @[V] reset physical position to 0
+2025-07-18 14:39:47:614 MCU   @[V] reference found (SENSOR)
+2025-07-18 14:39:47:615 MCU   @[V] max: 0.00
+2025-07-18 14:39:47:640 MCU   @[V] start clearing: -49.00
+2025-07-18 14:39:47:726 MCU   @[Z] motor cleared
+2025-07-18 14:39:47:727 MCU   @[Z] min: -50.00
+2025-07-18 14:39:47:748 MCU   @[Z] start moving to home: -34.90
+2025-07-18 14:39:56:123 MCU   @[Z] motor homed
+2025-07-18 14:39:56:727 MCU   @[V] motor cleared
+2025-07-18 14:39:56:728 MCU   @[V] min: -49.02
+2025-07-18 14:39:56:929 MCU   @[V] start moving to home: -25.00
+2025-07-18 14:39:59:745 MCU   @[R] motor cleared
+2025-07-18 14:39:59:746 MCU   @[R] min: -119.03
+2025-07-18 14:39:59:948 MCU   @[R] start moving to home: -60.00
+2025-07-18 14:40:02:965 MCU   @[V] motor homed
+2025-07-18 14:40:02:965 MCU   @[X] start moving to home: -20.44
+2025-07-18 14:40:02:988 MCU   @[Y] start moving to home: -13.69
+2025-07-18 14:40:06:718 MCU   @[R] motor homed
+2025-07-18 14:40:06:920 MCU   @[Y] motor homed
+2025-07-18 14:40:09:127 MCU   @[N] motor homed
+2025-07-18 14:40:09:329 MCU   @[X] motor homed
+2025-07-18 14:40:09:330 MCU   @set motor P sensors to 'nonstop'
+2025-07-18 14:40:09:330 MCU   @set motor R sensors to 'nonstop'
+2025-07-18 14:40:09:331 MCU   @robot initialization done (70125ms)
+2025-07-18 14:40:09:347 Info  @system actual [32.92,-9.99,0.01,39.95,0.01,0.04,79.99,0.04]
+2025-07-18 14:40:09:348 Info  @switch LED light to Green
+2025-07-18 14:40:09:849 Info  @open needle guide command sent
+2025-07-18 14:40:09:850 DEBUG @S.SC state (7, 26)
+2025-07-18 14:40:09:851 DEBUG @E.SC state (7, 26)
+2025-07-18 14:40:09:851 DEBUG @S.VE state (7, 26)
+2025-07-18 14:40:09:851 DEBUG @E.VE state (7, 26)
+2025-07-18 14:40:09:851 DEBUG @S.MW state (7, 26)
+2025-07-18 14:40:10:090 DEBUG @E.MW state (7, 26)
+
+2025-07-18 14:40:10:123 User  @on_startCreateCase_clicked
+
+2025-07-18 14:40:25:009 User  @factory menu selected (Imaging Calibration)
+2025-07-18 14:40:25:012 DEBUG @S.SC state (3, 12)
+2025-07-18 14:40:25:014 DEBUG @E.SC state (3, 12)
+2025-07-18 14:40:25:014 DEBUG @S.VE state (3, 12)
+2025-07-18 14:40:25:014 DEBUG @E.VE state (3, 12)
+2025-07-18 14:40:25:015 DEBUG @S.MW state (3, 12)
+2025-07-18 14:40:25:062 DEBUG @E.MW state (3, 12)
+2025-07-18 14:40:25:063 Info  @switch LED light to Red
+2025-07-18 14:40:25:063 DEBUG @S.SC state (3, 13)
+2025-07-18 14:40:25:064 DEBUG @E.SC state (3, 13)
+2025-07-18 14:40:25:064 DEBUG @S.VE state (3, 13)
+2025-07-18 14:40:25:064 DEBUG @E.VE state (3, 13)
+2025-07-18 14:40:25:064 DEBUG @S.MW state (3, 13)
+2025-07-18 14:40:25:148 DEBUG @E.MW state (3, 13)
+2025-07-18 14:40:33:425 MCU   @robot moving (absolute) done (8281ms)
+2025-07-18 14:40:33:436 Info  @system actual [-112.07,-9.99,0.01,39.95,0.01,0.04,79.99,-0]
+2025-07-18 14:40:33:437 Info  @switch LED light to Green
+2025-07-18 14:40:33:438 DEBUG @S.SC state (3, 14)
+2025-07-18 14:40:33:438 DEBUG @E.SC state (3, 14)
+2025-07-18 14:40:33:438 DEBUG @S.VE state (3, 14)
+2025-07-18 14:40:33:439 DEBUG @E.VE state (3, 14)
+2025-07-18 14:40:33:439 DEBUG @S.MW state (3, 14)
+2025-07-18 14:40:33:469 DEBUG @E.MW state (3, 14)
+
+2025-07-18 14:40:41:996 User  @on_calibImageStepLarge_clicked
+
+2025-07-18 14:40:45:124 User  @on_frameGrabRight_clicked
+
+2025-07-18 14:40:48:002 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:48:169 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:48:416 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:48:626 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:48:775 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:48:955 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:49:157 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:49:370 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:49:569 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:49:741 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:49:957 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:50:159 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:50:387 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:50:587 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:50:802 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:50:973 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:51:172 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:51:394 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:51:609 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:51:826 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:52:046 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:52:217 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:52:421 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:52:644 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:52:856 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:53:030 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:53:233 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:53:460 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:53:661 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:53:875 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:54:112 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:54:315 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:54:537 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:55:456 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:40:56:040 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:41:08:975 User  @on_imagingCalibNext_clicked
+
+2025-07-18 14:41:13:489 User  @on_imagingCalibDone_clicked
+2025-07-18 14:41:13:492 DEBUG @S.SC state (7, 26)
+2025-07-18 14:41:13:493 DEBUG @E.SC state (7, 26)
+2025-07-18 14:41:13:493 DEBUG @S.VE state (7, 26)
+2025-07-18 14:41:13:494 DEBUG @E.VE state (7, 26)
+2025-07-18 14:41:13:494 DEBUG @S.MW state (7, 26)
+2025-07-18 14:41:13:534 DEBUG @E.MW state (7, 26)
+2025-07-18 14:41:15:177 Info  @switch LED light to Red
+2025-07-18 14:41:15:178 DEBUG @S.SC state (3, 17)
+2025-07-18 14:41:15:179 DEBUG @E.SC state (3, 17)
+2025-07-18 14:41:15:179 DEBUG @S.VE state (3, 17)
+2025-07-18 14:41:15:180 DEBUG @E.VE state (3, 17)
+2025-07-18 14:41:15:181 DEBUG @S.MW state (3, 17)
+2025-07-18 14:41:15:225 DEBUG @E.MW state (3, 17)
+2025-07-18 14:41:23:911 MCU   @robot moving (absolute) done (8562ms)
+2025-07-18 14:41:23:937 Info  @system actual [32.93,-9.99,0.01,39.95,0.01,0.04,79.99,-0]
+2025-07-18 14:41:23:939 Info  @switch LED light to Green
+2025-07-18 14:41:23:941 DEBUG @S.SC state (7, 35)
+2025-07-18 14:41:23:942 DEBUG @E.SC state (7, 35)
+2025-07-18 14:41:23:944 DEBUG @S.VE state (7, 35)
+2025-07-18 14:41:23:945 DEBUG @E.VE state (7, 35)
+2025-07-18 14:41:23:947 DEBUG @S.MW state (7, 35)
+2025-07-18 14:41:23:979 DEBUG @E.MW state (7, 35)
+
+2025-07-18 14:49:12:745 User  @factory menu selected (System Settings)
+2025-07-18 14:49:40:318 Frame @frame grabber stopped
+2025-07-18 14:49:40:337 Info  @system setting apply
+2025-07-18 14:49:45:337 Frame @[ERR] failed to connect frame grabber
+
+2025-07-18 14:49:45:795 User  @factory menu selected (Mechanical Calibration)
+2025-07-18 14:49:45:799 DEBUG @S.SC state (0, 0)
+2025-07-18 14:49:45:800 DEBUG @E.SC state (0, 0)
+2025-07-18 14:49:45:800 DEBUG @S.VE state (0, 0)
+2025-07-18 14:49:45:801 DEBUG @E.VE state (0, 0)
+2025-07-18 14:49:45:801 DEBUG @S.MW state (0, 0)
+2025-07-18 14:49:45:830 DEBUG @E.MW state (0, 0)
+2025-07-18 14:49:45:830 DEBUG @S.SC state (0, 2)
+2025-07-18 14:49:45:830 DEBUG @E.SC state (0, 2)
+2025-07-18 14:49:45:831 DEBUG @S.VE state (0, 2)
+2025-07-18 14:49:45:831 DEBUG @E.VE state (0, 2)
+2025-07-18 14:49:45:832 DEBUG @S.MW state (0, 2)
+2025-07-18 14:49:45:853 DEBUG @E.MW state (0, 2)
+
+2025-07-18 14:49:53:097 User  @on_mechanicalCalibCancel_clicked
+2025-07-18 14:49:53:098 Info  @cancel mechanical calib
+2025-07-18 14:49:53:099 DEBUG @S.SC state (7, 35)
+2025-07-18 14:49:53:100 DEBUG @E.SC state (7, 35)
+2025-07-18 14:49:53:101 DEBUG @S.VE state (7, 35)
+2025-07-18 14:49:53:101 DEBUG @E.VE state (7, 35)
+2025-07-18 14:49:53:102 DEBUG @S.MW state (7, 35)
+2025-07-18 14:49:53:120 DEBUG @E.MW state (7, 35)
+
+2025-07-18 14:49:58:262 User  @factory menu selected (System Settings)
+2025-07-18 14:50:05:351 Frame @frame grabber stopped
+2025-07-18 14:50:05:352 Info  @system setting apply
+2025-07-18 14:50:10:408 Frame @frame grabber connected
+2025-07-18 14:50:10:409 Frame @frame grabber started
+
+2025-07-18 14:51:47:189 Info  @UtlLogger instance created
+2025-07-18 14:51:47:190 Info  @starting UroBiopsy (SVN 858)
+2025-07-18 14:51:48:005 Info  @MainWindow instance created
+
+2025-07-18 14:52:57:824 User  @factory menu selected (Imaging Calibration)
+2025-07-18 14:52:57:829 DEBUG @S.SC state (3, 12)
+2025-07-18 14:52:57:829 DEBUG @E.SC state (3, 12)
+2025-07-18 14:52:57:830 DEBUG @S.VE state (3, 12)
+2025-07-18 14:52:57:830 DEBUG @E.VE state (3, 12)
+2025-07-18 14:52:57:830 DEBUG @S.MW state (3, 12)
+2025-07-18 14:52:57:883 DEBUG @E.MW state (3, 12)
+2025-07-18 14:52:57:884 Info  @switch LED light to Red
+2025-07-18 14:52:57:885 DEBUG @S.SC state (3, 13)
+2025-07-18 14:52:57:885 DEBUG @E.SC state (3, 13)
+2025-07-18 14:52:57:886 DEBUG @S.VE state (3, 13)
+2025-07-18 14:52:57:886 DEBUG @E.VE state (3, 13)
+2025-07-18 14:52:57:887 DEBUG @S.MW state (3, 13)
+2025-07-18 14:52:57:948 DEBUG @E.MW state (3, 13)
+2025-07-18 14:53:06:369 MCU   @robot moving (absolute) done (8281ms)
+2025-07-18 14:53:06:372 Info  @system actual [-112.07,-9.99,0.01,39.95,0.01,0.04,79.99,0]
+2025-07-18 14:53:06:373 Info  @switch LED light to Green
+2025-07-18 14:53:06:373 DEBUG @S.SC state (3, 14)
+2025-07-18 14:53:06:373 DEBUG @E.SC state (3, 14)
+2025-07-18 14:53:06:374 DEBUG @S.VE state (3, 14)
+2025-07-18 14:53:06:374 DEBUG @E.VE state (3, 14)
+2025-07-18 14:53:06:375 DEBUG @S.MW state (3, 14)
+2025-07-18 14:53:06:398 DEBUG @E.MW state (3, 14)
+
+2025-07-18 14:53:20:801 User  @on_calibImageStepLarge_clicked
+
+2025-07-18 14:53:23:248 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:23:443 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:23:660 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:23:815 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:24:012 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:24:188 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:24:373 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:32:172 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:32:349 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:32:543 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:32:693 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:32:868 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:33:021 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:33:209 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:33:364 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:34:357 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:34:521 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:34:696 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:34:890 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:35:051 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:35:251 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:35:469 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:35:602 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:35:830 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:35:970 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:36:153 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:36:327 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:36:541 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:36:757 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:36:941 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:37:100 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:38:343 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:38:535 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:47:199 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:47:412 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:47:575 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:47:769 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:47:947 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:48:146 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:48:796 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:48:941 User  @on_frameGrabDown_clicked
+
+2025-07-18 14:53:49:974 User  @on_frameGrabRight_clicked
+
+2025-07-18 14:53:50:148 User  @on_frameGrabRight_clicked
+
+2025-07-18 14:53:50:334 User  @on_frameGrabRight_clicked
+
+2025-07-18 14:53:50:507 User  @on_frameGrabRight_clicked
+
+2025-07-18 14:53:51:007 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:51:191 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:51:349 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:51:553 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:51:704 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:51:923 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:52:078 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:52:235 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:52:425 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:52:608 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:52:796 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:52:945 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:53:151 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:53:304 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:53:522 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:53:723 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:53:895 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:53:54:105 User  @on_frameGrabLeft_clicked
+
+2025-07-18 14:54:03:491 User  @on_imagingCalibNext_clicked
+2025-07-18 14:56:04:663 Info  @an instance of UroBiopsy is already running ... exit
+2025-07-18 14:56:05:856 Info  @SurgeryController instance created
+2025-07-18 14:56:05:885 Info  @UroBiopsy exited 
+
+
+
+2025-07-18 15:17:25:612 User  @on_imagingCalibDone_clicked
+2025-07-18 15:17:25:615 DEBUG @S.SC state (7, 35)
+2025-07-18 15:17:25:616 DEBUG @E.SC state (7, 35)
+2025-07-18 15:17:25:616 DEBUG @S.VE state (7, 35)
+2025-07-18 15:17:25:616 DEBUG @E.VE state (7, 35)
+2025-07-18 15:17:25:616 DEBUG @S.MW state (7, 35)
+2025-07-18 15:17:25:663 DEBUG @E.MW state (7, 35)
+2025-07-18 15:17:27:204 Info  @switch LED light to Red
+2025-07-18 15:17:27:205 DEBUG @S.SC state (3, 17)
+2025-07-18 15:17:27:206 DEBUG @E.SC state (3, 17)
+2025-07-18 15:17:27:206 DEBUG @S.VE state (3, 17)
+2025-07-18 15:17:27:206 DEBUG @E.VE state (3, 17)
+2025-07-18 15:17:27:207 DEBUG @S.MW state (3, 17)
+2025-07-18 15:17:27:273 DEBUG @E.MW state (3, 17)
+2025-07-18 15:17:35:758 MCU   @robot moving (absolute) done (8484ms)
+2025-07-18 15:17:35:998 Info  @system actual [32.93,-9.99,0.01,39.95,0.01,0.04,79.99,0]
+2025-07-18 15:17:35:999 Info  @switch LED light to Green
+2025-07-18 15:17:35:999 DEBUG @S.SC state (7, 35)
+2025-07-18 15:17:36:000 DEBUG @E.SC state (7, 35)
+2025-07-18 15:17:36:002 DEBUG @S.VE state (7, 35)
+2025-07-18 15:17:36:003 DEBUG @E.VE state (7, 35)
+2025-07-18 15:17:36:003 DEBUG @S.MW state (7, 35)
+2025-07-18 15:17:36:311 DEBUG @E.MW state (7, 35)
+
+2025-07-18 15:18:09:688 User  @factory menu selected (System Settings)
+2025-07-18 15:18:15:201 Frame @frame grabber stopped
+2025-07-18 15:18:15:223 Info  @system setting apply
+2025-07-18 15:18:20:224 Frame @[ERR] failed to connect frame grabber
+
+2025-07-18 15:18:21:002 User  @factory menu selected (System Settings)
+2025-07-18 15:18:24:228 Frame @frame grabber stopped
+2025-07-18 15:18:24:230 Info  @system setting apply
+2025-07-18 15:18:29:282 Frame @frame grabber connected
+2025-07-18 15:18:29:283 Frame @frame grabber started
+2025-07-18 15:27:35:606 Info  @screen auto locked (Service)
+
+2025-07-18 15:39:52:325 User  @screen unlocked by user 'Service'
+2025-07-18 15:45:23:908 Info  @screen auto locked (Service)
+
+2025-07-18 16:32:40:852 User  @screen unlocked by user 'Service'
+2025-07-18 16:37:43:395 Info  @screen auto locked (Service)
+
+2025-07-18 16:53:14:638 User  @screen unlocked by user 'Service'
+2025-07-18 16:58:29:614 Info  @screen auto locked (Service)
+2025-07-18 17:56:32:336 Sec   @failed login by user Service
+
+2025-07-18 17:56:38:197 User  @screen unlocked by user 'Service'
+
+2025-07-18 18:00:16:943 User  @factory menu selected (System Settings)
+2025-07-18 18:06:49:893 Info  @screen auto locked (Service)
+
+2025-07-21 11:21:38:780 User  @screen unlocked by user 'Service'
+
+2025-07-21 11:21:43:573 User  @system menu selected (Exit)
+2025-07-21 11:21:45:989 Info  @open needle guide command sent
+2025-07-21 11:21:45:990 Info  @switch LED light to Red
+2025-07-21 11:21:45:990 DEBUG @S.SC state (6, 23)
+2025-07-21 11:21:45:991 DEBUG @E.SC state (6, 23)
+2025-07-21 11:21:45:991 DEBUG @S.VE state (6, 23)
+2025-07-21 11:21:45:991 DEBUG @E.VE state (6, 23)
+2025-07-21 11:21:45:992 DEBUG @S.MW state (6, 23)
+2025-07-21 11:21:46:056 DEBUG @E.MW state (6, 23)
+2025-07-21 11:21:50:844 MCU   @robot moving (finalization) done (4672ms)
+2025-07-21 11:21:50:849 Info  @system actual [32.93,-2.32,0.01,39.95,0.01,0.04,79.99,0]
+2025-07-21 11:21:50:849 Info  @switch LED light to Green
+2025-07-21 11:21:51:988 Info  @switch LED light off
+2025-07-21 11:21:52:025 Frame @frame grabber stopped
+2025-07-21 11:21:52:054 MCU   @robot moving stopped
+2025-07-21 11:21:53:355 MCU   @mcu controller stopped
+2025-07-21 11:21:53:717 Info  @UroBiopsy exited 
+
+

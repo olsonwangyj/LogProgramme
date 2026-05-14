@@ -1,0 +1,17 @@
+
+2026-04-10 08:36:40:157 Info  @UtlLogger instance created
+2026-04-10 08:36:40:157 Info  @starting UroFusion (SVN 820)
+
+2026-04-10 08:36:52:901 User  @user 'doctor' login
+2026-04-10 08:36:52:960 Info  @UroFusion launched
+
+2026-04-10 08:36:58:716 User  @on_startOpenCase_clicked
+
+2026-04-10 08:37:02:905 User  @on_lesionPirads_currentIndexChanged
+2026-04-10 08:37:02:960 Info  @case '2026_04_08_Soewanto, Sarkawi Th_MRI' opened by Doctor
+
+2026-04-10 08:37:06:245 User  @on_function3DView_clicked
+2026-04-10 08:42:08:598 Info  @screen auto locked (Doctor)
+
+2026-04-10 08:42:23:885 User  @screen unlocked by user 'Doctor'
+2026-04-10 08:42:26:423 Info  @UroFusion exited

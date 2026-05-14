@@ -1,0 +1,20 @@
+
+2026-03-27 10:23:24:712 Info  @UtlLogger instance created
+2026-03-27 10:23:24:712 Info  @starting UroBiopsy (SVN 1003)
+2026-03-27 10:23:25:347 Info  @MainWindow instance created
+
+2026-03-27 10:23:27:825 User  @user cancelled Login dialog
+2026-03-27 10:23:27:826 Info  @SurgeryController instance created
+2026-03-27 10:23:27:849 Info  @UroBiopsy exited 
+
+
+
+2026-03-27 10:35:01:413 Info  @UtlLogger instance created
+2026-03-27 10:35:01:413 Info  @starting UroBiopsy (SVN 1003)
+2026-03-27 10:35:02:332 Info  @MainWindow instance created
+
+2026-03-27 10:35:04:775 User  @user cancelled Login dialog
+2026-03-27 10:35:04:776 Info  @SurgeryController instance created
+2026-03-27 10:35:04:797 Info  @UroBiopsy exited 
+
+

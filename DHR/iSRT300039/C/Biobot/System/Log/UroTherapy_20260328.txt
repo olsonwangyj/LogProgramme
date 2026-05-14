@@ -1,0 +1,41 @@
+
+2026-03-28 04:55:37:278 Info  @UtlLogger instance created
+2026-03-28 04:55:37:278 Info  @starting UroTherapy (SVN 1003)
+2026-03-28 04:55:37:748 Info  @MainWindow instance created
+
+2026-03-28 04:55:56:840 User  @user 'Service' login
+2026-03-28 04:55:56:895 Info  @UroTherapy launched
+2026-03-28 04:55:56:895 Info  @SurgeryController instance created
+2026-03-28 04:55:56:900 Info  @Robot Unit: TX-05-07
+2026-03-28 04:55:56:980 Info  @VisualEngine instance created
+2026-03-28 04:55:58:903 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2026-03-28 04:56:00:283 DEBUG @S.SC state (7, 24)
+2026-03-28 04:56:00:284 DEBUG @E.SC state (7, 24)
+2026-03-28 04:56:00:284 DEBUG @S.VE state (7, 24)
+2026-03-28 04:56:00:284 DEBUG @E.VE state (7, 24)
+2026-03-28 04:56:00:285 DEBUG @S.MW state (7, 24)
+2026-03-28 04:56:00:621 DEBUG @E.MW state (7, 24)
+2026-03-28 04:56:01:921 Frame @[ERR] failed to connect frame grabber
+
+2026-03-28 04:56:13:854 User  @system menu selected (About)
+
+2026-03-28 04:56:34:275 User  @tool menu selected (Application Settings)
+
+2026-03-28 04:56:46:689 User  @tool menu selected (Open / Close Needle Guide)
+2026-03-28 04:56:46:691 Info  @open needle guide command sent
+
+2026-03-28 04:56:55:468 User  @system menu selected (About)
+
+2026-03-28 04:57:20:003 User  @tool menu selected (Application Settings)
+
+2026-03-28 04:57:34:323 User  @system menu selected (About)
+
+2026-03-28 04:58:19:299 User  @system menu selected (Log Viewer)
+
+2026-03-28 04:58:34:908 User  @system menu selected (Exit)
+2026-03-28 04:58:36:474 Info  @open needle guide command sent
+2026-03-28 04:58:38:085 Frame @frame grabber stopped
+2026-03-28 04:58:39:226 MCU   @mcu controller stopped
+2026-03-28 04:58:39:471 Info  @UroTherapy exited 
+
+

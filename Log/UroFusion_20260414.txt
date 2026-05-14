@@ -1,0 +1,59 @@
+
+2026-04-14 15:00:12:125 Info  @UtlLogger instance created
+2026-04-14 15:00:12:125 Info  @starting UroFusion (SVN 820)
+2026-04-14 15:00:14:118 Info  @UroFusion launched
+
+2026-04-14 15:00:19:882 User  @on_startOpenCase_clicked
+
+2026-04-14 15:00:27:331 User  @on_lesionPirads_currentIndexChanged
+2026-04-14 15:00:27:416 Info  @case '2026_04_08_Soewanto, Sarkawi Th_MRI' opened by Doctor
+
+2026-04-14 15:00:28:741 User  @on_function3DView_clicked
+
+2026-04-14 15:00:31:876 User  @on_function2DView_clicked
+
+2026-04-14 15:00:33:698 User  @on_function3DView_clicked
+
+2026-04-14 15:00:48:975 User  @on_function2DView_clicked
+
+2026-04-14 15:00:50:461 User  @on_function3DView_clicked
+
+2026-04-14 15:00:53:598 User  @on_function2DView_clicked
+
+2026-04-14 15:01:08:441 User  @on_function3DView_clicked
+
+2026-04-14 15:01:13:379 User  @on_function2DView_clicked
+
+2026-04-14 15:01:17:234 User  @on_function3DView_clicked
+
+2026-04-14 15:01:21:617 User  @on_function2DView_clicked
+
+2026-04-14 15:01:22:806 User  @on_function3DView_clicked
+2026-04-14 15:55:39:414 Info  @UroFusion exited
+
+2026-04-14 16:00:05:519 Info  @UtlLogger instance created
+2026-04-14 16:00:05:519 Info  @starting UroFusion (SVN 820)
+
+2026-04-14 16:00:36:354 User  @user 'doctor' login
+2026-04-14 16:00:36:401 Info  @UroFusion launched
+
+2026-04-14 16:00:45:298 User  @on_startOpenCase_clicked
+
+2026-04-14 16:00:51:502 User  @on_lesionPirads_currentIndexChanged
+2026-04-14 16:00:51:564 Info  @case '2026_04_08_Soewanto, Sarkawi Th_MRI' opened by Doctor
+
+2026-04-14 16:00:56:915 User  @on_function3DView_clicked
+
+2026-04-14 16:01:04:654 User  @on_function2DView_clicked
+
+2026-04-14 16:01:12:517 User  @on_function3DView_clicked
+
+2026-04-14 16:45:44:163 User  @on_function2DView_clicked
+
+2026-04-14 16:45:45:199 User  @on_function3DView_clicked
+2026-04-14 16:47:20:995 Info  @UroFusion exited
+
+2026-04-14 16:49:49:168 Info  @UtlLogger instance created
+2026-04-14 16:49:49:168 Info  @starting UroFusion (SVN 820)
+2026-04-14 16:49:50:970 Info  @UroFusion launched
+2026-04-14 16:50:04:270 Info  @UroFusion exited

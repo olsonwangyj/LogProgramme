@@ -1,0 +1,68 @@
+
+2025-09-25 08:06:08:691 Info  @UtlLogger instance created
+2025-09-25 08:06:08:691 Info  @starting UroTherapy (SVN 858)
+2025-09-25 08:06:09:097 Info  @MainWindow instance created
+
+2025-09-25 08:06:17:158 User  @user cancelled Login dialog
+2025-09-25 08:06:17:159 Info  @SurgeryController instance created
+2025-09-25 08:06:17:186 Info  @UroTherapy exited 
+
+
+
+2025-09-25 08:07:34:924 Info  @UtlLogger instance created
+2025-09-25 08:07:34:925 Info  @starting UroTherapy (SVN 858)
+2025-09-25 08:07:35:335 Info  @MainWindow instance created
+
+2025-09-25 08:07:49:314 User  @user 'Service' login
+2025-09-25 08:07:49:376 Info  @UroTherapy launched
+2025-09-25 08:07:49:377 Info  @SurgeryController instance created
+2025-09-25 08:07:49:380 Info  @Robot Unit: TX-04-02
+2025-09-25 08:07:49:473 Info  @VisualEngine instance created
+2025-09-25 08:07:51:801 MCU   @firmware version (Master): 1.0.1_000
+2025-09-25 08:07:51:802 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-09-25 08:07:52:617 DEBUG @S.SC state (7, 24)
+2025-09-25 08:07:52:617 DEBUG @E.SC state (7, 24)
+2025-09-25 08:07:52:617 DEBUG @S.VE state (7, 24)
+2025-09-25 08:07:52:618 DEBUG @E.VE state (7, 24)
+2025-09-25 08:07:52:618 DEBUG @S.MW state (7, 24)
+2025-09-25 08:07:52:936 DEBUG @E.MW state (7, 24)
+2025-09-25 08:07:53:495 MCU   @firmware version (Node 8): 1.0.0.14
+2025-09-25 08:07:53:825 MCU   @[WRN] Node 3 (GETVER) response timeout (2016). Try again.
+2025-09-25 08:07:53:847 MCU   @[WRN] Node 4 (GETVER) response timeout (2015). Try again.
+2025-09-25 08:07:53:868 MCU   @[WRN] Node 5 (GETVER) response timeout (2031). Try again.
+2025-09-25 08:07:53:889 MCU   @[WRN] Node 6 (GETVER) response timeout (2016). Try again.
+2025-09-25 08:07:53:910 MCU   @[WRN] Node 7 (GETVER) response timeout (2016). Try again.
+2025-09-25 08:07:53:931 MCU   @[WRN] Node 9 (GETVER) response timeout (2016). Try again.
+2025-09-25 08:07:53:973 MCU   @[WRN] Node 10 (GETVER) response timeout (2015). Try again.
+2025-09-25 08:07:53:993 MCU   @[WRN] Node 11 (GETVER) response timeout (2031). Try again.
+2025-09-25 08:07:53:994 MCU   @[WRN] Node 12 (GETVER) response timeout (2015). Try again.
+2025-09-25 08:07:54:403 Frame @frame grabber UVC device: USB Video
+2025-09-25 08:07:54:479 Frame @frame grabber connected
+2025-09-25 08:07:54:480 Frame @frame grabber started
+2025-09-25 08:07:54:514 MCU   @firmware operation mode (Node 8): 1
+2025-09-25 08:07:55:508 Frame @frame grabber screen size updated: 1920 x 1080
+2025-09-25 08:07:55:851 MCU   @[ERR] Node 3 (GETVER) response timeout (2031). Check connection.
+2025-09-25 08:07:55:851 MCU   @[ERR] Node 4 (GETVER) response timeout (2016). Check connection.
+2025-09-25 08:07:55:893 MCU   @[ERR] Node 5 (GETVER) response timeout (2016). Check connection.
+2025-09-25 08:07:55:914 MCU   @[ERR] Node 6 (GETVER) response timeout (2031). Check connection.
+2025-09-25 08:07:55:914 MCU   @[ERR] Node 7 (GETVER) response timeout (2015). Check connection.
+2025-09-25 08:07:55:957 MCU   @[ERR] Node 9 (GETVER) response timeout (2016). Check connection.
+2025-09-25 08:07:55:978 MCU   @[ERR] Node 10 (GETVER) response timeout (2016). Check connection.
+2025-09-25 08:07:56:021 MCU   @[ERR] Node 11 (GETVER) response timeout (2016). Check connection.
+2025-09-25 08:07:56:021 MCU   @[ERR] Node 12 (GETVER) response timeout (2016). Check connection.
+2025-09-25 08:07:56:543 MCU   @[WRN] Node 8 (RD_OFFSET) response timeout (2015). Try again.
+2025-09-25 08:07:56:691 MCU   @firmware acceptable error range (Node 8): 512
+2025-09-25 08:07:56:691 MCU   @[R] error range replaced with local set: 4097
+
+2025-09-25 08:07:57:331 User  @system menu selected (About)
+2025-09-25 08:07:58:029 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2016). Try again.
+2025-09-25 08:08:00:058 MCU   @[ERR] Node 11 (LOG_NGSW) response timeout (2031). Check connection.
+
+2025-09-25 08:08:19:369 User  @system menu selected (Exit)
+2025-09-25 08:08:21:053 Info  @open needle guide command sent
+2025-09-25 08:08:22:108 Frame @frame grabber stopped
+2025-09-25 08:08:22:389 MCU   @robot moving stopped
+2025-09-25 08:08:23:505 MCU   @mcu controller stopped
+2025-09-25 08:08:23:751 Info  @UroTherapy exited 
+
+

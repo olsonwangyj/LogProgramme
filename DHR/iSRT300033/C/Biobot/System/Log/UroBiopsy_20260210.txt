@@ -1,0 +1,3319 @@
+
+2026-02-10 10:15:36:252 Info  @UtlLogger instance created
+2026-02-10 10:15:36:252 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:15:41:535 Info  @MainWindow instance created
+
+2026-02-10 10:15:59:251 User  @user 'Admin' login
+2026-02-10 10:16:07:222 Sec   @user Admin changed password
+
+2026-02-10 10:16:08:503 User  @user updated password
+2026-02-10 10:16:27:753 Sec   @admin changed password for user Admin
+2026-02-10 10:16:27:754 Sec   @admin added user Doctor
+
+2026-02-10 10:16:27:797 User  @admin saved user accounts/settings
+2026-02-10 10:16:35:374 Sec   @admin changed password for user Service
+
+2026-02-10 10:16:35:403 User  @admin saved user accounts/settings
+2026-02-10 10:16:40:325 Sec   @admin changed password for user Doctor
+
+2026-02-10 10:16:40:349 User  @admin saved user accounts/settings
+
+2026-02-10 10:16:43:797 User  @admin cancelled the Administrator Setting dialog
+2026-02-10 10:16:43:803 Info  @SurgeryController instance created
+2026-02-10 10:16:43:837 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:16:45:019 Info  @UtlLogger instance created
+2026-02-10 10:16:45:019 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:16:45:471 Info  @MainWindow instance created
+
+2026-02-10 10:17:00:699 User  @user 'Admin' login
+2026-02-10 10:17:11:709 Sec   @admin changed password for user Admin
+
+2026-02-10 10:17:11:756 User  @admin saved user accounts/settings
+
+2026-02-10 10:17:14:757 User  @admin cancelled the Administrator Setting dialog
+2026-02-10 10:17:14:765 Info  @SurgeryController instance created
+2026-02-10 10:17:14:790 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:17:16:312 Info  @UtlLogger instance created
+2026-02-10 10:17:16:313 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:17:16:750 Info  @MainWindow instance created
+2026-02-10 10:17:28:382 Sec   @failed login by user Admin
+2026-02-10 10:17:35:960 Sec   @failed login by user Admin
+2026-02-10 10:17:45:753 Sec   @failed login by user Admin
+2026-02-10 10:17:46:523 Sec   @failed login by user Admin
+2026-02-10 10:17:52:604 Sec   @failed login by user Admin
+
+2026-02-10 10:17:56:765 User  @user 'Admin' login
+
+2026-02-10 10:18:01:382 User  @admin cancelled the Administrator Setting dialog
+2026-02-10 10:18:01:387 Info  @SurgeryController instance created
+2026-02-10 10:18:01:415 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:18:02:529 Info  @UtlLogger instance created
+2026-02-10 10:18:02:530 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:18:02:993 Info  @MainWindow instance created
+
+2026-02-10 10:18:14:062 User  @user 'Service' login
+2026-02-10 10:18:20:801 Sec   @user Service changed password
+
+2026-02-10 10:18:22:309 User  @user updated password
+2026-02-10 10:18:22:365 Info  @UroBiopsy launched
+2026-02-10 10:18:22:366 Info  @SurgeryController instance created
+2026-02-10 10:20:14:928 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:25:00:409 Info  @UtlLogger instance created
+2026-02-10 10:25:00:409 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:25:00:854 Info  @MainWindow instance created
+
+2026-02-10 10:25:19:182 User  @user 'Service' login
+2026-02-10 10:25:19:241 Info  @UroBiopsy launched
+2026-02-10 10:25:19:242 Info  @SurgeryController instance created
+2026-02-10 10:25:57:201 Info  @Robot Unit: TX-05-00
+2026-02-10 10:25:57:268 Info  @VisualEngine instance created
+2026-02-10 10:25:58:781 DEBUG @S.SC state (7, 24)
+2026-02-10 10:25:58:782 DEBUG @E.SC state (7, 24)
+2026-02-10 10:25:58:782 DEBUG @S.VE state (7, 24)
+2026-02-10 10:25:58:782 DEBUG @E.VE state (7, 24)
+2026-02-10 10:25:58:783 DEBUG @S.MW state (7, 24)
+2026-02-10 10:25:59:083 DEBUG @E.MW state (7, 24)
+2026-02-10 10:25:59:206 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2026-02-10 10:26:02:221 Frame @frame grabber UVC device: USB Video
+2026-02-10 10:26:02:294 Frame @frame grabber connected
+2026-02-10 10:26:02:294 Frame @frame grabber started
+2026-02-10 10:26:03:309 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-10 10:26:04:230 User  @factory menu selected (System Settings)
+2026-02-10 10:33:19:212 MCU   @mcu controller stopped
+2026-02-10 10:33:21:434 MCU   @firmware version (Master): 1.0.0_004
+2026-02-10 10:33:21:434 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-10 10:33:21:604 MCU   @firmware version (Node 3): 1.0.0.14
+2026-02-10 10:33:21:688 MCU   @firmware version (Node 4): 1.0.0.14
+2026-02-10 10:33:21:793 MCU   @firmware version (Node 5): 1.0.0.14
+2026-02-10 10:33:21:900 MCU   @firmware version (Node 6): 1.0.0.14
+2026-02-10 10:33:21:984 MCU   @firmware version (Node 7): 1.0.0.14
+2026-02-10 10:33:22:110 MCU   @firmware version (Node 8): 1.0.0.14
+2026-02-10 10:33:22:197 MCU   @firmware version (Node 9): 1.0.0.14
+2026-02-10 10:33:22:302 MCU   @firmware version (Node 10): 1.0.0.14
+2026-02-10 10:33:22:385 MCU   @firmware version (Node 11): 1.0.0.16
+2026-02-10 10:33:22:511 MCU   @firmware version (Node 12): 1.0.0.14
+2026-02-10 10:33:22:575 MCU   @firmware operation mode (Node 3): 1
+2026-02-10 10:33:22:702 MCU   @firmware operation mode (Node 4): 1
+2026-02-10 10:33:22:703 MCU   @firmware support speed control
+2026-02-10 10:33:22:786 MCU   @firmware operation mode (Node 5): 1
+2026-02-10 10:33:22:912 MCU   @firmware operation mode (Node 6): 1
+2026-02-10 10:33:22:997 MCU   @firmware operation mode (Node 7): 1
+2026-02-10 10:33:23:103 MCU   @firmware operation mode (Node 8): 1
+2026-02-10 10:33:23:188 MCU   @firmware operation mode (Node 9): 1
+2026-02-10 10:33:23:313 MCU   @firmware operation mode (Node 10): 1
+2026-02-10 10:33:23:503 MCU   @firmware operation mode (Node 12): 1
+2026-02-10 10:33:23:609 MCU   @firmware acceptable error range (Node 3): 512
+2026-02-10 10:33:23:611 MCU   @[X] error range replaced with local set: 11741
+2026-02-10 10:33:23:715 MCU   @firmware acceptable error range (Node 4): 512
+2026-02-10 10:33:23:716 MCU   @[Y] error range replaced with local set: 11741
+2026-02-10 10:33:23:822 MCU   @firmware acceptable error range (Node 5): 512
+2026-02-10 10:33:23:823 MCU   @[V] error range replaced with local set: 6154
+2026-02-10 10:33:23:929 MCU   @firmware acceptable error range (Node 6): 512
+2026-02-10 10:33:23:930 MCU   @[H] error range replaced with local set: 6154
+2026-02-10 10:33:24:013 MCU   @firmware acceptable error range (Node 7): 512
+2026-02-10 10:33:24:016 MCU   @[N] error range replaced with local set: 19376
+2026-02-10 10:33:24:144 MCU   @firmware acceptable error range (Node 8): 512
+2026-02-10 10:33:24:145 MCU   @[R] error range replaced with local set: 4097
+2026-02-10 10:33:24:208 MCU   @firmware acceptable error range (Node 9): 512
+2026-02-10 10:33:24:209 MCU   @[P] error range replaced with local set: 4097
+2026-02-10 10:33:24:314 MCU   @firmware operation mode (Node 11): 1
+2026-02-10 10:33:24:420 MCU   @firmware acceptable error range (Node 12): 512
+2026-02-10 10:33:24:421 MCU   @[Z] error range replaced with local set: 17615
+2026-02-10 10:33:26:789 Info  @system setting apply
+
+2026-02-10 10:33:32:384 User  @factory menu selected (System Settings)
+
+2026-02-10 10:33:40:403 User  @factory menu selected (System Settings)
+2026-02-10 10:41:18:794 Info  @screen auto locked (Service)
+
+2026-02-10 10:42:42:483 User  @screen unlocked by user 'Service'
+2026-02-10 10:43:06:035 Frame @frame grabber stopped
+2026-02-10 10:43:06:400 MCU   @robot moving stopped
+2026-02-10 10:43:07:517 MCU   @mcu controller stopped
+2026-02-10 10:43:07:743 Info  @UroBiopsy exited by restart
+
+
+
+2026-02-10 10:43:07:794 Info  @UtlLogger instance created
+2026-02-10 10:43:07:794 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:43:08:297 Info  @MainWindow instance created
+2026-02-10 10:43:09:205 Info  @UroBiopsy launched
+2026-02-10 10:43:09:206 Info  @SurgeryController instance created
+2026-02-10 10:43:09:210 Info  @Robot Unit: DX-04B-02
+2026-02-10 10:43:09:313 Info  @VisualEngine instance created
+2026-02-10 10:43:11:372 Motor @[ERR] failed to open robot com port: COM2 (baudrate: 115200)
+2026-02-10 10:43:12:527 DEBUG @S.SC state (7, 24)
+2026-02-10 10:43:12:528 DEBUG @E.SC state (7, 24)
+2026-02-10 10:43:12:528 DEBUG @S.VE state (7, 24)
+2026-02-10 10:43:12:528 DEBUG @E.VE state (7, 24)
+2026-02-10 10:43:12:529 DEBUG @S.MW state (7, 24)
+2026-02-10 10:43:12:840 DEBUG @E.MW state (7, 24)
+2026-02-10 10:43:14:219 Frame @frame grabber UVC device: USB Video
+2026-02-10 10:43:14:286 Frame @frame grabber connected
+2026-02-10 10:43:14:287 Frame @frame grabber started
+2026-02-10 10:43:15:295 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-10 10:43:16:704 User  @factory menu selected (System Settings)
+2026-02-10 10:44:17:754 Info  @system setting apply
+
+2026-02-10 10:44:24:967 User  @tool menu selected (Application Settings)
+
+2026-02-10 10:44:42:544 User  @factory menu selected (System Settings)
+2026-02-10 10:45:40:758 Frame @frame grabber stopped
+2026-02-10 10:45:42:190 Motor @robot controller stopped
+2026-02-10 10:45:42:451 Info  @UroBiopsy exited by restart
+
+
+
+2026-02-10 10:45:42:591 Info  @UtlLogger instance created
+2026-02-10 10:45:42:592 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:45:43:025 Info  @MainWindow instance created
+2026-02-10 10:45:43:910 Info  @UroBiopsy launched
+2026-02-10 10:45:43:911 Info  @SurgeryController instance created
+2026-02-10 10:45:43:913 Info  @Robot Unit: TX-05-07
+2026-02-10 10:45:43:985 Info  @VisualEngine instance created
+2026-02-10 10:45:45:914 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2026-02-10 10:45:47:238 DEBUG @S.SC state (7, 24)
+2026-02-10 10:45:47:239 DEBUG @E.SC state (7, 24)
+2026-02-10 10:45:47:239 DEBUG @S.VE state (7, 24)
+2026-02-10 10:45:47:239 DEBUG @E.VE state (7, 24)
+2026-02-10 10:45:47:240 DEBUG @S.MW state (7, 24)
+2026-02-10 10:45:47:559 DEBUG @E.MW state (7, 24)
+2026-02-10 10:45:48:929 Frame @frame grabber UVC device: USB Video
+2026-02-10 10:45:48:985 Frame @frame grabber connected
+2026-02-10 10:45:48:985 Frame @frame grabber started
+2026-02-10 10:45:50:001 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-10 10:46:12:971 User  @factory menu selected (System Settings)
+2026-02-10 10:46:26:847 MCU   @mcu controller stopped
+2026-02-10 10:46:27:922 Info  @system setting apply
+2026-02-10 10:46:29:068 MCU   @firmware version (Master): 1.0.0_004
+2026-02-10 10:46:29:068 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-10 10:46:29:218 MCU   @firmware version (Node 3): 1.0.0.14
+2026-02-10 10:46:29:323 MCU   @firmware version (Node 4): 1.0.0.14
+2026-02-10 10:46:29:429 MCU   @firmware version (Node 5): 1.0.0.14
+2026-02-10 10:46:29:535 MCU   @firmware version (Node 6): 1.0.0.14
+2026-02-10 10:46:29:620 MCU   @firmware version (Node 7): 1.0.0.14
+2026-02-10 10:46:29:726 MCU   @firmware version (Node 8): 1.0.0.14
+2026-02-10 10:46:29:811 MCU   @firmware version (Node 9): 1.0.0.14
+2026-02-10 10:46:29:937 MCU   @firmware version (Node 10): 1.0.0.14
+2026-02-10 10:46:30:022 MCU   @firmware version (Node 11): 1.0.0.16
+2026-02-10 10:46:30:148 MCU   @firmware version (Node 12): 1.0.0.14
+2026-02-10 10:46:30:212 MCU   @firmware operation mode (Node 3): 1
+2026-02-10 10:46:30:339 MCU   @firmware operation mode (Node 4): 1
+2026-02-10 10:46:30:340 MCU   @firmware support speed control
+2026-02-10 10:46:30:425 MCU   @firmware operation mode (Node 5): 1
+2026-02-10 10:46:30:534 MCU   @firmware operation mode (Node 6): 1
+2026-02-10 10:46:30:618 MCU   @firmware operation mode (Node 7): 1
+2026-02-10 10:46:30:724 MCU   @firmware operation mode (Node 8): 1
+2026-02-10 10:46:30:829 MCU   @firmware operation mode (Node 9): 1
+2026-02-10 10:46:30:915 MCU   @firmware operation mode (Node 10): 1
+2026-02-10 10:46:31:147 MCU   @firmware operation mode (Node 12): 1
+2026-02-10 10:46:31:233 MCU   @firmware acceptable error range (Node 3): 512
+2026-02-10 10:46:31:234 MCU   @[X] error range replaced with local set: 11741
+2026-02-10 10:46:31:359 MCU   @firmware acceptable error range (Node 4): 512
+2026-02-10 10:46:31:360 MCU   @[Y] error range replaced with local set: 11741
+2026-02-10 10:46:31:443 MCU   @firmware acceptable error range (Node 5): 512
+2026-02-10 10:46:31:444 MCU   @[V] error range replaced with local set: 6154
+2026-02-10 10:46:31:551 MCU   @firmware acceptable error range (Node 6): 512
+2026-02-10 10:46:31:552 MCU   @[H] error range replaced with local set: 6154
+2026-02-10 10:46:31:636 MCU   @firmware acceptable error range (Node 7): 512
+2026-02-10 10:46:31:640 MCU   @[N] error range replaced with local set: 19376
+2026-02-10 10:46:31:746 MCU   @firmware acceptable error range (Node 8): 512
+2026-02-10 10:46:31:748 MCU   @[R] error range replaced with local set: 4097
+2026-02-10 10:46:31:852 MCU   @firmware acceptable error range (Node 9): 512
+2026-02-10 10:46:31:858 MCU   @[P] error range replaced with local set: 4097
+2026-02-10 10:46:31:942 MCU   @firmware operation mode (Node 11): 1
+2026-02-10 10:46:32:047 MCU   @firmware acceptable error range (Node 12): 512
+2026-02-10 10:46:32:048 MCU   @[Z] error range replaced with local set: 17615
+
+2026-02-10 10:49:02:934 User  @factory menu selected (System Settings)
+
+2026-02-10 10:49:08:960 User  @system menu selected (About)
+
+2026-02-10 10:49:14:135 User  @system menu selected (Exit)
+2026-02-10 10:49:15:726 Info  @open needle guide command sent
+2026-02-10 10:49:16:783 Frame @frame grabber stopped
+2026-02-10 10:49:17:134 MCU   @robot moving stopped
+2026-02-10 10:49:18:251 MCU   @mcu controller stopped
+2026-02-10 10:49:18:485 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:49:22:851 Info  @UtlLogger instance created
+2026-02-10 10:49:22:851 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:49:23:301 Info  @MainWindow instance created
+
+2026-02-10 10:49:38:813 User  @user 'Doctor' login
+2026-02-10 10:49:45:918 Sec   @user Doctor changed password
+
+2026-02-10 10:49:47:232 User  @user updated password
+2026-02-10 10:49:47:288 Info  @UroBiopsy launched
+2026-02-10 10:49:47:289 Info  @SurgeryController instance created
+2026-02-10 10:49:47:291 Info  @Robot Unit: TX-05-07
+2026-02-10 10:49:47:352 Info  @VisualEngine instance created
+2026-02-10 10:49:49:513 MCU   @firmware version (Master): 1.0.0_004
+2026-02-10 10:49:49:513 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-10 10:49:49:680 MCU   @firmware version (Node 3): 1.0.0.14
+2026-02-10 10:49:49:764 MCU   @firmware version (Node 4): 1.0.0.14
+2026-02-10 10:49:49:868 MCU   @firmware version (Node 5): 1.0.0.14
+2026-02-10 10:49:49:950 MCU   @firmware version (Node 6): 1.0.0.14
+2026-02-10 10:49:50:075 MCU   @firmware version (Node 7): 1.0.0.14
+2026-02-10 10:49:50:101 Info  @needle guide opened
+2026-02-10 10:49:50:158 MCU   @firmware version (Node 8): 1.0.0.14
+2026-02-10 10:49:50:282 MCU   @firmware version (Node 9): 1.0.0.14
+2026-02-10 10:49:50:366 MCU   @firmware version (Node 10): 1.0.0.14
+2026-02-10 10:49:50:471 MCU   @firmware version (Node 11): 1.0.0.16
+2026-02-10 10:49:50:575 MCU   @firmware version (Node 12): 1.0.0.14
+2026-02-10 10:49:50:601 DEBUG @S.SC state (7, 24)
+2026-02-10 10:49:50:601 DEBUG @E.SC state (7, 24)
+2026-02-10 10:49:50:602 DEBUG @S.VE state (7, 24)
+2026-02-10 10:49:50:602 DEBUG @E.VE state (7, 24)
+2026-02-10 10:49:50:602 DEBUG @S.MW state (7, 24)
+2026-02-10 10:49:50:660 MCU   @firmware operation mode (Node 3): 1
+2026-02-10 10:49:50:764 MCU   @firmware operation mode (Node 4): 1
+2026-02-10 10:49:50:764 MCU   @firmware support speed control
+2026-02-10 10:49:50:868 MCU   @firmware operation mode (Node 5): 1
+2026-02-10 10:49:50:943 DEBUG @E.MW state (7, 24)
+2026-02-10 10:49:50:973 MCU   @firmware operation mode (Node 6): 1
+2026-02-10 10:49:51:077 MCU   @firmware operation mode (Node 7): 1
+2026-02-10 10:49:51:181 MCU   @firmware operation mode (Node 8): 1
+2026-02-10 10:49:51:264 MCU   @firmware operation mode (Node 9): 1
+2026-02-10 10:49:51:369 MCU   @firmware operation mode (Node 10): 1
+2026-02-10 10:49:51:596 MCU   @firmware operation mode (Node 12): 1
+2026-02-10 10:49:51:679 MCU   @firmware acceptable error range (Node 3): 512
+2026-02-10 10:49:51:680 MCU   @[X] error range replaced with local set: 11741
+2026-02-10 10:49:51:785 MCU   @firmware acceptable error range (Node 4): 512
+2026-02-10 10:49:51:785 MCU   @[Y] error range replaced with local set: 11741
+2026-02-10 10:49:51:890 MCU   @firmware acceptable error range (Node 5): 512
+2026-02-10 10:49:51:890 MCU   @[V] error range replaced with local set: 6154
+2026-02-10 10:49:51:994 MCU   @firmware acceptable error range (Node 6): 512
+2026-02-10 10:49:51:994 MCU   @[H] error range replaced with local set: 6154
+2026-02-10 10:49:52:099 MCU   @firmware acceptable error range (Node 7): 512
+2026-02-10 10:49:52:100 MCU   @[N] error range replaced with local set: 19376
+2026-02-10 10:49:52:203 MCU   @firmware acceptable error range (Node 8): 512
+2026-02-10 10:49:52:203 MCU   @[R] error range replaced with local set: 4097
+2026-02-10 10:49:52:266 MCU   @firmware acceptable error range (Node 9): 512
+2026-02-10 10:49:52:267 MCU   @[P] error range replaced with local set: 4097
+2026-02-10 10:49:52:302 Frame @frame grabber UVC device: USB Video
+2026-02-10 10:49:52:375 Frame @frame grabber connected
+2026-02-10 10:49:52:376 Frame @frame grabber started
+2026-02-10 10:49:52:392 MCU   @firmware operation mode (Node 11): 1
+2026-02-10 10:49:52:476 MCU   @firmware acceptable error range (Node 12): 512
+2026-02-10 10:49:52:477 MCU   @[Z] error range replaced with local set: 17615
+2026-02-10 10:49:53:384 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-10 10:50:58:671 User  @system menu selected (About)
+
+2026-02-10 10:51:02:869 User  @system menu selected (About)
+
+2026-02-10 10:51:11:063 User  @system menu selected (About)
+
+2026-02-10 10:51:33:936 User  @system menu selected (Language Setting)
+
+2026-02-10 10:51:38:003 User  @system menu selected (Exit)
+2026-02-10 10:51:39:478 Info  @open needle guide command sent
+2026-02-10 10:51:40:537 Frame @frame grabber stopped
+2026-02-10 10:51:40:991 MCU   @robot moving stopped
+2026-02-10 10:51:42:107 MCU   @mcu controller stopped
+2026-02-10 10:51:42:344 Info  @UroBiopsy exited 
+
+
+
+2026-02-10 10:57:46:094 Info  @UtlLogger instance created
+2026-02-10 10:57:46:095 Info  @starting UroBiopsy (SVN 1003)
+2026-02-10 10:57:46:548 Info  @MainWindow instance created
+
+2026-02-10 10:57:59:490 User  @user 'service' login
+2026-02-10 10:57:59:543 Info  @UroBiopsy launched
+2026-02-10 10:57:59:543 Info  @SurgeryController instance created
+2026-02-10 10:57:59:548 Info  @Robot Unit: TX-05-07
+2026-02-10 10:57:59:618 Info  @VisualEngine instance created
+2026-02-10 10:58:01:769 MCU   @firmware version (Master): 1.0.0_004
+2026-02-10 10:58:01:770 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-10 10:58:01:919 MCU   @firmware version (Node 3): 1.0.0.14
+2026-02-10 10:58:02:043 MCU   @firmware version (Node 4): 1.0.0.14
+2026-02-10 10:58:02:127 MCU   @firmware version (Node 5): 1.0.0.14
+2026-02-10 10:58:02:254 MCU   @firmware version (Node 6): 1.0.0.14
+2026-02-10 10:58:02:337 MCU   @firmware version (Node 7): 1.0.0.14
+2026-02-10 10:58:02:421 MCU   @firmware version (Node 8): 1.0.0.14
+2026-02-10 10:58:02:525 MCU   @firmware version (Node 9): 1.0.0.14
+2026-02-10 10:58:02:630 MCU   @firmware version (Node 10): 1.0.0.14
+2026-02-10 10:58:02:735 MCU   @firmware version (Node 11): 1.0.0.16
+2026-02-10 10:58:02:818 MCU   @firmware version (Node 12): 1.0.0.14
+2026-02-10 10:58:02:913 DEBUG @S.SC state (7, 24)
+2026-02-10 10:58:02:913 DEBUG @E.SC state (7, 24)
+2026-02-10 10:58:02:914 DEBUG @S.VE state (7, 24)
+2026-02-10 10:58:02:914 DEBUG @E.VE state (7, 24)
+2026-02-10 10:58:02:915 DEBUG @S.MW state (7, 24)
+2026-02-10 10:58:02:944 MCU   @firmware operation mode (Node 3): 1
+2026-02-10 10:58:03:048 MCU   @firmware operation mode (Node 4): 1
+2026-02-10 10:58:03:050 MCU   @firmware support speed control
+2026-02-10 10:58:03:134 MCU   @firmware operation mode (Node 5): 1
+2026-02-10 10:58:03:219 MCU   @firmware operation mode (Node 6): 1
+2026-02-10 10:58:03:266 DEBUG @E.MW state (7, 24)
+2026-02-10 10:58:03:344 MCU   @firmware operation mode (Node 7): 1
+2026-02-10 10:58:03:427 MCU   @firmware operation mode (Node 8): 1
+2026-02-10 10:58:03:551 MCU   @firmware operation mode (Node 9): 1
+2026-02-10 10:58:03:635 MCU   @firmware operation mode (Node 10): 1
+2026-02-10 10:58:03:841 MCU   @firmware operation mode (Node 12): 1
+2026-02-10 10:58:03:965 MCU   @firmware acceptable error range (Node 3): 512
+2026-02-10 10:58:03:965 MCU   @[X] error range replaced with local set: 11741
+2026-02-10 10:58:04:049 MCU   @firmware acceptable error range (Node 4): 512
+2026-02-10 10:58:04:049 MCU   @[Y] error range replaced with local set: 11741
+2026-02-10 10:58:04:173 MCU   @firmware acceptable error range (Node 5): 512
+2026-02-10 10:58:04:174 MCU   @[V] error range replaced with local set: 6154
+2026-02-10 10:58:04:237 MCU   @firmware acceptable error range (Node 6): 512
+2026-02-10 10:58:04:237 MCU   @[H] error range replaced with local set: 6154
+2026-02-10 10:58:04:361 MCU   @firmware acceptable error range (Node 7): 512
+2026-02-10 10:58:04:361 MCU   @[N] error range replaced with local set: 19376
+2026-02-10 10:58:04:444 MCU   @firmware acceptable error range (Node 8): 512
+2026-02-10 10:58:04:444 MCU   @[R] error range replaced with local set: 4097
+2026-02-10 10:58:04:556 Frame @frame grabber UVC device: USB Video
+2026-02-10 10:58:04:568 MCU   @firmware acceptable error range (Node 9): 512
+2026-02-10 10:58:04:568 MCU   @[P] error range replaced with local set: 4097
+2026-02-10 10:58:04:628 Frame @frame grabber connected
+2026-02-10 10:58:04:628 Frame @frame grabber started
+2026-02-10 10:58:04:654 MCU   @firmware operation mode (Node 11): 1
+2026-02-10 10:58:04:756 MCU   @firmware acceptable error range (Node 12): 512
+2026-02-10 10:58:04:757 MCU   @[Z] error range replaced with local set: 17615
+2026-02-10 10:58:05:650 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-10 10:58:29:233 User  @on_startInitRobot_clicked
+2026-02-10 10:58:33:760 Info  @switch LED light to Red
+2026-02-10 10:58:33:761 DEBUG @S.SC state (7, 25)
+2026-02-10 10:58:33:761 DEBUG @E.SC state (7, 25)
+2026-02-10 10:58:33:761 DEBUG @S.VE state (7, 25)
+2026-02-10 10:58:33:761 DEBUG @E.VE state (7, 25)
+2026-02-10 10:58:33:762 DEBUG @S.MW state (7, 25)
+2026-02-10 10:58:33:811 DEBUG @E.MW state (7, 25)
+2026-02-10 10:58:33:875 MCU   @set motor P sensors to 'stop'
+2026-02-10 10:58:33:877 MCU   @set motor R sensors to 'stop'
+2026-02-10 10:58:33:901 MCU   @[X] start searching reference
+2026-02-10 10:58:34:248 MCU   @[Y] start searching reference
+2026-02-10 10:58:34:593 MCU   @[Z] start searching reference
+2026-02-10 10:58:42:898 MCU   @[Y] stopped by sensor L
+2026-02-10 10:58:42:899 MCU   @[Y] reset physical position to 0
+2026-02-10 10:58:43:101 MCU   @[Y] reference found (SENSOR)
+2026-02-10 10:58:43:101 MCU   @[Y] max: 0.00
+2026-02-10 10:58:43:101 MCU   @[P] start searching reference
+2026-02-10 10:58:43:447 MCU   @[N] start searching reference
+2026-02-10 10:58:44:707 MCU   @[X] stopped by sensor L
+2026-02-10 10:58:44:707 MCU   @[X] reset physical position to 0
+2026-02-10 10:58:44:909 MCU   @[X] reference found (SENSOR)
+2026-02-10 10:58:44:909 MCU   @[X] max: 0.00
+2026-02-10 10:58:45:300 MCU   @[P] stopped by sensor L
+2026-02-10 10:58:45:301 MCU   @[P] reset physical position to 0
+2026-02-10 10:58:45:503 MCU   @[P] reference found (SENSOR)
+2026-02-10 10:58:45:503 MCU   @[P] max: 0.00
+2026-02-10 10:58:45:504 MCU   @[Y] start clearing: -19.50
+2026-02-10 10:58:48:049 MCU   @[N] stopped by sensor L
+2026-02-10 10:58:48:049 MCU   @[N] reset physical position to 0
+2026-02-10 10:58:48:251 MCU   @[N] reference found (SENSOR)
+2026-02-10 10:58:48:251 MCU   @[N] min: 0.00
+2026-02-10 10:58:48:642 MCU   @[Z] stopped by sensor L
+2026-02-10 10:58:48:643 MCU   @[Z] reset physical position to 0
+2026-02-10 10:58:48:845 MCU   @[Z] reference found (SENSOR)
+2026-02-10 10:58:48:847 MCU   @[Z] max: 0.00
+2026-02-10 10:58:52:451 MCU   @[Y] motor cleared
+2026-02-10 10:58:52:451 MCU   @[Y] min: -29.51
+2026-02-10 10:58:52:452 MCU   @[Z] start clearing: -50.00
+2026-02-10 10:58:52:476 MCU   @[Y] start moving to max pos: -3.00
+2026-02-10 10:58:52:499 MCU   @[P] start clearing: -165.00
+2026-02-10 10:58:52:521 MCU   @[N] start clearing: 69.50
+2026-02-10 10:58:52:542 MCU   @[X] start clearing: -22.00
+2026-02-10 10:58:52:567 MCU   @[H] start searching reference
+2026-02-10 10:58:57:888 MCU   @[H] stopped by sensor L
+2026-02-10 10:58:57:888 MCU   @[H] reset physical position to 0
+2026-02-10 10:58:58:090 MCU   @[H] reference found (SENSOR)
+2026-02-10 10:58:58:091 MCU   @[H] max: 0.00
+2026-02-10 10:58:58:112 MCU   @[H] start clearing: -49.00
+2026-02-10 10:59:00:310 MCU   @[X] motor cleared
+2026-02-10 10:59:00:311 MCU   @[X] min: -32.01
+2026-02-10 10:59:00:513 MCU   @[X] start moving to max pos: -3.00
+2026-02-10 10:59:01:729 MCU   @[Y] motor reached max pos
+2026-02-10 10:59:02:332 MCU   @[P] motor cleared
+2026-02-10 10:59:02:332 MCU   @[P] min: -165.02
+2026-02-10 10:59:02:534 MCU   @[P] start moving to home: -1.00
+2026-02-10 10:59:06:761 MCU   @[H] motor cleared
+2026-02-10 10:59:06:761 MCU   @[H] min: -49.03
+2026-02-10 10:59:06:963 MCU   @[H] start moving to home: -25.00
+2026-02-10 10:59:10:185 MCU   @[X] motor reached max pos
+2026-02-10 10:59:11:189 MCU   @[H] motor homed
+2026-02-10 10:59:11:189 MCU   @[V] start searching reference
+2026-02-10 10:59:12:297 MCU   @[P] motor homed
+2026-02-10 10:59:12:298 MCU   @[R] start searching reference
+2026-02-10 10:59:15:613 MCU   @[Z] motor cleared
+2026-02-10 10:59:15:614 MCU   @[Z] min: -50.01
+2026-02-10 10:59:15:815 MCU   @[Z] start moving to home: -34.90
+2026-02-10 10:59:17:029 MCU   @[V] stopped by sensor L
+2026-02-10 10:59:17:231 MCU   @[V] reset physical position to 0
+2026-02-10 10:59:17:433 MCU   @[V] reference found (SENSOR)
+2026-02-10 10:59:17:433 MCU   @[V] max: 0.00
+2026-02-10 10:59:17:459 MCU   @[N] motor cleared
+2026-02-10 10:59:17:459 MCU   @[N] max: 69.52
+2026-02-10 10:59:17:459 MCU   @[V] start clearing: -49.00
+2026-02-10 10:59:17:481 MCU   @[N] start moving to home: 10.47
+2026-02-10 10:59:19:679 MCU   @[R] stopped by sensor R
+2026-02-10 10:59:19:679 MCU   @[R] reset physical position to 0
+2026-02-10 10:59:19:880 MCU   @[R] reference found (SENSOR)
+2026-02-10 10:59:19:880 MCU   @[R] max: 0.00
+2026-02-10 10:59:19:903 MCU   @[R] start clearing: -119.00
+2026-02-10 10:59:22:893 MCU   @[Z] motor homed
+2026-02-10 10:59:26:309 MCU   @[V] motor cleared
+2026-02-10 10:59:26:310 MCU   @[V] min: -49.03
+2026-02-10 10:59:26:511 MCU   @[V] start moving to home: -25.00
+2026-02-10 10:59:32:341 MCU   @[V] motor homed
+2026-02-10 10:59:32:341 MCU   @[X] start moving to home: -20.44
+2026-02-10 10:59:32:363 MCU   @[Y] start moving to home: -13.69
+2026-02-10 10:59:33:684 MCU   @[R] motor cleared
+2026-02-10 10:59:33:685 MCU   @[R] min: -119.04
+2026-02-10 10:59:33:887 MCU   @[R] start moving to home: -60.00
+2026-02-10 10:59:36:509 MCU   @[Y] motor homed
+2026-02-10 10:59:38:117 MCU   @[X] motor homed
+2026-02-10 10:59:38:520 MCU   @[N] motor homed
+2026-02-10 10:59:40:729 MCU   @[R] motor homed
+2026-02-10 10:59:40:729 MCU   @set motor P sensors to 'nonstop'
+2026-02-10 10:59:40:730 MCU   @set motor R sensors to 'nonstop'
+2026-02-10 10:59:40:730 MCU   @robot initialization done (66860ms)
+2026-02-10 10:59:40:765 Info  @system actual [32.95,-9.99,-0.01,39.95,0.01,0.04,79.98,0.03]
+2026-02-10 10:59:40:766 Info  @switch LED light to Green
+2026-02-10 10:59:41:267 Info  @open needle guide command sent
+2026-02-10 10:59:41:268 DEBUG @S.SC state (7, 26)
+2026-02-10 10:59:41:268 DEBUG @E.SC state (7, 26)
+2026-02-10 10:59:41:269 DEBUG @S.VE state (7, 26)
+2026-02-10 10:59:41:269 DEBUG @E.VE state (7, 26)
+2026-02-10 10:59:41:270 DEBUG @S.MW state (7, 26)
+2026-02-10 10:59:41:359 DEBUG @E.MW state (7, 26)
+
+2026-02-10 10:59:41:510 User  @on_startCreateCase_clicked
+2026-02-10 10:59:41:903 Info  @needle guide opened
+
+2026-02-10 10:59:44:642 User  @on_startInitRobot_clicked
+2026-02-10 10:59:46:274 Info  @switch LED light to Red
+2026-02-10 10:59:46:275 DEBUG @S.SC state (7, 25)
+2026-02-10 10:59:46:275 DEBUG @E.SC state (7, 25)
+2026-02-10 10:59:46:276 DEBUG @S.VE state (7, 25)
+2026-02-10 10:59:46:276 DEBUG @E.VE state (7, 25)
+2026-02-10 10:59:46:276 DEBUG @S.MW state (7, 25)
+2026-02-10 10:59:46:319 DEBUG @E.MW state (7, 25)
+2026-02-10 10:59:46:338 MCU   @set motor P sensors to 'stop'
+2026-02-10 10:59:46:341 MCU   @set motor R sensors to 'stop'
+2026-02-10 10:59:46:364 MCU   @[X] start searching reference
+2026-02-10 10:59:46:709 MCU   @[Y] start searching reference
+2026-02-10 10:59:47:055 MCU   @[Z] start searching reference
+2026-02-10 10:59:55:368 MCU   @[Y] stopped by sensor L
+2026-02-10 10:59:55:369 MCU   @[Y] reset physical position to 0
+2026-02-10 10:59:55:570 MCU   @[Y] reference found (SENSOR)
+2026-02-10 10:59:55:570 MCU   @[Y] max: 0.00
+2026-02-10 10:59:55:571 MCU   @[P] start searching reference
+2026-02-10 10:59:55:916 MCU   @[N] start searching reference
+2026-02-10 10:59:56:707 MCU   @[P] stopped by sensor L
+2026-02-10 10:59:56:751 MCU   @[P] reset physical position to 0
+2026-02-10 10:59:56:956 MCU   @[P] reference found (SENSOR)
+2026-02-10 10:59:56:956 MCU   @[P] max: 0.00
+2026-02-10 10:59:56:956 MCU   @[Y] start clearing: -19.50
+2026-02-10 10:59:57:676 MCU   @[X] stopped by sensor L
+2026-02-10 10:59:57:677 MCU   @[X] reset physical position to 0
+2026-02-10 10:59:57:878 MCU   @[X] reference found (SENSOR)
+2026-02-10 10:59:57:878 MCU   @[X] max: 0.00
+2026-02-10 11:00:00:478 MCU   @[N] stopped by sensor L
+2026-02-10 11:00:00:478 MCU   @[N] reset physical position to 0
+2026-02-10 11:00:00:681 MCU   @[N] reference found (SENSOR)
+2026-02-10 11:00:00:681 MCU   @[N] min: 0.00
+2026-02-10 11:00:03:884 MCU   @[Y] motor cleared
+2026-02-10 11:00:03:884 MCU   @[Y] min: -29.51
+2026-02-10 11:00:03:884 MCU   @[P] start clearing: -165.00
+2026-02-10 11:00:03:908 MCU   @[Y] start moving to max pos: -3.00
+2026-02-10 11:00:03:930 MCU   @[N] start clearing: 69.50
+2026-02-10 11:00:03:952 MCU   @[X] start clearing: -22.00
+2026-02-10 11:00:03:974 MCU   @[H] start searching reference
+2026-02-10 11:00:04:298 MCU   @[Z] stopped by sensor L
+2026-02-10 11:00:04:298 MCU   @[Z] reset physical position to 0
+2026-02-10 11:00:04:622 MCU   @[Z] reference found (SENSOR)
+2026-02-10 11:00:04:623 MCU   @[Z] max: 0.00
+2026-02-10 11:00:04:644 MCU   @[Z] start clearing: -50.00
+2026-02-10 11:00:08:948 MCU   @[H] stopped by sensor L
+2026-02-10 11:00:09:150 MCU   @[H] reset physical position to 0
+2026-02-10 11:00:09:351 MCU   @[H] reference found (SENSOR)
+2026-02-10 11:00:09:351 MCU   @[H] max: 0.00
+2026-02-10 11:00:09:374 MCU   @[H] start clearing: -49.00
+2026-02-10 11:00:11:550 MCU   @[X] motor cleared
+2026-02-10 11:00:11:550 MCU   @[X] min: -32.01
+2026-02-10 11:00:11:752 MCU   @[X] start moving to max pos: -3.00
+2026-02-10 11:00:13:170 MCU   @[Y] motor reached max pos
+2026-02-10 11:00:13:573 MCU   @[P] motor cleared
+2026-02-10 11:00:13:573 MCU   @[P] min: -165.02
+2026-02-10 11:00:13:774 MCU   @[P] start moving to home: -1.00
+2026-02-10 11:00:17:982 MCU   @[H] motor cleared
+2026-02-10 11:00:17:982 MCU   @[H] min: -49.03
+2026-02-10 11:00:18:183 MCU   @[H] start moving to home: -25.00
+2026-02-10 11:00:21:408 MCU   @[X] motor reached max pos
+2026-02-10 11:00:22:413 MCU   @[H] motor homed
+2026-02-10 11:00:22:413 MCU   @[V] start searching reference
+2026-02-10 11:00:23:541 MCU   @[P] motor homed
+2026-02-10 11:00:23:541 MCU   @[R] start searching reference
+2026-02-10 11:00:28:263 MCU   @[Z] motor cleared
+2026-02-10 11:00:28:264 MCU   @[Z] min: -50.01
+2026-02-10 11:00:28:264 MCU   @[V] stopped by sensor L
+2026-02-10 11:00:28:265 MCU   @[V] reset physical position to 0
+2026-02-10 11:00:28:466 MCU   @[Z] start moving to home: -34.90
+2026-02-10 11:00:28:489 MCU   @[V] reference found (SENSOR)
+2026-02-10 11:00:28:489 MCU   @[V] max: 0.00
+2026-02-10 11:00:28:511 MCU   @[V] start clearing: -49.00
+2026-02-10 11:00:28:555 MCU   @[N] motor cleared
+2026-02-10 11:00:28:557 MCU   @[N] max: 69.52
+2026-02-10 11:00:28:579 MCU   @[N] start moving to home: 10.47
+2026-02-10 11:00:31:039 MCU   @[R] stopped by sensor R
+2026-02-10 11:00:31:040 MCU   @[R] reset physical position to 0
+2026-02-10 11:00:31:241 MCU   @[R] reference found (SENSOR)
+2026-02-10 11:00:31:241 MCU   @[R] max: 0.00
+2026-02-10 11:00:31:263 MCU   @[R] start clearing: -119.00
+2026-02-10 11:00:35:442 MCU   @[Z] motor homed
+2026-02-10 11:00:37:454 MCU   @[V] motor cleared
+2026-02-10 11:00:37:454 MCU   @[V] min: -49.03
+2026-02-10 11:00:37:655 MCU   @[V] start moving to home: -25.00
+2026-02-10 11:00:43:491 MCU   @[V] motor homed
+2026-02-10 11:00:43:492 MCU   @[X] start moving to home: -20.44
+2026-02-10 11:00:43:514 MCU   @[Y] start moving to home: -13.69
+2026-02-10 11:00:45:019 MCU   @[R] motor cleared
+2026-02-10 11:00:45:019 MCU   @[R] min: -119.04
+2026-02-10 11:00:45:220 MCU   @[R] start moving to home: -60.00
+2026-02-10 11:00:47:639 MCU   @[Y] motor homed
+2026-02-10 11:00:49:247 MCU   @[X] motor homed
+2026-02-10 11:00:49:651 MCU   @[N] motor homed
+2026-02-10 11:00:52:065 MCU   @[R] motor homed
+2026-02-10 11:00:52:066 MCU   @set motor P sensors to 'nonstop'
+2026-02-10 11:00:52:066 MCU   @set motor R sensors to 'nonstop'
+2026-02-10 11:00:52:066 MCU   @robot initialization done (65719ms)
+2026-02-10 11:00:52:078 Info  @system actual [32.96,-9.99,-0.01,39.95,0.01,0.04,79.98,0.04]
+2026-02-10 11:00:52:079 Info  @switch LED light to Green
+2026-02-10 11:00:52:580 DEBUG @S.SC state (7, 26)
+2026-02-10 11:00:52:580 DEBUG @E.SC state (7, 26)
+2026-02-10 11:00:52:580 DEBUG @S.VE state (7, 26)
+2026-02-10 11:00:52:581 DEBUG @E.VE state (7, 26)
+2026-02-10 11:00:52:581 DEBUG @S.MW state (7, 26)
+2026-02-10 11:00:52:768 DEBUG @E.MW state (7, 26)
+
+2026-02-10 11:00:52:784 User  @on_startCreateCase_clicked
+
+2026-02-10 11:01:06:441 User  @factory menu selected (Mechanical Calibration)
+2026-02-10 11:01:06:444 DEBUG @S.SC state (0, 0)
+2026-02-10 11:01:06:445 DEBUG @E.SC state (0, 0)
+2026-02-10 11:01:06:445 DEBUG @S.VE state (0, 0)
+2026-02-10 11:01:06:445 DEBUG @E.VE state (0, 0)
+2026-02-10 11:01:06:446 DEBUG @S.MW state (0, 0)
+2026-02-10 11:01:06:480 DEBUG @E.MW state (0, 0)
+2026-02-10 11:01:06:481 DEBUG @S.SC state (0, 2)
+2026-02-10 11:01:06:482 DEBUG @E.SC state (0, 2)
+2026-02-10 11:01:06:482 DEBUG @S.VE state (0, 2)
+2026-02-10 11:01:06:483 DEBUG @E.VE state (0, 2)
+2026-02-10 11:01:06:484 DEBUG @S.MW state (0, 2)
+2026-02-10 11:01:06:500 DEBUG @E.MW state (0, 2)
+2026-02-10 11:06:58:573 Info  @needle guide closed
+2026-02-10 11:07:16:415 Info  @needle guide opened
+2026-02-10 11:07:17:634 Info  @needle guide closed
+2026-02-10 11:07:17:820 Info  @needle guide opened
+2026-02-10 11:07:20:830 Info  @needle guide closed
+2026-02-10 11:07:39:693 Info  @needle guide opened
+2026-02-10 11:07:42:303 Info  @needle guide closed
+2026-02-10 11:08:03:972 Info  @needle guide opened
+2026-02-10 11:08:05:778 Info  @needle guide closed
+2026-02-10 11:08:07:587 Info  @needle guide opened
+2026-02-10 11:08:18:626 Info  @needle guide closed
+2026-02-10 11:08:23:644 Info  @needle guide opened
+
+2026-02-10 11:09:14:995 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:09:14:996 Info  @switch LED light to Red
+2026-02-10 11:09:14:996 DEBUG @S.SC state (0, 1)
+2026-02-10 11:09:14:997 DEBUG @E.SC state (0, 1)
+2026-02-10 11:09:14:997 DEBUG @S.VE state (0, 1)
+2026-02-10 11:09:14:998 DEBUG @E.VE state (0, 1)
+2026-02-10 11:09:14:998 DEBUG @S.MW state (0, 1)
+2026-02-10 11:09:15:019 DEBUG @E.MW state (0, 1)
+2026-02-10 11:09:15:909 MCU   @robot moving (absolute) done (860ms)
+2026-02-10 11:09:15:914 Info  @system actual [32.96,-9.99,0.40,39.91,0.01,0.04,79.98,0.04]
+2026-02-10 11:09:15:914 Info  @switch LED light to Green
+2026-02-10 11:09:15:915 DEBUG @S.SC state (0, 2)
+2026-02-10 11:09:15:915 DEBUG @E.SC state (0, 2)
+2026-02-10 11:09:15:916 DEBUG @S.VE state (0, 2)
+2026-02-10 11:09:15:916 DEBUG @E.VE state (0, 2)
+2026-02-10 11:09:15:917 DEBUG @S.MW state (0, 2)
+2026-02-10 11:09:15:931 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:09:32:061 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:09:32:062 Info  @switch LED light to Red
+2026-02-10 11:09:32:063 DEBUG @S.SC state (0, 1)
+2026-02-10 11:09:32:064 DEBUG @E.SC state (0, 1)
+2026-02-10 11:09:32:064 DEBUG @S.VE state (0, 1)
+2026-02-10 11:09:32:065 DEBUG @E.VE state (0, 1)
+2026-02-10 11:09:32:065 DEBUG @S.MW state (0, 1)
+2026-02-10 11:09:32:079 DEBUG @E.MW state (0, 1)
+2026-02-10 11:09:33:046 MCU   @robot moving (absolute) done (875ms)
+2026-02-10 11:09:33:049 Info  @system actual [32.96,-9.99,0.81,39.87,0.01,0.04,79.98,0.04]
+2026-02-10 11:09:33:049 Info  @switch LED light to Green
+2026-02-10 11:09:33:050 DEBUG @S.SC state (0, 2)
+2026-02-10 11:09:33:050 DEBUG @E.SC state (0, 2)
+2026-02-10 11:09:33:050 DEBUG @S.VE state (0, 2)
+2026-02-10 11:09:33:051 DEBUG @E.VE state (0, 2)
+2026-02-10 11:09:33:051 DEBUG @S.MW state (0, 2)
+2026-02-10 11:09:33:065 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:10:45:809 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:10:45:809 Info  @switch LED light to Red
+2026-02-10 11:10:45:810 DEBUG @S.SC state (0, 1)
+2026-02-10 11:10:45:810 DEBUG @E.SC state (0, 1)
+2026-02-10 11:10:45:810 DEBUG @S.VE state (0, 1)
+2026-02-10 11:10:45:811 DEBUG @E.VE state (0, 1)
+2026-02-10 11:10:45:811 DEBUG @S.MW state (0, 1)
+2026-02-10 11:10:45:859 DEBUG @E.MW state (0, 1)
+2026-02-10 11:10:46:778 MCU   @robot moving (absolute) done (844ms)
+2026-02-10 11:10:46:782 Info  @system actual [32.96,-9.99,0.80,40.25,0.01,0.04,79.98,0.04]
+2026-02-10 11:10:46:782 Info  @switch LED light to Green
+2026-02-10 11:10:46:783 DEBUG @S.SC state (0, 2)
+2026-02-10 11:10:46:783 DEBUG @E.SC state (0, 2)
+2026-02-10 11:10:46:783 DEBUG @S.VE state (0, 2)
+2026-02-10 11:10:46:784 DEBUG @E.VE state (0, 2)
+2026-02-10 11:10:46:784 DEBUG @S.MW state (0, 2)
+2026-02-10 11:10:46:802 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:10:47:235 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:10:47:236 Info  @switch LED light to Red
+2026-02-10 11:10:47:236 DEBUG @S.SC state (0, 1)
+2026-02-10 11:10:47:237 DEBUG @E.SC state (0, 1)
+2026-02-10 11:10:47:237 DEBUG @S.VE state (0, 1)
+2026-02-10 11:10:47:237 DEBUG @E.VE state (0, 1)
+2026-02-10 11:10:47:238 DEBUG @S.MW state (0, 1)
+2026-02-10 11:10:47:250 DEBUG @E.MW state (0, 1)
+2026-02-10 11:10:48:280 MCU   @robot moving (absolute) done (860ms)
+2026-02-10 11:10:48:282 Info  @system actual [32.96,-9.99,0.80,40.63,0.01,0.04,79.98,0.04]
+2026-02-10 11:10:48:282 Info  @switch LED light to Green
+2026-02-10 11:10:48:283 DEBUG @S.SC state (0, 2)
+2026-02-10 11:10:48:283 DEBUG @E.SC state (0, 2)
+2026-02-10 11:10:48:283 DEBUG @S.VE state (0, 2)
+2026-02-10 11:10:48:284 DEBUG @E.VE state (0, 2)
+2026-02-10 11:10:48:284 DEBUG @S.MW state (0, 2)
+2026-02-10 11:10:48:305 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:10:48:666 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:10:48:667 Info  @switch LED light to Red
+2026-02-10 11:10:48:667 DEBUG @S.SC state (0, 1)
+2026-02-10 11:10:48:668 DEBUG @E.SC state (0, 1)
+2026-02-10 11:10:48:669 DEBUG @S.VE state (0, 1)
+2026-02-10 11:10:48:669 DEBUG @E.VE state (0, 1)
+2026-02-10 11:10:48:669 DEBUG @S.MW state (0, 1)
+2026-02-10 11:10:48:728 DEBUG @E.MW state (0, 1)
+2026-02-10 11:10:49:565 MCU   @robot moving (absolute) done (875ms)
+2026-02-10 11:10:49:587 Info  @system actual [32.96,-9.99,0.79,41.01,0.01,0.04,79.98,0.04]
+2026-02-10 11:10:49:587 Info  @switch LED light to Green
+2026-02-10 11:10:49:588 DEBUG @S.SC state (0, 2)
+2026-02-10 11:10:49:588 DEBUG @E.SC state (0, 2)
+2026-02-10 11:10:49:588 DEBUG @S.VE state (0, 2)
+2026-02-10 11:10:49:589 DEBUG @E.VE state (0, 2)
+2026-02-10 11:10:49:589 DEBUG @S.MW state (0, 2)
+2026-02-10 11:10:49:601 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:10:49:830 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:10:49:831 Info  @switch LED light to Red
+2026-02-10 11:10:49:831 DEBUG @S.SC state (0, 1)
+2026-02-10 11:10:49:832 DEBUG @E.SC state (0, 1)
+2026-02-10 11:10:49:832 DEBUG @S.VE state (0, 1)
+2026-02-10 11:10:49:833 DEBUG @E.VE state (0, 1)
+2026-02-10 11:10:49:833 DEBUG @S.MW state (0, 1)
+2026-02-10 11:10:49:847 DEBUG @E.MW state (0, 1)
+2026-02-10 11:10:50:765 MCU   @robot moving (absolute) done (906ms)
+2026-02-10 11:10:50:781 Info  @system actual [32.96,-9.99,0.78,41.39,0.01,0.04,79.98,0.04]
+2026-02-10 11:10:50:781 Info  @switch LED light to Green
+2026-02-10 11:10:50:782 DEBUG @S.SC state (0, 2)
+2026-02-10 11:10:50:783 DEBUG @E.SC state (0, 2)
+2026-02-10 11:10:50:784 DEBUG @S.VE state (0, 2)
+2026-02-10 11:10:50:784 DEBUG @E.VE state (0, 2)
+2026-02-10 11:10:50:784 DEBUG @S.MW state (0, 2)
+2026-02-10 11:10:50:824 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:10:50:926 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:10:50:926 Info  @switch LED light to Red
+2026-02-10 11:10:50:926 DEBUG @S.SC state (0, 1)
+2026-02-10 11:10:50:927 DEBUG @E.SC state (0, 1)
+2026-02-10 11:10:50:927 DEBUG @S.VE state (0, 1)
+2026-02-10 11:10:50:927 DEBUG @E.VE state (0, 1)
+2026-02-10 11:10:50:927 DEBUG @S.MW state (0, 1)
+2026-02-10 11:10:50:943 DEBUG @E.MW state (0, 1)
+2026-02-10 11:10:52:011 MCU   @robot moving (absolute) done (1000ms)
+2026-02-10 11:10:52:018 Info  @system actual [32.96,-9.99,0.78,41.77,0.01,0.04,79.98,0.04]
+2026-02-10 11:10:52:019 Info  @switch LED light to Green
+2026-02-10 11:10:52:019 DEBUG @S.SC state (0, 2)
+2026-02-10 11:10:52:019 DEBUG @E.SC state (0, 2)
+2026-02-10 11:10:52:020 DEBUG @S.VE state (0, 2)
+2026-02-10 11:10:52:020 DEBUG @E.VE state (0, 2)
+2026-02-10 11:10:52:020 DEBUG @S.MW state (0, 2)
+2026-02-10 11:10:52:059 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:10:52:173 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:10:52:174 Info  @switch LED light to Red
+2026-02-10 11:10:52:174 DEBUG @S.SC state (0, 1)
+2026-02-10 11:10:52:175 DEBUG @E.SC state (0, 1)
+2026-02-10 11:10:52:175 DEBUG @S.VE state (0, 1)
+2026-02-10 11:10:52:175 DEBUG @E.VE state (0, 1)
+2026-02-10 11:10:52:176 DEBUG @S.MW state (0, 1)
+2026-02-10 11:10:52:226 DEBUG @E.MW state (0, 1)
+2026-02-10 11:10:53:254 MCU   @robot moving (absolute) done (1000ms)
+2026-02-10 11:10:53:270 Info  @system actual [32.96,-9.99,0.77,42.15,0.01,0.04,79.98,0.04]
+2026-02-10 11:10:53:270 Info  @switch LED light to Green
+2026-02-10 11:10:53:271 DEBUG @S.SC state (0, 2)
+2026-02-10 11:10:53:271 DEBUG @E.SC state (0, 2)
+2026-02-10 11:10:53:272 DEBUG @S.VE state (0, 2)
+2026-02-10 11:10:53:273 DEBUG @E.VE state (0, 2)
+2026-02-10 11:10:53:273 DEBUG @S.MW state (0, 2)
+2026-02-10 11:10:53:289 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:10:53:609 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:10:53:610 Info  @switch LED light to Red
+2026-02-10 11:10:53:610 DEBUG @S.SC state (0, 1)
+2026-02-10 11:10:53:610 DEBUG @E.SC state (0, 1)
+2026-02-10 11:10:53:610 DEBUG @S.VE state (0, 1)
+2026-02-10 11:10:53:610 DEBUG @E.VE state (0, 1)
+2026-02-10 11:10:53:611 DEBUG @S.MW state (0, 1)
+2026-02-10 11:10:53:657 DEBUG @E.MW state (0, 1)
+2026-02-10 11:10:54:539 MCU   @robot moving (absolute) done (890ms)
+2026-02-10 11:10:54:542 Info  @system actual [32.96,-9.99,0.77,42.53,0.01,0.04,79.98,0.04]
+2026-02-10 11:10:54:542 Info  @switch LED light to Green
+2026-02-10 11:10:54:542 DEBUG @S.SC state (0, 2)
+2026-02-10 11:10:54:543 DEBUG @E.SC state (0, 2)
+2026-02-10 11:10:54:543 DEBUG @S.VE state (0, 2)
+2026-02-10 11:10:54:543 DEBUG @E.VE state (0, 2)
+2026-02-10 11:10:54:543 DEBUG @S.MW state (0, 2)
+2026-02-10 11:10:54:560 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:10:54:638 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:10:54:639 Info  @switch LED light to Red
+2026-02-10 11:10:54:639 DEBUG @S.SC state (0, 1)
+2026-02-10 11:10:54:640 DEBUG @E.SC state (0, 1)
+2026-02-10 11:10:54:640 DEBUG @S.VE state (0, 1)
+2026-02-10 11:10:54:641 DEBUG @E.VE state (0, 1)
+2026-02-10 11:10:54:641 DEBUG @S.MW state (0, 1)
+2026-02-10 11:10:54:706 DEBUG @E.MW state (0, 1)
+2026-02-10 11:10:55:797 MCU   @robot moving (absolute) done (1015ms)
+2026-02-10 11:10:55:802 Info  @system actual [32.96,-9.99,0.76,42.92,0.01,0.04,79.98,0.04]
+2026-02-10 11:10:55:803 Info  @switch LED light to Green
+2026-02-10 11:10:55:803 DEBUG @S.SC state (0, 2)
+2026-02-10 11:10:55:804 DEBUG @E.SC state (0, 2)
+2026-02-10 11:10:55:804 DEBUG @S.VE state (0, 2)
+2026-02-10 11:10:55:804 DEBUG @E.VE state (0, 2)
+2026-02-10 11:10:55:804 DEBUG @S.MW state (0, 2)
+2026-02-10 11:10:55:817 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:08:962 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:11:08:963 Info  @switch LED light to Red
+2026-02-10 11:11:08:963 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:08:964 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:08:964 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:08:965 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:08:965 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:08:986 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:09:964 MCU   @robot moving (absolute) done (890ms)
+2026-02-10 11:11:10:000 Info  @system actual [32.96,-9.99,1.17,42.89,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:10:000 Info  @switch LED light to Green
+2026-02-10 11:11:10:001 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:10:001 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:10:001 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:10:001 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:10:002 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:10:016 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:10:313 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:11:10:314 Info  @switch LED light to Red
+2026-02-10 11:11:10:315 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:10:315 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:10:316 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:10:316 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:10:317 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:10:334 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:11:230 MCU   @robot moving (absolute) done (875ms)
+2026-02-10 11:11:11:236 Info  @system actual [32.96,-9.99,1.57,42.86,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:11:237 Info  @switch LED light to Green
+2026-02-10 11:11:11:237 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:11:238 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:11:238 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:11:239 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:11:239 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:11:300 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:11:417 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:11:11:418 Info  @switch LED light to Red
+2026-02-10 11:11:11:418 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:11:418 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:11:419 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:11:419 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:11:419 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:11:431 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:12:294 MCU   @robot moving (absolute) done (812ms)
+2026-02-10 11:11:12:316 Info  @system actual [32.96,-9.99,1.97,42.83,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:12:317 Info  @switch LED light to Green
+2026-02-10 11:11:12:317 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:12:317 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:12:318 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:12:318 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:12:318 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:12:330 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:12:520 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:11:12:522 Info  @switch LED light to Red
+2026-02-10 11:11:12:522 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:12:522 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:12:523 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:12:523 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:12:523 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:12:574 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:13:494 MCU   @robot moving (absolute) done (937ms)
+2026-02-10 11:11:13:497 Info  @system actual [32.96,-9.99,2.37,42.80,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:13:499 Info  @switch LED light to Green
+2026-02-10 11:11:13:499 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:13:500 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:13:500 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:13:500 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:13:501 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:13:525 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:13:643 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:11:13:643 Info  @switch LED light to Red
+2026-02-10 11:11:13:643 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:13:644 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:13:644 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:13:644 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:13:644 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:13:661 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:14:734 MCU   @robot moving (absolute) done (1000ms)
+2026-02-10 11:11:14:737 Info  @system actual [32.96,-9.99,2.78,42.77,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:14:738 Info  @switch LED light to Green
+2026-02-10 11:11:14:738 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:14:738 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:14:739 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:14:739 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:14:739 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:14:754 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:14:823 User  @on_mechanicalCalibCenterLeft_clicked
+2026-02-10 11:11:14:823 Info  @switch LED light to Red
+2026-02-10 11:11:14:823 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:14:824 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:14:824 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:14:824 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:14:824 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:14:871 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:15:975 MCU   @robot moving (absolute) done (1000ms)
+2026-02-10 11:11:15:977 Info  @system actual [32.96,-9.99,2.36,42.74,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:15:978 Info  @switch LED light to Green
+2026-02-10 11:11:15:978 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:15:978 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:15:979 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:15:979 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:15:979 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:15:994 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:17:540 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:11:17:541 Info  @switch LED light to Red
+2026-02-10 11:11:17:541 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:17:542 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:17:542 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:17:542 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:17:542 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:17:560 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:18:484 MCU   @robot moving (absolute) done (875ms)
+2026-02-10 11:11:18:503 Info  @system actual [32.96,-9.99,2.77,42.72,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:18:504 Info  @switch LED light to Green
+2026-02-10 11:11:18:504 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:18:504 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:18:505 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:18:505 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:18:506 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:18:518 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:18:751 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:11:18:752 Info  @switch LED light to Red
+2026-02-10 11:11:18:753 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:18:753 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:18:753 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:18:753 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:18:754 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:18:776 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:19:487 MCU   @robot moving (absolute) done (688ms)
+2026-02-10 11:11:19:490 Info  @system actual [32.96,-9.99,3.17,42.69,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:19:491 Info  @switch LED light to Green
+2026-02-10 11:11:19:491 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:19:491 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:19:492 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:19:492 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:19:492 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:19:507 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:19:606 User  @on_mechanicalCalibCenterRight_clicked
+2026-02-10 11:11:19:607 Info  @switch LED light to Red
+2026-02-10 11:11:19:608 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:19:608 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:19:609 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:19:609 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:19:609 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:19:664 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:20:731 MCU   @robot moving (absolute) done (1000ms)
+2026-02-10 11:11:20:734 Info  @system actual [32.96,-9.99,3.58,42.66,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:20:734 Info  @switch LED light to Green
+2026-02-10 11:11:20:735 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:20:735 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:20:735 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:20:736 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:20:736 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:20:750 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:21:915 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:11:21:915 Info  @switch LED light to Red
+2026-02-10 11:11:21:915 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:21:916 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:21:916 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:21:916 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:21:917 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:21:968 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:22:833 MCU   @robot moving (absolute) done (875ms)
+2026-02-10 11:11:22:836 Info  @system actual [32.96,-9.99,3.57,43.04,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:22:837 Info  @switch LED light to Green
+2026-02-10 11:11:22:838 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:22:838 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:22:839 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:22:839 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:22:839 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:22:850 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:23:005 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:11:23:006 Info  @switch LED light to Red
+2026-02-10 11:11:23:007 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:23:007 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:23:007 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:23:008 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:23:008 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:23:027 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:24:078 MCU   @robot moving (absolute) done (1000ms)
+2026-02-10 11:11:24:100 Info  @system actual [32.96,-9.99,3.57,43.41,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:24:101 Info  @switch LED light to Green
+2026-02-10 11:11:24:101 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:24:102 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:24:102 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:24:103 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:24:103 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:24:118 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:24:203 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:11:24:204 Info  @switch LED light to Red
+2026-02-10 11:11:24:205 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:24:206 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:24:206 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:24:207 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:24:207 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:24:226 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:25:323 MCU   @robot moving (absolute) done (1000ms)
+2026-02-10 11:11:25:329 Info  @system actual [32.96,-9.99,3.57,43.79,0.01,0.04,79.98,0.04]
+2026-02-10 11:11:25:330 Info  @switch LED light to Green
+2026-02-10 11:11:25:330 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:25:330 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:25:331 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:25:331 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:25:332 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:25:353 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:52:093 User  @on_mechanicalCalibVDown_clicked
+2026-02-10 11:11:52:094 Info  @switch LED light to Red
+2026-02-10 11:11:52:095 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:52:096 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:52:097 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:52:097 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:52:097 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:52:151 DEBUG @E.MW state (0, 1)
+2026-02-10 11:11:53:012 MCU   @robot moving (relative) done (766ms)
+2026-02-10 11:11:53:017 Info  @system actual [32.96,-9.99,3.57,43.79,0.42,0.04,79.98,0.04]
+2026-02-10 11:11:53:018 Info  @switch LED light to Green
+2026-02-10 11:11:53:018 DEBUG @S.SC state (0, 2)
+2026-02-10 11:11:53:019 DEBUG @E.SC state (0, 2)
+2026-02-10 11:11:53:019 DEBUG @S.VE state (0, 2)
+2026-02-10 11:11:53:020 DEBUG @E.VE state (0, 2)
+2026-02-10 11:11:53:020 DEBUG @S.MW state (0, 2)
+2026-02-10 11:11:53:037 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:11:59:776 User  @on_mechanicalCalibVDown_clicked
+2026-02-10 11:11:59:776 Info  @switch LED light to Red
+2026-02-10 11:11:59:777 DEBUG @S.SC state (0, 1)
+2026-02-10 11:11:59:777 DEBUG @E.SC state (0, 1)
+2026-02-10 11:11:59:777 DEBUG @S.VE state (0, 1)
+2026-02-10 11:11:59:778 DEBUG @E.VE state (0, 1)
+2026-02-10 11:11:59:778 DEBUG @S.MW state (0, 1)
+2026-02-10 11:11:59:790 DEBUG @E.MW state (0, 1)
+2026-02-10 11:12:00:609 MCU   @robot moving (relative) done (735ms)
+2026-02-10 11:12:00:614 Info  @system actual [32.96,-9.99,3.57,43.79,0.83,0.04,79.98,0.04]
+2026-02-10 11:12:00:614 Info  @switch LED light to Green
+2026-02-10 11:12:00:615 DEBUG @S.SC state (0, 2)
+2026-02-10 11:12:00:615 DEBUG @E.SC state (0, 2)
+2026-02-10 11:12:00:615 DEBUG @S.VE state (0, 2)
+2026-02-10 11:12:00:616 DEBUG @E.VE state (0, 2)
+2026-02-10 11:12:00:616 DEBUG @S.MW state (0, 2)
+2026-02-10 11:12:00:632 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:12:41:086 User  @on_mechanicalCalibHRight_clicked
+2026-02-10 11:12:41:087 Info  @switch LED light to Red
+2026-02-10 11:12:41:087 DEBUG @S.SC state (0, 1)
+2026-02-10 11:12:41:087 DEBUG @E.SC state (0, 1)
+2026-02-10 11:12:41:088 DEBUG @S.VE state (0, 1)
+2026-02-10 11:12:41:088 DEBUG @E.VE state (0, 1)
+2026-02-10 11:12:41:089 DEBUG @S.MW state (0, 1)
+2026-02-10 11:12:41:104 DEBUG @E.MW state (0, 1)
+2026-02-10 11:12:41:927 MCU   @robot moving (relative) done (750ms)
+2026-02-10 11:12:41:932 Info  @system actual [32.96,-9.99,3.57,43.79,0.83,-0.39,79.98,0.04]
+2026-02-10 11:12:41:932 Info  @switch LED light to Green
+2026-02-10 11:12:41:933 DEBUG @S.SC state (0, 2)
+2026-02-10 11:12:41:933 DEBUG @E.SC state (0, 2)
+2026-02-10 11:12:41:934 DEBUG @S.VE state (0, 2)
+2026-02-10 11:12:41:934 DEBUG @E.VE state (0, 2)
+2026-02-10 11:12:41:935 DEBUG @S.MW state (0, 2)
+2026-02-10 11:12:41:949 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:12:46:988 User  @on_mechanicalCalibHRight_clicked
+2026-02-10 11:12:46:988 Info  @switch LED light to Red
+2026-02-10 11:12:46:989 DEBUG @S.SC state (0, 1)
+2026-02-10 11:12:46:989 DEBUG @E.SC state (0, 1)
+2026-02-10 11:12:46:989 DEBUG @S.VE state (0, 1)
+2026-02-10 11:12:46:990 DEBUG @E.VE state (0, 1)
+2026-02-10 11:12:46:990 DEBUG @S.MW state (0, 1)
+2026-02-10 11:12:47:008 DEBUG @E.MW state (0, 1)
+2026-02-10 11:12:47:917 MCU   @robot moving (relative) done (750ms)
+2026-02-10 11:12:47:920 Info  @system actual [32.96,-9.99,3.57,43.79,0.83,-0.82,79.98,0.04]
+2026-02-10 11:12:47:920 Info  @switch LED light to Green
+2026-02-10 11:12:47:921 DEBUG @S.SC state (0, 2)
+2026-02-10 11:12:47:921 DEBUG @E.SC state (0, 2)
+2026-02-10 11:12:47:921 DEBUG @S.VE state (0, 2)
+2026-02-10 11:12:47:922 DEBUG @E.VE state (0, 2)
+2026-02-10 11:12:47:922 DEBUG @S.MW state (0, 2)
+2026-02-10 11:12:47:958 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:16:09:510 User  @on_mechanicalCalibZBackward_clicked
+2026-02-10 11:16:09:511 Info  @switch LED light to Red
+2026-02-10 11:16:09:512 DEBUG @S.SC state (0, 1)
+2026-02-10 11:16:09:512 DEBUG @E.SC state (0, 1)
+2026-02-10 11:16:09:513 DEBUG @S.VE state (0, 1)
+2026-02-10 11:16:09:513 DEBUG @E.VE state (0, 1)
+2026-02-10 11:16:09:514 DEBUG @S.MW state (0, 1)
+2026-02-10 11:16:09:566 DEBUG @E.MW state (0, 1)
+2026-02-10 11:16:10:621 MCU   @robot moving (relative) done (937ms)
+2026-02-10 11:16:10:624 Info  @system actual [32.96,-9.58,3.57,43.79,0.83,-0.82,79.98,0.04]
+2026-02-10 11:16:10:624 Info  @switch LED light to Green
+2026-02-10 11:16:10:624 DEBUG @S.SC state (0, 2)
+2026-02-10 11:16:10:625 DEBUG @E.SC state (0, 2)
+2026-02-10 11:16:10:625 DEBUG @S.VE state (0, 2)
+2026-02-10 11:16:10:625 DEBUG @E.VE state (0, 2)
+2026-02-10 11:16:10:626 DEBUG @S.MW state (0, 2)
+2026-02-10 11:16:10:637 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:16:13:796 User  @on_mechanicalCalibZBackward_clicked
+2026-02-10 11:16:13:796 Info  @switch LED light to Red
+2026-02-10 11:16:13:797 DEBUG @S.SC state (0, 1)
+2026-02-10 11:16:13:797 DEBUG @E.SC state (0, 1)
+2026-02-10 11:16:13:797 DEBUG @S.VE state (0, 1)
+2026-02-10 11:16:13:797 DEBUG @E.VE state (0, 1)
+2026-02-10 11:16:13:798 DEBUG @S.MW state (0, 1)
+2026-02-10 11:16:13:811 DEBUG @E.MW state (0, 1)
+2026-02-10 11:16:14:826 MCU   @robot moving (relative) done (969ms)
+2026-02-10 11:16:14:828 Info  @system actual [32.96,-9.17,3.57,43.79,0.83,-0.82,79.98,0.04]
+2026-02-10 11:16:14:829 Info  @switch LED light to Green
+2026-02-10 11:16:14:829 DEBUG @S.SC state (0, 2)
+2026-02-10 11:16:14:829 DEBUG @E.SC state (0, 2)
+2026-02-10 11:16:14:830 DEBUG @S.VE state (0, 2)
+2026-02-10 11:16:14:830 DEBUG @E.VE state (0, 2)
+2026-02-10 11:16:14:830 DEBUG @S.MW state (0, 2)
+2026-02-10 11:16:14:844 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:16:46:044 User  @on_mechanicalCalibZBackward_clicked
+2026-02-10 11:16:46:044 Info  @switch LED light to Red
+2026-02-10 11:16:46:045 DEBUG @S.SC state (0, 1)
+2026-02-10 11:16:46:045 DEBUG @E.SC state (0, 1)
+2026-02-10 11:16:46:045 DEBUG @S.VE state (0, 1)
+2026-02-10 11:16:46:046 DEBUG @E.VE state (0, 1)
+2026-02-10 11:16:46:046 DEBUG @S.MW state (0, 1)
+2026-02-10 11:16:46:059 DEBUG @E.MW state (0, 1)
+2026-02-10 11:16:47:129 MCU   @robot moving (relative) done (969ms)
+2026-02-10 11:16:47:132 Info  @system actual [32.96,-8.77,3.57,43.79,0.83,-0.82,79.98,0.04]
+2026-02-10 11:16:47:133 Info  @switch LED light to Green
+2026-02-10 11:16:47:133 DEBUG @S.SC state (0, 2)
+2026-02-10 11:16:47:133 DEBUG @E.SC state (0, 2)
+2026-02-10 11:16:47:134 DEBUG @S.VE state (0, 2)
+2026-02-10 11:16:47:134 DEBUG @E.VE state (0, 2)
+2026-02-10 11:16:47:134 DEBUG @S.MW state (0, 2)
+2026-02-10 11:16:47:148 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:16:48:166 User  @on_mechanicalCalibZBackward_clicked
+2026-02-10 11:16:48:167 Info  @switch LED light to Red
+2026-02-10 11:16:48:167 DEBUG @S.SC state (0, 1)
+2026-02-10 11:16:48:167 DEBUG @E.SC state (0, 1)
+2026-02-10 11:16:48:167 DEBUG @S.VE state (0, 1)
+2026-02-10 11:16:48:168 DEBUG @E.VE state (0, 1)
+2026-02-10 11:16:48:168 DEBUG @S.MW state (0, 1)
+2026-02-10 11:16:48:187 DEBUG @E.MW state (0, 1)
+2026-02-10 11:16:49:329 MCU   @robot moving (relative) done (938ms)
+2026-02-10 11:16:49:331 Info  @system actual [32.96,-8.35,3.57,43.79,0.83,-0.82,79.98,0.04]
+2026-02-10 11:16:49:332 Info  @switch LED light to Green
+2026-02-10 11:16:49:332 DEBUG @S.SC state (0, 2)
+2026-02-10 11:16:49:332 DEBUG @E.SC state (0, 2)
+2026-02-10 11:16:49:333 DEBUG @S.VE state (0, 2)
+2026-02-10 11:16:49:333 DEBUG @E.VE state (0, 2)
+2026-02-10 11:16:49:333 DEBUG @S.MW state (0, 2)
+2026-02-10 11:16:49:347 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:18:39:953 User  @on_mechanicalCalibStepSmall_clicked
+
+2026-02-10 11:18:41:566 User  @on_mechanicalCalibNBackward_clicked
+2026-02-10 11:18:41:567 Info  @switch LED light to Red
+2026-02-10 11:18:41:567 DEBUG @S.SC state (0, 1)
+2026-02-10 11:18:41:568 DEBUG @E.SC state (0, 1)
+2026-02-10 11:18:41:568 DEBUG @S.VE state (0, 1)
+2026-02-10 11:18:41:569 DEBUG @E.VE state (0, 1)
+2026-02-10 11:18:41:570 DEBUG @S.MW state (0, 1)
+2026-02-10 11:18:41:627 DEBUG @E.MW state (0, 1)
+2026-02-10 11:18:42:948 MCU   @robot moving (relative) done (1172ms)
+2026-02-10 11:18:42:952 Info  @system actual [32.96,-8.35,3.57,43.79,0.83,-0.82,81,0.04]
+2026-02-10 11:18:42:952 Info  @switch LED light to Green
+2026-02-10 11:18:42:952 DEBUG @S.SC state (0, 2)
+2026-02-10 11:18:42:953 DEBUG @E.SC state (0, 2)
+2026-02-10 11:18:42:953 DEBUG @S.VE state (0, 2)
+2026-02-10 11:18:42:953 DEBUG @E.VE state (0, 2)
+2026-02-10 11:18:42:954 DEBUG @S.MW state (0, 2)
+2026-02-10 11:18:42:967 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:18:43:898 User  @on_mechanicalCalibNBackward_clicked
+2026-02-10 11:18:43:899 Info  @switch LED light to Red
+2026-02-10 11:18:43:899 DEBUG @S.SC state (0, 1)
+2026-02-10 11:18:43:900 DEBUG @E.SC state (0, 1)
+2026-02-10 11:18:43:900 DEBUG @S.VE state (0, 1)
+2026-02-10 11:18:43:901 DEBUG @E.VE state (0, 1)
+2026-02-10 11:18:43:901 DEBUG @S.MW state (0, 1)
+2026-02-10 11:18:43:917 DEBUG @E.MW state (0, 1)
+2026-02-10 11:18:45:128 MCU   @robot moving (relative) done (1140ms)
+2026-02-10 11:18:45:134 Info  @system actual [32.96,-8.35,3.57,43.79,0.83,-0.82,82.02,0.04]
+2026-02-10 11:18:45:135 Info  @switch LED light to Green
+2026-02-10 11:18:45:136 DEBUG @S.SC state (0, 2)
+2026-02-10 11:18:45:136 DEBUG @E.SC state (0, 2)
+2026-02-10 11:18:45:136 DEBUG @S.VE state (0, 2)
+2026-02-10 11:18:45:137 DEBUG @E.VE state (0, 2)
+2026-02-10 11:18:45:137 DEBUG @S.MW state (0, 2)
+2026-02-10 11:18:45:154 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:19:38:842 User  @on_mechanicalCalibNext_clicked
+2026-02-10 11:19:38:843 DEBUG @S.SC state (1, 6)
+2026-02-10 11:19:38:844 DEBUG @E.SC state (1, 6)
+2026-02-10 11:19:38:844 DEBUG @S.VE state (1, 6)
+2026-02-10 11:19:38:844 DEBUG @E.VE state (1, 6)
+2026-02-10 11:19:38:845 DEBUG @S.MW state (1, 6)
+2026-02-10 11:19:38:886 DEBUG @E.MW state (1, 6)
+
+2026-02-10 11:19:41:948 User  @on_point25CalibParallel_clicked
+2026-02-10 11:19:41:949 Info  @switch LED light to Red
+2026-02-10 11:19:41:949 DEBUG @S.SC state (1, 7)
+2026-02-10 11:19:41:950 DEBUG @E.SC state (1, 7)
+2026-02-10 11:19:41:950 DEBUG @S.VE state (1, 7)
+2026-02-10 11:19:41:951 DEBUG @E.VE state (1, 7)
+2026-02-10 11:19:41:951 DEBUG @S.MW state (1, 7)
+2026-02-10 11:19:41:969 DEBUG @E.MW state (1, 7)
+2026-02-10 11:19:47:049 MCU   @robot moving (calib_25point) done (4875ms)
+2026-02-10 11:19:47:053 Info  @system actual [32.96,-9.95,-20.02,59.97,0,0,80.02,0.04]
+2026-02-10 11:19:47:054 Info  @switch LED light to Green
+2026-02-10 11:19:47:055 DEBUG @S.SC state (1, 8)
+2026-02-10 11:19:47:055 DEBUG @E.SC state (1, 8)
+2026-02-10 11:19:47:056 DEBUG @S.VE state (1, 8)
+2026-02-10 11:19:47:056 DEBUG @E.VE state (1, 8)
+2026-02-10 11:19:47:057 DEBUG @S.MW state (1, 8)
+2026-02-10 11:19:47:070 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:20:03:117 User  @Button25PointClicked (2)
+2026-02-10 11:20:03:119 Info  @switch LED light to Red
+2026-02-10 11:20:03:119 DEBUG @S.SC state (1, 7)
+2026-02-10 11:20:03:120 DEBUG @E.SC state (1, 7)
+2026-02-10 11:20:03:120 DEBUG @S.VE state (1, 7)
+2026-02-10 11:20:03:121 DEBUG @E.VE state (1, 7)
+2026-02-10 11:20:03:121 DEBUG @S.MW state (1, 7)
+2026-02-10 11:20:03:178 DEBUG @E.MW state (1, 7)
+2026-02-10 11:20:05:237 MCU   @robot moving (calib_25point) done (1891ms)
+2026-02-10 11:20:05:242 Info  @system actual [32.96,-9.95,-9.98,59.96,0,0,80.02,0.04]
+2026-02-10 11:20:05:242 Info  @switch LED light to Green
+2026-02-10 11:20:05:243 DEBUG @S.SC state (1, 8)
+2026-02-10 11:20:05:243 DEBUG @E.SC state (1, 8)
+2026-02-10 11:20:05:243 DEBUG @S.VE state (1, 8)
+2026-02-10 11:20:05:244 DEBUG @E.VE state (1, 8)
+2026-02-10 11:20:05:244 DEBUG @S.MW state (1, 8)
+2026-02-10 11:20:05:263 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:20:17:418 User  @on_point25CalibLeft_clicked
+2026-02-10 11:20:17:420 Info  @switch LED light to Red
+2026-02-10 11:20:17:420 DEBUG @S.SC state (1, 7)
+2026-02-10 11:20:17:420 DEBUG @E.SC state (1, 7)
+2026-02-10 11:20:17:421 DEBUG @S.VE state (1, 7)
+2026-02-10 11:20:17:421 DEBUG @E.VE state (1, 7)
+2026-02-10 11:20:17:421 DEBUG @S.MW state (1, 7)
+2026-02-10 11:20:17:438 DEBUG @E.MW state (1, 7)
+2026-02-10 11:20:18:377 MCU   @robot moving (calib_25point) done (859ms)
+2026-02-10 11:20:18:379 Info  @system actual [32.96,-9.95,-10.01,59.97,0,0,80.02,0.04]
+2026-02-10 11:20:18:380 Info  @switch LED light to Green
+2026-02-10 11:20:18:380 DEBUG @S.SC state (1, 8)
+2026-02-10 11:20:18:380 DEBUG @E.SC state (1, 8)
+2026-02-10 11:20:18:381 DEBUG @S.VE state (1, 8)
+2026-02-10 11:20:18:381 DEBUG @E.VE state (1, 8)
+2026-02-10 11:20:18:382 DEBUG @S.MW state (1, 8)
+2026-02-10 11:20:18:398 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:20:43:538 User  @on_point25CalibRight_clicked
+2026-02-10 11:20:43:539 Info  @switch LED light to Red
+2026-02-10 11:20:43:539 DEBUG @S.SC state (1, 7)
+2026-02-10 11:20:43:540 DEBUG @E.SC state (1, 7)
+2026-02-10 11:20:43:540 DEBUG @S.VE state (1, 7)
+2026-02-10 11:20:43:541 DEBUG @E.VE state (1, 7)
+2026-02-10 11:20:43:541 DEBUG @S.MW state (1, 7)
+2026-02-10 11:20:43:553 DEBUG @E.MW state (1, 7)
+2026-02-10 11:20:44:547 MCU   @robot moving (calib_25point) done (843ms)
+2026-02-10 11:20:44:551 Info  @system actual [32.96,-9.95,-9.99,59.97,0,0,80.02,0.04]
+2026-02-10 11:20:44:551 Info  @switch LED light to Green
+2026-02-10 11:20:44:552 DEBUG @S.SC state (1, 8)
+2026-02-10 11:20:44:552 DEBUG @E.SC state (1, 8)
+2026-02-10 11:20:44:552 DEBUG @S.VE state (1, 8)
+2026-02-10 11:20:44:553 DEBUG @E.VE state (1, 8)
+2026-02-10 11:20:44:553 DEBUG @S.MW state (1, 8)
+2026-02-10 11:20:44:577 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:20:51:846 User  @on_point25CalibLeft_clicked
+2026-02-10 11:20:51:847 Info  @switch LED light to Red
+2026-02-10 11:20:51:847 DEBUG @S.SC state (1, 7)
+2026-02-10 11:20:51:848 DEBUG @E.SC state (1, 7)
+2026-02-10 11:20:51:848 DEBUG @S.VE state (1, 7)
+2026-02-10 11:20:51:848 DEBUG @E.VE state (1, 7)
+2026-02-10 11:20:51:849 DEBUG @S.MW state (1, 7)
+2026-02-10 11:20:51:863 DEBUG @E.MW state (1, 7)
+2026-02-10 11:20:52:873 MCU   @robot moving (calib_25point) done (875ms)
+2026-02-10 11:20:52:875 Info  @system actual [32.96,-9.95,-10.01,59.97,0,0,80.02,0.04]
+2026-02-10 11:20:52:875 Info  @switch LED light to Green
+2026-02-10 11:20:52:876 DEBUG @S.SC state (1, 8)
+2026-02-10 11:20:52:876 DEBUG @E.SC state (1, 8)
+2026-02-10 11:20:52:877 DEBUG @S.VE state (1, 8)
+2026-02-10 11:20:52:877 DEBUG @E.VE state (1, 8)
+2026-02-10 11:20:52:877 DEBUG @S.MW state (1, 8)
+2026-02-10 11:20:52:892 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:20:59:072 User  @Button25PointClicked (3)
+2026-02-10 11:20:59:074 Info  @switch LED light to Red
+2026-02-10 11:20:59:075 DEBUG @S.SC state (1, 7)
+2026-02-10 11:20:59:075 DEBUG @E.SC state (1, 7)
+2026-02-10 11:20:59:075 DEBUG @S.VE state (1, 7)
+2026-02-10 11:20:59:076 DEBUG @E.VE state (1, 7)
+2026-02-10 11:20:59:076 DEBUG @S.MW state (1, 7)
+2026-02-10 11:20:59:092 DEBUG @E.MW state (1, 7)
+2026-02-10 11:21:01:185 MCU   @robot moving (calib_25point) done (2078ms)
+2026-02-10 11:21:01:188 Info  @system actual [32.96,-9.95,0.02,59.97,0,0,80.02,0.04]
+2026-02-10 11:21:01:188 Info  @switch LED light to Green
+2026-02-10 11:21:01:189 DEBUG @S.SC state (1, 8)
+2026-02-10 11:21:01:189 DEBUG @E.SC state (1, 8)
+2026-02-10 11:21:01:190 DEBUG @S.VE state (1, 8)
+2026-02-10 11:21:01:190 DEBUG @E.VE state (1, 8)
+2026-02-10 11:21:01:190 DEBUG @S.MW state (1, 8)
+2026-02-10 11:21:01:205 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:21:48:084 User  @Button25PointClicked (4)
+2026-02-10 11:21:48:086 Info  @switch LED light to Red
+2026-02-10 11:21:48:086 DEBUG @S.SC state (1, 7)
+2026-02-10 11:21:48:087 DEBUG @E.SC state (1, 7)
+2026-02-10 11:21:48:087 DEBUG @S.VE state (1, 7)
+2026-02-10 11:21:48:088 DEBUG @E.VE state (1, 7)
+2026-02-10 11:21:48:088 DEBUG @S.MW state (1, 7)
+2026-02-10 11:21:48:146 DEBUG @E.MW state (1, 7)
+2026-02-10 11:21:50:045 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:21:50:048 Info  @system actual [32.96,-9.95,10.01,59.97,0,0,80.02,0.04]
+2026-02-10 11:21:50:048 Info  @switch LED light to Green
+2026-02-10 11:21:50:048 DEBUG @S.SC state (1, 8)
+2026-02-10 11:21:50:049 DEBUG @E.SC state (1, 8)
+2026-02-10 11:21:50:049 DEBUG @S.VE state (1, 8)
+2026-02-10 11:21:50:049 DEBUG @E.VE state (1, 8)
+2026-02-10 11:21:50:050 DEBUG @S.MW state (1, 8)
+2026-02-10 11:21:50:064 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:21:58:885 User  @Button25PointClicked (5)
+2026-02-10 11:21:58:887 Info  @switch LED light to Red
+2026-02-10 11:21:58:888 DEBUG @S.SC state (1, 7)
+2026-02-10 11:21:58:888 DEBUG @E.SC state (1, 7)
+2026-02-10 11:21:58:889 DEBUG @S.VE state (1, 7)
+2026-02-10 11:21:58:889 DEBUG @E.VE state (1, 7)
+2026-02-10 11:21:58:889 DEBUG @S.MW state (1, 7)
+2026-02-10 11:21:58:902 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:00:977 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:22:00:984 Info  @system actual [32.96,-9.95,20.02,59.97,0,0,80.02,0.04]
+2026-02-10 11:22:00:985 Info  @switch LED light to Green
+2026-02-10 11:22:00:985 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:00:986 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:00:986 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:00:986 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:00:987 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:01:000 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:05:280 User  @Button25PointClicked (10)
+2026-02-10 11:22:05:282 Info  @switch LED light to Red
+2026-02-10 11:22:05:282 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:05:283 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:05:283 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:05:283 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:05:284 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:05:307 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:07:118 MCU   @robot moving (calib_25point) done (1703ms)
+2026-02-10 11:22:07:121 Info  @system actual [32.96,-9.95,19.98,49.94,0,0,80.02,0.04]
+2026-02-10 11:22:07:121 Info  @switch LED light to Green
+2026-02-10 11:22:07:121 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:07:122 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:07:122 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:07:122 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:07:123 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:07:135 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:10:251 User  @Button25PointClicked (9)
+2026-02-10 11:22:10:252 Info  @switch LED light to Red
+2026-02-10 11:22:10:252 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:10:253 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:10:253 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:10:253 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:10:254 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:10:311 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:12:236 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:22:12:256 Info  @system actual [32.96,-9.95,9.97,49.96,0,0,80.02,0.04]
+2026-02-10 11:22:12:257 Info  @switch LED light to Green
+2026-02-10 11:22:12:258 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:12:259 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:12:259 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:12:259 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:12:260 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:12:274 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:14:468 User  @Button25PointClicked (8)
+2026-02-10 11:22:14:470 Info  @switch LED light to Red
+2026-02-10 11:22:14:470 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:14:471 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:14:471 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:14:472 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:14:472 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:14:493 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:16:552 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:22:16:558 Info  @system actual [32.96,-9.95,-0.02,49.97,0,0,80.02,0.04]
+2026-02-10 11:22:16:558 Info  @switch LED light to Green
+2026-02-10 11:22:16:558 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:16:559 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:16:559 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:16:559 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:16:559 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:16:602 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:20:304 User  @Button25PointClicked (7)
+2026-02-10 11:22:20:306 Info  @switch LED light to Red
+2026-02-10 11:22:20:306 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:20:307 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:20:307 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:20:307 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:20:308 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:20:367 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:22:273 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:22:22:276 Info  @system actual [32.96,-9.95,-10.02,49.97,0,0,80.02,0.04]
+2026-02-10 11:22:22:276 Info  @switch LED light to Green
+2026-02-10 11:22:22:276 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:22:277 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:22:277 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:22:277 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:22:278 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:22:289 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:28:755 User  @on_point25CalibUp_clicked
+2026-02-10 11:22:28:756 Info  @switch LED light to Red
+2026-02-10 11:22:28:757 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:28:758 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:28:759 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:28:759 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:28:759 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:28:817 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:29:790 MCU   @robot moving (calib_25point) done (875ms)
+2026-02-10 11:22:29:800 Info  @system actual [32.96,-9.95,-10,49.98,0,0,80.02,0.04]
+2026-02-10 11:22:29:801 Info  @switch LED light to Green
+2026-02-10 11:22:29:801 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:29:802 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:29:802 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:29:803 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:29:804 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:29:818 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:34:486 User  @Button25PointClicked (6)
+2026-02-10 11:22:34:487 Info  @switch LED light to Red
+2026-02-10 11:22:34:488 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:34:489 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:34:489 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:34:489 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:34:490 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:34:548 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:36:513 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:22:36:516 Info  @system actual [32.96,-9.95,-20.02,49.97,0,0,80.02,0.04]
+2026-02-10 11:22:36:516 Info  @switch LED light to Green
+2026-02-10 11:22:36:516 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:36:517 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:36:517 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:36:517 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:36:518 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:36:529 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:39:793 User  @on_point25CalibUp_clicked
+2026-02-10 11:22:39:795 Info  @switch LED light to Red
+2026-02-10 11:22:39:795 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:39:795 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:39:796 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:39:797 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:39:797 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:39:858 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:40:808 MCU   @robot moving (calib_25point) done (859ms)
+2026-02-10 11:22:40:813 Info  @system actual [32.96,-9.95,-20,49.98,0,0,80.02,0.04]
+2026-02-10 11:22:40:813 Info  @switch LED light to Green
+2026-02-10 11:22:40:814 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:40:814 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:40:814 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:40:815 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:40:815 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:40:832 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:43:190 User  @Button25PointClicked (11)
+2026-02-10 11:22:43:191 Info  @switch LED light to Red
+2026-02-10 11:22:43:192 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:43:192 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:43:192 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:43:193 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:43:193 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:43:210 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:44:745 MCU   @robot moving (calib_25point) done (1500ms)
+2026-02-10 11:22:44:748 Info  @system actual [32.96,-9.95,-20,39.95,0,0,80.02,0.04]
+2026-02-10 11:22:44:749 Info  @switch LED light to Green
+2026-02-10 11:22:44:749 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:44:750 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:44:750 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:44:751 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:44:751 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:44:798 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:48:109 User  @on_point25CalibUp_clicked
+2026-02-10 11:22:48:111 Info  @switch LED light to Red
+2026-02-10 11:22:48:111 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:48:111 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:48:112 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:48:112 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:48:112 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:48:168 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:49:079 MCU   @robot moving (calib_25point) done (891ms)
+2026-02-10 11:22:49:085 Info  @system actual [32.96,-9.95,-20,39.98,0,0,80.02,0.04]
+2026-02-10 11:22:49:085 Info  @switch LED light to Green
+2026-02-10 11:22:49:086 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:49:086 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:49:086 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:49:086 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:49:087 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:49:107 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:53:365 User  @Button25PointClicked (12)
+2026-02-10 11:22:53:367 Info  @switch LED light to Red
+2026-02-10 11:22:53:368 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:53:368 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:53:369 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:53:369 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:53:370 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:53:433 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:55:826 MCU   @robot moving (calib_25point) done (2297ms)
+2026-02-10 11:22:55:841 Info  @system actual [32.96,-9.95,-9.99,39.96,0,0,80.02,0.04]
+2026-02-10 11:22:55:841 Info  @switch LED light to Green
+2026-02-10 11:22:55:842 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:55:842 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:55:842 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:55:842 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:55:843 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:55:855 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:22:58:473 User  @on_point25CalibUp_clicked
+2026-02-10 11:22:58:474 Info  @switch LED light to Red
+2026-02-10 11:22:58:475 DEBUG @S.SC state (1, 7)
+2026-02-10 11:22:58:475 DEBUG @E.SC state (1, 7)
+2026-02-10 11:22:58:476 DEBUG @S.VE state (1, 7)
+2026-02-10 11:22:58:476 DEBUG @E.VE state (1, 7)
+2026-02-10 11:22:58:476 DEBUG @S.MW state (1, 7)
+2026-02-10 11:22:58:493 DEBUG @E.MW state (1, 7)
+2026-02-10 11:22:59:558 MCU   @robot moving (calib_25point) done (891ms)
+2026-02-10 11:22:59:569 Info  @system actual [32.96,-9.95,-10,39.98,0,0,80.02,0.04]
+2026-02-10 11:22:59:570 Info  @switch LED light to Green
+2026-02-10 11:22:59:570 DEBUG @S.SC state (1, 8)
+2026-02-10 11:22:59:571 DEBUG @E.SC state (1, 8)
+2026-02-10 11:22:59:571 DEBUG @S.VE state (1, 8)
+2026-02-10 11:22:59:571 DEBUG @E.VE state (1, 8)
+2026-02-10 11:22:59:572 DEBUG @S.MW state (1, 8)
+2026-02-10 11:22:59:585 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:23:03:719 User  @Button25PointClicked (13)
+2026-02-10 11:23:03:721 Info  @switch LED light to Red
+2026-02-10 11:23:03:721 DEBUG @S.SC state (1, 7)
+2026-02-10 11:23:03:722 DEBUG @E.SC state (1, 7)
+2026-02-10 11:23:03:722 DEBUG @S.VE state (1, 7)
+2026-02-10 11:23:03:722 DEBUG @E.VE state (1, 7)
+2026-02-10 11:23:03:723 DEBUG @S.MW state (1, 7)
+2026-02-10 11:23:03:743 DEBUG @E.MW state (1, 7)
+2026-02-10 11:23:06:083 MCU   @robot moving (calib_25point) done (2281ms)
+2026-02-10 11:23:06:088 Info  @system actual [32.96,-9.95,0.01,39.97,0,0,80.02,0.04]
+2026-02-10 11:23:06:088 Info  @switch LED light to Green
+2026-02-10 11:23:06:089 DEBUG @S.SC state (1, 8)
+2026-02-10 11:23:06:089 DEBUG @E.SC state (1, 8)
+2026-02-10 11:23:06:089 DEBUG @S.VE state (1, 8)
+2026-02-10 11:23:06:089 DEBUG @E.VE state (1, 8)
+2026-02-10 11:23:06:090 DEBUG @S.MW state (1, 8)
+2026-02-10 11:23:06:129 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:23:25:348 User  @on_point25CalibBack_clicked
+2026-02-10 11:23:25:350 DEBUG @S.SC state (0, 0)
+2026-02-10 11:23:25:350 DEBUG @E.SC state (0, 0)
+2026-02-10 11:23:25:351 DEBUG @S.VE state (0, 0)
+2026-02-10 11:23:25:351 DEBUG @E.VE state (0, 0)
+2026-02-10 11:23:25:351 DEBUG @S.MW state (0, 0)
+2026-02-10 11:23:25:371 DEBUG @E.MW state (0, 0)
+2026-02-10 11:23:25:372 DEBUG @S.SC state (0, 2)
+2026-02-10 11:23:25:372 DEBUG @E.SC state (0, 2)
+2026-02-10 11:23:25:373 DEBUG @S.VE state (0, 2)
+2026-02-10 11:23:25:373 DEBUG @E.VE state (0, 2)
+2026-02-10 11:23:25:374 DEBUG @S.MW state (0, 2)
+2026-02-10 11:23:25:428 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:23:37:877 User  @on_mechanicalCalibCenterUp_clicked
+2026-02-10 11:23:37:878 Info  @switch LED light to Red
+2026-02-10 11:23:37:878 DEBUG @S.SC state (0, 1)
+2026-02-10 11:23:37:879 DEBUG @E.SC state (0, 1)
+2026-02-10 11:23:37:879 DEBUG @S.VE state (0, 1)
+2026-02-10 11:23:37:879 DEBUG @E.VE state (0, 1)
+2026-02-10 11:23:37:880 DEBUG @S.MW state (0, 1)
+2026-02-10 11:23:37:938 DEBUG @E.MW state (0, 1)
+2026-02-10 11:23:39:101 MCU   @robot moving (absolute) done (1078ms)
+2026-02-10 11:23:39:109 Info  @system actual [32.96,-9.95,0,40.95,0,0,80.02,0.04]
+2026-02-10 11:23:39:109 Info  @switch LED light to Green
+2026-02-10 11:23:39:109 DEBUG @S.SC state (0, 2)
+2026-02-10 11:23:39:110 DEBUG @E.SC state (0, 2)
+2026-02-10 11:23:39:110 DEBUG @S.VE state (0, 2)
+2026-02-10 11:23:39:111 DEBUG @E.VE state (0, 2)
+2026-02-10 11:23:39:111 DEBUG @S.MW state (0, 2)
+2026-02-10 11:23:39:146 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:23:42:047 User  @on_mechanicalCalibStepSmall_clicked
+
+2026-02-10 11:23:45:508 User  @on_mechanicalCalibCenterDown_clicked
+2026-02-10 11:23:45:509 Info  @switch LED light to Red
+2026-02-10 11:23:45:510 DEBUG @S.SC state (0, 1)
+2026-02-10 11:23:45:510 DEBUG @E.SC state (0, 1)
+2026-02-10 11:23:45:511 DEBUG @S.VE state (0, 1)
+2026-02-10 11:23:45:511 DEBUG @E.VE state (0, 1)
+2026-02-10 11:23:45:512 DEBUG @S.MW state (0, 1)
+2026-02-10 11:23:45:533 DEBUG @E.MW state (0, 1)
+2026-02-10 11:23:46:442 MCU   @robot moving (absolute) done (875ms)
+2026-02-10 11:23:46:475 Info  @system actual [32.96,-9.95,0,40.51,0,0,80.02,0.04]
+2026-02-10 11:23:46:475 Info  @switch LED light to Green
+2026-02-10 11:23:46:476 DEBUG @S.SC state (0, 2)
+2026-02-10 11:23:46:476 DEBUG @E.SC state (0, 2)
+2026-02-10 11:23:46:476 DEBUG @S.VE state (0, 2)
+2026-02-10 11:23:46:476 DEBUG @E.VE state (0, 2)
+2026-02-10 11:23:46:477 DEBUG @S.MW state (0, 2)
+2026-02-10 11:23:46:491 DEBUG @E.MW state (0, 2)
+
+2026-02-10 11:24:53:760 User  @on_mechanicalCalibNext_clicked
+2026-02-10 11:24:53:761 DEBUG @S.SC state (1, 6)
+2026-02-10 11:24:53:761 DEBUG @E.SC state (1, 6)
+2026-02-10 11:24:53:762 DEBUG @S.VE state (1, 6)
+2026-02-10 11:24:53:762 DEBUG @E.VE state (1, 6)
+2026-02-10 11:24:53:762 DEBUG @S.MW state (1, 6)
+2026-02-10 11:24:53:789 DEBUG @E.MW state (1, 6)
+
+2026-02-10 11:24:58:332 User  @on_point25CalibParallel_clicked
+2026-02-10 11:24:58:332 Info  @switch LED light to Red
+2026-02-10 11:24:58:332 DEBUG @S.SC state (1, 7)
+2026-02-10 11:24:58:333 DEBUG @E.SC state (1, 7)
+2026-02-10 11:24:58:333 DEBUG @S.VE state (1, 7)
+2026-02-10 11:24:58:334 DEBUG @E.VE state (1, 7)
+2026-02-10 11:24:58:334 DEBUG @S.MW state (1, 7)
+2026-02-10 11:24:58:345 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:03:596 MCU   @robot moving (calib_25point) done (5078ms)
+2026-02-10 11:25:03:615 Info  @system actual [32.96,-9.95,-20.02,59.97,0,0,80.02,0.04]
+2026-02-10 11:25:03:615 Info  @switch LED light to Green
+2026-02-10 11:25:03:616 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:03:616 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:03:616 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:03:617 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:03:617 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:03:630 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:25:17:228 User  @Button25PointClicked (2)
+2026-02-10 11:25:17:229 Info  @switch LED light to Red
+2026-02-10 11:25:17:230 DEBUG @S.SC state (1, 7)
+2026-02-10 11:25:17:230 DEBUG @E.SC state (1, 7)
+2026-02-10 11:25:17:231 DEBUG @S.VE state (1, 7)
+2026-02-10 11:25:17:231 DEBUG @E.VE state (1, 7)
+2026-02-10 11:25:17:231 DEBUG @S.MW state (1, 7)
+2026-02-10 11:25:17:249 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:19:192 MCU   @robot moving (calib_25point) done (1907ms)
+2026-02-10 11:25:19:195 Info  @system actual [32.96,-9.95,-9.99,59.97,0,0,80.02,0.04]
+2026-02-10 11:25:19:195 Info  @switch LED light to Green
+2026-02-10 11:25:19:196 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:19:196 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:19:196 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:19:197 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:19:197 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:19:207 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:25:21:842 User  @Button25PointClicked (3)
+2026-02-10 11:25:21:843 Info  @switch LED light to Red
+2026-02-10 11:25:21:843 DEBUG @S.SC state (1, 7)
+2026-02-10 11:25:21:843 DEBUG @E.SC state (1, 7)
+2026-02-10 11:25:21:844 DEBUG @S.VE state (1, 7)
+2026-02-10 11:25:21:844 DEBUG @E.VE state (1, 7)
+2026-02-10 11:25:21:845 DEBUG @S.MW state (1, 7)
+2026-02-10 11:25:21:901 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:24:107 MCU   @robot moving (calib_25point) done (2078ms)
+2026-02-10 11:25:24:110 Info  @system actual [32.96,-9.95,0.01,59.97,0,0,80.02,0.04]
+2026-02-10 11:25:24:110 Info  @switch LED light to Green
+2026-02-10 11:25:24:111 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:24:111 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:24:111 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:24:112 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:24:112 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:24:124 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:25:26:416 User  @Button25PointClicked (4)
+2026-02-10 11:25:26:417 Info  @switch LED light to Red
+2026-02-10 11:25:26:418 DEBUG @S.SC state (1, 7)
+2026-02-10 11:25:26:418 DEBUG @E.SC state (1, 7)
+2026-02-10 11:25:26:418 DEBUG @S.VE state (1, 7)
+2026-02-10 11:25:26:419 DEBUG @E.VE state (1, 7)
+2026-02-10 11:25:26:419 DEBUG @S.MW state (1, 7)
+2026-02-10 11:25:26:480 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:28:419 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:25:28:422 Info  @system actual [32.96,-9.95,10.01,59.97,0,0,80.02,0.04]
+2026-02-10 11:25:28:423 Info  @switch LED light to Green
+2026-02-10 11:25:28:424 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:28:424 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:28:424 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:28:425 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:28:425 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:28:435 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:25:34:097 User  @on_point25CalibDown_clicked
+2026-02-10 11:25:34:098 Info  @switch LED light to Red
+2026-02-10 11:25:34:100 DEBUG @S.SC state (1, 7)
+2026-02-10 11:25:34:101 DEBUG @E.SC state (1, 7)
+2026-02-10 11:25:34:101 DEBUG @S.VE state (1, 7)
+2026-02-10 11:25:34:101 DEBUG @E.VE state (1, 7)
+2026-02-10 11:25:34:102 DEBUG @S.MW state (1, 7)
+2026-02-10 11:25:34:119 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:35:118 MCU   @robot moving (calib_25point) done (875ms)
+2026-02-10 11:25:35:121 Info  @system actual [32.96,-9.95,9.99,59.96,0,0,80.02,0.04]
+2026-02-10 11:25:35:122 Info  @switch LED light to Green
+2026-02-10 11:25:35:122 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:35:122 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:35:123 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:35:123 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:35:123 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:35:139 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:25:37:466 User  @Button25PointClicked (5)
+2026-02-10 11:25:37:467 Info  @switch LED light to Red
+2026-02-10 11:25:37:468 DEBUG @S.SC state (1, 7)
+2026-02-10 11:25:37:468 DEBUG @E.SC state (1, 7)
+2026-02-10 11:25:37:469 DEBUG @S.VE state (1, 7)
+2026-02-10 11:25:37:469 DEBUG @E.VE state (1, 7)
+2026-02-10 11:25:37:469 DEBUG @S.MW state (1, 7)
+2026-02-10 11:25:37:534 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:39:450 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:25:39:485 Info  @system actual [32.96,-9.95,20.02,59.97,0,0,80.02,0.04]
+2026-02-10 11:25:39:485 Info  @switch LED light to Green
+2026-02-10 11:25:39:486 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:39:486 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:39:486 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:39:486 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:39:487 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:39:499 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:25:42:489 User  @on_point25CalibDown_clicked
+2026-02-10 11:25:42:490 Info  @switch LED light to Red
+2026-02-10 11:25:42:490 DEBUG @S.SC state (1, 7)
+2026-02-10 11:25:42:490 DEBUG @E.SC state (1, 7)
+2026-02-10 11:25:42:491 DEBUG @S.VE state (1, 7)
+2026-02-10 11:25:42:491 DEBUG @E.VE state (1, 7)
+2026-02-10 11:25:42:491 DEBUG @S.MW state (1, 7)
+2026-02-10 11:25:42:506 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:43:560 MCU   @robot moving (calib_25point) done (875ms)
+2026-02-10 11:25:43:568 Info  @system actual [32.96,-9.95,19.99,59.96,0,0,80.02,0.04]
+2026-02-10 11:25:43:568 Info  @switch LED light to Green
+2026-02-10 11:25:43:569 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:43:569 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:43:569 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:43:570 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:43:570 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:43:583 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:25:45:595 User  @Button25PointClicked (10)
+2026-02-10 11:25:45:596 Info  @switch LED light to Red
+2026-02-10 11:25:45:597 DEBUG @S.SC state (1, 7)
+2026-02-10 11:25:45:597 DEBUG @E.SC state (1, 7)
+2026-02-10 11:25:45:598 DEBUG @S.VE state (1, 7)
+2026-02-10 11:25:45:598 DEBUG @E.VE state (1, 7)
+2026-02-10 11:25:45:598 DEBUG @S.MW state (1, 7)
+2026-02-10 11:25:45:662 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:47:471 MCU   @robot moving (calib_25point) done (1672ms)
+2026-02-10 11:25:47:474 Info  @system actual [32.96,-9.95,19.98,49.95,0,0,80.02,0.04]
+2026-02-10 11:25:47:474 Info  @switch LED light to Green
+2026-02-10 11:25:47:475 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:47:475 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:47:475 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:47:475 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:47:476 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:47:490 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:25:53:183 User  @on_point25CalibDown_clicked
+2026-02-10 11:25:53:183 Info  @switch LED light to Red
+2026-02-10 11:25:53:184 DEBUG @S.SC state (1, 7)
+2026-02-10 11:25:53:184 DEBUG @E.SC state (1, 7)
+2026-02-10 11:25:53:185 DEBUG @S.VE state (1, 7)
+2026-02-10 11:25:53:185 DEBUG @E.VE state (1, 7)
+2026-02-10 11:25:53:185 DEBUG @S.MW state (1, 7)
+2026-02-10 11:25:53:204 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:54:192 MCU   @robot moving (calib_25point) done (875ms)
+2026-02-10 11:25:54:194 Info  @system actual [32.96,-9.95,20,49.97,0,0,80.02,0.04]
+2026-02-10 11:25:54:195 Info  @switch LED light to Green
+2026-02-10 11:25:54:195 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:54:195 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:54:196 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:54:196 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:54:196 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:54:210 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:25:56:388 User  @Button25PointClicked (9)
+2026-02-10 11:25:56:390 Info  @switch LED light to Red
+2026-02-10 11:25:56:390 DEBUG @S.SC state (1, 7)
+2026-02-10 11:25:56:391 DEBUG @E.SC state (1, 7)
+2026-02-10 11:25:56:392 DEBUG @S.VE state (1, 7)
+2026-02-10 11:25:56:393 DEBUG @E.VE state (1, 7)
+2026-02-10 11:25:56:393 DEBUG @S.MW state (1, 7)
+2026-02-10 11:25:56:413 DEBUG @E.MW state (1, 7)
+2026-02-10 11:25:58:304 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:25:58:307 Info  @system actual [32.96,-9.95,9.97,49.96,0,0,80.02,0.04]
+2026-02-10 11:25:58:307 Info  @switch LED light to Green
+2026-02-10 11:25:58:307 DEBUG @S.SC state (1, 8)
+2026-02-10 11:25:58:308 DEBUG @E.SC state (1, 8)
+2026-02-10 11:25:58:308 DEBUG @S.VE state (1, 8)
+2026-02-10 11:25:58:308 DEBUG @E.VE state (1, 8)
+2026-02-10 11:25:58:308 DEBUG @S.MW state (1, 8)
+2026-02-10 11:25:58:320 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:01:672 User  @Button25PointClicked (8)
+2026-02-10 11:26:01:673 Info  @switch LED light to Red
+2026-02-10 11:26:01:674 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:01:674 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:01:675 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:01:675 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:01:676 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:01:691 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:03:625 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:26:03:642 Info  @system actual [32.96,-9.95,-0.02,49.96,0,0,80.02,0.04]
+2026-02-10 11:26:03:642 Info  @switch LED light to Green
+2026-02-10 11:26:03:643 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:03:643 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:03:643 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:03:643 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:03:644 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:03:656 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:06:642 User  @Button25PointClicked (7)
+2026-02-10 11:26:06:643 Info  @switch LED light to Red
+2026-02-10 11:26:06:644 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:06:644 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:06:644 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:06:645 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:06:645 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:06:704 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:08:563 MCU   @robot moving (calib_25point) done (1891ms)
+2026-02-10 11:26:08:566 Info  @system actual [32.96,-9.95,-10.02,49.97,0,0,80.02,0.04]
+2026-02-10 11:26:08:567 Info  @switch LED light to Green
+2026-02-10 11:26:08:568 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:08:568 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:08:569 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:08:569 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:08:569 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:08:579 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:12:201 User  @on_point25CalibDown_clicked
+2026-02-10 11:26:12:202 Info  @switch LED light to Red
+2026-02-10 11:26:12:202 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:12:202 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:12:203 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:12:203 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:12:203 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:12:218 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:13:276 MCU   @robot moving (calib_25point) done (875ms)
+2026-02-10 11:26:13:296 Info  @system actual [32.96,-9.95,-10,49.97,0,0,80.02,0.04]
+2026-02-10 11:26:13:296 Info  @switch LED light to Green
+2026-02-10 11:26:13:297 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:13:297 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:13:297 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:13:298 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:13:298 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:13:311 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:15:632 User  @Button25PointClicked (6)
+2026-02-10 11:26:15:634 Info  @switch LED light to Red
+2026-02-10 11:26:15:634 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:15:634 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:15:635 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:15:635 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:15:635 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:15:695 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:17:794 MCU   @robot moving (calib_25point) done (2078ms)
+2026-02-10 11:26:17:798 Info  @system actual [32.96,-9.95,-20.02,49.97,0,0,80.02,0.04]
+2026-02-10 11:26:17:798 Info  @switch LED light to Green
+2026-02-10 11:26:17:798 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:17:799 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:17:799 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:17:800 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:17:800 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:17:811 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:20:112 User  @on_point25CalibDown_clicked
+2026-02-10 11:26:20:113 Info  @switch LED light to Red
+2026-02-10 11:26:20:114 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:20:114 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:20:115 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:20:115 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:20:115 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:20:129 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:21:107 MCU   @robot moving (calib_25point) done (875ms)
+2026-02-10 11:26:21:109 Info  @system actual [32.96,-9.95,-20,49.97,0,0,80.02,0.04]
+2026-02-10 11:26:21:110 Info  @switch LED light to Green
+2026-02-10 11:26:21:110 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:21:111 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:21:111 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:21:111 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:21:111 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:21:122 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:23:222 User  @Button25PointClicked (11)
+2026-02-10 11:26:23:223 Info  @switch LED light to Red
+2026-02-10 11:26:23:224 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:23:224 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:23:224 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:23:225 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:23:225 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:23:287 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:24:821 MCU   @robot moving (calib_25point) done (1485ms)
+2026-02-10 11:26:24:856 Info  @system actual [32.96,-9.95,-20,39.95,0,0,80.02,0.04]
+2026-02-10 11:26:24:856 Info  @switch LED light to Green
+2026-02-10 11:26:24:857 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:24:857 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:24:857 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:24:858 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:24:858 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:24:873 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:27:465 User  @on_point25CalibDown_clicked
+2026-02-10 11:26:27:466 Info  @switch LED light to Red
+2026-02-10 11:26:27:467 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:27:467 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:27:467 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:27:468 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:27:468 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:27:484 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:28:532 MCU   @robot moving (calib_25point) done (860ms)
+2026-02-10 11:26:28:536 Info  @system actual [32.96,-9.95,-20,39.97,0,0,80.02,0.04]
+2026-02-10 11:26:28:537 Info  @switch LED light to Green
+2026-02-10 11:26:28:537 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:28:538 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:28:538 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:28:539 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:28:539 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:28:554 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:31:227 User  @Button25PointClicked (12)
+2026-02-10 11:26:31:229 Info  @switch LED light to Red
+2026-02-10 11:26:31:229 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:31:229 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:31:229 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:31:229 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:31:230 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:31:292 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:33:668 MCU   @robot moving (calib_25point) done (2281ms)
+2026-02-10 11:26:33:671 Info  @system actual [32.96,-9.95,-9.99,39.97,0,0,80.02,0.04]
+2026-02-10 11:26:33:671 Info  @switch LED light to Green
+2026-02-10 11:26:33:671 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:33:672 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:33:672 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:33:673 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:33:673 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:33:686 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:36:176 User  @on_point25CalibDown_clicked
+2026-02-10 11:26:36:177 Info  @switch LED light to Red
+2026-02-10 11:26:36:177 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:36:178 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:36:178 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:36:179 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:36:179 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:36:237 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:37:200 MCU   @robot moving (calib_25point) done (891ms)
+2026-02-10 11:26:37:203 Info  @system actual [32.96,-9.95,-10,39.97,0,0,80.02,0.04]
+2026-02-10 11:26:37:204 Info  @switch LED light to Green
+2026-02-10 11:26:37:204 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:37:204 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:37:205 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:37:205 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:37:205 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:37:217 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:54:910 User  @Button25PointClicked (13)
+2026-02-10 11:26:54:911 Info  @switch LED light to Red
+2026-02-10 11:26:54:912 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:54:912 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:54:913 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:54:913 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:54:914 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:54:930 DEBUG @E.MW state (1, 7)
+2026-02-10 11:26:57:187 MCU   @robot moving (calib_25point) done (2094ms)
+2026-02-10 11:26:57:207 Info  @system actual [32.96,-9.95,0.01,39.97,0,0,80.02,0.04]
+2026-02-10 11:26:57:207 Info  @switch LED light to Green
+2026-02-10 11:26:57:208 DEBUG @S.SC state (1, 8)
+2026-02-10 11:26:57:208 DEBUG @E.SC state (1, 8)
+2026-02-10 11:26:57:208 DEBUG @S.VE state (1, 8)
+2026-02-10 11:26:57:209 DEBUG @E.VE state (1, 8)
+2026-02-10 11:26:57:209 DEBUG @S.MW state (1, 8)
+2026-02-10 11:26:57:219 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:26:59:579 User  @Button25PointClicked (14)
+2026-02-10 11:26:59:581 Info  @switch LED light to Red
+2026-02-10 11:26:59:581 DEBUG @S.SC state (1, 7)
+2026-02-10 11:26:59:582 DEBUG @E.SC state (1, 7)
+2026-02-10 11:26:59:582 DEBUG @S.VE state (1, 7)
+2026-02-10 11:26:59:583 DEBUG @E.VE state (1, 7)
+2026-02-10 11:26:59:583 DEBUG @S.MW state (1, 7)
+2026-02-10 11:26:59:641 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:01:704 MCU   @robot moving (calib_25point) done (2079ms)
+2026-02-10 11:27:01:723 Info  @system actual [32.96,-9.95,10.01,39.97,0,0,80.02,0.04]
+2026-02-10 11:27:01:724 Info  @switch LED light to Green
+2026-02-10 11:27:01:725 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:01:726 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:01:726 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:01:726 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:01:726 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:01:738 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:27:10:015 User  @on_point25CalibUp_clicked
+2026-02-10 11:27:10:016 Info  @switch LED light to Red
+2026-02-10 11:27:10:017 DEBUG @S.SC state (1, 7)
+2026-02-10 11:27:10:017 DEBUG @E.SC state (1, 7)
+2026-02-10 11:27:10:017 DEBUG @S.VE state (1, 7)
+2026-02-10 11:27:10:018 DEBUG @E.VE state (1, 7)
+2026-02-10 11:27:10:018 DEBUG @S.MW state (1, 7)
+2026-02-10 11:27:10:032 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:11:056 MCU   @robot moving (calib_25point) done (891ms)
+2026-02-10 11:27:11:058 Info  @system actual [32.96,-9.95,10,39.98,0,0,80.02,0.04]
+2026-02-10 11:27:11:059 Info  @switch LED light to Green
+2026-02-10 11:27:11:059 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:11:060 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:11:060 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:11:060 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:11:061 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:11:078 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:27:12:798 User  @on_point25CalibDown_clicked
+2026-02-10 11:27:12:799 Info  @switch LED light to Red
+2026-02-10 11:27:12:799 DEBUG @S.SC state (1, 7)
+2026-02-10 11:27:12:800 DEBUG @E.SC state (1, 7)
+2026-02-10 11:27:12:800 DEBUG @S.VE state (1, 7)
+2026-02-10 11:27:12:800 DEBUG @E.VE state (1, 7)
+2026-02-10 11:27:12:801 DEBUG @S.MW state (1, 7)
+2026-02-10 11:27:12:815 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:13:781 MCU   @robot moving (calib_25point) done (891ms)
+2026-02-10 11:27:13:791 Info  @system actual [32.96,-9.95,9.99,39.96,0,0,80.02,0.04]
+2026-02-10 11:27:13:792 Info  @switch LED light to Green
+2026-02-10 11:27:13:793 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:13:793 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:13:793 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:13:794 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:13:794 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:13:808 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:27:22:966 User  @Button25PointClicked (15)
+2026-02-10 11:27:22:968 Info  @switch LED light to Red
+2026-02-10 11:27:22:968 DEBUG @S.SC state (1, 7)
+2026-02-10 11:27:22:969 DEBUG @E.SC state (1, 7)
+2026-02-10 11:27:22:969 DEBUG @S.VE state (1, 7)
+2026-02-10 11:27:22:970 DEBUG @E.VE state (1, 7)
+2026-02-10 11:27:22:972 DEBUG @S.MW state (1, 7)
+2026-02-10 11:27:23:034 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:25:119 MCU   @robot moving (calib_25point) done (2078ms)
+2026-02-10 11:27:25:125 Info  @system actual [32.96,-9.95,20.01,39.96,0,0,80.02,0.04]
+2026-02-10 11:27:25:125 Info  @switch LED light to Green
+2026-02-10 11:27:25:125 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:25:126 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:25:126 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:25:126 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:25:126 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:25:138 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:27:31:198 User  @Button25PointClicked (20)
+2026-02-10 11:27:31:199 Info  @switch LED light to Red
+2026-02-10 11:27:31:200 DEBUG @S.SC state (1, 7)
+2026-02-10 11:27:31:200 DEBUG @E.SC state (1, 7)
+2026-02-10 11:27:31:200 DEBUG @S.VE state (1, 7)
+2026-02-10 11:27:31:201 DEBUG @E.VE state (1, 7)
+2026-02-10 11:27:31:201 DEBUG @S.MW state (1, 7)
+2026-02-10 11:27:31:258 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:33:049 MCU   @robot moving (calib_25point) done (1672ms)
+2026-02-10 11:27:33:052 Info  @system actual [32.96,-9.95,19.98,29.93,0,0,80.02,0.04]
+2026-02-10 11:27:33:052 Info  @switch LED light to Green
+2026-02-10 11:27:33:053 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:33:053 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:33:053 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:33:054 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:33:054 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:33:093 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:27:36:434 User  @Button25PointClicked (19)
+2026-02-10 11:27:36:436 Info  @switch LED light to Red
+2026-02-10 11:27:36:436 DEBUG @S.SC state (1, 7)
+2026-02-10 11:27:36:436 DEBUG @E.SC state (1, 7)
+2026-02-10 11:27:36:437 DEBUG @S.VE state (1, 7)
+2026-02-10 11:27:36:437 DEBUG @E.VE state (1, 7)
+2026-02-10 11:27:36:437 DEBUG @S.MW state (1, 7)
+2026-02-10 11:27:36:454 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:38:565 MCU   @robot moving (calib_25point) done (2063ms)
+2026-02-10 11:27:38:568 Info  @system actual [32.96,-9.95,9.97,29.96,0,0,80.02,0.04]
+2026-02-10 11:27:38:569 Info  @switch LED light to Green
+2026-02-10 11:27:38:569 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:38:569 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:38:570 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:38:570 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:38:570 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:38:582 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:27:41:190 User  @Button25PointClicked (18)
+2026-02-10 11:27:41:191 Info  @switch LED light to Red
+2026-02-10 11:27:41:192 DEBUG @S.SC state (1, 7)
+2026-02-10 11:27:41:192 DEBUG @E.SC state (1, 7)
+2026-02-10 11:27:41:193 DEBUG @S.VE state (1, 7)
+2026-02-10 11:27:41:193 DEBUG @E.VE state (1, 7)
+2026-02-10 11:27:41:193 DEBUG @S.MW state (1, 7)
+2026-02-10 11:27:41:211 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:43:485 MCU   @robot moving (calib_25point) done (2078ms)
+2026-02-10 11:27:43:498 Info  @system actual [32.96,-9.95,-0.02,29.97,0,0,80.02,0.04]
+2026-02-10 11:27:43:499 Info  @switch LED light to Green
+2026-02-10 11:27:43:499 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:43:499 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:43:500 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:43:500 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:43:500 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:43:511 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:27:46:326 User  @Button25PointClicked (17)
+2026-02-10 11:27:46:327 Info  @switch LED light to Red
+2026-02-10 11:27:46:328 DEBUG @S.SC state (1, 7)
+2026-02-10 11:27:46:328 DEBUG @E.SC state (1, 7)
+2026-02-10 11:27:46:328 DEBUG @S.VE state (1, 7)
+2026-02-10 11:27:46:329 DEBUG @E.VE state (1, 7)
+2026-02-10 11:27:46:329 DEBUG @S.MW state (1, 7)
+2026-02-10 11:27:46:387 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:48:584 MCU   @robot moving (calib_25point) done (2078ms)
+2026-02-10 11:27:48:593 Info  @system actual [32.96,-9.95,-10.01,29.97,0,0,80.02,0.04]
+2026-02-10 11:27:48:593 Info  @switch LED light to Green
+2026-02-10 11:27:48:594 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:48:594 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:48:594 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:48:595 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:48:595 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:48:634 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:27:50:912 User  @Button25PointClicked (16)
+2026-02-10 11:27:50:914 Info  @switch LED light to Red
+2026-02-10 11:27:50:914 DEBUG @S.SC state (1, 7)
+2026-02-10 11:27:50:914 DEBUG @E.SC state (1, 7)
+2026-02-10 11:27:50:915 DEBUG @S.VE state (1, 7)
+2026-02-10 11:27:50:915 DEBUG @E.VE state (1, 7)
+2026-02-10 11:27:50:916 DEBUG @S.MW state (1, 7)
+2026-02-10 11:27:50:932 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:53:299 MCU   @robot moving (calib_25point) done (2265ms)
+2026-02-10 11:27:53:304 Info  @system actual [32.96,-9.95,-20.01,29.97,0,0,80.02,0.04]
+2026-02-10 11:27:53:305 Info  @switch LED light to Green
+2026-02-10 11:27:53:306 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:53:306 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:53:307 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:53:307 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:53:307 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:53:320 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:27:57:302 User  @Button25PointClicked (21)
+2026-02-10 11:27:57:303 Info  @switch LED light to Red
+2026-02-10 11:27:57:304 DEBUG @S.SC state (1, 7)
+2026-02-10 11:27:57:305 DEBUG @E.SC state (1, 7)
+2026-02-10 11:27:57:305 DEBUG @S.VE state (1, 7)
+2026-02-10 11:27:57:306 DEBUG @E.VE state (1, 7)
+2026-02-10 11:27:57:306 DEBUG @S.MW state (1, 7)
+2026-02-10 11:27:57:324 DEBUG @E.MW state (1, 7)
+2026-02-10 11:27:58:837 MCU   @robot moving (calib_25point) done (1469ms)
+2026-02-10 11:27:58:839 Info  @system actual [32.96,-9.95,-20,19.95,0,0,80.02,0.04]
+2026-02-10 11:27:58:839 Info  @switch LED light to Green
+2026-02-10 11:27:58:840 DEBUG @S.SC state (1, 8)
+2026-02-10 11:27:58:840 DEBUG @E.SC state (1, 8)
+2026-02-10 11:27:58:840 DEBUG @S.VE state (1, 8)
+2026-02-10 11:27:58:841 DEBUG @E.VE state (1, 8)
+2026-02-10 11:27:58:841 DEBUG @S.MW state (1, 8)
+2026-02-10 11:27:58:858 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:28:03:407 User  @on_point25CalibUp_clicked
+2026-02-10 11:28:03:408 Info  @switch LED light to Red
+2026-02-10 11:28:03:409 DEBUG @S.SC state (1, 7)
+2026-02-10 11:28:03:409 DEBUG @E.SC state (1, 7)
+2026-02-10 11:28:03:409 DEBUG @S.VE state (1, 7)
+2026-02-10 11:28:03:411 DEBUG @E.VE state (1, 7)
+2026-02-10 11:28:03:411 DEBUG @S.MW state (1, 7)
+2026-02-10 11:28:03:464 DEBUG @E.MW state (1, 7)
+2026-02-10 11:28:04:353 MCU   @robot moving (calib_25point) done (875ms)
+2026-02-10 11:28:04:357 Info  @system actual [32.96,-9.95,-20,19.97,0,0,80.02,0.04]
+2026-02-10 11:28:04:358 Info  @switch LED light to Green
+2026-02-10 11:28:04:358 DEBUG @S.SC state (1, 8)
+2026-02-10 11:28:04:359 DEBUG @E.SC state (1, 8)
+2026-02-10 11:28:04:359 DEBUG @S.VE state (1, 8)
+2026-02-10 11:28:04:359 DEBUG @E.VE state (1, 8)
+2026-02-10 11:28:04:360 DEBUG @S.MW state (1, 8)
+2026-02-10 11:28:04:373 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:28:10:234 User  @on_point25CalibLeft_clicked
+2026-02-10 11:28:10:235 Info  @switch LED light to Red
+2026-02-10 11:28:10:236 DEBUG @S.SC state (1, 7)
+2026-02-10 11:28:10:236 DEBUG @E.SC state (1, 7)
+2026-02-10 11:28:10:237 DEBUG @S.VE state (1, 7)
+2026-02-10 11:28:10:237 DEBUG @E.VE state (1, 7)
+2026-02-10 11:28:10:238 DEBUG @S.MW state (1, 7)
+2026-02-10 11:28:10:252 DEBUG @E.MW state (1, 7)
+2026-02-10 11:28:11:276 MCU   @robot moving (calib_25point) done (875ms)
+2026-02-10 11:28:11:291 Info  @system actual [32.96,-9.95,-20,19.97,0,0,80.02,0.04]
+2026-02-10 11:28:11:291 Info  @switch LED light to Green
+2026-02-10 11:28:11:292 DEBUG @S.SC state (1, 8)
+2026-02-10 11:28:11:292 DEBUG @E.SC state (1, 8)
+2026-02-10 11:28:11:292 DEBUG @S.VE state (1, 8)
+2026-02-10 11:28:11:293 DEBUG @E.VE state (1, 8)
+2026-02-10 11:28:11:293 DEBUG @S.MW state (1, 8)
+2026-02-10 11:28:11:308 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:28:15:169 User  @Button25PointClicked (22)
+2026-02-10 11:28:15:171 Info  @switch LED light to Red
+2026-02-10 11:28:15:172 DEBUG @S.SC state (1, 7)
+2026-02-10 11:28:15:172 DEBUG @E.SC state (1, 7)
+2026-02-10 11:28:15:172 DEBUG @S.VE state (1, 7)
+2026-02-10 11:28:15:173 DEBUG @E.VE state (1, 7)
+2026-02-10 11:28:15:173 DEBUG @S.MW state (1, 7)
+2026-02-10 11:28:15:222 DEBUG @E.MW state (1, 7)
+2026-02-10 11:28:18:015 MCU   @robot moving (calib_25point) done (2687ms)
+2026-02-10 11:28:18:018 Info  @system actual [32.96,-9.95,-9.99,19.97,0,0,80.02,0.04]
+2026-02-10 11:28:18:019 Info  @switch LED light to Green
+2026-02-10 11:28:18:019 DEBUG @S.SC state (1, 8)
+2026-02-10 11:28:18:019 DEBUG @E.SC state (1, 8)
+2026-02-10 11:28:18:020 DEBUG @S.VE state (1, 8)
+2026-02-10 11:28:18:020 DEBUG @E.VE state (1, 8)
+2026-02-10 11:28:18:020 DEBUG @S.MW state (1, 8)
+2026-02-10 11:28:18:038 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:28:23:789 User  @on_point25CalibUp_clicked
+2026-02-10 11:28:23:790 Info  @switch LED light to Red
+2026-02-10 11:28:23:791 DEBUG @S.SC state (1, 7)
+2026-02-10 11:28:23:792 DEBUG @E.SC state (1, 7)
+2026-02-10 11:28:23:792 DEBUG @S.VE state (1, 7)
+2026-02-10 11:28:23:793 DEBUG @E.VE state (1, 7)
+2026-02-10 11:28:23:793 DEBUG @S.MW state (1, 7)
+2026-02-10 11:28:23:808 DEBUG @E.MW state (1, 7)
+2026-02-10 11:28:24:735 MCU   @robot moving (calib_25point) done (860ms)
+2026-02-10 11:28:24:754 Info  @system actual [32.96,-9.95,-10,19.97,0,0,80.02,0.04]
+2026-02-10 11:28:24:755 Info  @switch LED light to Green
+2026-02-10 11:28:24:755 DEBUG @S.SC state (1, 8)
+2026-02-10 11:28:24:756 DEBUG @E.SC state (1, 8)
+2026-02-10 11:28:24:756 DEBUG @S.VE state (1, 8)
+2026-02-10 11:28:24:757 DEBUG @E.VE state (1, 8)
+2026-02-10 11:28:24:757 DEBUG @S.MW state (1, 8)
+2026-02-10 11:28:24:771 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:28:27:373 User  @Button25PointClicked (23)
+2026-02-10 11:28:27:375 Info  @switch LED light to Red
+2026-02-10 11:28:27:376 DEBUG @S.SC state (1, 7)
+2026-02-10 11:28:27:377 DEBUG @E.SC state (1, 7)
+2026-02-10 11:28:27:377 DEBUG @S.VE state (1, 7)
+2026-02-10 11:28:27:378 DEBUG @E.VE state (1, 7)
+2026-02-10 11:28:27:379 DEBUG @S.MW state (1, 7)
+2026-02-10 11:28:27:433 DEBUG @E.MW state (1, 7)
+2026-02-10 11:28:30:038 MCU   @robot moving (calib_25point) done (2484ms)
+2026-02-10 11:28:30:041 Info  @system actual [32.96,-9.95,0.01,19.96,0,0,80.02,0.04]
+2026-02-10 11:28:30:042 Info  @switch LED light to Green
+2026-02-10 11:28:30:042 DEBUG @S.SC state (1, 8)
+2026-02-10 11:28:30:043 DEBUG @E.SC state (1, 8)
+2026-02-10 11:28:30:043 DEBUG @S.VE state (1, 8)
+2026-02-10 11:28:30:044 DEBUG @E.VE state (1, 8)
+2026-02-10 11:28:30:044 DEBUG @S.MW state (1, 8)
+2026-02-10 11:28:30:059 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:28:34:559 User  @Button25PointClicked (24)
+2026-02-10 11:28:34:560 Info  @switch LED light to Red
+2026-02-10 11:28:34:561 DEBUG @S.SC state (1, 7)
+2026-02-10 11:28:34:561 DEBUG @E.SC state (1, 7)
+2026-02-10 11:28:34:562 DEBUG @S.VE state (1, 7)
+2026-02-10 11:28:34:563 DEBUG @E.VE state (1, 7)
+2026-02-10 11:28:34:563 DEBUG @S.MW state (1, 7)
+2026-02-10 11:28:34:579 DEBUG @E.MW state (1, 7)
+2026-02-10 11:28:36:961 MCU   @robot moving (calib_25point) done (2281ms)
+2026-02-10 11:28:36:964 Info  @system actual [32.96,-9.95,10.01,19.96,0,0,80.02,0.04]
+2026-02-10 11:28:36:964 Info  @switch LED light to Green
+2026-02-10 11:28:36:965 DEBUG @S.SC state (1, 8)
+2026-02-10 11:28:36:965 DEBUG @E.SC state (1, 8)
+2026-02-10 11:28:36:965 DEBUG @S.VE state (1, 8)
+2026-02-10 11:28:36:966 DEBUG @E.VE state (1, 8)
+2026-02-10 11:28:36:966 DEBUG @S.MW state (1, 8)
+2026-02-10 11:28:36:979 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:28:39:729 User  @Button25PointClicked (25)
+2026-02-10 11:28:39:730 Info  @switch LED light to Red
+2026-02-10 11:28:39:731 DEBUG @S.SC state (1, 7)
+2026-02-10 11:28:39:731 DEBUG @E.SC state (1, 7)
+2026-02-10 11:28:39:731 DEBUG @S.VE state (1, 7)
+2026-02-10 11:28:39:732 DEBUG @E.VE state (1, 7)
+2026-02-10 11:28:39:732 DEBUG @S.MW state (1, 7)
+2026-02-10 11:28:39:751 DEBUG @E.MW state (1, 7)
+2026-02-10 11:28:42:099 MCU   @robot moving (calib_25point) done (2313ms)
+2026-02-10 11:28:42:103 Info  @system actual [32.96,-9.95,20.01,19.97,0,0,80.02,0.04]
+2026-02-10 11:28:42:104 Info  @switch LED light to Green
+2026-02-10 11:28:42:104 DEBUG @S.SC state (1, 8)
+2026-02-10 11:28:42:105 DEBUG @E.SC state (1, 8)
+2026-02-10 11:28:42:105 DEBUG @S.VE state (1, 8)
+2026-02-10 11:28:42:105 DEBUG @E.VE state (1, 8)
+2026-02-10 11:28:42:106 DEBUG @S.MW state (1, 8)
+2026-02-10 11:28:42:121 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:28:49:701 User  @on_point25CalibRotation_clicked
+2026-02-10 11:28:49:702 Info  @switch LED light to Red
+2026-02-10 11:28:49:702 DEBUG @S.SC state (1, 7)
+2026-02-10 11:28:49:703 DEBUG @E.SC state (1, 7)
+2026-02-10 11:28:49:703 DEBUG @S.VE state (1, 7)
+2026-02-10 11:28:49:704 DEBUG @E.VE state (1, 7)
+2026-02-10 11:28:49:704 DEBUG @S.MW state (1, 7)
+2026-02-10 11:28:49:720 DEBUG @E.MW state (1, 7)
+2026-02-10 11:28:55:317 MCU   @robot moving (calib_25point) done (5579ms)
+2026-02-10 11:28:55:332 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.56,12.27,80.02,0.04]
+2026-02-10 11:28:55:333 Info  @switch LED light to Green
+2026-02-10 11:28:55:334 DEBUG @S.SC state (1, 8)
+2026-02-10 11:28:55:334 DEBUG @E.SC state (1, 8)
+2026-02-10 11:28:55:334 DEBUG @S.VE state (1, 8)
+2026-02-10 11:28:55:335 DEBUG @E.VE state (1, 8)
+2026-02-10 11:28:55:335 DEBUG @S.MW state (1, 8)
+2026-02-10 11:28:55:347 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:28:59:511 User  @on_point25CalibLeft_clicked
+2026-02-10 11:28:59:511 Info  @switch LED light to Red
+2026-02-10 11:28:59:512 DEBUG @S.SC state (1, 7)
+2026-02-10 11:28:59:512 DEBUG @E.SC state (1, 7)
+2026-02-10 11:28:59:513 DEBUG @S.VE state (1, 7)
+2026-02-10 11:28:59:513 DEBUG @E.VE state (1, 7)
+2026-02-10 11:28:59:513 DEBUG @S.MW state (1, 7)
+2026-02-10 11:28:59:524 DEBUG @E.MW state (1, 7)
+2026-02-10 11:29:00:310 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:29:00:315 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.56,12.50,80.02,0.04]
+2026-02-10 11:29:00:315 Info  @switch LED light to Green
+2026-02-10 11:29:00:316 DEBUG @S.SC state (1, 8)
+2026-02-10 11:29:00:317 DEBUG @E.SC state (1, 8)
+2026-02-10 11:29:00:317 DEBUG @S.VE state (1, 8)
+2026-02-10 11:29:00:318 DEBUG @E.VE state (1, 8)
+2026-02-10 11:29:00:318 DEBUG @S.MW state (1, 8)
+2026-02-10 11:29:00:336 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:29:03:383 User  @on_point25CalibLeft_clicked
+2026-02-10 11:29:03:383 Info  @switch LED light to Red
+2026-02-10 11:29:03:384 DEBUG @S.SC state (1, 7)
+2026-02-10 11:29:03:384 DEBUG @E.SC state (1, 7)
+2026-02-10 11:29:03:385 DEBUG @S.VE state (1, 7)
+2026-02-10 11:29:03:386 DEBUG @E.VE state (1, 7)
+2026-02-10 11:29:03:386 DEBUG @S.MW state (1, 7)
+2026-02-10 11:29:03:395 DEBUG @E.MW state (1, 7)
+2026-02-10 11:29:04:297 MCU   @robot moving (calib_25point) done (734ms)
+2026-02-10 11:29:04:300 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.56,12.74,80.02,0.04]
+2026-02-10 11:29:04:300 Info  @switch LED light to Green
+2026-02-10 11:29:04:301 DEBUG @S.SC state (1, 8)
+2026-02-10 11:29:04:301 DEBUG @E.SC state (1, 8)
+2026-02-10 11:29:04:301 DEBUG @S.VE state (1, 8)
+2026-02-10 11:29:04:302 DEBUG @E.VE state (1, 8)
+2026-02-10 11:29:04:302 DEBUG @S.MW state (1, 8)
+2026-02-10 11:29:04:313 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:29:04:948 User  @on_point25CalibUp_clicked
+2026-02-10 11:29:04:949 Info  @switch LED light to Red
+2026-02-10 11:29:04:950 DEBUG @S.SC state (1, 7)
+2026-02-10 11:29:04:950 DEBUG @E.SC state (1, 7)
+2026-02-10 11:29:04:951 DEBUG @S.VE state (1, 7)
+2026-02-10 11:29:04:951 DEBUG @E.VE state (1, 7)
+2026-02-10 11:29:04:951 DEBUG @S.MW state (1, 7)
+2026-02-10 11:29:04:964 DEBUG @E.MW state (1, 7)
+2026-02-10 11:29:05:872 MCU   @robot moving (calib_25point) done (734ms)
+2026-02-10 11:29:05:883 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.79,12.74,80.02,0.04]
+2026-02-10 11:29:05:884 Info  @switch LED light to Green
+2026-02-10 11:29:05:884 DEBUG @S.SC state (1, 8)
+2026-02-10 11:29:05:885 DEBUG @E.SC state (1, 8)
+2026-02-10 11:29:05:885 DEBUG @S.VE state (1, 8)
+2026-02-10 11:29:05:886 DEBUG @E.VE state (1, 8)
+2026-02-10 11:29:05:887 DEBUG @S.MW state (1, 8)
+2026-02-10 11:29:05:899 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:29:10:491 User  @Button25PointClicked (2)
+2026-02-10 11:29:10:493 Info  @switch LED light to Red
+2026-02-10 11:29:10:494 DEBUG @S.SC state (1, 7)
+2026-02-10 11:29:10:494 DEBUG @E.SC state (1, 7)
+2026-02-10 11:29:10:494 DEBUG @S.VE state (1, 7)
+2026-02-10 11:29:10:495 DEBUG @E.VE state (1, 7)
+2026-02-10 11:29:10:495 DEBUG @S.MW state (1, 7)
+2026-02-10 11:29:10:558 DEBUG @E.MW state (1, 7)
+2026-02-10 11:29:12:414 MCU   @robot moving (calib_25point) done (1906ms)
+2026-02-10 11:29:12:418 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.52,6.15,80.02,0.04]
+2026-02-10 11:29:12:419 Info  @switch LED light to Green
+2026-02-10 11:29:12:419 DEBUG @S.SC state (1, 8)
+2026-02-10 11:29:12:420 DEBUG @E.SC state (1, 8)
+2026-02-10 11:29:12:420 DEBUG @S.VE state (1, 8)
+2026-02-10 11:29:12:421 DEBUG @E.VE state (1, 8)
+2026-02-10 11:29:12:421 DEBUG @S.MW state (1, 8)
+2026-02-10 11:29:12:443 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:29:31:967 User  @on_point25CalibUp_clicked
+2026-02-10 11:29:31:968 Info  @switch LED light to Red
+2026-02-10 11:29:31:969 DEBUG @S.SC state (1, 7)
+2026-02-10 11:29:31:970 DEBUG @E.SC state (1, 7)
+2026-02-10 11:29:31:970 DEBUG @S.VE state (1, 7)
+2026-02-10 11:29:31:971 DEBUG @E.VE state (1, 7)
+2026-02-10 11:29:31:972 DEBUG @S.MW state (1, 7)
+2026-02-10 11:29:32:029 DEBUG @E.MW state (1, 7)
+2026-02-10 11:29:32:858 MCU   @robot moving (calib_25point) done (735ms)
+2026-02-10 11:29:32:868 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.80,6.15,80.02,0.04]
+2026-02-10 11:29:32:869 Info  @switch LED light to Green
+2026-02-10 11:29:32:869 DEBUG @S.SC state (1, 8)
+2026-02-10 11:29:32:870 DEBUG @E.SC state (1, 8)
+2026-02-10 11:29:32:870 DEBUG @S.VE state (1, 8)
+2026-02-10 11:29:32:871 DEBUG @E.VE state (1, 8)
+2026-02-10 11:29:32:872 DEBUG @S.MW state (1, 8)
+2026-02-10 11:29:32:882 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:29:35:702 User  @on_point25CalibLeft_clicked
+2026-02-10 11:29:35:703 Info  @switch LED light to Red
+2026-02-10 11:29:35:703 DEBUG @S.SC state (1, 7)
+2026-02-10 11:29:35:704 DEBUG @E.SC state (1, 7)
+2026-02-10 11:29:35:704 DEBUG @S.VE state (1, 7)
+2026-02-10 11:29:35:704 DEBUG @E.VE state (1, 7)
+2026-02-10 11:29:35:705 DEBUG @S.MW state (1, 7)
+2026-02-10 11:29:35:714 DEBUG @E.MW state (1, 7)
+2026-02-10 11:29:36:641 MCU   @robot moving (calib_25point) done (734ms)
+2026-02-10 11:29:36:657 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.80,6.46,80.02,0.04]
+2026-02-10 11:29:36:658 Info  @switch LED light to Green
+2026-02-10 11:29:36:659 DEBUG @S.SC state (1, 8)
+2026-02-10 11:29:36:659 DEBUG @E.SC state (1, 8)
+2026-02-10 11:29:36:660 DEBUG @S.VE state (1, 8)
+2026-02-10 11:29:36:660 DEBUG @E.VE state (1, 8)
+2026-02-10 11:29:36:660 DEBUG @S.MW state (1, 8)
+2026-02-10 11:29:36:673 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:29:46:159 User  @Button25PointClicked (3)
+2026-02-10 11:29:46:160 Info  @switch LED light to Red
+2026-02-10 11:29:46:161 DEBUG @S.SC state (1, 7)
+2026-02-10 11:29:46:162 DEBUG @E.SC state (1, 7)
+2026-02-10 11:29:46:162 DEBUG @S.VE state (1, 7)
+2026-02-10 11:29:46:163 DEBUG @E.VE state (1, 7)
+2026-02-10 11:29:46:163 DEBUG @S.MW state (1, 7)
+2026-02-10 11:29:46:180 DEBUG @E.MW state (1, 7)
+2026-02-10 11:29:48:178 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:29:48:181 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.52,-0.03,80.02,0.04]
+2026-02-10 11:29:48:182 Info  @switch LED light to Green
+2026-02-10 11:29:48:183 DEBUG @S.SC state (1, 8)
+2026-02-10 11:29:48:183 DEBUG @E.SC state (1, 8)
+2026-02-10 11:29:48:183 DEBUG @S.VE state (1, 8)
+2026-02-10 11:29:48:184 DEBUG @E.VE state (1, 8)
+2026-02-10 11:29:48:184 DEBUG @S.MW state (1, 8)
+2026-02-10 11:29:48:197 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:29:53:691 User  @on_point25CalibUp_clicked
+2026-02-10 11:29:53:692 Info  @switch LED light to Red
+2026-02-10 11:29:53:693 DEBUG @S.SC state (1, 7)
+2026-02-10 11:29:53:693 DEBUG @E.SC state (1, 7)
+2026-02-10 11:29:53:693 DEBUG @S.VE state (1, 7)
+2026-02-10 11:29:53:694 DEBUG @E.VE state (1, 7)
+2026-02-10 11:29:53:694 DEBUG @S.MW state (1, 7)
+2026-02-10 11:29:53:712 DEBUG @E.MW state (1, 7)
+2026-02-10 11:29:54:568 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:29:54:583 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.80,-0.03,80.02,0.04]
+2026-02-10 11:29:54:583 Info  @switch LED light to Green
+2026-02-10 11:29:54:584 DEBUG @S.SC state (1, 8)
+2026-02-10 11:29:54:584 DEBUG @E.SC state (1, 8)
+2026-02-10 11:29:54:585 DEBUG @S.VE state (1, 8)
+2026-02-10 11:29:54:585 DEBUG @E.VE state (1, 8)
+2026-02-10 11:29:54:586 DEBUG @S.MW state (1, 8)
+2026-02-10 11:29:54:601 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:29:55:414 User  @on_point25CalibLeft_clicked
+2026-02-10 11:29:55:415 Info  @switch LED light to Red
+2026-02-10 11:29:55:415 DEBUG @S.SC state (1, 7)
+2026-02-10 11:29:55:416 DEBUG @E.SC state (1, 7)
+2026-02-10 11:29:55:416 DEBUG @S.VE state (1, 7)
+2026-02-10 11:29:55:416 DEBUG @E.VE state (1, 7)
+2026-02-10 11:29:55:417 DEBUG @S.MW state (1, 7)
+2026-02-10 11:29:55:433 DEBUG @E.MW state (1, 7)
+2026-02-10 11:29:56:347 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:29:56:350 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.80,0.28,80.02,0.04]
+2026-02-10 11:29:56:351 Info  @switch LED light to Green
+2026-02-10 11:29:56:351 DEBUG @S.SC state (1, 8)
+2026-02-10 11:29:56:351 DEBUG @E.SC state (1, 8)
+2026-02-10 11:29:56:352 DEBUG @S.VE state (1, 8)
+2026-02-10 11:29:56:352 DEBUG @E.VE state (1, 8)
+2026-02-10 11:29:56:352 DEBUG @S.MW state (1, 8)
+2026-02-10 11:29:56:364 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:29:58:835 User  @Button25PointClicked (4)
+2026-02-10 11:29:58:836 Info  @switch LED light to Red
+2026-02-10 11:29:58:837 DEBUG @S.SC state (1, 7)
+2026-02-10 11:29:58:837 DEBUG @E.SC state (1, 7)
+2026-02-10 11:29:58:838 DEBUG @S.VE state (1, 7)
+2026-02-10 11:29:58:838 DEBUG @E.VE state (1, 7)
+2026-02-10 11:29:58:839 DEBUG @S.MW state (1, 7)
+2026-02-10 11:29:58:893 DEBUG @E.MW state (1, 7)
+2026-02-10 11:30:00:863 MCU   @robot moving (calib_25point) done (1860ms)
+2026-02-10 11:30:00:865 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.52,-6.22,80.02,0.04]
+2026-02-10 11:30:00:866 Info  @switch LED light to Green
+2026-02-10 11:30:00:866 DEBUG @S.SC state (1, 8)
+2026-02-10 11:30:00:866 DEBUG @E.SC state (1, 8)
+2026-02-10 11:30:00:867 DEBUG @S.VE state (1, 8)
+2026-02-10 11:30:00:867 DEBUG @E.VE state (1, 8)
+2026-02-10 11:30:00:867 DEBUG @S.MW state (1, 8)
+2026-02-10 11:30:00:877 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:30:12:582 User  @on_point25CalibLeft_clicked
+2026-02-10 11:30:12:583 Info  @switch LED light to Red
+2026-02-10 11:30:12:583 DEBUG @S.SC state (1, 7)
+2026-02-10 11:30:12:584 DEBUG @E.SC state (1, 7)
+2026-02-10 11:30:12:584 DEBUG @S.VE state (1, 7)
+2026-02-10 11:30:12:584 DEBUG @E.VE state (1, 7)
+2026-02-10 11:30:12:585 DEBUG @S.MW state (1, 7)
+2026-02-10 11:30:12:605 DEBUG @E.MW state (1, 7)
+2026-02-10 11:30:13:473 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:30:13:476 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.52,-5.91,80.02,0.04]
+2026-02-10 11:30:13:476 Info  @switch LED light to Green
+2026-02-10 11:30:13:477 DEBUG @S.SC state (1, 8)
+2026-02-10 11:30:13:477 DEBUG @E.SC state (1, 8)
+2026-02-10 11:30:13:477 DEBUG @S.VE state (1, 8)
+2026-02-10 11:30:13:478 DEBUG @E.VE state (1, 8)
+2026-02-10 11:30:13:478 DEBUG @S.MW state (1, 8)
+2026-02-10 11:30:13:496 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:30:16:809 User  @on_point25CalibUp_clicked
+2026-02-10 11:30:16:809 Info  @switch LED light to Red
+2026-02-10 11:30:16:810 DEBUG @S.SC state (1, 7)
+2026-02-10 11:30:16:810 DEBUG @E.SC state (1, 7)
+2026-02-10 11:30:16:810 DEBUG @S.VE state (1, 7)
+2026-02-10 11:30:16:811 DEBUG @E.VE state (1, 7)
+2026-02-10 11:30:16:811 DEBUG @S.MW state (1, 7)
+2026-02-10 11:30:16:827 DEBUG @E.MW state (1, 7)
+2026-02-10 11:30:17:653 MCU   @robot moving (calib_25point) done (735ms)
+2026-02-10 11:30:17:656 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.80,-5.91,80.02,0.04]
+2026-02-10 11:30:17:656 Info  @switch LED light to Green
+2026-02-10 11:30:17:656 DEBUG @S.SC state (1, 8)
+2026-02-10 11:30:17:657 DEBUG @E.SC state (1, 8)
+2026-02-10 11:30:17:657 DEBUG @S.VE state (1, 8)
+2026-02-10 11:30:17:657 DEBUG @E.VE state (1, 8)
+2026-02-10 11:30:17:657 DEBUG @S.MW state (1, 8)
+2026-02-10 11:30:17:672 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:30:22:571 User  @Button25PointClicked (5)
+2026-02-10 11:30:22:573 Info  @switch LED light to Red
+2026-02-10 11:30:22:574 DEBUG @S.SC state (1, 7)
+2026-02-10 11:30:22:575 DEBUG @E.SC state (1, 7)
+2026-02-10 11:30:22:575 DEBUG @S.VE state (1, 7)
+2026-02-10 11:30:22:576 DEBUG @E.VE state (1, 7)
+2026-02-10 11:30:22:576 DEBUG @S.MW state (1, 7)
+2026-02-10 11:30:22:590 DEBUG @E.MW state (1, 7)
+2026-02-10 11:30:24:577 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:30:24:589 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.52,-12.27,80.02,0.04]
+2026-02-10 11:30:24:590 Info  @switch LED light to Green
+2026-02-10 11:30:24:590 DEBUG @S.SC state (1, 8)
+2026-02-10 11:30:24:591 DEBUG @E.SC state (1, 8)
+2026-02-10 11:30:24:591 DEBUG @S.VE state (1, 8)
+2026-02-10 11:30:24:591 DEBUG @E.VE state (1, 8)
+2026-02-10 11:30:24:592 DEBUG @S.MW state (1, 8)
+2026-02-10 11:30:24:608 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:30:42:984 User  @on_point25CalibUp_clicked
+2026-02-10 11:30:42:986 Info  @switch LED light to Red
+2026-02-10 11:30:42:987 DEBUG @S.SC state (1, 7)
+2026-02-10 11:30:42:988 DEBUG @E.SC state (1, 7)
+2026-02-10 11:30:42:988 DEBUG @S.VE state (1, 7)
+2026-02-10 11:30:42:989 DEBUG @E.VE state (1, 7)
+2026-02-10 11:30:42:989 DEBUG @S.MW state (1, 7)
+2026-02-10 11:30:43:005 DEBUG @E.MW state (1, 7)
+2026-02-10 11:30:43:790 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:30:43:794 Info  @system actual [32.96,-9.95,-0.02,39.96,-12.80,-12.27,80.02,0.04]
+2026-02-10 11:30:43:795 Info  @switch LED light to Green
+2026-02-10 11:30:43:796 DEBUG @S.SC state (1, 8)
+2026-02-10 11:30:43:796 DEBUG @E.SC state (1, 8)
+2026-02-10 11:30:43:796 DEBUG @S.VE state (1, 8)
+2026-02-10 11:30:43:797 DEBUG @E.VE state (1, 8)
+2026-02-10 11:30:43:797 DEBUG @S.MW state (1, 8)
+2026-02-10 11:30:43:808 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:09:249 User  @Button25PointClicked (10)
+2026-02-10 11:31:09:251 Info  @switch LED light to Red
+2026-02-10 11:31:09:252 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:09:253 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:09:253 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:09:253 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:09:254 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:09:268 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:11:390 MCU   @robot moving (calib_25point) done (2078ms)
+2026-02-10 11:31:11:396 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.33,-12.48,80.02,0.04]
+2026-02-10 11:31:11:397 Info  @switch LED light to Green
+2026-02-10 11:31:11:397 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:11:398 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:11:398 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:11:398 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:11:399 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:11:413 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:14:665 User  @Button25PointClicked (9)
+2026-02-10 11:31:14:666 Info  @switch LED light to Red
+2026-02-10 11:31:14:667 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:14:667 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:14:668 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:14:668 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:14:668 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:14:687 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:16:599 MCU   @robot moving (calib_25point) done (1750ms)
+2026-02-10 11:31:16:603 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.33,-6.27,80.02,0.04]
+2026-02-10 11:31:16:604 Info  @switch LED light to Green
+2026-02-10 11:31:16:605 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:16:605 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:16:605 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:16:606 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:16:606 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:16:625 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:18:519 User  @Button25PointClicked (8)
+2026-02-10 11:31:18:521 Info  @switch LED light to Red
+2026-02-10 11:31:18:521 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:18:521 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:18:522 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:18:522 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:18:522 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:18:579 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:20:407 MCU   @robot moving (calib_25point) done (1766ms)
+2026-02-10 11:31:20:410 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.33,0.03,80.02,0.04]
+2026-02-10 11:31:20:411 Info  @switch LED light to Green
+2026-02-10 11:31:20:411 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:20:412 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:20:412 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:20:412 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:20:413 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:20:457 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:22:239 User  @Button25PointClicked (7)
+2026-02-10 11:31:22:240 Info  @switch LED light to Red
+2026-02-10 11:31:22:241 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:22:241 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:22:241 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:22:242 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:22:242 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:22:302 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:24:188 MCU   @robot moving (calib_25point) done (1734ms)
+2026-02-10 11:31:24:208 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.33,6.34,80.02,0.04]
+2026-02-10 11:31:24:208 Info  @switch LED light to Green
+2026-02-10 11:31:24:209 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:24:209 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:24:209 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:24:210 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:24:210 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:24:222 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:26:373 User  @on_point25CalibUp_clicked
+2026-02-10 11:31:26:374 Info  @switch LED light to Red
+2026-02-10 11:31:26:374 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:26:374 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:26:375 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:26:375 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:26:375 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:26:429 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:27:168 MCU   @robot moving (calib_25point) done (734ms)
+2026-02-10 11:31:27:184 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.62,6.34,80.02,0.04]
+2026-02-10 11:31:27:185 Info  @switch LED light to Green
+2026-02-10 11:31:27:185 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:27:186 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:27:186 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:27:187 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:27:187 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:27:203 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:27:805 User  @on_point25CalibLeft_clicked
+2026-02-10 11:31:27:806 Info  @switch LED light to Red
+2026-02-10 11:31:27:806 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:27:806 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:27:807 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:27:807 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:27:807 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:27:867 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:28:748 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:31:28:752 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.62,6.58,80.02,0.04]
+2026-02-10 11:31:28:753 Info  @switch LED light to Green
+2026-02-10 11:31:28:753 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:28:753 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:28:754 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:28:754 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:28:755 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:28:772 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:30:941 User  @Button25PointClicked (6)
+2026-02-10 11:31:30:941 Info  @switch LED light to Red
+2026-02-10 11:31:30:942 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:30:943 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:30:944 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:30:944 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:30:945 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:30:966 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:32:659 MCU   @robot moving (calib_25point) done (1657ms)
+2026-02-10 11:31:32:666 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.33,12.49,80.02,0.04]
+2026-02-10 11:31:32:666 Info  @switch LED light to Green
+2026-02-10 11:31:32:667 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:32:667 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:32:667 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:32:668 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:32:668 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:32:711 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:35:244 User  @on_point25CalibUp_clicked
+2026-02-10 11:31:35:245 Info  @switch LED light to Red
+2026-02-10 11:31:35:246 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:35:246 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:35:246 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:35:247 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:35:247 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:35:276 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:36:060 MCU   @robot moving (calib_25point) done (734ms)
+2026-02-10 11:31:36:064 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.62,12.49,80.02,0.04]
+2026-02-10 11:31:36:065 Info  @switch LED light to Green
+2026-02-10 11:31:36:065 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:36:066 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:36:066 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:36:067 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:36:067 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:36:081 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:36:612 User  @on_point25CalibLeft_clicked
+2026-02-10 11:31:36:612 Info  @switch LED light to Red
+2026-02-10 11:31:36:612 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:36:613 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:36:613 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:36:613 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:36:614 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:36:627 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:37:437 MCU   @robot moving (calib_25point) done (734ms)
+2026-02-10 11:31:37:440 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.62,12.72,80.02,0.04]
+2026-02-10 11:31:37:440 Info  @switch LED light to Green
+2026-02-10 11:31:37:441 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:37:441 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:37:441 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:37:442 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:37:442 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:37:452 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:41:199 User  @on_point25CalibLeft_clicked
+2026-02-10 11:31:41:199 Info  @switch LED light to Red
+2026-02-10 11:31:41:200 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:41:200 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:41:200 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:41:201 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:41:201 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:41:215 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:42:021 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:31:42:042 Info  @system actual [32.96,-9.95,-0.02,39.96,-6.62,12.96,80.02,0.04]
+2026-02-10 11:31:42:042 Info  @switch LED light to Green
+2026-02-10 11:31:42:043 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:42:043 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:42:044 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:42:044 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:42:044 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:42:055 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:46:106 User  @Button25PointClicked (11)
+2026-02-10 11:31:46:108 Info  @switch LED light to Red
+2026-02-10 11:31:46:108 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:46:109 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:46:110 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:46:110 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:46:111 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:46:175 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:48:345 MCU   @robot moving (calib_25point) done (2078ms)
+2026-02-10 11:31:48:348 Info  @system actual [32.96,-9.95,-0.02,39.96,0.01,12.49,80.02,0.04]
+2026-02-10 11:31:48:349 Info  @switch LED light to Green
+2026-02-10 11:31:48:349 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:48:350 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:48:350 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:48:350 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:48:351 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:48:368 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:51:023 User  @on_point25CalibUp_clicked
+2026-02-10 11:31:51:023 Info  @switch LED light to Red
+2026-02-10 11:31:51:024 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:51:024 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:51:025 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:51:025 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:51:026 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:51:083 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:51:926 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:31:51:944 Info  @system actual [32.96,-9.95,-0.02,39.96,-0.28,12.49,80.02,0.04]
+2026-02-10 11:31:51:944 Info  @switch LED light to Green
+2026-02-10 11:31:51:945 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:51:945 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:51:945 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:51:945 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:51:946 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:51:960 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:54:854 User  @on_point25CalibLeft_clicked
+2026-02-10 11:31:54:855 Info  @switch LED light to Red
+2026-02-10 11:31:54:855 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:54:855 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:54:856 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:54:856 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:54:856 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:54:869 DEBUG @E.MW state (1, 7)
+2026-02-10 11:31:55:730 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:31:55:734 Info  @system actual [32.96,-9.95,-0.02,39.96,-0.28,12.80,80.02,0.04]
+2026-02-10 11:31:55:735 Info  @switch LED light to Green
+2026-02-10 11:31:55:735 DEBUG @S.SC state (1, 8)
+2026-02-10 11:31:55:735 DEBUG @E.SC state (1, 8)
+2026-02-10 11:31:55:736 DEBUG @S.VE state (1, 8)
+2026-02-10 11:31:55:736 DEBUG @E.VE state (1, 8)
+2026-02-10 11:31:55:736 DEBUG @S.MW state (1, 8)
+2026-02-10 11:31:55:750 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:31:59:404 User  @on_point25CalibDown_clicked
+2026-02-10 11:31:59:405 Info  @switch LED light to Red
+2026-02-10 11:31:59:405 DEBUG @S.SC state (1, 7)
+2026-02-10 11:31:59:406 DEBUG @E.SC state (1, 7)
+2026-02-10 11:31:59:406 DEBUG @S.VE state (1, 7)
+2026-02-10 11:31:59:406 DEBUG @E.VE state (1, 7)
+2026-02-10 11:31:59:407 DEBUG @S.MW state (1, 7)
+2026-02-10 11:31:59:418 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:00:319 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:32:00:321 Info  @system actual [32.96,-9.95,-0.02,39.96,0.01,12.80,80.02,0.04]
+2026-02-10 11:32:00:322 Info  @switch LED light to Green
+2026-02-10 11:32:00:322 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:00:322 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:00:323 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:00:323 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:00:323 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:00:343 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:03:769 User  @Button25PointClicked (12)
+2026-02-10 11:32:03:771 Info  @switch LED light to Red
+2026-02-10 11:32:03:771 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:03:772 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:03:772 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:03:772 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:03:773 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:03:829 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:05:707 MCU   @robot moving (calib_25point) done (1750ms)
+2026-02-10 11:32:05:711 Info  @system actual [32.96,-9.95,-0.02,39.96,0.01,6.30,80.02,0.04]
+2026-02-10 11:32:05:712 Info  @switch LED light to Green
+2026-02-10 11:32:05:712 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:05:713 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:05:713 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:05:713 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:05:714 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:05:731 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:08:498 User  @on_point25CalibUp_clicked
+2026-02-10 11:32:08:500 Info  @switch LED light to Red
+2026-02-10 11:32:08:500 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:08:500 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:08:501 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:08:501 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:08:501 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:08:520 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:09:268 MCU   @robot moving (calib_25point) done (719ms)
+2026-02-10 11:32:09:270 Info  @system actual [32.96,-9.95,-0.02,39.96,-0.28,6.30,80.02,0.04]
+2026-02-10 11:32:09:271 Info  @switch LED light to Green
+2026-02-10 11:32:09:271 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:09:271 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:09:272 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:09:272 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:09:272 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:09:286 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:13:487 User  @Button25PointClicked (14)
+2026-02-10 11:32:13:489 Info  @switch LED light to Red
+2026-02-10 11:32:13:489 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:13:489 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:13:490 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:13:490 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:13:490 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:13:554 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:16:397 MCU   @robot moving (calib_25point) done (2891ms)
+2026-02-10 11:32:16:413 Info  @system actual [32.96,-9.95,-0.02,39.96,0.01,-6.37,80.02,0.04]
+2026-02-10 11:32:16:415 Info  @switch LED light to Green
+2026-02-10 11:32:16:415 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:16:416 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:16:416 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:16:416 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:16:417 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:16:428 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:18:649 User  @Button25PointClicked (15)
+2026-02-10 11:32:18:650 Info  @switch LED light to Red
+2026-02-10 11:32:18:651 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:18:651 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:18:652 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:18:652 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:18:652 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:18:706 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:20:603 MCU   @robot moving (calib_25point) done (1766ms)
+2026-02-10 11:32:20:606 Info  @system actual [32.96,-9.95,-0.02,39.96,0.01,-12.56,80.02,0.04]
+2026-02-10 11:32:20:607 Info  @switch LED light to Green
+2026-02-10 11:32:20:607 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:20:608 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:20:608 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:20:609 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:20:609 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:20:624 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:28:987 User  @on_point25CalibRight_clicked
+2026-02-10 11:32:28:988 Info  @switch LED light to Red
+2026-02-10 11:32:28:988 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:28:988 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:28:989 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:28:989 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:28:990 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:29:007 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:29:803 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:32:29:806 Info  @system actual [32.96,-9.95,-0.02,39.96,0.01,-12.80,80.02,0.04]
+2026-02-10 11:32:29:807 Info  @switch LED light to Green
+2026-02-10 11:32:29:807 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:29:808 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:29:808 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:29:808 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:29:808 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:29:822 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:32:653 User  @Button25PointClicked (20)
+2026-02-10 11:32:32:654 Info  @switch LED light to Red
+2026-02-10 11:32:32:655 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:32:655 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:32:655 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:32:656 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:32:656 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:32:679 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:34:913 MCU   @robot moving (calib_25point) done (2078ms)
+2026-02-10 11:32:34:916 Info  @system actual [32.96,-9.95,-0.02,39.96,6.35,-12.42,80.02,0.04]
+2026-02-10 11:32:34:916 Info  @switch LED light to Green
+2026-02-10 11:32:34:917 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:34:917 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:34:917 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:34:917 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:34:918 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:34:935 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:38:455 User  @on_point25CalibRight_clicked
+2026-02-10 11:32:38:456 Info  @switch LED light to Red
+2026-02-10 11:32:38:457 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:38:457 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:38:458 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:38:458 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:38:458 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:38:477 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:39:276 MCU   @robot moving (calib_25point) done (735ms)
+2026-02-10 11:32:39:280 Info  @system actual [32.96,-9.95,-0.02,39.96,6.35,-12.73,80.02,0.04]
+2026-02-10 11:32:39:280 Info  @switch LED light to Green
+2026-02-10 11:32:39:281 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:39:281 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:39:281 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:39:281 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:39:282 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:39:295 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:41:725 User  @Button25PointClicked (19)
+2026-02-10 11:32:41:726 Info  @switch LED light to Red
+2026-02-10 11:32:41:727 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:41:727 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:41:727 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:41:728 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:41:728 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:41:747 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:43:663 MCU   @robot moving (calib_25point) done (1750ms)
+2026-02-10 11:32:43:668 Info  @system actual [32.96,-9.95,-0.02,39.96,6.35,-6.27,80.02,0.04]
+2026-02-10 11:32:43:668 Info  @switch LED light to Green
+2026-02-10 11:32:43:669 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:43:669 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:43:669 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:43:670 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:43:670 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:43:682 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:50:780 User  @Button25PointClicked (18)
+2026-02-10 11:32:50:781 Info  @switch LED light to Red
+2026-02-10 11:32:50:782 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:50:782 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:50:783 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:50:783 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:50:784 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:50:804 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:52:687 MCU   @robot moving (calib_25point) done (1766ms)
+2026-02-10 11:32:52:692 Info  @system actual [32.96,-9.95,-0.02,39.96,6.35,0.03,80.02,0.04]
+2026-02-10 11:32:52:692 Info  @switch LED light to Green
+2026-02-10 11:32:52:693 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:52:693 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:52:694 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:52:694 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:52:695 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:52:708 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:54:602 User  @Button25PointClicked (17)
+2026-02-10 11:32:54:603 Info  @switch LED light to Red
+2026-02-10 11:32:54:604 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:54:604 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:54:604 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:54:605 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:54:605 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:54:664 DEBUG @E.MW state (1, 7)
+2026-02-10 11:32:56:470 MCU   @robot moving (calib_25point) done (1734ms)
+2026-02-10 11:32:56:474 Info  @system actual [32.96,-9.95,-0.02,39.96,6.35,6.34,80.02,0.04]
+2026-02-10 11:32:56:475 Info  @switch LED light to Green
+2026-02-10 11:32:56:476 DEBUG @S.SC state (1, 8)
+2026-02-10 11:32:56:476 DEBUG @E.SC state (1, 8)
+2026-02-10 11:32:56:477 DEBUG @S.VE state (1, 8)
+2026-02-10 11:32:56:477 DEBUG @E.VE state (1, 8)
+2026-02-10 11:32:56:478 DEBUG @S.MW state (1, 8)
+2026-02-10 11:32:56:491 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:32:59:754 User  @Button25PointClicked (16)
+2026-02-10 11:32:59:756 Info  @switch LED light to Red
+2026-02-10 11:32:59:757 DEBUG @S.SC state (1, 7)
+2026-02-10 11:32:59:757 DEBUG @E.SC state (1, 7)
+2026-02-10 11:32:59:757 DEBUG @S.VE state (1, 7)
+2026-02-10 11:32:59:758 DEBUG @E.VE state (1, 7)
+2026-02-10 11:32:59:758 DEBUG @S.MW state (1, 7)
+2026-02-10 11:32:59:815 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:01:658 MCU   @robot moving (calib_25point) done (1735ms)
+2026-02-10 11:33:01:662 Info  @system actual [32.96,-9.95,-0.02,39.96,6.35,12.49,80.02,0.04]
+2026-02-10 11:33:01:662 Info  @switch LED light to Green
+2026-02-10 11:33:01:663 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:01:663 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:01:663 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:01:664 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:01:664 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:01:679 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:05:137 User  @on_point25CalibLeft_clicked
+2026-02-10 11:33:05:139 Info  @switch LED light to Red
+2026-02-10 11:33:05:139 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:05:139 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:05:140 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:05:140 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:05:141 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:05:159 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:06:063 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:33:06:071 Info  @system actual [32.96,-9.95,-0.02,39.96,6.35,12.73,80.02,0.04]
+2026-02-10 11:33:06:072 Info  @switch LED light to Green
+2026-02-10 11:33:06:072 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:06:072 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:06:073 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:06:073 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:06:074 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:06:087 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:10:245 User  @Button25PointClicked (21)
+2026-02-10 11:33:10:247 Info  @switch LED light to Red
+2026-02-10 11:33:10:248 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:10:249 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:10:249 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:10:250 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:10:250 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:10:267 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:12:184 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:33:12:188 Info  @system actual [32.96,-9.95,-0.02,39.96,12.54,12.20,80.02,0.04]
+2026-02-10 11:33:12:188 Info  @switch LED light to Green
+2026-02-10 11:33:12:189 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:12:189 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:12:189 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:12:189 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:12:190 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:12:203 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:15:414 User  @on_point25CalibUp_clicked
+2026-02-10 11:33:15:415 Info  @switch LED light to Red
+2026-02-10 11:33:15:415 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:15:416 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:15:416 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:15:416 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:15:417 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:15:436 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:16:369 MCU   @robot moving (calib_25point) done (765ms)
+2026-02-10 11:33:16:372 Info  @system actual [32.96,-9.95,-0.02,39.96,12.26,12.20,80.02,0.04]
+2026-02-10 11:33:16:373 Info  @switch LED light to Green
+2026-02-10 11:33:16:373 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:16:374 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:16:374 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:16:374 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:16:375 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:16:392 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:18:673 User  @on_point25CalibUp_clicked
+2026-02-10 11:33:18:673 Info  @switch LED light to Red
+2026-02-10 11:33:18:673 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:18:674 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:18:674 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:18:674 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:18:675 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:18:686 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:19:655 MCU   @robot moving (calib_25point) done (860ms)
+2026-02-10 11:33:19:667 Info  @system actual [32.96,-9.95,-0.02,39.96,12.02,12.28,80.02,0.04]
+2026-02-10 11:33:19:667 Info  @switch LED light to Green
+2026-02-10 11:33:19:668 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:19:668 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:19:668 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:19:669 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:19:669 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:19:710 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:22:471 User  @on_point25CalibDown_clicked
+2026-02-10 11:33:22:471 Info  @switch LED light to Red
+2026-02-10 11:33:22:472 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:22:472 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:22:472 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:22:473 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:22:473 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:22:492 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:23:240 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:33:23:243 Info  @system actual [32.96,-9.95,-0.02,39.96,12.30,12.28,80.02,0.04]
+2026-02-10 11:33:23:243 Info  @switch LED light to Green
+2026-02-10 11:33:23:244 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:23:244 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:23:244 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:23:245 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:23:245 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:23:264 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:27:202 User  @on_point25CalibLeft_clicked
+2026-02-10 11:33:27:202 Info  @switch LED light to Red
+2026-02-10 11:33:27:202 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:27:203 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:27:203 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:27:203 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:27:204 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:27:221 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:28:006 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:33:28:013 Info  @system actual [32.96,-9.95,-0.02,39.96,12.30,12.52,80.02,0.04]
+2026-02-10 11:33:28:014 Info  @switch LED light to Green
+2026-02-10 11:33:28:014 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:28:014 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:28:014 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:28:014 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:28:015 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:28:032 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:31:164 User  @Button25PointClicked (22)
+2026-02-10 11:33:31:165 Info  @switch LED light to Red
+2026-02-10 11:33:31:167 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:31:168 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:31:169 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:31:169 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:31:169 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:31:222 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:33:122 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:33:33:125 Info  @system actual [32.96,-9.95,-0.02,39.96,12.54,6.15,80.02,0.04]
+2026-02-10 11:33:33:125 Info  @switch LED light to Green
+2026-02-10 11:33:33:125 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:33:126 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:33:126 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:33:126 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:33:127 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:33:138 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:35:954 User  @on_point25CalibUp_clicked
+2026-02-10 11:33:35:955 Info  @switch LED light to Red
+2026-02-10 11:33:35:956 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:35:956 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:35:957 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:35:958 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:35:959 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:35:975 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:36:724 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:33:36:738 Info  @system actual [32.96,-9.95,-0.02,39.96,12.26,6.15,80.02,0.04]
+2026-02-10 11:33:36:738 Info  @switch LED light to Green
+2026-02-10 11:33:36:738 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:36:739 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:36:739 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:36:739 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:36:739 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:36:751 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:39:948 User  @Button25PointClicked (23)
+2026-02-10 11:33:39:950 Info  @switch LED light to Red
+2026-02-10 11:33:39:950 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:39:951 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:39:951 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:39:951 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:39:952 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:39:972 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:42:045 MCU   @robot moving (calib_25point) done (1875ms)
+2026-02-10 11:33:42:048 Info  @system actual [32.96,-9.95,-0.02,39.96,12.54,-0.03,80.02,0.04]
+2026-02-10 11:33:42:048 Info  @switch LED light to Green
+2026-02-10 11:33:42:049 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:42:049 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:42:049 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:42:050 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:42:050 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:42:061 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:44:351 User  @Button25PointClicked (24)
+2026-02-10 11:33:44:353 Info  @switch LED light to Red
+2026-02-10 11:33:44:353 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:44:354 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:44:354 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:44:354 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:44:355 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:44:410 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:46:234 MCU   @robot moving (calib_25point) done (1750ms)
+2026-02-10 11:33:46:255 Info  @system actual [32.96,-9.95,-0.02,39.96,12.54,-6.22,80.02,0.04]
+2026-02-10 11:33:46:256 Info  @switch LED light to Green
+2026-02-10 11:33:46:256 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:46:256 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:46:257 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:46:258 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:46:258 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:46:270 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:49:104 User  @Button25PointClicked (25)
+2026-02-10 11:33:49:106 Info  @switch LED light to Red
+2026-02-10 11:33:49:107 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:49:107 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:49:107 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:49:108 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:49:108 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:49:122 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:51:046 MCU   @robot moving (calib_25point) done (1750ms)
+2026-02-10 11:33:51:048 Info  @system actual [32.96,-9.95,-0.02,39.96,12.54,-12.27,80.02,0.04]
+2026-02-10 11:33:51:049 Info  @switch LED light to Green
+2026-02-10 11:33:51:049 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:51:050 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:51:050 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:51:050 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:51:051 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:51:063 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:33:56:531 User  @on_point25CalibUp_clicked
+2026-02-10 11:33:56:532 Info  @switch LED light to Red
+2026-02-10 11:33:56:532 DEBUG @S.SC state (1, 7)
+2026-02-10 11:33:56:533 DEBUG @E.SC state (1, 7)
+2026-02-10 11:33:56:533 DEBUG @S.VE state (1, 7)
+2026-02-10 11:33:56:534 DEBUG @E.VE state (1, 7)
+2026-02-10 11:33:56:534 DEBUG @S.MW state (1, 7)
+2026-02-10 11:33:56:554 DEBUG @E.MW state (1, 7)
+2026-02-10 11:33:57:439 MCU   @robot moving (calib_25point) done (734ms)
+2026-02-10 11:33:57:443 Info  @system actual [32.96,-9.95,-0.02,39.96,12.26,-12.27,80.02,0.04]
+2026-02-10 11:33:57:444 Info  @switch LED light to Green
+2026-02-10 11:33:57:444 DEBUG @S.SC state (1, 8)
+2026-02-10 11:33:57:444 DEBUG @E.SC state (1, 8)
+2026-02-10 11:33:57:445 DEBUG @S.VE state (1, 8)
+2026-02-10 11:33:57:445 DEBUG @E.VE state (1, 8)
+2026-02-10 11:33:57:446 DEBUG @S.MW state (1, 8)
+2026-02-10 11:33:57:461 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:34:01:113 User  @on_point25CalibRight_clicked
+2026-02-10 11:34:01:114 Info  @switch LED light to Red
+2026-02-10 11:34:01:114 DEBUG @S.SC state (1, 7)
+2026-02-10 11:34:01:115 DEBUG @E.SC state (1, 7)
+2026-02-10 11:34:01:115 DEBUG @S.VE state (1, 7)
+2026-02-10 11:34:01:115 DEBUG @E.VE state (1, 7)
+2026-02-10 11:34:01:116 DEBUG @S.MW state (1, 7)
+2026-02-10 11:34:01:130 DEBUG @E.MW state (1, 7)
+2026-02-10 11:34:02:024 MCU   @robot moving (calib_25point) done (750ms)
+2026-02-10 11:34:02:029 Info  @system actual [32.96,-9.95,-0.02,39.96,12.26,-12.51,80.02,0.04]
+2026-02-10 11:34:02:030 Info  @switch LED light to Green
+2026-02-10 11:34:02:031 DEBUG @S.SC state (1, 8)
+2026-02-10 11:34:02:031 DEBUG @E.SC state (1, 8)
+2026-02-10 11:34:02:032 DEBUG @S.VE state (1, 8)
+2026-02-10 11:34:02:032 DEBUG @E.VE state (1, 8)
+2026-02-10 11:34:02:033 DEBUG @S.MW state (1, 8)
+2026-02-10 11:34:02:054 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:34:04:548 User  @Button25PointClicked (13)
+2026-02-10 11:34:04:550 Info  @switch LED light to Red
+2026-02-10 11:34:04:550 DEBUG @S.SC state (1, 7)
+2026-02-10 11:34:04:551 DEBUG @E.SC state (1, 7)
+2026-02-10 11:34:04:551 DEBUG @S.VE state (1, 7)
+2026-02-10 11:34:04:551 DEBUG @E.VE state (1, 7)
+2026-02-10 11:34:04:552 DEBUG @S.MW state (1, 7)
+2026-02-10 11:34:04:610 DEBUG @E.MW state (1, 7)
+2026-02-10 11:34:07:339 MCU   @robot moving (calib_25point) done (2672ms)
+2026-02-10 11:34:07:354 Info  @system actual [32.96,-9.95,-0.02,39.96,-0.03,0.04,80.02,0.04]
+2026-02-10 11:34:07:355 Info  @switch LED light to Green
+2026-02-10 11:34:07:357 DEBUG @S.SC state (1, 8)
+2026-02-10 11:34:07:357 DEBUG @E.SC state (1, 8)
+2026-02-10 11:34:07:358 DEBUG @S.VE state (1, 8)
+2026-02-10 11:34:07:358 DEBUG @E.VE state (1, 8)
+2026-02-10 11:34:07:358 DEBUG @S.MW state (1, 8)
+2026-02-10 11:34:07:369 DEBUG @E.MW state (1, 8)
+
+2026-02-10 11:34:13:378 User  @on_point25CalibDone_clicked
+2026-02-10 11:34:13:381 DEBUG @S.SC state (7, 26)
+2026-02-10 11:34:13:382 DEBUG @E.SC state (7, 26)
+2026-02-10 11:34:13:383 DEBUG @S.VE state (7, 26)
+2026-02-10 11:34:13:383 DEBUG @E.VE state (7, 26)
+2026-02-10 11:34:13:383 DEBUG @S.MW state (7, 26)
+2026-02-10 11:34:13:405 DEBUG @E.MW state (7, 26)
+
+2026-02-10 11:36:37:620 User  @factory menu selected (System Settings)
+2026-02-10 11:48:12:764 Info  @screen auto locked (Service)
+
+2026-02-10 12:50:07:632 User  @screen unlocked by user 'Service'
+
+2026-02-10 12:50:29:601 User  @on_btnNeedleGuideStatus_clicked
+
+2026-02-10 12:50:37:431 User  @on_startCreateCase_clicked
+
+2026-02-10 12:50:43:784 User  @system menu selected (Exit)
+2026-02-10 12:50:45:736 Info  @open needle guide command sent
+2026-02-10 12:50:45:737 Info  @switch LED light to Red
+2026-02-10 12:50:45:737 DEBUG @S.SC state (6, 23)
+2026-02-10 12:50:45:738 DEBUG @E.SC state (6, 23)
+2026-02-10 12:50:45:738 DEBUG @S.VE state (6, 23)
+2026-02-10 12:50:45:738 DEBUG @E.VE state (6, 23)
+2026-02-10 12:50:45:739 DEBUG @S.MW state (6, 23)
+2026-02-10 12:50:45:789 DEBUG @E.MW state (6, 23)
+2026-02-10 12:50:46:718 Info  @needle guide opened
+2026-02-10 12:50:49:327 MCU   @robot moving (finalization) done (3454ms)
+2026-02-10 12:50:49:330 Info  @system actual [32.96,-3.91,-0.02,39.96,-0.03,0.04,80.02,0.04]
+2026-02-10 12:50:49:330 Info  @switch LED light to Green
+2026-02-10 12:50:50:477 Info  @switch LED light off
+2026-02-10 12:50:50:530 Frame @frame grabber stopped
+2026-02-10 12:50:50:970 MCU   @robot moving stopped
+2026-02-10 12:50:52:079 MCU   @mcu controller stopped
+2026-02-10 12:50:52:508 Info  @UroBiopsy exited 
+
+

@@ -1,0 +1,17 @@
+
+2026-02-26 10:59:24:681 Info  @UtlLogger instance created
+2026-02-26 10:59:24:681 Info  @starting UroReview (SVN 820)
+2026-02-26 10:59:24:991 Info  @ReviewMainWindow instance created
+
+2026-02-26 10:59:43:518 User  @user 'Doctor' login
+2026-02-26 10:59:43:576 Info  @UroReview launched
+2026-02-26 10:59:43:576 Info  @ReviewController instance created
+
+2026-02-26 10:59:52:061 User  @tool menu selected (Application Settings)
+
+2026-02-26 10:59:56:111 User  @system menu selected (About)
+
+2026-02-26 11:00:06:911 User  @on_startOpenCase_clicked
+
+2026-02-26 11:00:34:791 User  @system menu selected (Exit)
+2026-02-26 11:00:34:881 Info  @UroReview exited

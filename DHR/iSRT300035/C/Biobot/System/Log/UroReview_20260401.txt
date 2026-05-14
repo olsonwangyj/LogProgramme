@@ -1,0 +1,42 @@
+
+2026-04-01 12:26:57:050 Info  @UtlLogger instance created
+2026-04-01 12:26:57:052 Info  @starting UroReview (SVN 820)
+2026-04-01 12:26:57:453 Info  @ReviewMainWindow instance created
+2026-04-01 12:26:59:086 Info  @UroReview launched
+2026-04-01 12:26:59:087 Info  @ReviewController instance created
+
+2026-04-01 12:27:04:260 User  @on_startOpenCase_clicked
+
+2026-04-01 12:27:18:302 User  @on_startOpenCase_clicked
+2026-04-01 12:27:23:254 Sec   @case 'D:/Biobot/PatientData/case_20260330_161550295_UB' opened by Service
+
+2026-04-01 12:27:41:466 User  @on_stagePreOperative_clicked
+
+2026-04-01 12:27:46:797 User  @needle added A1 pivot(-15.634,34.386,-15.000) plan(-15.634,34.386,-91.500)
+
+2026-04-01 12:27:48:025 User  @needle added A2 pivot(-3.495,42.763,-15.000) plan(-3.495,42.763,-91.500)
+
+2026-04-01 12:27:51:117 User  @on_preopNeedleTranslateLeft_clicked
+
+2026-04-01 12:27:52:113 User  @on_preopNeedleTranslateRight_clicked
+
+2026-04-01 12:27:53:638 User  @on_preopNextNeedle_clicked
+
+2026-04-01 12:27:54:830 User  @on_preopNeedleTranslateLeft_clicked
+
+2026-04-01 12:27:56:282 User  @on_preopNeedleTranslatePosterior_clicked
+
+2026-04-01 12:27:57:888 User  @on_preopNeedleTranslateRight_clicked
+
+2026-04-01 12:28:01:701 User  @on_preopPlanSave_clicked
+
+2026-04-01 12:29:11:989 User  @on_stagePreOperative_clicked
+
+2026-04-01 12:29:13:629 User  @on_stageReview_clicked
+
+2026-04-01 12:29:16:425 User  @on_reviewExportCase_clicked
+
+2026-04-01 12:29:24:828 User  @on_stagePreOperative_clicked
+
+2026-04-01 12:29:45:063 User  @tool menu selected (Application Settings)
+2026-04-01 12:29:53:609 Info  @UroReview exited

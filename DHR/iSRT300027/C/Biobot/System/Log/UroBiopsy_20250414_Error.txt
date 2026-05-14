@@ -1,0 +1,31 @@
+
+2025-04-14 17:07:39:876 Info  @Start Concurrent Test (motion control)
+
+2025-04-14 17:32:37:510 MCU   @[ERR] motor X timeout (50 seconds) (motion control)
+2025-04-14 17:32:37:512 Info  @[X] timeout. 1 (F) (motion control)
+2025-04-14 17:32:40:138 Info  @Motor X: 143 (S), 1 (F) (motion control)
+2025-04-14 17:32:40:143 Info  @... 95 min left (motion control)
+
+2025-04-14 17:41:42:124 MCU   @[ERR] motor X timeout (50 seconds) (motion control)
+2025-04-14 17:41:42:126 Info  @[X] timeout. 2 (F) (motion control)
+2025-04-14 17:42:40:110 Info  @Motor X: 197 (S), 2 (F) (motion control)
+2025-04-14 17:42:40:117 Info  @... 85 min left (motion control)
+
+2025-04-14 17:48:39:712 MCU   @[ERR] motor X timeout (50 seconds) (motion control)
+2025-04-14 17:48:39:714 Info  @[X] timeout. 3 (F) (motion control)
+2025-04-14 17:48:40:096 Info  @Motor X: 227 (S), 3 (F) (motion control)
+2025-04-14 17:48:40:100 Info  @... 79 min left (motion control)
+
+2025-04-14 18:16:52:406 MCU   @[ERR] motor X timeout (50 seconds) (motion control)
+2025-04-14 18:16:52:408 Info  @[X] timeout. 4 (F) (motion control)
+2025-04-14 18:17:40:246 Info  @Motor X: 391 (S), 4 (F) (motion control)
+2025-04-14 18:17:40:251 Info  @... 50 min left (motion control)
+
+2025-04-14 18:51:47:209 MCU   @[ERR] motor X timeout (50 seconds) (motion control)
+2025-04-14 18:51:47:211 Info  @[X] timeout. 5 (F) (motion control)
+2025-04-14 18:52:40:088 Info  @Motor X: 589 (S), 5 (F) (motion control)
+2025-04-14 18:52:40:093 Info  @... 15 min left (motion control)
+
+2025-04-14 19:07:40:260 Info  @... stopping (motion control)
+2025-04-14 19:07:43:387 Info  @Done (motion control)
+2025-04-14 19:07:43:389 Info  @Motor X: 676 (S), 5 (F) (motion control)

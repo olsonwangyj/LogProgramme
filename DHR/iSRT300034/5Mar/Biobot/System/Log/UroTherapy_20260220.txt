@@ -1,0 +1,102 @@
+
+2026-02-20 16:54:46:195 Info  @UtlLogger instance created
+2026-02-20 16:54:46:195 Info  @starting UroTherapy (SVN 1003)
+2026-02-20 16:54:46:864 Info  @MainWindow instance created
+
+2026-02-20 16:55:12:705 User  @user 'Service' login
+2026-02-20 16:55:12:773 Info  @UroTherapy launched
+2026-02-20 16:55:12:774 Info  @SurgeryController instance created
+2026-02-20 16:55:46:450 Info  @Robot Unit: TX-05-00
+2026-02-20 16:55:46:616 Info  @VisualEngine instance created
+2026-02-20 16:55:48:532 DEBUG @S.SC state (7, 24)
+2026-02-20 16:55:48:532 DEBUG @E.SC state (7, 24)
+2026-02-20 16:55:48:533 DEBUG @S.VE state (7, 24)
+2026-02-20 16:55:48:533 DEBUG @E.VE state (7, 24)
+2026-02-20 16:55:48:533 DEBUG @S.MW state (7, 24)
+2026-02-20 16:55:48:670 MCU   @firmware version (Master): 1.0.0_004
+2026-02-20 16:55:48:670 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-20 16:55:48:837 MCU   @firmware version (Node 3): 1.0.0.14
+2026-02-20 16:55:48:882 DEBUG @E.MW state (7, 24)
+2026-02-20 16:55:48:921 MCU   @firmware version (Node 4): 1.0.0.14
+2026-02-20 16:55:49:044 MCU   @firmware version (Node 5): 1.0.0.14
+2026-02-20 16:55:49:127 MCU   @firmware version (Node 6): 1.0.0.14
+2026-02-20 16:55:49:251 MCU   @firmware version (Node 7): 1.0.0.14
+2026-02-20 16:55:49:333 MCU   @firmware version (Node 8): 1.0.0.14
+2026-02-20 16:55:49:436 MCU   @firmware version (Node 9): 1.0.0.14
+2026-02-20 16:55:49:540 MCU   @firmware version (Node 10): 1.0.0.14
+2026-02-20 16:55:49:643 MCU   @firmware version (Node 11): 1.0.0.16
+2026-02-20 16:55:49:747 MCU   @firmware version (Node 12): 1.0.0.14
+2026-02-20 16:55:49:830 MCU   @firmware operation mode (Node 3): 1
+2026-02-20 16:55:49:933 MCU   @firmware operation mode (Node 4): 1
+2026-02-20 16:55:49:933 MCU   @firmware support speed control
+2026-02-20 16:55:50:036 MCU   @firmware operation mode (Node 5): 1
+2026-02-20 16:55:50:139 MCU   @firmware operation mode (Node 6): 1
+2026-02-20 16:55:50:241 MCU   @firmware operation mode (Node 7): 1
+2026-02-20 16:55:50:325 MCU   @firmware operation mode (Node 8): 1
+2026-02-20 16:55:50:451 MCU   @firmware operation mode (Node 9): 1
+2026-02-20 16:55:50:534 MCU   @firmware operation mode (Node 10): 1
+2026-02-20 16:55:50:761 MCU   @firmware operation mode (Node 12): 1
+2026-02-20 16:55:50:865 MCU   @firmware acceptable error range (Node 3): 512
+2026-02-20 16:55:50:865 MCU   @[X] error range replaced with local set: 11741
+2026-02-20 16:55:50:947 MCU   @firmware acceptable error range (Node 4): 512
+2026-02-20 16:55:50:948 MCU   @[Y] error range replaced with local set: 11741
+2026-02-20 16:55:50:989 Info  @needle guide closed
+2026-02-20 16:55:51:070 MCU   @firmware acceptable error range (Node 5): 512
+2026-02-20 16:55:51:070 MCU   @[V] error range replaced with local set: 6154
+2026-02-20 16:55:51:153 MCU   @firmware acceptable error range (Node 6): 512
+2026-02-20 16:55:51:154 MCU   @[H] error range replaced with local set: 6154
+2026-02-20 16:55:51:257 MCU   @firmware acceptable error range (Node 7): 512
+2026-02-20 16:55:51:257 MCU   @[N] error range replaced with local set: 19376
+2026-02-20 16:55:51:359 MCU   @firmware acceptable error range (Node 8): 512
+2026-02-20 16:55:51:360 MCU   @[R] error range replaced with local set: 4097
+2026-02-20 16:55:51:464 MCU   @firmware acceptable error range (Node 9): 512
+2026-02-20 16:55:51:465 MCU   @[P] error range replaced with local set: 4097
+2026-02-20 16:55:51:500 Frame @frame grabber UVC device: USB Video
+2026-02-20 16:55:51:567 MCU   @firmware operation mode (Node 11): 1
+2026-02-20 16:55:51:670 MCU   @firmware acceptable error range (Node 12): 512
+2026-02-20 16:55:51:670 MCU   @[Z] error range replaced with local set: 17615
+2026-02-20 16:55:51:773 Frame @frame grabber connected
+2026-02-20 16:55:51:774 Frame @frame grabber started
+2026-02-20 16:55:53:093 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-20 16:56:01:792 User  @system menu selected (About)
+
+2026-02-20 16:56:13:421 User  @factory menu selected (System Settings)
+2026-02-20 16:56:43:728 Frame @frame grabber stopped
+2026-02-20 16:56:44:008 MCU   @robot moving stopped
+2026-02-20 16:56:45:124 MCU   @mcu controller stopped
+2026-02-20 16:56:45:350 Info  @UroTherapy exited by restart
+
+
+
+2026-02-20 16:56:45:523 Info  @UtlLogger instance created
+2026-02-20 16:56:45:523 Info  @starting UroTherapy (SVN 1003)
+2026-02-20 16:56:45:934 Info  @MainWindow instance created
+2026-02-20 16:56:46:830 Info  @UroTherapy launched
+2026-02-20 16:56:46:831 Info  @SurgeryController instance created
+2026-02-20 16:56:46:833 Info  @Robot Unit: TX-05-07
+2026-02-20 16:56:46:916 Info  @VisualEngine instance created
+2026-02-20 16:56:48:834 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2026-02-20 16:56:50:147 DEBUG @S.SC state (7, 24)
+2026-02-20 16:56:50:148 DEBUG @E.SC state (7, 24)
+2026-02-20 16:56:50:148 DEBUG @S.VE state (7, 24)
+2026-02-20 16:56:50:149 DEBUG @E.VE state (7, 24)
+2026-02-20 16:56:50:149 DEBUG @S.MW state (7, 24)
+2026-02-20 16:56:50:469 DEBUG @E.MW state (7, 24)
+2026-02-20 16:56:51:849 Frame @frame grabber UVC device: USB Video
+2026-02-20 16:56:51:903 Frame @frame grabber connected
+2026-02-20 16:56:51:903 Frame @frame grabber started
+2026-02-20 16:56:52:921 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-20 16:57:14:855 User  @factory menu selected (System Settings)
+2026-02-20 17:03:55:380 Info  @screen auto locked (Service)
+
+2026-02-20 17:04:08:111 User  @screen unlocked by user 'Service'
+
+2026-02-20 17:09:00:138 User  @system menu selected (Exit)
+2026-02-20 17:09:01:937 Info  @open needle guide command sent
+2026-02-20 17:09:02:990 Frame @frame grabber stopped
+2026-02-20 17:09:04:270 MCU   @mcu controller stopped
+2026-02-20 17:09:04:515 Info  @UroTherapy exited 
+
+

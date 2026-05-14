@@ -1,0 +1,65 @@
+
+2025-04-24 16:34:59:772 Info  @UtlLogger instance created
+2025-04-24 16:34:59:772 Info  @starting UroBiopsy (SVN 858)
+2025-04-24 16:35:00:545 Info  @MainWindow instance created
+
+2025-04-24 16:36:06:812 User  @user 'Service' login
+2025-04-24 16:36:06:858 Info  @UroBiopsy launched
+2025-04-24 16:36:06:858 Info  @SurgeryController instance created
+2025-04-24 16:36:06:890 Info  @Robot Unit: TX-05-00
+2025-04-24 16:36:07:078 Info  @VisualEngine instance created
+2025-04-24 16:36:09:115 MCU   @firmware version (Master): 1.0.0_004
+2025-04-24 16:36:09:115 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-04-24 16:36:10:188 DEBUG @S.SC state (7, 24)
+2025-04-24 16:36:10:188 DEBUG @E.SC state (7, 24)
+2025-04-24 16:36:10:189 DEBUG @S.VE state (7, 24)
+2025-04-24 16:36:10:189 DEBUG @E.VE state (7, 24)
+2025-04-24 16:36:10:189 DEBUG @S.MW state (7, 24)
+2025-04-24 16:36:10:562 DEBUG @E.MW state (7, 24)
+2025-04-24 16:36:11:147 MCU   @[WRN] Node 3 (GETVER) response timeout (2016). Try again.
+2025-04-24 16:36:11:168 MCU   @[WRN] Node 4 (GETVER) response timeout (2031). Try again.
+2025-04-24 16:36:11:168 MCU   @[WRN] Node 5 (GETVER) response timeout (2015). Try again.
+2025-04-24 16:36:11:210 MCU   @[WRN] Node 6 (GETVER) response timeout (2016). Try again.
+2025-04-24 16:36:11:231 MCU   @[WRN] Node 7 (GETVER) response timeout (2031). Try again.
+2025-04-24 16:36:11:231 MCU   @[WRN] Node 8 (GETVER) response timeout (2016). Try again.
+2025-04-24 16:36:11:274 MCU   @[WRN] Node 9 (GETVER) response timeout (2032). Try again.
+2025-04-24 16:36:11:274 MCU   @[WRN] Node 10 (GETVER) response timeout (2016). Try again.
+2025-04-24 16:36:11:296 MCU   @[WRN] Node 11 (GETVER) response timeout (2015). Try again.
+2025-04-24 16:36:11:337 MCU   @[WRN] Node 12 (GETVER) response timeout (2031). Try again.
+2025-04-24 16:36:11:897 Frame @frame grabber simulator started
+2025-04-24 16:36:13:156 MCU   @[ERR] Node 3 (GETVER) response timeout (2016). Check connection.
+2025-04-24 16:36:13:198 MCU   @[ERR] Node 4 (GETVER) response timeout (2032). Check connection.
+2025-04-24 16:36:13:198 MCU   @[ERR] Node 5 (GETVER) response timeout (2032). Check connection.
+2025-04-24 16:36:13:219 MCU   @[ERR] Node 6 (GETVER) response timeout (2015). Check connection.
+2025-04-24 16:36:13:261 MCU   @[ERR] Node 7 (GETVER) response timeout (2031). Check connection.
+2025-04-24 16:36:13:261 MCU   @[ERR] Node 8 (GETVER) response timeout (2031). Check connection.
+2025-04-24 16:36:13:304 MCU   @[ERR] Node 9 (GETVER) response timeout (2031). Check connection.
+2025-04-24 16:36:13:307 MCU   @[ERR] Node 10 (GETVER) response timeout (2031). Check connection.
+2025-04-24 16:36:13:308 MCU   @[ERR] Node 11 (GETVER) response timeout (2016). Check connection.
+2025-04-24 16:36:13:351 MCU   @[ERR] Node 12 (GETVER) response timeout (2016). Check connection.
+2025-04-24 16:36:15:320 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2016). Try again.
+2025-04-24 16:36:17:354 MCU   @[ERR] Node 11 (LOG_NGSW) response timeout (2031). Check connection.
+
+2025-04-24 16:38:18:515 User  @factory menu selected (System Settings)
+2025-04-24 16:38:29:162 Info  @system setting apply
+
+2025-04-24 16:38:32:678 User  @factory menu selected (System Settings)
+2025-04-24 16:38:35:387 Frame @frame grabber stopped
+2025-04-24 16:38:35:388 Info  @system setting apply
+2025-04-24 16:38:40:426 Frame @frame grabber UVC device: AV.io HD+
+2025-04-24 16:38:40:877 Frame @frame grabber connected
+2025-04-24 16:38:40:878 Frame @frame grabber started
+2025-04-24 16:38:41:891 Frame @frame grabber screen size updated: 1920 x 1080
+
+2025-04-24 16:39:37:989 User  @factory menu selected (System Settings)
+2025-04-24 16:44:51:333 Info  @screen auto locked (Service)
+
+2025-04-24 16:48:04:533 User  @screen unlocked by user 'Service'
+
+2025-04-24 16:48:10:028 User  @system menu selected (Exit)
+2025-04-24 16:48:12:240 Frame @frame grabber stopped
+2025-04-24 16:48:12:356 MCU   @robot moving stopped
+2025-04-24 16:48:13:463 MCU   @mcu controller stopped
+2025-04-24 16:48:13:664 Info  @UroBiopsy exited 
+
+

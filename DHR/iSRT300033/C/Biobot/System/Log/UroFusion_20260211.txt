@@ -1,0 +1,149 @@
+
+2026-02-11 15:59:38:096 Info  @UtlLogger instance created
+2026-02-11 15:59:38:097 Info  @starting UroFusion (SVN 820)
+
+2026-02-11 15:59:38:893 Info  @UtlLogger instance created
+2026-02-11 15:59:38:893 Info  @starting UroFusion (SVN 820)
+2026-02-11 15:59:40:045 Info  @UroFusion launched
+2026-02-11 15:59:40:931 Info  @an instance of UroFusion is already running ... exit
+2026-02-11 15:59:42:257 Info  @UroFusion exited
+
+2026-02-11 15:59:46:489 User  @on_startCreateCase_clicked
+2026-02-11 16:00:07:855 Info  @case 'case_20260211_155946601_UF' created by Service
+
+2026-02-11 16:00:09:115 User  @on_imageImportMRIImages_clicked
+
+2026-02-11 16:00:29:552 User  @on_stageStart_clicked
+2026-02-11 16:00:30:505 Info  @go back to Start
+2026-02-11 16:00:30:509 Info  @case closed
+
+2026-02-11 16:00:31:113 User  @on_startOpenCase_clicked
+
+2026-02-11 16:00:40:768 User  @on_startOpenCase_clicked
+2026-02-11 16:00:42:940 Info  @case 'case_20260211_155946601_UF' opened by Service
+
+2026-02-11 16:00:44:690 User  @on_imageImportMRIImages_clicked
+2026-02-11 16:01:06:408 Sec   @Dicom files in 'D:/UroFusion Test Cases - DICOM Data/DICOM #1' imported by Service
+
+2026-02-11 16:01:07:985 User  @on_imageImportApproveImage_clicked
+
+2026-02-11 16:01:17:744 User  @on_modelAutoModel_clicked
+
+2026-02-11 16:01:23:806 User  @on_modelApproveModel_clicked
+
+2026-02-11 16:01:25:119 User  @on_lesionCreateLesion_clicked
+
+2026-02-11 16:01:27:292 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:01:33:106 User  @on_lesionPirads_currentIndexChanged
+
+2026-02-11 16:01:34:691 User  @on_lesionApproveLesionModels_clicked
+
+2026-02-11 16:01:37:122 User  @on_stageStart_clicked
+2026-02-11 16:01:37:868 Info  @go back to Start
+2026-02-11 16:01:38:024 Info  @case closed
+
+2026-02-11 16:01:39:237 User  @on_startCreateCase_clicked
+2026-02-11 16:01:58:154 Info  @case 'case_20260211_160139248_UF' created by Service
+
+2026-02-11 16:01:58:949 User  @on_imageImportMRIImages_clicked
+2026-02-11 16:02:19:822 Sec   @Dicom files in 'D:/UroFusion Test Cases - DICOM Data/DICOM #2' imported by Service
+
+2026-02-11 16:02:21:765 User  @on_imageImportApproveImage_clicked
+
+2026-02-11 16:02:26:521 User  @on_modelAutoModel_clicked
+
+2026-02-11 16:02:30:681 User  @on_modelApproveModel_clicked
+
+2026-02-11 16:02:31:883 User  @on_lesionCreateLesion_clicked
+
+2026-02-11 16:02:31:896 User  @on_lesionPirads_currentIndexChanged
+
+2026-02-11 16:02:33:951 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:02:35:943 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:02:37:168 User  @on_transversalLesionImagePrevious_clicked
+
+2026-02-11 16:02:45:026 User  @on_lesionDeleteLesion_clicked
+
+2026-02-11 16:02:47:902 User  @on_transversalLesionImagePrevious_clicked
+
+2026-02-11 16:02:48:599 User  @on_lesionCreateLesion_clicked
+
+2026-02-11 16:02:50:791 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:02:52:643 User  @on_lesionCreateLesion_clicked
+
+2026-02-11 16:02:55:570 User  @on_lesionPirads_currentIndexChanged
+
+2026-02-11 16:02:58:421 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:03:02:084 User  @on_lesionApproveLesionModels_clicked
+
+2026-02-11 16:03:04:094 User  @on_stageStart_clicked
+2026-02-11 16:03:04:734 Info  @go back to Start
+2026-02-11 16:03:04:843 Info  @case closed
+
+2026-02-11 16:03:05:823 User  @on_startCreateCase_clicked
+2026-02-11 16:03:23:118 Info  @case 'case_20260211_160305835_UF' created by Service
+
+2026-02-11 16:03:23:976 User  @on_imageImportMRIImages_clicked
+2026-02-11 16:03:42:798 Sec   @Dicom files in 'D:/UroFusion Test Cases - DICOM Data/DICOM #3' imported by Service
+
+2026-02-11 16:03:48:751 User  @on_imageImportApproveImage_clicked
+
+2026-02-11 16:03:59:814 User  @on_modelAutoModel_clicked
+
+2026-02-11 16:04:03:137 User  @on_modelApproveModel_clicked
+
+2026-02-11 16:04:03:895 User  @on_lesionCreateLesion_clicked
+
+2026-02-11 16:04:03:908 User  @on_lesionPirads_currentIndexChanged
+
+2026-02-11 16:04:07:072 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:04:10:228 User  @on_lesionPirads_currentIndexChanged
+
+2026-02-11 16:04:11:378 User  @on_lesionCreateLesion_clicked
+
+2026-02-11 16:04:11:391 User  @on_lesionPirads_currentIndexChanged
+
+2026-02-11 16:04:14:998 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:04:18:813 User  @on_lesionDeleteLesion_clicked
+
+2026-02-11 16:04:22:184 User  @on_transversalLesionImagePrevious_clicked
+
+2026-02-11 16:04:22:353 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:04:22:492 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:04:22:864 User  @on_transversalLesionImagePrevious_clicked
+
+2026-02-11 16:04:23:017 User  @on_transversalLesionImagePrevious_clicked
+
+2026-02-11 16:04:23:173 User  @on_transversalLesionImagePrevious_clicked
+
+2026-02-11 16:04:23:326 User  @on_transversalLesionImagePrevious_clicked
+
+2026-02-11 16:04:27:682 User  @on_lesionCreateLesion_clicked
+
+2026-02-11 16:04:29:687 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:04:33:555 User  @on_lesionPirads_currentIndexChanged
+
+2026-02-11 16:04:36:780 User  @on_lesionCreateLesion_clicked
+
+2026-02-11 16:04:36:794 User  @on_lesionPirads_currentIndexChanged
+
+2026-02-11 16:04:39:342 User  @on_transversalLesionImageNext_clicked
+
+2026-02-11 16:04:44:923 User  @on_lesionPirads_currentIndexChanged
+
+2026-02-11 16:04:46:928 User  @on_lesionApproveLesionModels_clicked
+
+2026-02-11 16:04:49:109 User  @on_stageStart_clicked
+2026-02-11 16:04:50:136 Info  @go back to Start
+2026-02-11 16:04:50:231 Info  @case closed
+2026-02-11 16:04:51:803 Info  @UroFusion exited

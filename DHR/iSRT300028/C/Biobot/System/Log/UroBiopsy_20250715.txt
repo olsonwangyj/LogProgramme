@@ -1,0 +1,84 @@
+
+2025-07-15 16:39:23:146 Info  @UtlLogger instance created
+2025-07-15 16:39:23:146 Info  @starting UroBiopsy (SVN 858)
+2025-07-15 16:39:23:741 Info  @MainWindow instance created
+
+2025-07-15 16:39:43:107 User  @user 'Service' login
+2025-07-15 16:39:43:171 Info  @UroBiopsy launched
+2025-07-15 16:39:43:171 Info  @SurgeryController instance created
+2025-07-15 16:39:43:190 Info  @Robot Unit: TX-05-00
+2025-07-15 16:39:43:346 Info  @VisualEngine instance created
+2025-07-15 16:39:45:413 MCU   @firmware version (Master): 1.0.0_004
+2025-07-15 16:39:45:414 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-15 16:39:45:563 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-15 16:39:45:689 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-15 16:39:45:772 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-15 16:39:45:855 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-15 16:39:45:980 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-15 16:39:46:064 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-15 16:39:46:169 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-15 16:39:46:274 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-15 16:39:46:378 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-15 16:39:46:462 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-15 16:39:46:495 DEBUG @S.SC state (7, 24)
+2025-07-15 16:39:46:496 DEBUG @E.SC state (7, 24)
+2025-07-15 16:39:46:496 DEBUG @S.VE state (7, 24)
+2025-07-15 16:39:46:497 DEBUG @E.VE state (7, 24)
+2025-07-15 16:39:46:497 DEBUG @S.MW state (7, 24)
+2025-07-15 16:39:46:588 MCU   @firmware operation mode (Node 3): 1
+2025-07-15 16:39:46:672 MCU   @firmware operation mode (Node 4): 1
+2025-07-15 16:39:46:672 MCU   @firmware support speed control
+2025-07-15 16:39:46:777 MCU   @firmware operation mode (Node 5): 1
+2025-07-15 16:39:46:861 MCU   @firmware operation mode (Node 6): 1
+2025-07-15 16:39:46:863 DEBUG @E.MW state (7, 24)
+2025-07-15 16:39:46:986 MCU   @firmware operation mode (Node 7): 1
+2025-07-15 16:39:47:070 MCU   @firmware operation mode (Node 8): 1
+2025-07-15 16:39:47:194 MCU   @firmware operation mode (Node 9): 1
+2025-07-15 16:39:47:276 MCU   @firmware operation mode (Node 10): 1
+2025-07-15 16:39:47:484 MCU   @firmware operation mode (Node 12): 1
+2025-07-15 16:39:47:546 Info  @needle guide closed
+2025-07-15 16:39:47:608 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-15 16:39:47:608 MCU   @[X] error range replaced with local set: 11741
+2025-07-15 16:39:47:691 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-15 16:39:47:691 MCU   @[Y] error range replaced with local set: 11741
+2025-07-15 16:39:47:796 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-15 16:39:47:796 MCU   @[V] error range replaced with local set: 6154
+2025-07-15 16:39:47:878 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-15 16:39:47:878 MCU   @[H] error range replaced with local set: 6154
+2025-07-15 16:39:48:003 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-15 16:39:48:004 MCU   @[N] error range replaced with local set: 19376
+2025-07-15 16:39:48:086 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-15 16:39:48:087 MCU   @[R] error range replaced with local set: 4097
+2025-07-15 16:39:48:192 Frame @[ERR] failed to connect frame grabber
+2025-07-15 16:39:48:213 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-15 16:39:48:213 MCU   @[P] error range replaced with local set: 4097
+2025-07-15 16:39:48:298 MCU   @firmware operation mode (Node 11): 1
+2025-07-15 16:39:48:402 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-15 16:39:48:403 MCU   @[Z] error range replaced with local set: 17615
+
+2025-07-15 16:40:01:781 User  @factory menu selected (Motion Control)
+2025-07-15 16:40:01:786 DEBUG @S.SC state (5, 20)
+2025-07-15 16:40:01:787 DEBUG @E.SC state (5, 20)
+2025-07-15 16:40:01:788 DEBUG @S.VE state (5, 20)
+2025-07-15 16:40:01:788 DEBUG @E.VE state (5, 20)
+2025-07-15 16:40:01:789 DEBUG @S.MW state (5, 20)
+2025-07-15 16:40:01:822 DEBUG @E.MW state (5, 20)
+
+2025-07-15 16:40:05:375 User  @on_emcBack_clicked
+2025-07-15 16:40:05:376 DEBUG @S.SC state (7, 24)
+2025-07-15 16:40:05:377 DEBUG @E.SC state (7, 24)
+2025-07-15 16:40:05:378 DEBUG @S.VE state (7, 24)
+2025-07-15 16:40:05:379 DEBUG @E.VE state (7, 24)
+2025-07-15 16:40:05:379 DEBUG @S.MW state (7, 24)
+2025-07-15 16:40:05:398 DEBUG @E.MW state (7, 24)
+
+2025-07-15 16:40:09:180 User  @factory menu selected (System Settings)
+
+2025-07-15 16:49:10:363 User  @system menu selected (Exit)
+2025-07-15 16:49:11:517 Info  @open needle guide command sent
+2025-07-15 16:49:12:653 Frame @frame grabber stopped
+2025-07-15 16:49:12:714 MCU   @robot moving stopped
+2025-07-15 16:49:13:828 MCU   @mcu controller stopped
+2025-07-15 16:49:14:053 Info  @UroBiopsy exited 
+
+

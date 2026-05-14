@@ -1,0 +1,52 @@
+
+2025-11-11 14:01:56:566 Info  @UtlLogger instance created
+2025-11-11 14:01:56:566 Info  @starting UroTherapy (SVN 858)
+2025-11-11 14:01:57:029 Info  @MainWindow instance created
+
+2025-11-11 14:02:15:532 User  @user 'Service' login
+2025-11-11 14:02:15:595 Info  @UroTherapy launched
+2025-11-11 14:02:15:595 Info  @SurgeryController instance created
+2025-11-11 14:02:15:597 Info  @Robot Unit: TX-05-00
+2025-11-11 14:02:15:680 Info  @VisualEngine instance created
+2025-11-11 14:02:17:818 MCU   @firmware version (Master): 1.0.0_004
+2025-11-11 14:02:17:818 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-11-11 14:02:18:834 DEBUG @S.SC state (7, 24)
+2025-11-11 14:02:18:835 DEBUG @E.SC state (7, 24)
+2025-11-11 14:02:18:836 DEBUG @S.VE state (7, 24)
+2025-11-11 14:02:18:836 DEBUG @E.VE state (7, 24)
+2025-11-11 14:02:18:836 DEBUG @S.MW state (7, 24)
+2025-11-11 14:02:19:175 DEBUG @E.MW state (7, 24)
+2025-11-11 14:02:19:846 MCU   @[WRN] Node 3 (GETVER) response timeout (2015). Try again.
+2025-11-11 14:02:19:868 MCU   @[WRN] Node 4 (GETVER) response timeout (2016). Try again.
+2025-11-11 14:02:19:889 MCU   @[WRN] Node 5 (GETVER) response timeout (2031). Try again.
+2025-11-11 14:02:19:910 MCU   @[WRN] Node 6 (GETVER) response timeout (2016). Try again.
+2025-11-11 14:02:19:932 MCU   @[WRN] Node 7 (GETVER) response timeout (2031). Try again.
+2025-11-11 14:02:19:932 MCU   @[WRN] Node 8 (GETVER) response timeout (2016). Try again.
+2025-11-11 14:02:19:975 MCU   @[WRN] Node 9 (GETVER) response timeout (2015). Try again.
+2025-11-11 14:02:19:996 MCU   @[WRN] Node 10 (GETVER) response timeout (2031). Try again.
+2025-11-11 14:02:19:996 MCU   @[WRN] Node 11 (GETVER) response timeout (2015). Try again.
+2025-11-11 14:02:20:018 MCU   @[WRN] Node 12 (GETVER) response timeout (2016). Try again.
+2025-11-11 14:02:20:619 Frame @[ERR] failed to connect frame grabber
+2025-11-11 14:02:21:859 MCU   @[ERR] Node 3 (GETVER) response timeout (2016). Check connection.
+2025-11-11 14:02:21:881 MCU   @[ERR] Node 4 (GETVER) response timeout (2015). Check connection.
+2025-11-11 14:02:21:903 MCU   @[ERR] Node 5 (GETVER) response timeout (2016). Check connection.
+2025-11-11 14:02:21:923 MCU   @[ERR] Node 6 (GETVER) response timeout (2015). Check connection.
+2025-11-11 14:02:21:966 MCU   @[ERR] Node 7 (GETVER) response timeout (2031). Check connection.
+2025-11-11 14:02:21:966 MCU   @[ERR] Node 8 (GETVER) response timeout (2031). Check connection.
+2025-11-11 14:02:21:987 MCU   @[ERR] Node 9 (GETVER) response timeout (2016). Check connection.
+2025-11-11 14:02:22:029 MCU   @[ERR] Node 10 (GETVER) response timeout (2032). Check connection.
+2025-11-11 14:02:22:029 MCU   @[ERR] Node 11 (GETVER) response timeout (2032). Check connection.
+2025-11-11 14:02:22:029 MCU   @[ERR] Node 12 (GETVER) response timeout (2016). Check connection.
+
+2025-11-11 14:02:22:714 User  @system menu selected (About)
+2025-11-11 14:02:24:058 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2031). Try again.
+2025-11-11 14:02:26:088 MCU   @[ERR] Node 11 (LOG_NGSW) response timeout (2031). Check connection.
+
+2025-11-11 14:02:35:274 User  @system menu selected (Exit)
+2025-11-11 14:02:36:800 Info  @open needle guide command sent
+2025-11-11 14:02:38:642 Frame @frame grabber stopped
+2025-11-11 14:02:38:644 MCU   @robot moving stopped
+2025-11-11 14:02:39:750 MCU   @mcu controller stopped
+2025-11-11 14:02:39:990 Info  @UroTherapy exited 
+
+

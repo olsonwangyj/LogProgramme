@@ -1,0 +1,9 @@
+
+2026-02-02 10:20:14:273 Info  @UtlLogger instance created
+2026-02-02 10:20:14:273 Info  @starting UroFusion (SVN 820)
+
+2026-02-02 10:20:26:479 User  @user 'service' login
+2026-02-02 10:20:26:510 Info  @UroFusion launched
+
+2026-02-02 10:20:34:416 User  @on_startCreateCase_clicked
+2026-02-02 10:20:57:331 Info  @UroFusion exited

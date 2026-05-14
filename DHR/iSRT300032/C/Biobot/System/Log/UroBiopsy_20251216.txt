@@ -1,0 +1,10 @@
+
+2025-12-16 11:47:21:995 Info  @UtlLogger instance created
+2025-12-16 11:47:21:995 Info  @starting UroBiopsy (SVN 858)
+2025-12-16 11:47:22:865 Info  @MainWindow instance created
+
+2025-12-16 11:47:26:821 User  @user cancelled Login dialog
+2025-12-16 11:47:26:825 Info  @SurgeryController instance created
+2025-12-16 11:47:26:852 Info  @UroBiopsy exited 
+
+

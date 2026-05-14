@@ -1,0 +1,95 @@
+
+2026-02-10 09:59:51:676 Info  @UtlLogger instance created
+2026-02-10 09:59:51:677 Info  @starting UroTherapy (SVN 1003)
+2026-02-10 09:59:52:242 Info  @MainWindow instance created
+
+2026-02-10 10:00:13:826 User  @user 'Service' login
+
+2026-02-10 10:02:54:403 User  @user cancelled Change Password dialog
+2026-02-10 10:02:54:405 Info  @SurgeryController instance created
+2026-02-10 10:02:54:429 Info  @UroTherapy exited 
+
+
+
+2026-02-10 10:10:59:996 Info  @UtlLogger instance created
+2026-02-10 10:10:59:996 Info  @starting UroTherapy (SVN 1003)
+2026-02-10 10:11:00:432 Info  @MainWindow instance created
+
+2026-02-10 10:11:10:899 User  @user 'Service' login
+
+2026-02-10 10:11:14:205 User  @user cancelled Change Password dialog
+2026-02-10 10:11:14:210 Info  @SurgeryController instance created
+2026-02-10 10:11:14:238 Info  @UroTherapy exited 
+
+
+
+2026-02-10 10:13:43:637 Info  @UtlLogger instance created
+2026-02-10 10:13:43:637 Info  @starting UroTherapy (SVN 1003)
+2026-02-10 10:13:44:094 Info  @MainWindow instance created
+
+2026-02-10 10:13:55:986 User  @user 'Service' login
+2026-02-10 10:13:56:046 Info  @UroTherapy launched
+2026-02-10 10:13:56:047 Info  @SurgeryController instance created
+2026-02-10 10:13:56:062 Info  @Robot Unit: TX-05-00
+2026-02-10 10:13:56:236 Info  @VisualEngine instance created
+2026-02-10 10:13:58:285 MCU   @firmware version (Master): 1.0.0_004
+2026-02-10 10:13:58:286 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2026-02-10 10:13:58:434 MCU   @firmware version (Node 3): 1.0.0.14
+2026-02-10 10:13:58:540 MCU   @firmware version (Node 4): 1.0.0.14
+2026-02-10 10:13:58:643 MCU   @firmware version (Node 5): 1.0.0.14
+2026-02-10 10:13:58:747 MCU   @firmware version (Node 6): 1.0.0.14
+2026-02-10 10:13:58:852 MCU   @firmware version (Node 7): 1.0.0.14
+2026-02-10 10:13:58:956 MCU   @firmware version (Node 8): 1.0.0.14
+2026-02-10 10:13:59:039 MCU   @firmware version (Node 9): 1.0.0.14
+2026-02-10 10:13:59:144 MCU   @firmware version (Node 10): 1.0.0.14
+2026-02-10 10:13:59:249 MCU   @firmware version (Node 11): 1.0.0.16
+2026-02-10 10:13:59:354 MCU   @firmware version (Node 12): 1.0.0.14
+2026-02-10 10:13:59:394 DEBUG @S.SC state (7, 24)
+2026-02-10 10:13:59:395 DEBUG @E.SC state (7, 24)
+2026-02-10 10:13:59:395 DEBUG @S.VE state (7, 24)
+2026-02-10 10:13:59:395 DEBUG @E.VE state (7, 24)
+2026-02-10 10:13:59:397 DEBUG @S.MW state (7, 24)
+2026-02-10 10:13:59:404 Info  @needle guide opened
+2026-02-10 10:13:59:459 MCU   @firmware operation mode (Node 3): 1
+2026-02-10 10:13:59:542 MCU   @firmware operation mode (Node 4): 1
+2026-02-10 10:13:59:542 MCU   @firmware support speed control
+2026-02-10 10:13:59:647 MCU   @firmware operation mode (Node 5): 1
+2026-02-10 10:13:59:726 DEBUG @E.MW state (7, 24)
+2026-02-10 10:13:59:751 MCU   @firmware operation mode (Node 6): 1
+2026-02-10 10:13:59:855 MCU   @firmware operation mode (Node 7): 1
+2026-02-10 10:13:59:938 MCU   @firmware operation mode (Node 8): 1
+2026-02-10 10:14:00:042 MCU   @firmware operation mode (Node 9): 1
+2026-02-10 10:14:00:146 MCU   @firmware operation mode (Node 10): 1
+2026-02-10 10:14:00:375 MCU   @firmware operation mode (Node 12): 1
+2026-02-10 10:14:00:459 MCU   @firmware acceptable error range (Node 3): 512
+2026-02-10 10:14:00:459 MCU   @[X] error range replaced with local set: 11741
+2026-02-10 10:14:00:562 MCU   @firmware acceptable error range (Node 4): 512
+2026-02-10 10:14:00:563 MCU   @[Y] error range replaced with local set: 11741
+2026-02-10 10:14:00:665 MCU   @firmware acceptable error range (Node 5): 512
+2026-02-10 10:14:00:666 MCU   @[V] error range replaced with local set: 6154
+2026-02-10 10:14:00:768 MCU   @firmware acceptable error range (Node 6): 512
+2026-02-10 10:14:00:768 MCU   @[H] error range replaced with local set: 6154
+2026-02-10 10:14:00:872 MCU   @firmware acceptable error range (Node 7): 512
+2026-02-10 10:14:00:872 MCU   @[N] error range replaced with local set: 19376
+2026-02-10 10:14:00:976 MCU   @firmware acceptable error range (Node 8): 512
+2026-02-10 10:14:00:976 MCU   @[R] error range replaced with local set: 4097
+2026-02-10 10:14:01:060 MCU   @firmware acceptable error range (Node 9): 512
+2026-02-10 10:14:01:060 MCU   @[P] error range replaced with local set: 4097
+2026-02-10 10:14:01:086 Frame @frame grabber UVC device: USB Video
+2026-02-10 10:14:01:166 MCU   @firmware operation mode (Node 11): 1
+2026-02-10 10:14:01:169 Frame @frame grabber connected
+2026-02-10 10:14:01:170 Frame @frame grabber started
+2026-02-10 10:14:01:270 MCU   @firmware acceptable error range (Node 12): 512
+2026-02-10 10:14:01:271 MCU   @[Z] error range replaced with local set: 17615
+2026-02-10 10:14:02:178 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-10 10:14:16:396 User  @system menu selected (About)
+
+2026-02-10 10:14:20:278 User  @system menu selected (Exit)
+2026-02-10 10:14:21:512 Info  @open needle guide command sent
+2026-02-10 10:14:22:530 Frame @frame grabber stopped
+2026-02-10 10:14:22:942 MCU   @robot moving stopped
+2026-02-10 10:14:24:048 MCU   @mcu controller stopped
+2026-02-10 10:14:24:300 Info  @UroTherapy exited 
+
+

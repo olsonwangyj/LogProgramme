@@ -1,0 +1,22 @@
+
+2026-03-20 16:31:42:728 Info  @UtlLogger instance created
+2026-03-20 16:31:42:728 Info  @starting UroTherapy (SVN 1003)
+2026-03-20 16:31:43:180 Info  @MainWindow instance created
+2026-03-20 16:32:03:969 Sec   @failed login by user Service
+2026-03-20 16:32:20:193 Sec   @failed login by user Service
+
+2026-03-20 16:32:33:008 User  @user cancelled Login dialog
+2026-03-20 16:32:33:011 Info  @SurgeryController instance created
+2026-03-20 16:32:33:035 Info  @UroTherapy exited 
+
+
+
+2026-03-20 16:32:44:595 Info  @UtlLogger instance created
+2026-03-20 16:32:44:596 Info  @starting UroTherapy (SVN 1003)
+2026-03-20 16:32:45:024 Info  @MainWindow instance created
+
+2026-03-20 16:32:47:992 User  @user cancelled Login dialog
+2026-03-20 16:32:47:993 Info  @SurgeryController instance created
+2026-03-20 16:32:48:026 Info  @UroTherapy exited 
+
+

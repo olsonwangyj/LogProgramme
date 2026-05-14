@@ -1,0 +1,2652 @@
+
+2025-07-09 14:33:41:520 Info  @UtlLogger instance created
+2025-07-09 14:33:41:521 Info  @starting UroBiopsy (SVN 858)
+2025-07-09 14:33:45:408 Info  @MainWindow instance created
+
+2025-07-09 14:34:04:313 User  @user 'Admin' login
+2025-07-09 14:34:17:151 Sec   @user Admin changed password
+
+2025-07-09 14:34:18:345 User  @user updated password
+2025-07-09 14:34:29:252 Sec   @admin changed password for user Admin
+
+2025-07-09 14:34:29:291 User  @admin saved user accounts/settings
+
+2025-07-09 14:35:08:978 User  @admin cancelled the Administrator Setting dialog
+2025-07-09 14:35:08:991 Info  @SurgeryController instance created
+2025-07-09 14:35:09:021 Info  @UroBiopsy exited 
+
+
+
+2025-07-09 14:35:15:587 Info  @UtlLogger instance created
+2025-07-09 14:35:15:587 Info  @starting UroBiopsy (SVN 858)
+2025-07-09 14:35:16:021 Info  @MainWindow instance created
+
+2025-07-09 14:35:50:119 User  @user 'Admin' login
+2025-07-09 14:36:00:415 Sec   @admin changed password for user Admin
+
+2025-07-09 14:36:00:455 User  @admin saved user accounts/settings
+2025-07-09 14:36:19:242 Sec   @admin added user Doctor
+
+2025-07-09 14:36:19:263 User  @admin saved user accounts/settings
+2025-07-09 14:36:28:330 Sec   @admin changed password for user Service
+
+2025-07-09 14:36:28:349 User  @admin saved user accounts/settings
+
+2025-07-09 14:36:42:820 User  @admin cancelled the Administrator Setting dialog
+2025-07-09 14:36:42:830 Info  @SurgeryController instance created
+2025-07-09 14:36:42:858 Info  @UroBiopsy exited 
+
+
+
+2025-07-09 14:36:44:856 Info  @UtlLogger instance created
+2025-07-09 14:36:44:856 Info  @starting UroBiopsy (SVN 858)
+2025-07-09 14:36:45:305 Info  @MainWindow instance created
+2025-07-09 14:36:58:690 Sec   @failed login by user Admin
+
+2025-07-09 14:37:06:988 User  @user 'Admin' login
+
+2025-07-09 14:37:11:179 User  @admin cancelled the Administrator Setting dialog
+2025-07-09 14:37:11:186 Info  @SurgeryController instance created
+2025-07-09 14:37:11:215 Info  @UroBiopsy exited 
+
+
+
+2025-07-09 14:37:13:073 Info  @UtlLogger instance created
+2025-07-09 14:37:13:073 Info  @starting UroBiopsy (SVN 858)
+2025-07-09 14:37:13:507 Info  @MainWindow instance created
+
+2025-07-09 14:37:25:052 User  @user 'Service' login
+2025-07-09 14:37:33:755 Sec   @user Service changed password
+
+2025-07-09 14:37:34:886 User  @user updated password
+2025-07-09 14:37:34:946 Info  @UroBiopsy launched
+2025-07-09 14:37:34:946 Info  @SurgeryController instance created
+2025-07-09 14:37:51:607 Info  @Robot Unit: TX-05-00
+2025-07-09 14:37:51:665 Info  @VisualEngine instance created
+2025-07-09 14:37:53:062 DEBUG @S.SC state (7, 24)
+2025-07-09 14:37:53:063 DEBUG @E.SC state (7, 24)
+2025-07-09 14:37:53:063 DEBUG @S.VE state (7, 24)
+2025-07-09 14:37:53:064 DEBUG @E.VE state (7, 24)
+2025-07-09 14:37:53:064 DEBUG @S.MW state (7, 24)
+2025-07-09 14:37:53:588 DEBUG @E.MW state (7, 24)
+2025-07-09 14:37:53:608 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2025-07-09 14:37:56:616 Frame @frame grabber UVC device: AV.io HD+
+2025-07-09 14:37:56:679 Frame @frame grabber connected
+2025-07-09 14:37:56:679 Frame @frame grabber started
+
+2025-07-09 14:37:57:287 User  @factory menu selected (System Settings)
+2025-07-09 14:37:57:688 Frame @frame grabber screen size updated: 1920 x 1080
+2025-07-09 14:38:05:237 MCU   @mcu controller stopped
+2025-07-09 14:38:06:414 Info  @system setting apply
+2025-07-09 14:38:07:459 MCU   @firmware version (Master): 1.0.0_004
+2025-07-09 14:38:07:460 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-09 14:38:07:618 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-09 14:38:07:705 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-09 14:38:07:831 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-09 14:38:07:915 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-09 14:38:08:021 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-09 14:38:08:104 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-09 14:38:08:231 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-09 14:38:08:315 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-09 14:38:08:439 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-09 14:38:08:504 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-09 14:38:08:631 MCU   @firmware operation mode (Node 3): 1
+
+2025-07-09 14:38:08:644 User  @system menu selected (Exit)
+2025-07-09 14:38:08:715 MCU   @firmware operation mode (Node 4): 1
+2025-07-09 14:38:08:719 MCU   @firmware support speed control
+2025-07-09 14:38:08:823 MCU   @firmware operation mode (Node 5): 1
+2025-07-09 14:38:08:906 MCU   @firmware operation mode (Node 6): 1
+2025-07-09 14:38:09:011 MCU   @firmware operation mode (Node 7): 1
+2025-07-09 14:38:09:115 MCU   @firmware operation mode (Node 8): 1
+2025-07-09 14:38:09:220 MCU   @firmware operation mode (Node 9): 1
+2025-07-09 14:38:09:324 MCU   @firmware operation mode (Node 10): 1
+2025-07-09 14:38:09:533 MCU   @firmware operation mode (Node 12): 1
+2025-07-09 14:38:09:637 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-09 14:38:09:644 MCU   @[X] error range replaced with local set: 11741
+2025-07-09 14:38:09:747 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-09 14:38:09:750 MCU   @[Y] error range replaced with local set: 11741
+2025-07-09 14:38:09:815 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-09 14:38:09:817 MCU   @[V] error range replaced with local set: 6154
+2025-07-09 14:38:09:828 Info  @open needle guide command sent
+2025-07-09 14:38:09:941 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-09 14:38:09:943 MCU   @[H] error range replaced with local set: 6154
+2025-07-09 14:38:10:025 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-09 14:38:10:027 MCU   @[N] error range replaced with local set: 19376
+2025-07-09 14:38:10:150 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-09 14:38:10:152 MCU   @[R] error range replaced with local set: 4097
+2025-07-09 14:38:10:234 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-09 14:38:10:236 MCU   @[P] error range replaced with local set: 4097
+2025-07-09 14:38:10:360 MCU   @firmware operation mode (Node 11): 1
+2025-07-09 14:38:10:423 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-09 14:38:10:426 MCU   @[Z] error range replaced with local set: 17615
+2025-07-09 14:38:10:853 Frame @frame grabber stopped
+2025-07-09 14:38:10:950 MCU   @robot moving stopped
+2025-07-09 14:38:12:055 MCU   @mcu controller stopped
+2025-07-09 14:38:12:278 Info  @UroBiopsy exited 
+
+
+
+2025-07-09 14:38:13:975 Info  @UtlLogger instance created
+2025-07-09 14:38:13:975 Info  @starting UroBiopsy (SVN 858)
+2025-07-09 14:38:14:420 Info  @MainWindow instance created
+
+2025-07-09 14:38:30:294 User  @user 'Doctor' login
+2025-07-09 14:38:36:994 Sec   @user Doctor changed password
+
+2025-07-09 14:38:38:010 User  @user updated password
+2025-07-09 14:38:38:064 Info  @UroBiopsy launched
+2025-07-09 14:38:38:065 Info  @SurgeryController instance created
+2025-07-09 14:38:38:068 Info  @Robot Unit: TX-05-00
+2025-07-09 14:38:38:122 Info  @VisualEngine instance created
+2025-07-09 14:38:40:289 MCU   @firmware version (Master): 1.0.0_004
+2025-07-09 14:38:40:290 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-09 14:38:40:458 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-09 14:38:40:561 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-09 14:38:40:645 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-09 14:38:40:748 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-09 14:38:40:814 Info  @needle guide opened
+2025-07-09 14:38:40:851 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-09 14:38:40:953 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-09 14:38:41:056 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-09 14:38:41:159 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-09 14:38:41:242 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-09 14:38:41:309 DEBUG @S.SC state (7, 24)
+2025-07-09 14:38:41:310 DEBUG @E.SC state (7, 24)
+2025-07-09 14:38:41:310 DEBUG @S.VE state (7, 24)
+2025-07-09 14:38:41:311 DEBUG @E.VE state (7, 24)
+2025-07-09 14:38:41:311 DEBUG @S.MW state (7, 24)
+2025-07-09 14:38:41:346 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-09 14:38:41:452 MCU   @firmware operation mode (Node 3): 1
+2025-07-09 14:38:41:555 MCU   @firmware operation mode (Node 4): 1
+2025-07-09 14:38:41:556 MCU   @firmware support speed control
+2025-07-09 14:38:41:638 MCU   @firmware operation mode (Node 5): 1
+2025-07-09 14:38:41:663 DEBUG @E.MW state (7, 24)
+2025-07-09 14:38:41:743 MCU   @firmware operation mode (Node 6): 1
+2025-07-09 14:38:41:847 MCU   @firmware operation mode (Node 7): 1
+2025-07-09 14:38:41:951 MCU   @firmware operation mode (Node 8): 1
+2025-07-09 14:38:42:054 MCU   @firmware operation mode (Node 9): 1
+2025-07-09 14:38:42:137 MCU   @firmware operation mode (Node 10): 1
+2025-07-09 14:38:42:365 MCU   @firmware operation mode (Node 12): 1
+2025-07-09 14:38:42:470 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-09 14:38:42:471 MCU   @[X] error range replaced with local set: 11741
+2025-07-09 14:38:42:553 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-09 14:38:42:554 MCU   @[Y] error range replaced with local set: 11741
+2025-07-09 14:38:42:677 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-09 14:38:42:678 MCU   @[V] error range replaced with local set: 6154
+2025-07-09 14:38:42:760 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-09 14:38:42:760 MCU   @[H] error range replaced with local set: 6154
+2025-07-09 14:38:42:886 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-09 14:38:42:887 MCU   @[N] error range replaced with local set: 19376
+2025-07-09 14:38:42:970 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-09 14:38:42:971 MCU   @[R] error range replaced with local set: 4097
+2025-07-09 14:38:43:074 Frame @frame grabber UVC device: AV.io HD+
+2025-07-09 14:38:43:095 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-09 14:38:43:096 MCU   @[P] error range replaced with local set: 4097
+2025-07-09 14:38:43:145 Frame @frame grabber connected
+2025-07-09 14:38:43:145 Frame @frame grabber started
+2025-07-09 14:38:43:158 MCU   @firmware operation mode (Node 11): 1
+2025-07-09 14:38:43:282 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-09 14:38:43:284 MCU   @[Z] error range replaced with local set: 17615
+2025-07-09 14:38:44:163 Frame @frame grabber screen size updated: 1920 x 1080
+
+2025-07-09 14:38:48:488 User  @system menu selected (Exit)
+2025-07-09 14:38:49:659 Info  @open needle guide command sent
+2025-07-09 14:38:50:714 Frame @frame grabber stopped
+2025-07-09 14:38:50:890 MCU   @robot moving stopped
+2025-07-09 14:38:51:996 MCU   @mcu controller stopped
+2025-07-09 14:38:52:223 Info  @UroBiopsy exited 
+
+
+
+2025-07-09 14:40:41:984 Info  @UtlLogger instance created
+2025-07-09 14:40:41:985 Info  @starting UroBiopsy (SVN 858)
+2025-07-09 14:40:42:422 Info  @MainWindow instance created
+
+2025-07-09 14:40:55:112 User  @user 'Service' login
+2025-07-09 14:40:55:166 Info  @UroBiopsy launched
+2025-07-09 14:40:55:166 Info  @SurgeryController instance created
+2025-07-09 14:40:55:180 Info  @Robot Unit: TX-05-00
+2025-07-09 14:40:55:231 Info  @VisualEngine instance created
+2025-07-09 14:40:57:402 MCU   @firmware version (Master): 1.0.0_004
+2025-07-09 14:40:57:402 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-09 14:40:57:570 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-09 14:40:57:652 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-09 14:40:57:774 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-09 14:40:57:856 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-09 14:40:57:959 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-09 14:40:58:062 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-09 14:40:58:144 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-09 14:40:58:269 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-09 14:40:58:351 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-09 14:40:58:390 DEBUG @S.SC state (7, 24)
+2025-07-09 14:40:58:391 DEBUG @E.SC state (7, 24)
+2025-07-09 14:40:58:391 DEBUG @S.VE state (7, 24)
+2025-07-09 14:40:58:391 DEBUG @E.VE state (7, 24)
+2025-07-09 14:40:58:392 DEBUG @S.MW state (7, 24)
+2025-07-09 14:40:58:476 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-09 14:40:58:561 MCU   @firmware operation mode (Node 3): 1
+2025-07-09 14:40:58:664 MCU   @firmware operation mode (Node 4): 1
+2025-07-09 14:40:58:664 MCU   @firmware support speed control
+2025-07-09 14:40:58:730 DEBUG @E.MW state (7, 24)
+2025-07-09 14:40:58:767 MCU   @firmware operation mode (Node 5): 1
+2025-07-09 14:40:58:871 MCU   @firmware operation mode (Node 6): 1
+2025-07-09 14:40:58:954 MCU   @firmware operation mode (Node 7): 1
+2025-07-09 14:40:59:059 MCU   @firmware operation mode (Node 8): 1
+2025-07-09 14:40:59:163 MCU   @firmware operation mode (Node 9): 1
+2025-07-09 14:40:59:246 MCU   @firmware operation mode (Node 10): 1
+2025-07-09 14:40:59:474 MCU   @firmware operation mode (Node 12): 1
+2025-07-09 14:40:59:579 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-09 14:40:59:580 MCU   @[X] error range replaced with local set: 11741
+2025-07-09 14:40:59:683 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-09 14:40:59:684 MCU   @[Y] error range replaced with local set: 11741
+2025-07-09 14:40:59:787 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-09 14:40:59:787 MCU   @[V] error range replaced with local set: 6154
+2025-07-09 14:40:59:891 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-09 14:40:59:892 MCU   @[H] error range replaced with local set: 6154
+2025-07-09 14:40:59:975 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-09 14:40:59:976 MCU   @[N] error range replaced with local set: 19376
+2025-07-09 14:41:00:079 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-09 14:41:00:080 MCU   @[R] error range replaced with local set: 4097
+2025-07-09 14:41:00:182 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-09 14:41:00:182 MCU   @[P] error range replaced with local set: 4097
+2025-07-09 14:41:00:188 Frame @frame grabber UVC device: AV.io HD+
+2025-07-09 14:41:00:268 Frame @frame grabber connected
+2025-07-09 14:41:00:269 Frame @frame grabber started
+2025-07-09 14:41:00:286 MCU   @firmware operation mode (Node 11): 1
+2025-07-09 14:41:00:389 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-09 14:41:00:392 MCU   @[Z] error range replaced with local set: 17615
+2025-07-09 14:41:01:276 Frame @frame grabber screen size updated: 1920 x 1080
+
+2025-07-09 14:41:05:549 User  @factory menu selected (System Settings)
+
+2025-07-09 14:41:32:604 User  @system menu selected (System Status Check)
+
+2025-07-09 14:41:43:479 User  @factory menu selected (Motion Control)
+2025-07-09 14:41:43:482 DEBUG @S.SC state (5, 20)
+2025-07-09 14:41:43:483 DEBUG @E.SC state (5, 20)
+2025-07-09 14:41:43:483 DEBUG @S.VE state (5, 20)
+2025-07-09 14:41:43:483 DEBUG @E.VE state (5, 20)
+2025-07-09 14:41:43:484 DEBUG @S.MW state (5, 20)
+2025-07-09 14:41:43:542 DEBUG @E.MW state (5, 20)
+
+2025-07-09 14:41:48:033 User  @on_emcAxisP_clicked
+2025-07-09 14:41:48:034 Info  @Motor P selected (motion control)
+
+2025-07-09 14:41:48:410 User  @on_emcAxisZ_clicked
+2025-07-09 14:41:48:413 Info  @Motor Z selected (motion control)
+
+2025-07-09 14:41:48:812 User  @on_emcAxisX_clicked
+2025-07-09 14:41:48:814 Info  @Motor X selected (motion control)
+
+2025-07-09 14:41:49:733 User  @on_emcAxisY_clicked
+2025-07-09 14:41:49:734 Info  @Motor Y selected (motion control)
+
+2025-07-09 14:41:50:388 User  @on_emcAxisV_clicked
+2025-07-09 14:41:50:389 Info  @Motor V selected (motion control)
+
+2025-07-09 14:41:51:810 User  @on_emcAxisH_clicked
+2025-07-09 14:41:51:811 Info  @Motor H selected (motion control)
+
+2025-07-09 14:41:52:206 User  @on_emcAxisN_clicked
+2025-07-09 14:41:52:208 Info  @Motor N selected (motion control)
+
+2025-07-09 14:41:52:864 User  @on_emcAxisR_clicked
+2025-07-09 14:41:52:865 Info  @Motor R selected (motion control)
+
+2025-07-09 14:41:56:823 User  @on_emcShowDebugDialog_clicked
+
+2025-07-09 14:42:09:102 User  @on_emcStartInitRobot_clicked
+2025-07-09 14:42:10:409 Info  @start emc robot initialization
+2025-07-09 14:42:10:411 Info  @Start Robot Initialization (motion control)
+2025-07-09 14:42:10:413 Info  @... init robot (1) (motion control)
+2025-07-09 14:42:10:414 Info  @switch LED light to Red
+2025-07-09 14:42:10:414 DEBUG @S.SC state (5, 21)
+2025-07-09 14:42:10:414 DEBUG @E.SC state (5, 21)
+2025-07-09 14:42:10:415 DEBUG @S.VE state (5, 21)
+2025-07-09 14:42:10:415 DEBUG @E.VE state (5, 21)
+2025-07-09 14:42:10:415 DEBUG @S.MW state (5, 21)
+2025-07-09 14:42:10:453 DEBUG @E.MW state (5, 21)
+2025-07-09 14:42:10:604 MCU   @set motor P sensors to 'stop'
+2025-07-09 14:42:10:606 MCU   @set motor R sensors to 'stop'
+2025-07-09 14:42:10:631 MCU   @[X] start searching reference
+2025-07-09 14:42:10:980 MCU   @[Y] start searching reference
+2025-07-09 14:42:11:327 MCU   @[Z] start searching reference
+2025-07-09 14:42:15:425 MCU   @[Y] stopped by sensor L
+2025-07-09 14:42:15:425 MCU   @[Y] reset physical position to 0
+2025-07-09 14:42:15:627 MCU   @[Y] reference found (SENSOR)
+2025-07-09 14:42:15:629 MCU   @[Y] max: 0.00
+2025-07-09 14:42:15:630 MCU   @[P] start searching reference
+2025-07-09 14:42:15:975 MCU   @[N] start searching reference
+2025-07-09 14:42:19:237 MCU   @[X] stopped by sensor L
+2025-07-09 14:42:19:237 MCU   @[X] reset physical position to 0
+2025-07-09 14:42:19:439 MCU   @[X] reference found (SENSOR)
+2025-07-09 14:42:19:439 MCU   @[X] max: 0.00
+2025-07-09 14:42:21:215 MCU   @[P] stopped by sensor L
+2025-07-09 14:42:21:216 MCU   @[P] reset physical position to 0
+2025-07-09 14:42:21:417 MCU   @[P] reference found (SENSOR)
+2025-07-09 14:42:21:418 MCU   @[P] max: 0.00
+2025-07-09 14:42:21:419 MCU   @[Y] start clearing: -19.50
+2025-07-09 14:42:28:172 MCU   @[Y] motor cleared
+2025-07-09 14:42:28:174 MCU   @[Y] min: -29.51
+2025-07-09 14:42:28:176 MCU   @[P] start clearing: -165.00
+2025-07-09 14:42:28:199 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 14:42:28:223 MCU   @[X] start clearing: -22.00
+2025-07-09 14:42:28:250 MCU   @[H] start searching reference
+2025-07-09 14:42:31:260 MCU   @[Z] stopped by sensor L
+2025-07-09 14:42:31:261 MCU   @[Z] reset physical position to 0
+2025-07-09 14:42:31:464 MCU   @[Z] reference found (SENSOR)
+2025-07-09 14:42:31:465 MCU   @[Z] max: 0.00
+2025-07-09 14:42:31:487 MCU   @[Z] start clearing: -50.00
+2025-07-09 14:42:34:283 MCU   @[H] stopped by sensor L
+2025-07-09 14:42:34:285 MCU   @[H] reset physical position to 0
+2025-07-09 14:42:34:487 MCU   @[H] reference found (SENSOR)
+2025-07-09 14:42:34:487 MCU   @[H] max: 0.00
+2025-07-09 14:42:34:512 MCU   @[H] start clearing: -49.00
+2025-07-09 14:42:35:910 MCU   @[X] motor cleared
+2025-07-09 14:42:35:911 MCU   @[X] min: -32.01
+2025-07-09 14:42:36:113 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 14:42:36:930 MCU   @[N] stopped by sensor L
+2025-07-09 14:42:36:932 MCU   @[N] reset physical position to 0
+2025-07-09 14:42:37:135 MCU   @[N] reference found (SENSOR)
+2025-07-09 14:42:37:135 MCU   @[N] min: 0.00
+2025-07-09 14:42:37:136 MCU   @[Y] motor reached max pos
+2025-07-09 14:42:37:160 MCU   @[N] start clearing: 69.50
+2025-07-09 14:42:37:355 MCU   @[P] motor cleared
+2025-07-09 14:42:37:357 MCU   @[P] min: -165.08
+2025-07-09 14:42:37:378 MCU   @[P] start moving to home: -1.00
+2025-07-09 14:42:44:878 MCU   @[H] motor cleared
+2025-07-09 14:42:44:882 MCU   @[H] min: -49.00
+2025-07-09 14:42:45:086 MCU   @[H] start moving to home: -24.54
+2025-07-09 14:42:46:106 MCU   @[X] motor reached max pos
+2025-07-09 14:42:47:112 MCU   @[P] motor homed
+2025-07-09 14:42:47:114 MCU   @[R] start searching reference
+2025-07-09 14:42:49:808 MCU   @[H] motor homed
+2025-07-09 14:42:49:810 MCU   @[V] start searching reference
+2025-07-09 14:42:51:721 MCU   @[V] stopped by sensor L
+2025-07-09 14:42:51:722 MCU   @[V] reset physical position to 0
+2025-07-09 14:42:51:924 MCU   @[V] reference found (SENSOR)
+2025-07-09 14:42:51:925 MCU   @[V] max: 0.00
+2025-07-09 14:42:51:948 MCU   @[V] start clearing: -49.00
+2025-07-09 14:42:54:729 MCU   @[Z] motor cleared
+2025-07-09 14:42:54:731 MCU   @[Z] min: -50.01
+2025-07-09 14:42:54:933 MCU   @[Z] start moving to home: -33.30
+2025-07-09 14:42:55:945 MCU   @[R] stopped by sensor R
+2025-07-09 14:42:55:947 MCU   @[R] reset physical position to 0
+2025-07-09 14:42:56:148 MCU   @[R] reference found (SENSOR)
+2025-07-09 14:42:56:149 MCU   @[R] max: 0.00
+2025-07-09 14:42:56:172 MCU   @[R] start clearing: -119.00
+2025-07-09 14:43:00:969 MCU   @[V] motor cleared
+2025-07-09 14:43:00:970 MCU   @[V] min: -49.03
+2025-07-09 14:43:01:170 MCU   @[V] start moving to home: -25.07
+2025-07-09 14:43:02:584 MCU   @[Z] motor homed
+2025-07-09 14:43:02:786 MCU   @[N] motor cleared
+2025-07-09 14:43:02:786 MCU   @[N] max: 69.51
+2025-07-09 14:43:02:987 MCU   @[N] start moving to home: 11.47
+2025-07-09 14:43:07:011 MCU   @[V] motor homed
+2025-07-09 14:43:07:012 MCU   @[X] start moving to home: -19.63
+2025-07-09 14:43:07:034 MCU   @[Y] start moving to home: -13.19
+2025-07-09 14:43:10:359 MCU   @[R] motor cleared
+2025-07-09 14:43:10:360 MCU   @[R] min: -119.02
+2025-07-09 14:43:10:561 MCU   @[R] start moving to home: -60.00
+2025-07-09 14:43:10:647 MCU   @[Y] motor homed
+2025-07-09 14:43:12:579 MCU   @[X] motor homed
+2025-07-09 14:43:18:402 MCU   @[R] motor homed
+2025-07-09 14:43:24:221 MCU   @[N] motor homed
+2025-07-09 14:43:24:223 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 14:43:24:225 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 14:43:24:225 MCU   @robot initialization done (73625ms)
+2025-07-09 14:43:24:231 Info  @system actual [32.93,-9.99,-0.01,39.95,0.01,0.03,79.98,0.02]
+2025-07-09 14:43:24:232 Info  @switch LED light to Green
+2025-07-09 14:43:24:733 DEBUG @S.SC state (5, 20)
+2025-07-09 14:43:24:734 DEBUG @E.SC state (5, 20)
+2025-07-09 14:43:24:734 DEBUG @S.VE state (5, 20)
+2025-07-09 14:43:24:734 DEBUG @E.VE state (5, 20)
+2025-07-09 14:43:24:734 DEBUG @S.MW state (5, 20)
+2025-07-09 14:43:24:884 DEBUG @E.MW state (5, 20)
+2025-07-09 14:43:24:885 Info  @Done (motion control)
+2025-07-09 14:49:38:864 Info  @screen auto locked (Service)
+
+2025-07-09 14:53:35:954 User  @screen unlocked by user 'Service'
+
+2025-07-09 14:53:41:315 User  @on_emcStartInitRobot_clicked
+
+2025-07-09 14:53:55:430 User  @on_emcStartInitRobot_clicked
+2025-07-09 14:53:56:630 Info  @start emc robot initialization
+2025-07-09 14:53:56:634 Info  @Start Robot Initialization (motion control)
+2025-07-09 14:53:56:637 Info  @... init robot (20) (motion control)
+2025-07-09 14:53:56:638 Info  @switch LED light to Red
+2025-07-09 14:53:56:638 DEBUG @S.SC state (5, 21)
+2025-07-09 14:53:56:638 DEBUG @E.SC state (5, 21)
+2025-07-09 14:53:56:639 DEBUG @S.VE state (5, 21)
+2025-07-09 14:53:56:639 DEBUG @E.VE state (5, 21)
+2025-07-09 14:53:56:639 DEBUG @S.MW state (5, 21)
+2025-07-09 14:53:56:679 DEBUG @E.MW state (5, 21)
+2025-07-09 14:53:56:843 MCU   @set motor P sensors to 'stop'
+2025-07-09 14:53:56:845 MCU   @set motor R sensors to 'stop'
+2025-07-09 14:53:56:873 MCU   @[X] start searching reference
+2025-07-09 14:53:57:221 MCU   @[Y] start searching reference
+2025-07-09 14:53:57:567 MCU   @[Z] start searching reference
+2025-07-09 14:54:05:490 MCU   @[Y] stopped by sensor L
+2025-07-09 14:54:05:491 MCU   @[Y] reset physical position to 0
+2025-07-09 14:54:05:693 MCU   @[Y] reference found (SENSOR)
+2025-07-09 14:54:05:694 MCU   @[Y] max: 0.00
+2025-07-09 14:54:05:694 MCU   @[P] start searching reference
+2025-07-09 14:54:06:040 MCU   @[N] start searching reference
+2025-07-09 14:54:06:845 MCU   @[P] stopped by sensor L
+2025-07-09 14:54:06:887 MCU   @[P] reset physical position to 0
+2025-07-09 14:54:07:090 MCU   @[P] reference found (SENSOR)
+2025-07-09 14:54:07:091 MCU   @[P] max: 0.00
+2025-07-09 14:54:07:091 MCU   @[Y] start clearing: -19.50
+2025-07-09 14:54:08:037 MCU   @[X] stopped by sensor L
+2025-07-09 14:54:08:040 MCU   @[X] reset physical position to 0
+2025-07-09 14:54:08:243 MCU   @[X] reference found (SENSOR)
+2025-07-09 14:54:08:243 MCU   @[X] max: 0.00
+2025-07-09 14:54:11:065 MCU   @[N] stopped by sensor L
+2025-07-09 14:54:11:268 MCU   @[N] reset physical position to 0
+2025-07-09 14:54:11:470 MCU   @[N] reference found (SENSOR)
+2025-07-09 14:54:11:470 MCU   @[N] min: 0.00
+2025-07-09 14:54:13:665 MCU   @[Z] stopped by sensor L
+2025-07-09 14:54:13:666 MCU   @[Z] reset physical position to 0
+2025-07-09 14:54:13:867 MCU   @[Z] reference found (SENSOR)
+2025-07-09 14:54:13:868 MCU   @[Z] max: 0.00
+2025-07-09 14:54:13:869 MCU   @[Y] motor cleared
+2025-07-09 14:54:13:869 MCU   @[Y] min: -29.51
+2025-07-09 14:54:13:870 MCU   @[P] start clearing: -165.00
+2025-07-09 14:54:13:895 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 14:54:13:918 MCU   @[Z] start clearing: -50.00
+2025-07-09 14:54:13:942 MCU   @[N] start clearing: 69.50
+2025-07-09 14:54:13:965 MCU   @[X] start clearing: -22.00
+2025-07-09 14:54:13:991 MCU   @[H] start searching reference
+2025-07-09 14:54:20:446 MCU   @[H] stopped by sensor L
+2025-07-09 14:54:20:447 MCU   @[H] reset physical position to 0
+2025-07-09 14:54:20:649 MCU   @[H] reference found (SENSOR)
+2025-07-09 14:54:20:650 MCU   @[H] max: 0.00
+2025-07-09 14:54:20:672 MCU   @[H] start clearing: -49.00
+2025-07-09 14:54:21:662 MCU   @[X] motor cleared
+2025-07-09 14:54:21:662 MCU   @[X] min: -32.01
+2025-07-09 14:54:21:864 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 14:54:23:085 MCU   @[Y] motor reached max pos
+2025-07-09 14:54:23:491 MCU   @[P] motor cleared
+2025-07-09 14:54:23:491 MCU   @[P] min: -165.07
+2025-07-09 14:54:23:693 MCU   @[P] start moving to home: -1.00
+2025-07-09 14:54:30:747 MCU   @[H] motor cleared
+2025-07-09 14:54:30:748 MCU   @[H] min: -49.00
+2025-07-09 14:54:30:949 MCU   @[H] start moving to home: -24.54
+2025-07-09 14:54:31:785 MCU   @[X] motor reached max pos
+2025-07-09 14:54:33:394 MCU   @[P] motor homed
+2025-07-09 14:54:33:395 MCU   @[R] start searching reference
+2025-07-09 14:54:35:504 MCU   @[H] motor homed
+2025-07-09 14:54:35:505 MCU   @[V] start searching reference
+2025-07-09 14:54:38:002 MCU   @[Z] motor cleared
+2025-07-09 14:54:38:003 MCU   @[Z] min: -50.01
+2025-07-09 14:54:38:204 MCU   @[Z] start moving to home: -33.30
+2025-07-09 14:54:39:821 MCU   @[N] motor cleared
+2025-07-09 14:54:39:822 MCU   @[N] max: 69.51
+2025-07-09 14:54:40:023 MCU   @[N] start moving to home: 11.47
+2025-07-09 14:54:41:465 MCU   @[V] stopped by sensor L
+2025-07-09 14:54:41:467 MCU   @[V] reset physical position to 0
+2025-07-09 14:54:41:671 MCU   @[V] reference found (SENSOR)
+2025-07-09 14:54:41:673 MCU   @[V] max: 0.00
+2025-07-09 14:54:41:696 MCU   @[V] start clearing: -49.00
+2025-07-09 14:54:41:827 MCU   @[R] stopped by sensor R
+2025-07-09 14:54:41:854 MCU   @[R] reset physical position to 0
+2025-07-09 14:54:41:877 MCU   @[R] reference found (SENSOR)
+2025-07-09 14:54:41:878 MCU   @[R] max: 0.00
+2025-07-09 14:54:41:906 MCU   @[R] start clearing: -119.00
+2025-07-09 14:54:45:844 MCU   @[Z] motor homed
+2025-07-09 14:54:50:659 MCU   @[V] motor cleared
+2025-07-09 14:54:50:660 MCU   @[V] min: -49.03
+2025-07-09 14:54:50:861 MCU   @[V] start moving to home: -25.07
+2025-07-09 14:54:56:309 MCU   @[R] motor cleared
+2025-07-09 14:54:56:310 MCU   @[R] min: -119.02
+2025-07-09 14:54:56:514 MCU   @[V] motor homed
+2025-07-09 14:54:56:515 MCU   @[R] start moving to home: -60.00
+2025-07-09 14:54:56:539 MCU   @[X] start moving to home: -19.63
+2025-07-09 14:54:56:566 MCU   @[Y] start moving to home: -13.19
+2025-07-09 14:55:00:603 MCU   @[Y] motor homed
+2025-07-09 14:55:01:406 MCU   @[N] motor homed
+2025-07-09 14:55:02:211 MCU   @[X] motor homed
+2025-07-09 14:55:04:421 MCU   @[R] motor homed
+2025-07-09 14:55:04:421 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 14:55:04:422 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 14:55:04:422 MCU   @robot initialization done (67594ms)
+2025-07-09 14:55:04:427 Info  @system actual [32.94,-9.99,-0.01,39.95,0.01,0.03,79.98,0.02]
+2025-07-09 14:55:04:428 Info  @switch LED light to Green
+2025-07-09 14:55:14:931 Info  @... init robot (19) (motion control)
+2025-07-09 14:55:14:932 Info  @switch LED light to Red
+2025-07-09 14:55:15:152 MCU   @set motor P sensors to 'stop'
+2025-07-09 14:55:15:153 MCU   @set motor R sensors to 'stop'
+2025-07-09 14:55:15:177 MCU   @[X] start searching reference
+2025-07-09 14:55:15:527 MCU   @[Y] start searching reference
+2025-07-09 14:55:15:872 MCU   @[Z] start searching reference
+2025-07-09 14:55:23:771 MCU   @[Y] stopped by sensor L
+2025-07-09 14:55:23:772 MCU   @[Y] reset physical position to 0
+2025-07-09 14:55:23:974 MCU   @[Y] reference found (SENSOR)
+2025-07-09 14:55:23:976 MCU   @[Y] max: 0.00
+2025-07-09 14:55:23:977 MCU   @[P] start searching reference
+2025-07-09 14:55:24:323 MCU   @[N] start searching reference
+2025-07-09 14:55:25:128 MCU   @[P] stopped by sensor L
+2025-07-09 14:55:25:152 MCU   @[P] reset physical position to 0
+2025-07-09 14:55:25:174 MCU   @[P] reference found (SENSOR)
+2025-07-09 14:55:25:177 MCU   @[P] max: 0.00
+2025-07-09 14:55:25:178 MCU   @[Y] start clearing: -19.50
+2025-07-09 14:55:26:299 MCU   @[X] stopped by sensor L
+2025-07-09 14:55:26:300 MCU   @[X] reset physical position to 0
+2025-07-09 14:55:26:502 MCU   @[X] reference found (SENSOR)
+2025-07-09 14:55:26:503 MCU   @[X] max: 0.00
+2025-07-09 14:55:29:298 MCU   @[N] stopped by sensor L
+2025-07-09 14:55:29:500 MCU   @[N] reset physical position to 0
+2025-07-09 14:55:29:703 MCU   @[N] reference found (SENSOR)
+2025-07-09 14:55:29:703 MCU   @[N] min: 0.00
+2025-07-09 14:55:31:898 MCU   @[Y] motor cleared
+2025-07-09 14:55:31:898 MCU   @[Y] min: -29.51
+2025-07-09 14:55:31:899 MCU   @[P] start clearing: -165.00
+2025-07-09 14:55:31:899 MCU   @[Z] stopped by sensor L
+2025-07-09 14:55:31:900 MCU   @[Z] reset physical position to 0
+2025-07-09 14:55:31:924 MCU   @[Z] reference found (SENSOR)
+2025-07-09 14:55:31:926 MCU   @[Z] max: 0.00
+2025-07-09 14:55:31:927 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 14:55:31:951 MCU   @[Z] start clearing: -50.00
+2025-07-09 14:55:31:976 MCU   @[N] start clearing: 69.50
+2025-07-09 14:55:32:000 MCU   @[X] start clearing: -22.00
+2025-07-09 14:55:32:025 MCU   @[H] start searching reference
+2025-07-09 14:55:38:467 MCU   @[H] stopped by sensor L
+2025-07-09 14:55:38:469 MCU   @[H] reset physical position to 0
+2025-07-09 14:55:38:672 MCU   @[H] reference found (SENSOR)
+2025-07-09 14:55:38:673 MCU   @[H] max: 0.00
+2025-07-09 14:55:38:696 MCU   @[H] start clearing: -49.00
+2025-07-09 14:55:39:691 MCU   @[X] motor cleared
+2025-07-09 14:55:39:692 MCU   @[X] min: -32.01
+2025-07-09 14:55:39:893 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 14:55:41:113 MCU   @[Y] motor reached max pos
+2025-07-09 14:55:41:316 MCU   @[P] motor cleared
+2025-07-09 14:55:41:317 MCU   @[P] min: -165.08
+2025-07-09 14:55:41:518 MCU   @[P] start moving to home: -1.00
+2025-07-09 14:55:48:753 MCU   @[H] motor cleared
+2025-07-09 14:55:48:755 MCU   @[H] min: -49.01
+2025-07-09 14:55:48:956 MCU   @[H] start moving to home: -24.54
+2025-07-09 14:55:49:769 MCU   @[X] motor reached max pos
+2025-07-09 14:55:51:175 MCU   @[P] motor homed
+2025-07-09 14:55:51:177 MCU   @[R] start searching reference
+2025-07-09 14:55:53:689 MCU   @[H] motor homed
+2025-07-09 14:55:53:690 MCU   @[V] start searching reference
+2025-07-09 14:55:56:002 MCU   @[Z] motor cleared
+2025-07-09 14:55:56:002 MCU   @[Z] min: -50.01
+2025-07-09 14:55:56:203 MCU   @[Z] start moving to home: -33.30
+2025-07-09 14:55:57:824 MCU   @[N] motor cleared
+2025-07-09 14:55:57:827 MCU   @[N] max: 69.51
+2025-07-09 14:55:58:028 MCU   @[N] start moving to home: 11.47
+2025-07-09 14:55:59:642 MCU   @[V] stopped by sensor L
+2025-07-09 14:55:59:643 MCU   @[R] stopped by sensor R
+2025-07-09 14:55:59:643 MCU   @[V] reset physical position to 0
+2025-07-09 14:55:59:644 MCU   @[R] reset physical position to 0
+2025-07-09 14:55:59:847 MCU   @[V] reference found (SENSOR)
+2025-07-09 14:55:59:849 MCU   @[V] max: 0.00
+2025-07-09 14:55:59:852 MCU   @[R] reference found (SENSOR)
+2025-07-09 14:55:59:853 MCU   @[R] max: 0.00
+2025-07-09 14:55:59:877 MCU   @[V] start clearing: -49.00
+2025-07-09 14:55:59:900 MCU   @[R] start clearing: -119.00
+2025-07-09 14:56:03:742 MCU   @[Z] motor homed
+2025-07-09 14:56:08:760 MCU   @[V] motor cleared
+2025-07-09 14:56:08:761 MCU   @[V] min: -49.03
+2025-07-09 14:56:08:963 MCU   @[V] start moving to home: -25.07
+2025-07-09 14:56:14:187 MCU   @[R] motor cleared
+2025-07-09 14:56:14:189 MCU   @[R] min: -119.03
+2025-07-09 14:56:14:391 MCU   @[R] start moving to home: -60.00
+2025-07-09 14:56:14:414 MCU   @[V] motor homed
+2025-07-09 14:56:14:415 MCU   @[X] start moving to home: -19.63
+2025-07-09 14:56:14:438 MCU   @[Y] start moving to home: -13.19
+2025-07-09 14:56:18:479 MCU   @[Y] motor homed
+2025-07-09 14:56:19:286 MCU   @[N] motor homed
+2025-07-09 14:56:20:089 MCU   @[X] motor homed
+2025-07-09 14:56:22:098 MCU   @[R] motor homed
+2025-07-09 14:56:22:101 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 14:56:22:103 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 14:56:22:105 MCU   @robot initialization done (66953ms)
+2025-07-09 14:56:22:115 Info  @system actual [32.93,-9.99,-0.01,39.95,0.01,0.03,79.98,0.02]
+2025-07-09 14:56:22:116 Info  @switch LED light to Green
+2025-07-09 14:56:32:611 Info  @... init robot (18) (motion control)
+2025-07-09 14:56:32:612 Info  @switch LED light to Red
+2025-07-09 14:56:32:643 MCU   @set motor P sensors to 'stop'
+2025-07-09 14:56:32:643 MCU   @set motor R sensors to 'stop'
+2025-07-09 14:56:32:666 MCU   @[X] start searching reference
+2025-07-09 14:56:33:014 MCU   @[Y] start searching reference
+2025-07-09 14:56:33:359 MCU   @[Z] start searching reference
+2025-07-09 14:56:41:261 MCU   @[Y] stopped by sensor L
+2025-07-09 14:56:41:262 MCU   @[Y] reset physical position to 0
+2025-07-09 14:56:41:464 MCU   @[Y] reference found (SENSOR)
+2025-07-09 14:56:41:465 MCU   @[Y] max: 0.00
+2025-07-09 14:56:41:465 MCU   @[P] start searching reference
+2025-07-09 14:56:41:812 MCU   @[N] start searching reference
+2025-07-09 14:56:42:598 MCU   @[P] stopped by sensor L
+2025-07-09 14:56:42:661 MCU   @[P] reset physical position to 0
+2025-07-09 14:56:42:864 MCU   @[P] reference found (SENSOR)
+2025-07-09 14:56:42:865 MCU   @[P] max: 0.00
+2025-07-09 14:56:42:865 MCU   @[Y] start clearing: -19.50
+2025-07-09 14:56:43:787 MCU   @[X] stopped by sensor L
+2025-07-09 14:56:43:788 MCU   @[X] reset physical position to 0
+2025-07-09 14:56:43:990 MCU   @[X] reference found (SENSOR)
+2025-07-09 14:56:43:990 MCU   @[X] max: 0.00
+2025-07-09 14:56:46:787 MCU   @[N] stopped by sensor L
+2025-07-09 14:56:46:989 MCU   @[N] reset physical position to 0
+2025-07-09 14:56:47:191 MCU   @[N] reference found (SENSOR)
+2025-07-09 14:56:47:192 MCU   @[N] min: 0.00
+2025-07-09 14:56:49:396 MCU   @[Y] motor cleared
+2025-07-09 14:56:49:398 MCU   @[Y] min: -29.51
+2025-07-09 14:56:49:400 MCU   @[P] start clearing: -165.00
+2025-07-09 14:56:49:402 MCU   @[Z] stopped by sensor L
+2025-07-09 14:56:49:403 MCU   @[Z] reset physical position to 0
+2025-07-09 14:56:49:426 MCU   @[Z] reference found (SENSOR)
+2025-07-09 14:56:49:427 MCU   @[Z] max: 0.00
+2025-07-09 14:56:49:428 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 14:56:49:451 MCU   @[Z] start clearing: -50.00
+2025-07-09 14:56:49:473 MCU   @[N] start clearing: 69.50
+2025-07-09 14:56:49:499 MCU   @[X] start clearing: -22.00
+2025-07-09 14:56:49:521 MCU   @[H] start searching reference
+2025-07-09 14:56:55:770 MCU   @[H] stopped by sensor L
+2025-07-09 14:56:55:972 MCU   @[H] reset physical position to 0
+2025-07-09 14:56:56:173 MCU   @[H] reference found (SENSOR)
+2025-07-09 14:56:56:174 MCU   @[H] max: 0.00
+2025-07-09 14:56:56:196 MCU   @[H] start clearing: -49.00
+2025-07-09 14:56:57:125 MCU   @[X] motor cleared
+2025-07-09 14:56:57:128 MCU   @[X] min: -32.01
+2025-07-09 14:56:57:329 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 14:56:58:747 MCU   @[Y] motor reached max pos
+2025-07-09 14:56:58:749 MCU   @[P] motor cleared
+2025-07-09 14:56:58:750 MCU   @[P] min: -165.08
+2025-07-09 14:56:58:951 MCU   @[P] start moving to home: -1.00
+2025-07-09 14:57:06:181 MCU   @[H] motor cleared
+2025-07-09 14:57:06:182 MCU   @[H] min: -49.01
+2025-07-09 14:57:06:382 MCU   @[H] start moving to home: -24.54
+2025-07-09 14:57:06:996 MCU   @[X] motor reached max pos
+2025-07-09 14:57:08:607 MCU   @[P] motor homed
+2025-07-09 14:57:08:608 MCU   @[R] start searching reference
+2025-07-09 14:57:11:119 MCU   @[H] motor homed
+2025-07-09 14:57:11:120 MCU   @[V] start searching reference
+2025-07-09 14:57:13:608 MCU   @[Z] motor cleared
+2025-07-09 14:57:13:608 MCU   @[Z] min: -50.01
+2025-07-09 14:57:13:809 MCU   @[Z] start moving to home: -33.30
+2025-07-09 14:57:15:407 MCU   @[N] motor cleared
+2025-07-09 14:57:15:407 MCU   @[N] max: 69.51
+2025-07-09 14:57:15:609 MCU   @[N] start moving to home: 11.47
+2025-07-09 14:57:16:827 MCU   @[V] stopped by sensor L
+2025-07-09 14:57:17:028 MCU   @[V] reset physical position to 0
+2025-07-09 14:57:17:029 MCU   @[R] stopped by sensor R
+2025-07-09 14:57:17:030 MCU   @[R] reset physical position to 0
+2025-07-09 14:57:17:230 MCU   @[V] reference found (SENSOR)
+2025-07-09 14:57:17:232 MCU   @[V] max: 0.00
+2025-07-09 14:57:17:234 MCU   @[R] reference found (SENSOR)
+2025-07-09 14:57:17:234 MCU   @[R] max: 0.00
+2025-07-09 14:57:17:258 MCU   @[V] start clearing: -49.00
+2025-07-09 14:57:17:284 MCU   @[R] start clearing: -119.00
+2025-07-09 14:57:21:338 MCU   @[Z] motor homed
+2025-07-09 14:57:26:152 MCU   @[V] motor cleared
+2025-07-09 14:57:26:155 MCU   @[V] min: -49.03
+2025-07-09 14:57:26:356 MCU   @[V] start moving to home: -25.07
+2025-07-09 14:57:31:582 MCU   @[R] motor cleared
+2025-07-09 14:57:31:583 MCU   @[R] min: -119.02
+2025-07-09 14:57:31:785 MCU   @[R] start moving to home: -60.00
+2025-07-09 14:57:31:811 MCU   @[V] motor homed
+2025-07-09 14:57:31:813 MCU   @[X] start moving to home: -19.63
+2025-07-09 14:57:31:837 MCU   @[Y] start moving to home: -13.19
+2025-07-09 14:57:35:672 MCU   @[Y] motor homed
+2025-07-09 14:57:36:876 MCU   @[N] motor homed
+2025-07-09 14:57:37:480 MCU   @[X] motor homed
+2025-07-09 14:57:39:488 MCU   @[R] motor homed
+2025-07-09 14:57:39:489 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 14:57:39:489 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 14:57:39:490 MCU   @robot initialization done (66843ms)
+2025-07-09 14:57:39:496 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 14:57:39:497 Info  @switch LED light to Green
+2025-07-09 14:57:49:987 Info  @... init robot (17) (motion control)
+2025-07-09 14:57:49:987 Info  @switch LED light to Red
+2025-07-09 14:57:50:020 MCU   @set motor P sensors to 'stop'
+2025-07-09 14:57:50:021 MCU   @set motor R sensors to 'stop'
+2025-07-09 14:57:50:044 MCU   @[X] start searching reference
+2025-07-09 14:57:50:390 MCU   @[Y] start searching reference
+2025-07-09 14:57:50:735 MCU   @[Z] start searching reference
+2025-07-09 14:57:58:635 MCU   @[Y] stopped by sensor L
+2025-07-09 14:57:58:838 MCU   @[Y] reset physical position to 0
+2025-07-09 14:57:59:040 MCU   @[Y] reference found (SENSOR)
+2025-07-09 14:57:59:041 MCU   @[Y] max: 0.00
+2025-07-09 14:57:59:042 MCU   @[P] start searching reference
+2025-07-09 14:57:59:390 MCU   @[N] start searching reference
+2025-07-09 14:58:00:184 MCU   @[P] stopped by sensor L
+2025-07-09 14:58:00:208 MCU   @[P] reset physical position to 0
+2025-07-09 14:58:00:231 MCU   @[P] reference found (SENSOR)
+2025-07-09 14:58:00:233 MCU   @[P] max: 0.00
+2025-07-09 14:58:00:236 MCU   @[Y] start clearing: -19.50
+2025-07-09 14:58:00:955 MCU   @[X] stopped by sensor L
+2025-07-09 14:58:00:956 MCU   @[X] reset physical position to 0
+2025-07-09 14:58:01:159 MCU   @[X] reference found (SENSOR)
+2025-07-09 14:58:01:160 MCU   @[X] max: 0.00
+2025-07-09 14:58:04:363 MCU   @[N] stopped by sensor L
+2025-07-09 14:58:04:566 MCU   @[N] reset physical position to 0
+2025-07-09 14:58:04:773 MCU   @[N] reference found (SENSOR)
+2025-07-09 14:58:04:774 MCU   @[N] min: 0.00
+2025-07-09 14:58:06:791 MCU   @[Y] motor cleared
+2025-07-09 14:58:06:792 MCU   @[Y] min: -29.51
+2025-07-09 14:58:06:792 MCU   @[P] start clearing: -165.00
+2025-07-09 14:58:06:793 MCU   @[Z] stopped by sensor L
+2025-07-09 14:58:06:794 MCU   @[Z] reset physical position to 0
+2025-07-09 14:58:06:818 MCU   @[Z] reference found (SENSOR)
+2025-07-09 14:58:06:819 MCU   @[Z] max: 0.00
+2025-07-09 14:58:06:820 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 14:58:06:842 MCU   @[Z] start clearing: -50.00
+2025-07-09 14:58:06:864 MCU   @[N] start clearing: 69.50
+2025-07-09 14:58:06:888 MCU   @[X] start clearing: -22.00
+2025-07-09 14:58:06:910 MCU   @[H] start searching reference
+2025-07-09 14:58:13:349 MCU   @[H] stopped by sensor L
+2025-07-09 14:58:13:350 MCU   @[H] reset physical position to 0
+2025-07-09 14:58:13:552 MCU   @[H] reference found (SENSOR)
+2025-07-09 14:58:13:553 MCU   @[H] max: 0.00
+2025-07-09 14:58:13:578 MCU   @[H] start clearing: -49.00
+2025-07-09 14:58:14:751 MCU   @[X] motor cleared
+2025-07-09 14:58:14:751 MCU   @[X] min: -32.01
+2025-07-09 14:58:14:952 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 14:58:15:989 MCU   @[Y] motor reached max pos
+2025-07-09 14:58:16:191 MCU   @[P] motor cleared
+2025-07-09 14:58:16:191 MCU   @[P] min: -165.08
+2025-07-09 14:58:16:393 MCU   @[P] start moving to home: -1.00
+2025-07-09 14:58:23:623 MCU   @[H] motor cleared
+2025-07-09 14:58:23:624 MCU   @[H] min: -49.01
+2025-07-09 14:58:23:824 MCU   @[H] start moving to home: -24.54
+2025-07-09 14:58:24:642 MCU   @[X] motor reached max pos
+2025-07-09 14:58:25:847 MCU   @[P] motor homed
+2025-07-09 14:58:25:848 MCU   @[R] start searching reference
+2025-07-09 14:58:28:539 MCU   @[H] motor homed
+2025-07-09 14:58:28:540 MCU   @[V] start searching reference
+2025-07-09 14:58:30:847 MCU   @[Z] motor cleared
+2025-07-09 14:58:30:848 MCU   @[Z] min: -50.01
+2025-07-09 14:58:31:051 MCU   @[Z] start moving to home: -33.30
+2025-07-09 14:58:32:673 MCU   @[N] motor cleared
+2025-07-09 14:58:32:674 MCU   @[N] max: 69.51
+2025-07-09 14:58:32:875 MCU   @[N] start moving to home: 11.47
+2025-07-09 14:58:34:269 MCU   @[R] stopped by sensor R
+2025-07-09 14:58:34:271 MCU   @[R] reset physical position to 0
+2025-07-09 14:58:34:473 MCU   @[R] reference found (SENSOR)
+2025-07-09 14:58:34:474 MCU   @[R] max: 0.00
+2025-07-09 14:58:34:474 MCU   @[V] stopped by sensor L
+2025-07-09 14:58:34:475 MCU   @[V] reset physical position to 0
+2025-07-09 14:58:34:499 MCU   @[V] reference found (SENSOR)
+2025-07-09 14:58:34:500 MCU   @[V] max: 0.00
+2025-07-09 14:58:34:501 MCU   @[R] start clearing: -119.00
+2025-07-09 14:58:34:522 MCU   @[V] start clearing: -49.00
+2025-07-09 14:58:38:618 MCU   @[Z] motor homed
+2025-07-09 14:58:43:436 MCU   @[V] motor cleared
+2025-07-09 14:58:43:436 MCU   @[V] min: -49.03
+2025-07-09 14:58:43:638 MCU   @[V] start moving to home: -25.07
+2025-07-09 14:58:48:669 MCU   @[R] motor cleared
+2025-07-09 14:58:48:670 MCU   @[R] min: -119.02
+2025-07-09 14:58:48:871 MCU   @[R] start moving to home: -60.00
+2025-07-09 14:58:49:023 MCU   @[V] motor homed
+2025-07-09 14:58:49:024 MCU   @[X] start moving to home: -19.63
+2025-07-09 14:58:49:047 MCU   @[Y] start moving to home: -13.19
+2025-07-09 14:58:52:772 MCU   @[Y] motor homed
+2025-07-09 14:58:54:179 MCU   @[N] motor homed
+2025-07-09 14:58:54:582 MCU   @[X] motor homed
+2025-07-09 14:58:56:588 MCU   @[R] motor homed
+2025-07-09 14:58:56:590 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 14:58:56:591 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 14:58:56:591 MCU   @robot initialization done (66562ms)
+2025-07-09 14:58:56:598 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 14:58:56:599 Info  @switch LED light to Green
+2025-07-09 14:59:07:109 Info  @... init robot (16) (motion control)
+2025-07-09 14:59:07:110 Info  @switch LED light to Red
+2025-07-09 14:59:07:322 MCU   @set motor P sensors to 'stop'
+2025-07-09 14:59:07:322 MCU   @set motor R sensors to 'stop'
+2025-07-09 14:59:07:349 MCU   @[X] start searching reference
+2025-07-09 14:59:07:697 MCU   @[Y] start searching reference
+2025-07-09 14:59:08:041 MCU   @[Z] start searching reference
+2025-07-09 14:59:15:732 MCU   @[Y] stopped by sensor L
+2025-07-09 14:59:15:936 MCU   @[Y] reset physical position to 0
+2025-07-09 14:59:16:143 MCU   @[Y] reference found (SENSOR)
+2025-07-09 14:59:16:145 MCU   @[Y] max: 0.00
+2025-07-09 14:59:16:146 MCU   @[P] start searching reference
+2025-07-09 14:59:16:492 MCU   @[N] start searching reference
+2025-07-09 14:59:17:280 MCU   @[P] stopped by sensor L
+2025-07-09 14:59:17:323 MCU   @[P] reset physical position to 0
+2025-07-09 14:59:17:344 MCU   @[P] reference found (SENSOR)
+2025-07-09 14:59:17:346 MCU   @[P] max: 0.00
+2025-07-09 14:59:17:349 MCU   @[Y] start clearing: -19.50
+2025-07-09 14:59:18:269 MCU   @[X] stopped by sensor L
+2025-07-09 14:59:18:271 MCU   @[X] reset physical position to 0
+2025-07-09 14:59:18:472 MCU   @[X] reference found (SENSOR)
+2025-07-09 14:59:18:473 MCU   @[X] max: 0.00
+2025-07-09 14:59:21:469 MCU   @[N] stopped by sensor L
+2025-07-09 14:59:21:470 MCU   @[N] reset physical position to 0
+2025-07-09 14:59:21:672 MCU   @[N] reference found (SENSOR)
+2025-07-09 14:59:21:672 MCU   @[N] min: 0.00
+2025-07-09 14:59:23:865 MCU   @[Y] motor cleared
+2025-07-09 14:59:23:866 MCU   @[Y] min: -29.51
+2025-07-09 14:59:23:867 MCU   @[P] start clearing: -165.00
+2025-07-09 14:59:23:889 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 14:59:23:914 MCU   @[N] start clearing: 69.50
+2025-07-09 14:59:23:938 MCU   @[X] start clearing: -22.00
+2025-07-09 14:59:23:963 MCU   @[H] start searching reference
+2025-07-09 14:59:23:993 MCU   @[Z] stopped by sensor L
+2025-07-09 14:59:24:298 MCU   @[Z] reset physical position to 0
+2025-07-09 14:59:24:622 MCU   @[Z] reference found (SENSOR)
+2025-07-09 14:59:24:623 MCU   @[Z] max: 0.00
+2025-07-09 14:59:24:644 MCU   @[Z] start clearing: -50.00
+2025-07-09 14:59:29:943 MCU   @[H] stopped by sensor L
+2025-07-09 14:59:29:944 MCU   @[H] reset physical position to 0
+2025-07-09 14:59:30:146 MCU   @[H] reference found (SENSOR)
+2025-07-09 14:59:30:146 MCU   @[H] max: 0.00
+2025-07-09 14:59:30:169 MCU   @[H] start clearing: -49.00
+2025-07-09 14:59:31:542 MCU   @[X] motor cleared
+2025-07-09 14:59:31:543 MCU   @[X] min: -32.01
+2025-07-09 14:59:31:744 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 14:59:32:957 MCU   @[Y] motor reached max pos
+2025-07-09 14:59:33:361 MCU   @[P] motor cleared
+2025-07-09 14:59:33:362 MCU   @[P] min: -165.08
+2025-07-09 14:59:33:563 MCU   @[P] start moving to home: -1.00
+2025-07-09 14:59:40:195 MCU   @[H] motor cleared
+2025-07-09 14:59:40:196 MCU   @[H] min: -49.01
+2025-07-09 14:59:40:397 MCU   @[H] start moving to home: -24.54
+2025-07-09 14:59:41:410 MCU   @[X] motor reached max pos
+2025-07-09 14:59:43:215 MCU   @[P] motor homed
+2025-07-09 14:59:43:217 MCU   @[R] start searching reference
+2025-07-09 14:59:45:110 MCU   @[H] motor homed
+2025-07-09 14:59:45:111 MCU   @[V] start searching reference
+2025-07-09 14:59:48:043 MCU   @[Z] motor cleared
+2025-07-09 14:59:48:044 MCU   @[Z] min: -50.01
+2025-07-09 14:59:48:245 MCU   @[Z] start moving to home: -33.30
+2025-07-09 14:59:49:647 MCU   @[N] motor cleared
+2025-07-09 14:59:49:647 MCU   @[N] max: 69.51
+2025-07-09 14:59:49:849 MCU   @[N] start moving to home: 11.47
+2025-07-09 14:59:50:866 MCU   @[V] stopped by sensor L
+2025-07-09 14:59:50:867 MCU   @[V] reset physical position to 0
+2025-07-09 14:59:51:068 MCU   @[V] reference found (SENSOR)
+2025-07-09 14:59:51:068 MCU   @[V] max: 0.00
+2025-07-09 14:59:51:095 MCU   @[V] start clearing: -49.00
+2025-07-09 14:59:51:493 MCU   @[R] stopped by sensor R
+2025-07-09 14:59:51:516 MCU   @[R] reset physical position to 0
+2025-07-09 14:59:51:538 MCU   @[R] reference found (SENSOR)
+2025-07-09 14:59:51:541 MCU   @[R] max: 0.00
+2025-07-09 14:59:51:563 MCU   @[R] start clearing: -119.00
+2025-07-09 14:59:55:792 MCU   @[Z] motor homed
+2025-07-09 15:00:00:009 MCU   @[V] motor cleared
+2025-07-09 15:00:00:009 MCU   @[V] min: -49.03
+2025-07-09 15:00:00:211 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:00:05:639 MCU   @[R] motor cleared
+2025-07-09 15:00:05:640 MCU   @[R] min: -119.02
+2025-07-09 15:00:05:843 MCU   @[V] motor homed
+2025-07-09 15:00:05:844 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:00:05:867 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:00:05:892 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:00:09:727 MCU   @[Y] motor homed
+2025-07-09 15:00:11:137 MCU   @[N] motor homed
+2025-07-09 15:00:11:540 MCU   @[X] motor homed
+2025-07-09 15:00:13:548 MCU   @[R] motor homed
+2025-07-09 15:00:13:549 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:00:13:549 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:00:13:549 MCU   @robot initialization done (66234ms)
+2025-07-09 15:00:13:570 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:00:13:570 Info  @switch LED light to Green
+2025-07-09 15:00:24:086 Info  @... init robot (15) (motion control)
+2025-07-09 15:00:24:087 Info  @switch LED light to Red
+2025-07-09 15:00:24:256 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:00:24:258 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:00:24:282 MCU   @[X] start searching reference
+2025-07-09 15:00:24:635 MCU   @[Y] start searching reference
+2025-07-09 15:00:24:980 MCU   @[Z] start searching reference
+2025-07-09 15:00:32:873 MCU   @[Y] stopped by sensor L
+2025-07-09 15:00:32:875 MCU   @[Y] reset physical position to 0
+2025-07-09 15:00:33:077 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:00:33:078 MCU   @[Y] max: 0.00
+2025-07-09 15:00:33:078 MCU   @[P] start searching reference
+2025-07-09 15:00:33:426 MCU   @[N] start searching reference
+2025-07-09 15:00:34:241 MCU   @[P] stopped by sensor L
+2025-07-09 15:00:34:264 MCU   @[P] reset physical position to 0
+2025-07-09 15:00:34:471 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:00:34:472 MCU   @[P] max: 0.00
+2025-07-09 15:00:34:473 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:00:35:217 MCU   @[X] stopped by sensor L
+2025-07-09 15:00:35:217 MCU   @[X] reset physical position to 0
+2025-07-09 15:00:35:419 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:00:35:421 MCU   @[X] max: 0.00
+2025-07-09 15:00:38:442 MCU   @[N] stopped by sensor L
+2025-07-09 15:00:38:444 MCU   @[N] reset physical position to 0
+2025-07-09 15:00:38:645 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:00:38:646 MCU   @[N] min: 0.00
+2025-07-09 15:00:41:046 MCU   @[Y] motor cleared
+2025-07-09 15:00:41:047 MCU   @[Y] min: -29.51
+2025-07-09 15:00:41:047 MCU   @[P] start clearing: -165.00
+2025-07-09 15:00:41:047 MCU   @[Z] stopped by sensor L
+2025-07-09 15:00:41:047 MCU   @[Z] reset physical position to 0
+2025-07-09 15:00:41:070 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:00:41:071 MCU   @[Z] max: 0.00
+2025-07-09 15:00:41:073 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:00:41:097 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:00:41:119 MCU   @[N] start clearing: 69.50
+2025-07-09 15:00:41:142 MCU   @[X] start clearing: -22.00
+2025-07-09 15:00:41:165 MCU   @[H] start searching reference
+2025-07-09 15:00:47:406 MCU   @[H] stopped by sensor L
+2025-07-09 15:00:47:408 MCU   @[H] reset physical position to 0
+2025-07-09 15:00:47:610 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:00:47:611 MCU   @[H] max: 0.00
+2025-07-09 15:00:47:635 MCU   @[H] start clearing: -49.00
+2025-07-09 15:00:48:807 MCU   @[X] motor cleared
+2025-07-09 15:00:48:807 MCU   @[X] min: -32.01
+2025-07-09 15:00:49:009 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:00:49:825 MCU   @[Y] motor reached max pos
+2025-07-09 15:00:50:431 MCU   @[P] motor cleared
+2025-07-09 15:00:50:431 MCU   @[P] min: -165.08
+2025-07-09 15:00:50:632 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:00:57:664 MCU   @[H] motor cleared
+2025-07-09 15:00:57:666 MCU   @[H] min: -49.01
+2025-07-09 15:00:57:868 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:00:58:685 MCU   @[X] motor reached max pos
+2025-07-09 15:01:00:294 MCU   @[P] motor homed
+2025-07-09 15:01:00:296 MCU   @[R] start searching reference
+2025-07-09 15:01:02:417 MCU   @[H] motor homed
+2025-07-09 15:01:02:419 MCU   @[V] start searching reference
+2025-07-09 15:01:05:128 MCU   @[Z] motor cleared
+2025-07-09 15:01:05:128 MCU   @[Z] min: -50.01
+2025-07-09 15:01:05:330 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:01:06:948 MCU   @[N] motor cleared
+2025-07-09 15:01:06:948 MCU   @[N] max: 69.51
+2025-07-09 15:01:07:150 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:01:08:168 MCU   @[V] stopped by sensor L
+2025-07-09 15:01:08:169 MCU   @[V] reset physical position to 0
+2025-07-09 15:01:08:370 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:01:08:372 MCU   @[V] max: 0.00
+2025-07-09 15:01:08:397 MCU   @[V] start clearing: -49.00
+2025-07-09 15:01:08:650 MCU   @[R] stopped by sensor R
+2025-07-09 15:01:08:675 MCU   @[R] reset physical position to 0
+2025-07-09 15:01:08:699 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:01:08:699 MCU   @[R] max: 0.00
+2025-07-09 15:01:08:721 MCU   @[R] start clearing: -119.00
+2025-07-09 15:01:12:956 MCU   @[Z] motor homed
+2025-07-09 15:01:17:170 MCU   @[V] motor cleared
+2025-07-09 15:01:17:171 MCU   @[V] min: -49.03
+2025-07-09 15:01:17:372 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:01:23:000 MCU   @[V] motor homed
+2025-07-09 15:01:23:002 MCU   @[R] motor cleared
+2025-07-09 15:01:23:003 MCU   @[R] min: -119.02
+2025-07-09 15:01:23:004 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:01:23:028 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:01:23:054 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:01:26:889 MCU   @[Y] motor homed
+2025-07-09 15:01:28:496 MCU   @[N] motor homed
+2025-07-09 15:01:28:698 MCU   @[X] motor homed
+2025-07-09 15:01:30:908 MCU   @[R] motor homed
+2025-07-09 15:01:30:909 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:01:30:910 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:01:30:911 MCU   @robot initialization done (66656ms)
+2025-07-09 15:01:30:928 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:01:30:929 Info  @switch LED light to Green
+2025-07-09 15:01:41:433 Info  @... init robot (14) (motion control)
+2025-07-09 15:01:41:434 Info  @switch LED light to Red
+2025-07-09 15:01:41:640 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:01:41:640 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:01:41:663 MCU   @[X] start searching reference
+2025-07-09 15:01:42:009 MCU   @[Y] start searching reference
+2025-07-09 15:01:42:355 MCU   @[Z] start searching reference
+2025-07-09 15:01:50:060 MCU   @[Y] stopped by sensor L
+2025-07-09 15:01:50:064 MCU   @[Y] reset physical position to 0
+2025-07-09 15:01:50:269 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:01:50:270 MCU   @[Y] max: 0.00
+2025-07-09 15:01:50:273 MCU   @[P] start searching reference
+2025-07-09 15:01:50:620 MCU   @[N] start searching reference
+2025-07-09 15:01:51:431 MCU   @[P] stopped by sensor L
+2025-07-09 15:01:51:455 MCU   @[P] reset physical position to 0
+2025-07-09 15:01:51:659 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:01:51:660 MCU   @[P] max: 0.00
+2025-07-09 15:01:51:661 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:01:52:580 MCU   @[X] stopped by sensor L
+2025-07-09 15:01:52:581 MCU   @[X] reset physical position to 0
+2025-07-09 15:01:52:783 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:01:52:784 MCU   @[X] max: 0.00
+2025-07-09 15:01:55:563 MCU   @[N] stopped by sensor L
+2025-07-09 15:01:55:765 MCU   @[N] reset physical position to 0
+2025-07-09 15:01:55:967 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:01:55:968 MCU   @[N] min: 0.00
+2025-07-09 15:01:58:164 MCU   @[Y] motor cleared
+2025-07-09 15:01:58:165 MCU   @[Y] min: -29.51
+2025-07-09 15:01:58:165 MCU   @[P] start clearing: -165.00
+2025-07-09 15:01:58:193 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:01:58:219 MCU   @[N] start clearing: 69.50
+2025-07-09 15:01:58:246 MCU   @[X] start clearing: -22.00
+2025-07-09 15:01:58:269 MCU   @[H] start searching reference
+2025-07-09 15:01:58:599 MCU   @[Z] stopped by sensor L
+2025-07-09 15:01:58:599 MCU   @[Z] reset physical position to 0
+2025-07-09 15:01:58:923 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:01:58:923 MCU   @[Z] max: 0.00
+2025-07-09 15:01:58:945 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:02:04:263 MCU   @[H] stopped by sensor L
+2025-07-09 15:02:04:264 MCU   @[H] reset physical position to 0
+2025-07-09 15:02:04:466 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:02:04:467 MCU   @[H] max: 0.00
+2025-07-09 15:02:04:489 MCU   @[H] start clearing: -49.00
+2025-07-09 15:02:05:863 MCU   @[X] motor cleared
+2025-07-09 15:02:05:864 MCU   @[X] min: -32.01
+2025-07-09 15:02:06:066 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:02:06:889 MCU   @[Y] motor reached max pos
+2025-07-09 15:02:07:493 MCU   @[P] motor cleared
+2025-07-09 15:02:07:494 MCU   @[P] min: -165.08
+2025-07-09 15:02:07:696 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:02:08:261 Info  @screen auto locked (Service)
+2025-07-09 15:02:14:523 MCU   @[H] motor cleared
+2025-07-09 15:02:14:523 MCU   @[H] min: -49.01
+2025-07-09 15:02:14:725 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:02:15:751 MCU   @[X] motor reached max pos
+2025-07-09 15:02:17:357 MCU   @[P] motor homed
+2025-07-09 15:02:17:358 MCU   @[R] start searching reference
+2025-07-09 15:02:19:465 MCU   @[H] motor homed
+2025-07-09 15:02:19:465 MCU   @[V] start searching reference
+2025-07-09 15:02:22:169 MCU   @[Z] motor cleared
+2025-07-09 15:02:22:169 MCU   @[Z] min: -50.01
+2025-07-09 15:02:22:371 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:02:23:985 MCU   @[N] motor cleared
+2025-07-09 15:02:23:986 MCU   @[N] max: 69.51
+2025-07-09 15:02:24:187 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:02:25:199 MCU   @[V] stopped by sensor L
+2025-07-09 15:02:25:407 MCU   @[V] reset physical position to 0
+2025-07-09 15:02:25:609 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:02:25:610 MCU   @[V] max: 0.00
+2025-07-09 15:02:25:635 MCU   @[V] start clearing: -49.00
+2025-07-09 15:02:25:701 MCU   @[R] stopped by sensor R
+2025-07-09 15:02:25:746 MCU   @[R] reset physical position to 0
+2025-07-09 15:02:25:768 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:02:25:768 MCU   @[R] max: 0.00
+2025-07-09 15:02:25:794 MCU   @[R] start clearing: -119.00
+2025-07-09 15:02:29:952 MCU   @[Z] motor homed
+2025-07-09 15:02:34:566 MCU   @[V] motor cleared
+2025-07-09 15:02:34:566 MCU   @[V] min: -49.03
+2025-07-09 15:02:34:767 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:02:39:991 MCU   @[R] motor cleared
+2025-07-09 15:02:39:991 MCU   @[R] min: -119.02
+2025-07-09 15:02:40:193 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:02:40:215 MCU   @[V] motor homed
+2025-07-09 15:02:40:215 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:02:40:237 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:02:44:071 MCU   @[Y] motor homed
+2025-07-09 15:02:45:477 MCU   @[N] motor homed
+2025-07-09 15:02:45:880 MCU   @[X] motor homed
+2025-07-09 15:02:47:888 MCU   @[R] motor homed
+2025-07-09 15:02:47:889 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:02:47:889 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:02:47:891 MCU   @robot initialization done (66266ms)
+2025-07-09 15:02:47:897 Info  @system actual [32.93,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:02:47:898 Info  @switch LED light to Green
+2025-07-09 15:02:58:392 Info  @... init robot (13) (motion control)
+2025-07-09 15:02:58:393 Info  @switch LED light to Red
+2025-07-09 15:02:58:605 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:02:58:605 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:02:58:629 MCU   @[X] start searching reference
+2025-07-09 15:02:58:976 MCU   @[Y] start searching reference
+2025-07-09 15:02:59:322 MCU   @[Z] start searching reference
+2025-07-09 15:03:07:015 MCU   @[Y] stopped by sensor L
+2025-07-09 15:03:07:016 MCU   @[Y] reset physical position to 0
+2025-07-09 15:03:07:218 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:03:07:218 MCU   @[Y] max: 0.00
+2025-07-09 15:03:07:219 MCU   @[P] start searching reference
+2025-07-09 15:03:07:565 MCU   @[N] start searching reference
+2025-07-09 15:03:08:348 MCU   @[P] stopped by sensor L
+2025-07-09 15:03:08:390 MCU   @[P] reset physical position to 0
+2025-07-09 15:03:08:413 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:03:08:415 MCU   @[P] max: 0.00
+2025-07-09 15:03:08:416 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:03:09:528 MCU   @[X] stopped by sensor L
+2025-07-09 15:03:09:529 MCU   @[X] reset physical position to 0
+2025-07-09 15:03:09:731 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:03:09:731 MCU   @[X] max: 0.00
+2025-07-09 15:03:12:530 MCU   @[N] stopped by sensor L
+2025-07-09 15:03:12:731 MCU   @[N] reset physical position to 0
+2025-07-09 15:03:12:933 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:03:12:934 MCU   @[N] min: 0.00
+2025-07-09 15:03:14:926 MCU   @[Y] motor cleared
+2025-07-09 15:03:14:927 MCU   @[Y] min: -29.51
+2025-07-09 15:03:14:927 MCU   @[P] start clearing: -165.00
+2025-07-09 15:03:14:949 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:03:14:978 MCU   @[N] start clearing: 69.50
+2025-07-09 15:03:15:002 MCU   @[X] start clearing: -22.00
+2025-07-09 15:03:15:025 MCU   @[H] start searching reference
+2025-07-09 15:03:15:355 MCU   @[Z] stopped by sensor L
+2025-07-09 15:03:15:356 MCU   @[Z] reset physical position to 0
+2025-07-09 15:03:15:680 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:03:15:680 MCU   @[Z] max: 0.00
+2025-07-09 15:03:15:703 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:03:21:001 MCU   @[H] stopped by sensor L
+2025-07-09 15:03:21:002 MCU   @[H] reset physical position to 0
+2025-07-09 15:03:21:203 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:03:21:204 MCU   @[H] max: 0.00
+2025-07-09 15:03:21:227 MCU   @[H] start clearing: -49.00
+2025-07-09 15:03:22:581 MCU   @[X] motor cleared
+2025-07-09 15:03:22:582 MCU   @[X] min: -32.01
+2025-07-09 15:03:22:784 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:03:23:998 MCU   @[Y] motor reached max pos
+2025-07-09 15:03:24:400 MCU   @[P] motor cleared
+2025-07-09 15:03:24:401 MCU   @[P] min: -165.08
+2025-07-09 15:03:24:602 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:03:31:210 MCU   @[H] motor cleared
+2025-07-09 15:03:31:210 MCU   @[H] min: -49.01
+2025-07-09 15:03:31:412 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:03:32:431 MCU   @[X] motor reached max pos
+2025-07-09 15:03:34:238 MCU   @[P] motor homed
+2025-07-09 15:03:34:239 MCU   @[R] start searching reference
+2025-07-09 15:03:35:949 MCU   @[H] motor homed
+2025-07-09 15:03:35:950 MCU   @[V] start searching reference
+2025-07-09 15:03:39:064 MCU   @[Z] motor cleared
+2025-07-09 15:03:39:065 MCU   @[Z] min: -50.01
+2025-07-09 15:03:39:267 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:03:40:700 MCU   @[N] motor cleared
+2025-07-09 15:03:40:700 MCU   @[N] max: 69.51
+2025-07-09 15:03:40:901 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:03:41:716 MCU   @[V] stopped by sensor L
+2025-07-09 15:03:41:716 MCU   @[V] reset physical position to 0
+2025-07-09 15:03:41:918 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:03:41:919 MCU   @[V] max: 0.00
+2025-07-09 15:03:41:942 MCU   @[V] start clearing: -49.00
+2025-07-09 15:03:42:684 MCU   @[R] stopped by sensor R
+2025-07-09 15:03:42:685 MCU   @[R] reset physical position to 0
+2025-07-09 15:03:42:887 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:03:42:889 MCU   @[R] max: 0.00
+2025-07-09 15:03:42:914 MCU   @[R] start clearing: -119.00
+2025-07-09 15:03:46:881 MCU   @[Z] motor homed
+2025-07-09 15:03:50:691 MCU   @[V] motor cleared
+2025-07-09 15:03:50:692 MCU   @[V] min: -49.03
+2025-07-09 15:03:50:893 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:03:56:523 MCU   @[V] motor homed
+2025-07-09 15:03:56:524 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:03:56:550 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:03:56:825 MCU   @[R] motor cleared
+2025-07-09 15:03:56:828 MCU   @[R] min: -119.03
+2025-07-09 15:03:56:850 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:04:00:271 MCU   @[Y] motor homed
+2025-07-09 15:04:02:076 MCU   @[X] motor homed
+2025-07-09 15:04:02:278 MCU   @[N] motor homed
+2025-07-09 15:04:04:488 MCU   @[R] motor homed
+2025-07-09 15:04:04:488 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:04:04:489 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:04:04:489 MCU   @robot initialization done (65890ms)
+2025-07-09 15:04:04:507 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.04,79.98,0.02]
+2025-07-09 15:04:04:507 Info  @switch LED light to Green
+2025-07-09 15:04:15:009 Info  @... init robot (12) (motion control)
+2025-07-09 15:04:15:009 Info  @switch LED light to Red
+2025-07-09 15:04:15:200 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:04:15:201 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:04:15:224 MCU   @[X] start searching reference
+2025-07-09 15:04:15:571 MCU   @[Y] start searching reference
+2025-07-09 15:04:15:916 MCU   @[Z] start searching reference
+2025-07-09 15:04:23:413 MCU   @[Y] stopped by sensor L
+2025-07-09 15:04:23:615 MCU   @[Y] reset physical position to 0
+2025-07-09 15:04:23:817 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:04:23:818 MCU   @[Y] max: 0.00
+2025-07-09 15:04:23:818 MCU   @[P] start searching reference
+2025-07-09 15:04:24:165 MCU   @[N] start searching reference
+2025-07-09 15:04:24:958 MCU   @[P] stopped by sensor L
+2025-07-09 15:04:25:003 MCU   @[P] reset physical position to 0
+2025-07-09 15:04:25:205 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:04:25:205 MCU   @[P] max: 0.00
+2025-07-09 15:04:25:205 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:04:26:112 MCU   @[X] stopped by sensor L
+2025-07-09 15:04:26:113 MCU   @[X] reset physical position to 0
+2025-07-09 15:04:26:314 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:04:26:319 MCU   @[X] max: 0.00
+2025-07-09 15:04:29:116 MCU   @[N] stopped by sensor L
+2025-07-09 15:04:29:318 MCU   @[N] reset physical position to 0
+2025-07-09 15:04:29:520 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:04:29:521 MCU   @[N] min: 0.00
+2025-07-09 15:04:31:718 MCU   @[Y] motor cleared
+2025-07-09 15:04:31:719 MCU   @[Y] min: -29.51
+2025-07-09 15:04:31:720 MCU   @[P] start clearing: -165.00
+2025-07-09 15:04:31:742 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:04:31:767 MCU   @[N] start clearing: 69.50
+2025-07-09 15:04:31:789 MCU   @[X] start clearing: -22.00
+2025-07-09 15:04:31:811 MCU   @[H] start searching reference
+2025-07-09 15:04:31:837 MCU   @[Z] stopped by sensor L
+2025-07-09 15:04:32:140 MCU   @[Z] reset physical position to 0
+2025-07-09 15:04:32:465 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:04:32:465 MCU   @[Z] max: 0.00
+2025-07-09 15:04:32:488 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:04:37:783 MCU   @[H] stopped by sensor L
+2025-07-09 15:04:37:784 MCU   @[H] reset physical position to 0
+2025-07-09 15:04:37:986 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:04:37:987 MCU   @[H] max: 0.00
+2025-07-09 15:04:38:009 MCU   @[H] start clearing: -49.00
+2025-07-09 15:04:39:393 MCU   @[X] motor cleared
+2025-07-09 15:04:39:393 MCU   @[X] min: -32.01
+2025-07-09 15:04:39:594 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:04:40:607 MCU   @[Y] motor reached max pos
+2025-07-09 15:04:41:010 MCU   @[P] motor cleared
+2025-07-09 15:04:41:010 MCU   @[P] min: -165.08
+2025-07-09 15:04:41:211 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:04:48:046 MCU   @[H] motor cleared
+2025-07-09 15:04:48:047 MCU   @[H] min: -49.01
+2025-07-09 15:04:48:249 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:04:49:261 MCU   @[X] motor reached max pos
+2025-07-09 15:04:50:867 MCU   @[P] motor homed
+2025-07-09 15:04:50:869 MCU   @[R] start searching reference
+2025-07-09 15:04:52:778 MCU   @[H] motor homed
+2025-07-09 15:04:52:779 MCU   @[V] start searching reference
+2025-07-09 15:04:55:688 MCU   @[Z] motor cleared
+2025-07-09 15:04:55:689 MCU   @[Z] min: -50.01
+2025-07-09 15:04:55:890 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:04:57:508 MCU   @[N] motor cleared
+2025-07-09 15:04:57:509 MCU   @[N] max: 69.51
+2025-07-09 15:04:57:713 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:04:58:546 MCU   @[V] stopped by sensor L
+2025-07-09 15:04:58:547 MCU   @[V] reset physical position to 0
+2025-07-09 15:04:58:749 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:04:58:752 MCU   @[V] max: 0.00
+2025-07-09 15:04:58:778 MCU   @[V] start clearing: -49.00
+2025-07-09 15:04:59:199 MCU   @[R] stopped by sensor R
+2025-07-09 15:04:59:221 MCU   @[R] reset physical position to 0
+2025-07-09 15:04:59:243 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:04:59:244 MCU   @[R] max: 0.00
+2025-07-09 15:04:59:268 MCU   @[R] start clearing: -119.00
+2025-07-09 15:05:03:469 MCU   @[Z] motor homed
+2025-07-09 15:05:07:486 MCU   @[V] motor cleared
+2025-07-09 15:05:07:487 MCU   @[V] min: -49.03
+2025-07-09 15:05:07:687 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:05:13:312 MCU   @[V] motor homed
+2025-07-09 15:05:13:313 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:05:13:336 MCU   @[R] motor cleared
+2025-07-09 15:05:13:337 MCU   @[R] min: -119.02
+2025-07-09 15:05:13:337 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:05:13:361 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:05:17:170 MCU   @[Y] motor homed
+2025-07-09 15:05:18:978 MCU   @[N] motor homed
+2025-07-09 15:05:18:979 MCU   @[X] motor homed
+2025-07-09 15:05:21:387 MCU   @[R] motor homed
+2025-07-09 15:05:21:387 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:05:21:388 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:05:21:388 MCU   @robot initialization done (66187ms)
+2025-07-09 15:05:21:412 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:05:21:413 Info  @switch LED light to Green
+2025-07-09 15:05:31:909 Info  @... init robot (11) (motion control)
+2025-07-09 15:05:31:910 Info  @switch LED light to Red
+2025-07-09 15:05:32:117 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:05:32:117 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:05:32:141 MCU   @[X] start searching reference
+2025-07-09 15:05:32:488 MCU   @[Y] start searching reference
+2025-07-09 15:05:32:832 MCU   @[Z] start searching reference
+2025-07-09 15:05:40:532 MCU   @[Y] stopped by sensor L
+2025-07-09 15:05:40:734 MCU   @[Y] reset physical position to 0
+2025-07-09 15:05:40:936 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:05:40:938 MCU   @[Y] max: 0.00
+2025-07-09 15:05:40:939 MCU   @[P] start searching reference
+2025-07-09 15:05:41:285 MCU   @[N] start searching reference
+2025-07-09 15:05:42:080 MCU   @[P] stopped by sensor L
+2025-07-09 15:05:42:127 MCU   @[P] reset physical position to 0
+2025-07-09 15:05:42:328 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:05:42:329 MCU   @[P] max: 0.00
+2025-07-09 15:05:42:329 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:05:43:068 MCU   @[X] stopped by sensor L
+2025-07-09 15:05:43:069 MCU   @[X] reset physical position to 0
+2025-07-09 15:05:43:272 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:05:43:273 MCU   @[X] max: 0.00
+2025-07-09 15:05:46:269 MCU   @[N] stopped by sensor L
+2025-07-09 15:05:46:270 MCU   @[N] reset physical position to 0
+2025-07-09 15:05:46:472 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:05:46:473 MCU   @[N] min: 0.00
+2025-07-09 15:05:48:873 MCU   @[Y] motor cleared
+2025-07-09 15:05:48:874 MCU   @[Y] min: -29.51
+2025-07-09 15:05:48:874 MCU   @[P] start clearing: -165.00
+2025-07-09 15:05:48:875 MCU   @[Z] stopped by sensor L
+2025-07-09 15:05:48:875 MCU   @[Z] reset physical position to 0
+2025-07-09 15:05:48:898 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:05:48:898 MCU   @[Z] max: 0.00
+2025-07-09 15:05:48:898 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:05:48:920 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:05:48:943 MCU   @[N] start clearing: 69.50
+2025-07-09 15:05:48:967 MCU   @[X] start clearing: -22.00
+2025-07-09 15:05:48:988 MCU   @[H] start searching reference
+2025-07-09 15:05:55:239 MCU   @[H] stopped by sensor L
+2025-07-09 15:05:55:241 MCU   @[H] reset physical position to 0
+2025-07-09 15:05:55:444 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:05:55:446 MCU   @[H] max: 0.00
+2025-07-09 15:05:55:469 MCU   @[H] start clearing: -49.00
+2025-07-09 15:05:56:642 MCU   @[X] motor cleared
+2025-07-09 15:05:56:643 MCU   @[X] min: -32.01
+2025-07-09 15:05:56:844 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:05:57:863 MCU   @[Y] motor reached max pos
+2025-07-09 15:05:58:267 MCU   @[P] motor cleared
+2025-07-09 15:05:58:267 MCU   @[P] min: -165.08
+2025-07-09 15:05:58:468 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:06:05:299 MCU   @[H] motor cleared
+2025-07-09 15:06:05:300 MCU   @[H] min: -49.01
+2025-07-09 15:06:05:502 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:06:06:499 MCU   @[X] motor reached max pos
+2025-07-09 15:06:08:106 MCU   @[P] motor homed
+2025-07-09 15:06:08:107 MCU   @[R] start searching reference
+2025-07-09 15:06:10:016 MCU   @[H] motor homed
+2025-07-09 15:06:10:017 MCU   @[V] start searching reference
+2025-07-09 15:06:12:945 MCU   @[Z] motor cleared
+2025-07-09 15:06:12:945 MCU   @[Z] min: -50.01
+2025-07-09 15:06:13:146 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:06:14:760 MCU   @[N] motor cleared
+2025-07-09 15:06:14:761 MCU   @[N] max: 69.51
+2025-07-09 15:06:14:962 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:06:15:772 MCU   @[V] stopped by sensor L
+2025-07-09 15:06:15:773 MCU   @[V] reset physical position to 0
+2025-07-09 15:06:15:975 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:06:15:976 MCU   @[V] max: 0.00
+2025-07-09 15:06:16:000 MCU   @[V] start clearing: -49.00
+2025-07-09 15:06:16:422 MCU   @[R] stopped by sensor R
+2025-07-09 15:06:16:467 MCU   @[R] reset physical position to 0
+2025-07-09 15:06:16:490 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:06:16:491 MCU   @[R] max: 0.00
+2025-07-09 15:06:16:514 MCU   @[R] start clearing: -119.00
+2025-07-09 15:06:20:728 MCU   @[Z] motor homed
+2025-07-09 15:06:24:739 MCU   @[V] motor cleared
+2025-07-09 15:06:24:740 MCU   @[V] min: -49.03
+2025-07-09 15:06:24:942 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:06:30:572 MCU   @[V] motor homed
+2025-07-09 15:06:30:572 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:06:30:594 MCU   @[R] motor cleared
+2025-07-09 15:06:30:595 MCU   @[R] min: -119.03
+2025-07-09 15:06:30:595 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:06:30:618 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:06:34:271 MCU   @[Y] motor homed
+2025-07-09 15:06:36:280 MCU   @[N] motor homed
+2025-07-09 15:06:36:280 MCU   @[X] motor homed
+2025-07-09 15:06:38:689 MCU   @[R] motor homed
+2025-07-09 15:06:38:690 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:06:38:691 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:06:38:691 MCU   @robot initialization done (66579ms)
+2025-07-09 15:06:38:697 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:06:38:698 Info  @switch LED light to Green
+2025-07-09 15:06:49:194 Info  @... init robot (10) (motion control)
+2025-07-09 15:06:49:195 Info  @switch LED light to Red
+2025-07-09 15:06:49:399 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:06:49:399 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:06:49:424 MCU   @[X] start searching reference
+2025-07-09 15:06:49:769 MCU   @[Y] start searching reference
+2025-07-09 15:06:50:113 MCU   @[Z] start searching reference
+2025-07-09 15:06:57:815 MCU   @[Y] stopped by sensor L
+2025-07-09 15:06:57:816 MCU   @[Y] reset physical position to 0
+2025-07-09 15:06:58:018 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:06:58:018 MCU   @[Y] max: 0.00
+2025-07-09 15:06:58:019 MCU   @[P] start searching reference
+2025-07-09 15:06:58:368 MCU   @[N] start searching reference
+2025-07-09 15:06:59:177 MCU   @[P] stopped by sensor L
+2025-07-09 15:06:59:203 MCU   @[P] reset physical position to 0
+2025-07-09 15:06:59:406 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:06:59:406 MCU   @[P] max: 0.00
+2025-07-09 15:06:59:406 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:07:00:347 MCU   @[X] stopped by sensor L
+2025-07-09 15:07:00:348 MCU   @[X] reset physical position to 0
+2025-07-09 15:07:00:550 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:07:00:552 MCU   @[X] max: 0.00
+2025-07-09 15:07:03:354 MCU   @[N] stopped by sensor L
+2025-07-09 15:07:03:355 MCU   @[N] reset physical position to 0
+2025-07-09 15:07:03:558 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:07:03:560 MCU   @[N] min: 0.00
+2025-07-09 15:07:05:959 MCU   @[Y] motor cleared
+2025-07-09 15:07:05:959 MCU   @[Y] min: -29.51
+2025-07-09 15:07:05:960 MCU   @[P] start clearing: -165.00
+2025-07-09 15:07:05:982 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:07:06:005 MCU   @[N] start clearing: 69.50
+2025-07-09 15:07:06:028 MCU   @[X] start clearing: -22.00
+2025-07-09 15:07:06:051 MCU   @[H] start searching reference
+2025-07-09 15:07:06:073 MCU   @[Z] stopped by sensor L
+2025-07-09 15:07:06:374 MCU   @[Z] reset physical position to 0
+2025-07-09 15:07:06:700 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:07:06:701 MCU   @[Z] max: 0.00
+2025-07-09 15:07:06:723 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:07:11:822 MCU   @[H] stopped by sensor L
+2025-07-09 15:07:12:024 MCU   @[H] reset physical position to 0
+2025-07-09 15:07:12:228 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:07:12:229 MCU   @[H] max: 0.00
+2025-07-09 15:07:12:253 MCU   @[H] start clearing: -49.00
+2025-07-09 15:07:13:598 MCU   @[X] motor cleared
+2025-07-09 15:07:13:599 MCU   @[X] min: -32.01
+2025-07-09 15:07:13:801 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:07:14:620 MCU   @[Y] motor reached max pos
+2025-07-09 15:07:15:423 MCU   @[P] motor cleared
+2025-07-09 15:07:15:425 MCU   @[P] min: -165.08
+2025-07-09 15:07:15:626 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:07:22:254 MCU   @[H] motor cleared
+2025-07-09 15:07:22:255 MCU   @[H] min: -49.01
+2025-07-09 15:07:22:456 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:07:23:472 MCU   @[X] motor reached max pos
+2025-07-09 15:07:25:280 MCU   @[P] motor homed
+2025-07-09 15:07:25:281 MCU   @[R] start searching reference
+2025-07-09 15:07:26:985 MCU   @[H] motor homed
+2025-07-09 15:07:26:986 MCU   @[V] start searching reference
+2025-07-09 15:07:30:097 MCU   @[Z] motor cleared
+2025-07-09 15:07:30:097 MCU   @[Z] min: -50.01
+2025-07-09 15:07:30:298 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:07:31:711 MCU   @[N] motor cleared
+2025-07-09 15:07:31:712 MCU   @[N] max: 69.51
+2025-07-09 15:07:31:913 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:07:32:726 MCU   @[V] stopped by sensor L
+2025-07-09 15:07:32:727 MCU   @[V] reset physical position to 0
+2025-07-09 15:07:32:928 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:07:32:930 MCU   @[V] max: 0.00
+2025-07-09 15:07:32:952 MCU   @[V] start clearing: -49.00
+2025-07-09 15:07:33:739 MCU   @[R] stopped by sensor R
+2025-07-09 15:07:33:739 MCU   @[R] reset physical position to 0
+2025-07-09 15:07:33:941 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:07:33:942 MCU   @[R] max: 0.00
+2025-07-09 15:07:33:969 MCU   @[R] start clearing: -119.00
+2025-07-09 15:07:37:941 MCU   @[Z] motor homed
+2025-07-09 15:07:41:551 MCU   @[V] motor cleared
+2025-07-09 15:07:41:552 MCU   @[V] min: -49.03
+2025-07-09 15:07:41:753 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:07:47:378 MCU   @[V] motor homed
+2025-07-09 15:07:47:378 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:07:47:401 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:07:48:115 MCU   @[R] motor cleared
+2025-07-09 15:07:48:116 MCU   @[R] min: -119.02
+2025-07-09 15:07:48:318 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:07:51:135 MCU   @[Y] motor homed
+2025-07-09 15:07:52:943 MCU   @[X] motor homed
+2025-07-09 15:07:53:147 MCU   @[N] motor homed
+2025-07-09 15:07:56:155 MCU   @[R] motor homed
+2025-07-09 15:07:56:156 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:07:56:156 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:07:56:157 MCU   @robot initialization done (66765ms)
+2025-07-09 15:07:56:162 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:07:56:163 Info  @switch LED light to Green
+2025-07-09 15:08:06:662 Info  @... init robot (9) (motion control)
+2025-07-09 15:08:06:663 Info  @switch LED light to Red
+2025-07-09 15:08:06:866 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:08:06:866 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:08:06:891 MCU   @[X] start searching reference
+2025-07-09 15:08:07:237 MCU   @[Y] start searching reference
+2025-07-09 15:08:07:582 MCU   @[Z] start searching reference
+2025-07-09 15:08:15:276 MCU   @[Y] stopped by sensor L
+2025-07-09 15:08:15:277 MCU   @[Y] reset physical position to 0
+2025-07-09 15:08:15:479 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:08:15:480 MCU   @[Y] max: 0.00
+2025-07-09 15:08:15:481 MCU   @[P] start searching reference
+2025-07-09 15:08:15:830 MCU   @[N] start searching reference
+2025-07-09 15:08:16:639 MCU   @[P] stopped by sensor L
+2025-07-09 15:08:16:664 MCU   @[P] reset physical position to 0
+2025-07-09 15:08:16:687 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:08:16:689 MCU   @[P] max: 0.00
+2025-07-09 15:08:16:691 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:08:17:810 MCU   @[X] stopped by sensor L
+2025-07-09 15:08:17:811 MCU   @[X] reset physical position to 0
+2025-07-09 15:08:18:013 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:08:18:013 MCU   @[X] max: 0.00
+2025-07-09 15:08:20:810 MCU   @[N] stopped by sensor L
+2025-07-09 15:08:20:811 MCU   @[N] reset physical position to 0
+2025-07-09 15:08:21:012 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:08:21:013 MCU   @[N] min: 0.00
+2025-07-09 15:08:23:212 MCU   @[Y] motor cleared
+2025-07-09 15:08:23:214 MCU   @[Y] min: -29.51
+2025-07-09 15:08:23:215 MCU   @[P] start clearing: -165.00
+2025-07-09 15:08:23:237 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:08:23:259 MCU   @[N] start clearing: 69.50
+2025-07-09 15:08:23:284 MCU   @[X] start clearing: -22.00
+2025-07-09 15:08:23:308 MCU   @[H] start searching reference
+2025-07-09 15:08:23:632 MCU   @[Z] stopped by sensor L
+2025-07-09 15:08:23:632 MCU   @[Z] reset physical position to 0
+2025-07-09 15:08:23:957 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:08:23:958 MCU   @[Z] max: 0.00
+2025-07-09 15:08:23:981 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:08:29:303 MCU   @[H] stopped by sensor L
+2025-07-09 15:08:29:304 MCU   @[H] reset physical position to 0
+2025-07-09 15:08:29:506 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:08:29:507 MCU   @[H] max: 0.00
+2025-07-09 15:08:29:530 MCU   @[H] start clearing: -49.00
+2025-07-09 15:08:30:880 MCU   @[X] motor cleared
+2025-07-09 15:08:30:880 MCU   @[X] min: -32.01
+2025-07-09 15:08:31:081 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:08:31:892 MCU   @[Y] motor reached max pos
+2025-07-09 15:08:32:497 MCU   @[P] motor cleared
+2025-07-09 15:08:32:497 MCU   @[P] min: -165.08
+2025-07-09 15:08:32:698 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:08:39:514 MCU   @[H] motor cleared
+2025-07-09 15:08:39:515 MCU   @[H] min: -49.01
+2025-07-09 15:08:39:716 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:08:40:730 MCU   @[X] motor reached max pos
+2025-07-09 15:08:42:337 MCU   @[P] motor homed
+2025-07-09 15:08:42:337 MCU   @[R] start searching reference
+2025-07-09 15:08:44:265 MCU   @[H] motor homed
+2025-07-09 15:08:44:266 MCU   @[V] start searching reference
+2025-07-09 15:08:47:176 MCU   @[Z] motor cleared
+2025-07-09 15:08:47:177 MCU   @[Z] min: -50.01
+2025-07-09 15:08:47:378 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:08:49:011 MCU   @[N] motor cleared
+2025-07-09 15:08:49:012 MCU   @[N] max: 69.51
+2025-07-09 15:08:49:213 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:08:50:025 MCU   @[V] stopped by sensor L
+2025-07-09 15:08:50:026 MCU   @[V] reset physical position to 0
+2025-07-09 15:08:50:227 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:08:50:228 MCU   @[V] max: 0.00
+2025-07-09 15:08:50:253 MCU   @[V] start clearing: -49.00
+2025-07-09 15:08:50:691 MCU   @[R] stopped by sensor R
+2025-07-09 15:08:50:718 MCU   @[R] reset physical position to 0
+2025-07-09 15:08:50:740 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:08:50:740 MCU   @[R] max: 0.00
+2025-07-09 15:08:50:762 MCU   @[R] start clearing: -119.00
+2025-07-09 15:08:54:952 MCU   @[Z] motor homed
+2025-07-09 15:08:58:965 MCU   @[V] motor cleared
+2025-07-09 15:08:58:966 MCU   @[V] min: -49.03
+2025-07-09 15:08:59:167 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:09:04:803 MCU   @[V] motor homed
+2025-07-09 15:09:04:803 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:09:04:826 MCU   @[R] motor cleared
+2025-07-09 15:09:04:827 MCU   @[R] min: -119.03
+2025-07-09 15:09:04:827 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:09:04:851 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:09:08:684 MCU   @[Y] motor homed
+2025-07-09 15:09:10:496 MCU   @[N] motor homed
+2025-07-09 15:09:10:497 MCU   @[X] motor homed
+2025-07-09 15:09:12:705 MCU   @[R] motor homed
+2025-07-09 15:09:12:706 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:09:12:707 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:09:12:707 MCU   @robot initialization done (65844ms)
+2025-07-09 15:09:12:730 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:09:12:730 Info  @switch LED light to Green
+2025-07-09 15:09:23:220 Info  @... init robot (8) (motion control)
+2025-07-09 15:09:23:220 Info  @switch LED light to Red
+2025-07-09 15:09:23:417 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:09:23:417 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:09:23:447 MCU   @[X] start searching reference
+2025-07-09 15:09:23:796 MCU   @[Y] start searching reference
+2025-07-09 15:09:24:141 MCU   @[Z] start searching reference
+2025-07-09 15:09:31:832 MCU   @[Y] stopped by sensor L
+2025-07-09 15:09:32:034 MCU   @[Y] reset physical position to 0
+2025-07-09 15:09:32:237 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:09:32:237 MCU   @[Y] max: 0.00
+2025-07-09 15:09:32:238 MCU   @[P] start searching reference
+2025-07-09 15:09:32:583 MCU   @[N] start searching reference
+2025-07-09 15:09:33:396 MCU   @[P] stopped by sensor L
+2025-07-09 15:09:33:421 MCU   @[P] reset physical position to 0
+2025-07-09 15:09:33:623 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:09:33:625 MCU   @[P] max: 0.00
+2025-07-09 15:09:33:628 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:09:34:349 MCU   @[X] stopped by sensor L
+2025-07-09 15:09:34:350 MCU   @[X] reset physical position to 0
+2025-07-09 15:09:34:552 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:09:34:552 MCU   @[X] max: 0.00
+2025-07-09 15:09:37:553 MCU   @[N] stopped by sensor L
+2025-07-09 15:09:37:755 MCU   @[N] reset physical position to 0
+2025-07-09 15:09:37:958 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:09:37:959 MCU   @[N] min: 0.00
+2025-07-09 15:09:40:155 MCU   @[Y] motor cleared
+2025-07-09 15:09:40:156 MCU   @[Y] min: -29.51
+2025-07-09 15:09:40:157 MCU   @[P] start clearing: -165.00
+2025-07-09 15:09:40:157 MCU   @[Z] stopped by sensor L
+2025-07-09 15:09:40:158 MCU   @[Z] reset physical position to 0
+2025-07-09 15:09:40:181 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:09:40:182 MCU   @[Z] max: 0.00
+2025-07-09 15:09:40:182 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:09:40:204 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:09:40:226 MCU   @[N] start clearing: 69.50
+2025-07-09 15:09:40:249 MCU   @[X] start clearing: -22.00
+2025-07-09 15:09:40:274 MCU   @[H] start searching reference
+2025-07-09 15:09:46:541 MCU   @[H] stopped by sensor L
+2025-07-09 15:09:46:542 MCU   @[H] reset physical position to 0
+2025-07-09 15:09:46:745 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:09:46:748 MCU   @[H] max: 0.00
+2025-07-09 15:09:46:771 MCU   @[H] start clearing: -49.00
+2025-07-09 15:09:47:936 MCU   @[X] motor cleared
+2025-07-09 15:09:47:937 MCU   @[X] min: -32.01
+2025-07-09 15:09:48:138 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:09:48:953 MCU   @[Y] motor reached max pos
+2025-07-09 15:09:49:556 MCU   @[P] motor cleared
+2025-07-09 15:09:49:557 MCU   @[P] min: -165.08
+2025-07-09 15:09:49:761 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:09:56:789 MCU   @[H] motor cleared
+2025-07-09 15:09:56:790 MCU   @[H] min: -49.01
+2025-07-09 15:09:56:991 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:09:57:804 MCU   @[X] motor reached max pos
+2025-07-09 15:09:59:412 MCU   @[P] motor homed
+2025-07-09 15:09:59:412 MCU   @[R] start searching reference
+2025-07-09 15:10:01:549 MCU   @[H] motor homed
+2025-07-09 15:10:01:549 MCU   @[V] start searching reference
+2025-07-09 15:10:04:260 MCU   @[Z] motor cleared
+2025-07-09 15:10:04:261 MCU   @[Z] min: -50.01
+2025-07-09 15:10:04:462 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:10:06:078 MCU   @[N] motor cleared
+2025-07-09 15:10:06:079 MCU   @[N] max: 69.51
+2025-07-09 15:10:06:280 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:10:07:293 MCU   @[V] stopped by sensor L
+2025-07-09 15:10:07:293 MCU   @[V] reset physical position to 0
+2025-07-09 15:10:07:495 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:10:07:496 MCU   @[V] max: 0.00
+2025-07-09 15:10:07:519 MCU   @[V] start clearing: -49.00
+2025-07-09 15:10:07:794 MCU   @[R] stopped by sensor R
+2025-07-09 15:10:07:837 MCU   @[R] reset physical position to 0
+2025-07-09 15:10:07:859 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:10:07:861 MCU   @[R] max: 0.00
+2025-07-09 15:10:07:885 MCU   @[R] start clearing: -119.00
+2025-07-09 15:10:12:124 MCU   @[Z] motor homed
+2025-07-09 15:10:16:338 MCU   @[V] motor cleared
+2025-07-09 15:10:16:339 MCU   @[V] min: -49.03
+2025-07-09 15:10:16:540 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:10:22:144 MCU   @[V] motor homed
+2025-07-09 15:10:22:147 MCU   @[R] motor cleared
+2025-07-09 15:10:22:149 MCU   @[R] min: -119.02
+2025-07-09 15:10:22:150 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:10:22:173 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:10:22:194 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:10:26:031 MCU   @[Y] motor homed
+2025-07-09 15:10:27:639 MCU   @[N] motor homed
+2025-07-09 15:10:27:840 MCU   @[X] motor homed
+2025-07-09 15:10:30:051 MCU   @[R] motor homed
+2025-07-09 15:10:30:052 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:10:30:052 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:10:30:053 MCU   @robot initialization done (66641ms)
+2025-07-09 15:10:30:071 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:10:30:072 Info  @switch LED light to Green
+2025-07-09 15:10:40:574 Info  @... init robot (7) (motion control)
+2025-07-09 15:10:40:575 Info  @switch LED light to Red
+2025-07-09 15:10:40:764 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:10:40:765 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:10:40:790 MCU   @[X] start searching reference
+2025-07-09 15:10:41:136 MCU   @[Y] start searching reference
+2025-07-09 15:10:41:481 MCU   @[Z] start searching reference
+2025-07-09 15:10:49:197 MCU   @[Y] stopped by sensor L
+2025-07-09 15:10:49:198 MCU   @[Y] reset physical position to 0
+2025-07-09 15:10:49:403 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:10:49:403 MCU   @[Y] max: 0.00
+2025-07-09 15:10:49:404 MCU   @[P] start searching reference
+2025-07-09 15:10:49:750 MCU   @[N] start searching reference
+2025-07-09 15:10:50:544 MCU   @[P] stopped by sensor L
+2025-07-09 15:10:50:791 MCU   @[P] reset physical position to 0
+2025-07-09 15:10:50:995 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:10:50:996 MCU   @[P] max: 0.00
+2025-07-09 15:10:50:996 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:10:51:717 MCU   @[X] stopped by sensor L
+2025-07-09 15:10:51:718 MCU   @[X] reset physical position to 0
+2025-07-09 15:10:51:919 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:10:51:920 MCU   @[X] max: 0.00
+2025-07-09 15:10:54:716 MCU   @[N] stopped by sensor L
+2025-07-09 15:10:54:918 MCU   @[N] reset physical position to 0
+2025-07-09 15:10:55:121 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:10:55:121 MCU   @[N] min: 0.00
+2025-07-09 15:10:57:523 MCU   @[Y] motor cleared
+2025-07-09 15:10:57:524 MCU   @[Y] min: -29.51
+2025-07-09 15:10:57:524 MCU   @[P] start clearing: -165.00
+2025-07-09 15:10:57:525 MCU   @[Z] stopped by sensor L
+2025-07-09 15:10:57:525 MCU   @[Z] reset physical position to 0
+2025-07-09 15:10:57:547 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:10:57:547 MCU   @[Z] max: 0.00
+2025-07-09 15:10:57:548 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:10:57:570 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:10:57:593 MCU   @[N] start clearing: 69.50
+2025-07-09 15:10:57:615 MCU   @[X] start clearing: -22.00
+2025-07-09 15:10:57:639 MCU   @[H] start searching reference
+2025-07-09 15:11:03:904 MCU   @[H] stopped by sensor L
+2025-07-09 15:11:03:905 MCU   @[H] reset physical position to 0
+2025-07-09 15:11:04:108 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:11:04:109 MCU   @[H] max: 0.00
+2025-07-09 15:11:04:132 MCU   @[H] start clearing: -49.00
+2025-07-09 15:11:05:319 MCU   @[X] motor cleared
+2025-07-09 15:11:05:319 MCU   @[X] min: -32.01
+2025-07-09 15:11:05:520 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:11:06:537 MCU   @[Y] motor reached max pos
+2025-07-09 15:11:06:940 MCU   @[P] motor cleared
+2025-07-09 15:11:06:940 MCU   @[P] min: -165.08
+2025-07-09 15:11:07:141 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:11:14:173 MCU   @[H] motor cleared
+2025-07-09 15:11:14:173 MCU   @[H] min: -49.01
+2025-07-09 15:11:14:374 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:11:14:987 MCU   @[X] motor reached max pos
+2025-07-09 15:11:16:792 MCU   @[P] motor homed
+2025-07-09 15:11:16:793 MCU   @[R] start searching reference
+2025-07-09 15:11:18:922 MCU   @[H] motor homed
+2025-07-09 15:11:18:923 MCU   @[V] start searching reference
+2025-07-09 15:11:21:632 MCU   @[Z] motor cleared
+2025-07-09 15:11:21:632 MCU   @[Z] min: -50.01
+2025-07-09 15:11:21:833 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:11:23:448 MCU   @[N] motor cleared
+2025-07-09 15:11:23:449 MCU   @[N] max: 69.51
+2025-07-09 15:11:23:650 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:11:24:662 MCU   @[V] stopped by sensor L
+2025-07-09 15:11:24:663 MCU   @[V] reset physical position to 0
+2025-07-09 15:11:24:865 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:11:24:866 MCU   @[V] max: 0.00
+2025-07-09 15:11:24:889 MCU   @[V] start clearing: -49.00
+2025-07-09 15:11:25:097 MCU   @[R] stopped by sensor R
+2025-07-09 15:11:25:121 MCU   @[R] reset physical position to 0
+2025-07-09 15:11:25:150 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:11:25:152 MCU   @[R] max: 0.00
+2025-07-09 15:11:25:174 MCU   @[R] start clearing: -119.00
+2025-07-09 15:11:29:430 MCU   @[Z] motor homed
+2025-07-09 15:11:33:644 MCU   @[V] motor cleared
+2025-07-09 15:11:33:644 MCU   @[V] min: -49.03
+2025-07-09 15:11:33:845 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:11:39:469 MCU   @[V] motor homed
+2025-07-09 15:11:39:470 MCU   @[R] motor cleared
+2025-07-09 15:11:39:470 MCU   @[R] min: -119.03
+2025-07-09 15:11:39:471 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:11:39:495 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:11:39:521 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:11:43:536 MCU   @[Y] motor homed
+2025-07-09 15:11:44:942 MCU   @[N] motor homed
+2025-07-09 15:11:45:143 MCU   @[X] motor homed
+2025-07-09 15:11:47:350 MCU   @[R] motor homed
+2025-07-09 15:11:47:350 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:11:47:351 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:11:47:351 MCU   @robot initialization done (66594ms)
+2025-07-09 15:11:47:355 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:11:47:355 Info  @switch LED light to Green
+2025-07-09 15:11:57:857 Info  @... init robot (6) (motion control)
+2025-07-09 15:11:57:858 Info  @switch LED light to Red
+2025-07-09 15:11:58:059 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:11:58:061 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:11:58:084 MCU   @[X] start searching reference
+2025-07-09 15:11:58:431 MCU   @[Y] start searching reference
+2025-07-09 15:11:58:776 MCU   @[Z] start searching reference
+2025-07-09 15:12:06:490 MCU   @[Y] stopped by sensor L
+2025-07-09 15:12:06:490 MCU   @[Y] reset physical position to 0
+2025-07-09 15:12:06:693 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:12:06:695 MCU   @[Y] max: 0.00
+2025-07-09 15:12:06:696 MCU   @[P] start searching reference
+2025-07-09 15:12:07:045 MCU   @[N] start searching reference
+2025-07-09 15:12:07:835 MCU   @[P] stopped by sensor L
+2025-07-09 15:12:07:878 MCU   @[P] reset physical position to 0
+2025-07-09 15:12:07:901 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:12:07:902 MCU   @[P] max: 0.00
+2025-07-09 15:12:07:902 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:12:09:022 MCU   @[X] stopped by sensor L
+2025-07-09 15:12:09:025 MCU   @[X] reset physical position to 0
+2025-07-09 15:12:09:228 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:12:09:229 MCU   @[X] max: 0.00
+2025-07-09 15:12:12:029 MCU   @[N] stopped by sensor L
+2025-07-09 15:12:12:030 MCU   @[N] reset physical position to 0
+2025-07-09 15:12:12:231 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:12:12:231 MCU   @[N] min: 0.00
+2025-07-09 15:12:14:627 MCU   @[Y] motor cleared
+2025-07-09 15:12:14:629 MCU   @[Y] min: -29.51
+2025-07-09 15:12:14:630 MCU   @[P] start clearing: -165.00
+2025-07-09 15:12:14:653 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:12:14:675 MCU   @[N] start clearing: 69.50
+2025-07-09 15:12:14:698 MCU   @[X] start clearing: -22.00
+2025-07-09 15:12:14:721 MCU   @[H] start searching reference
+2025-07-09 15:12:14:744 MCU   @[Z] stopped by sensor L
+2025-07-09 15:12:15:045 MCU   @[Z] reset physical position to 0
+2025-07-09 15:12:15:370 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:12:15:370 MCU   @[Z] max: 0.00
+2025-07-09 15:12:15:392 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:12:20:693 MCU   @[H] stopped by sensor L
+2025-07-09 15:12:20:694 MCU   @[H] reset physical position to 0
+2025-07-09 15:12:20:897 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:12:20:897 MCU   @[H] max: 0.00
+2025-07-09 15:12:20:919 MCU   @[H] start clearing: -49.00
+2025-07-09 15:12:22:289 MCU   @[X] motor cleared
+2025-07-09 15:12:22:289 MCU   @[X] min: -32.01
+2025-07-09 15:12:22:490 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:12:23:504 MCU   @[Y] motor reached max pos
+2025-07-09 15:12:23:906 MCU   @[P] motor cleared
+2025-07-09 15:12:23:906 MCU   @[P] min: -165.08
+2025-07-09 15:12:24:108 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:12:30:939 MCU   @[H] motor cleared
+2025-07-09 15:12:30:940 MCU   @[H] min: -49.01
+2025-07-09 15:12:31:140 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:12:32:154 MCU   @[X] motor reached max pos
+2025-07-09 15:12:33:763 MCU   @[P] motor homed
+2025-07-09 15:12:33:764 MCU   @[R] start searching reference
+2025-07-09 15:12:35:675 MCU   @[H] motor homed
+2025-07-09 15:12:35:675 MCU   @[V] start searching reference
+2025-07-09 15:12:38:771 MCU   @[Z] motor cleared
+2025-07-09 15:12:38:772 MCU   @[Z] min: -50.01
+2025-07-09 15:12:38:973 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:12:40:390 MCU   @[N] motor cleared
+2025-07-09 15:12:40:390 MCU   @[N] max: 69.51
+2025-07-09 15:12:40:591 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:12:41:402 MCU   @[V] stopped by sensor L
+2025-07-09 15:12:41:403 MCU   @[V] reset physical position to 0
+2025-07-09 15:12:41:606 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:12:41:606 MCU   @[V] max: 0.00
+2025-07-09 15:12:41:630 MCU   @[V] start clearing: -49.00
+2025-07-09 15:12:42:156 MCU   @[R] stopped by sensor R
+2025-07-09 15:12:42:179 MCU   @[R] reset physical position to 0
+2025-07-09 15:12:42:381 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:12:42:381 MCU   @[R] max: 0.00
+2025-07-09 15:12:42:402 MCU   @[R] start clearing: -119.00
+2025-07-09 15:12:46:547 MCU   @[Z] motor homed
+2025-07-09 15:12:50:366 MCU   @[V] motor cleared
+2025-07-09 15:12:50:367 MCU   @[V] min: -49.03
+2025-07-09 15:12:50:568 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:12:56:199 MCU   @[V] motor homed
+2025-07-09 15:12:56:200 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:12:56:223 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:12:56:390 MCU   @[R] motor cleared
+2025-07-09 15:12:56:391 MCU   @[R] min: -119.03
+2025-07-09 15:12:56:412 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:13:00:097 MCU   @[Y] motor homed
+2025-07-09 15:13:01:903 MCU   @[N] motor homed
+2025-07-09 15:13:01:904 MCU   @[X] motor homed
+2025-07-09 15:13:04:110 MCU   @[R] motor homed
+2025-07-09 15:13:04:111 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:13:04:111 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:13:04:111 MCU   @robot initialization done (66062ms)
+2025-07-09 15:13:04:116 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:13:04:116 Info  @switch LED light to Green
+2025-07-09 15:13:14:613 Info  @... init robot (5) (motion control)
+2025-07-09 15:13:14:614 Info  @switch LED light to Red
+2025-07-09 15:13:14:641 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:13:14:641 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:13:14:666 MCU   @[X] start searching reference
+2025-07-09 15:13:15:012 MCU   @[Y] start searching reference
+2025-07-09 15:13:15:356 MCU   @[Z] start searching reference
+2025-07-09 15:13:23:054 MCU   @[Y] stopped by sensor L
+2025-07-09 15:13:23:055 MCU   @[Y] reset physical position to 0
+2025-07-09 15:13:23:256 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:13:23:256 MCU   @[Y] max: 0.00
+2025-07-09 15:13:23:257 MCU   @[P] start searching reference
+2025-07-09 15:13:23:602 MCU   @[N] start searching reference
+2025-07-09 15:13:24:412 MCU   @[P] stopped by sensor L
+2025-07-09 15:13:24:455 MCU   @[P] reset physical position to 0
+2025-07-09 15:13:24:658 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:13:24:659 MCU   @[P] max: 0.00
+2025-07-09 15:13:24:659 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:13:25:576 MCU   @[X] stopped by sensor L
+2025-07-09 15:13:25:577 MCU   @[X] reset physical position to 0
+2025-07-09 15:13:25:779 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:13:25:780 MCU   @[X] max: 0.00
+2025-07-09 15:13:28:558 MCU   @[N] stopped by sensor L
+2025-07-09 15:13:28:760 MCU   @[N] reset physical position to 0
+2025-07-09 15:13:28:962 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:13:28:963 MCU   @[N] min: 0.00
+2025-07-09 15:13:31:361 MCU   @[Y] motor cleared
+2025-07-09 15:13:31:362 MCU   @[Y] min: -29.51
+2025-07-09 15:13:31:362 MCU   @[P] start clearing: -165.00
+2025-07-09 15:13:31:363 MCU   @[Z] stopped by sensor L
+2025-07-09 15:13:31:364 MCU   @[Z] reset physical position to 0
+2025-07-09 15:13:31:389 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:13:31:389 MCU   @[Z] max: 0.00
+2025-07-09 15:13:31:390 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:13:31:412 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:13:31:434 MCU   @[N] start clearing: 69.50
+2025-07-09 15:13:31:463 MCU   @[X] start clearing: -22.00
+2025-07-09 15:13:31:498 MCU   @[H] start searching reference
+2025-07-09 15:13:37:735 MCU   @[H] stopped by sensor L
+2025-07-09 15:13:37:937 MCU   @[H] reset physical position to 0
+2025-07-09 15:13:38:139 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:13:38:141 MCU   @[H] max: 0.00
+2025-07-09 15:13:38:164 MCU   @[H] start clearing: -49.00
+2025-07-09 15:13:39:157 MCU   @[X] motor cleared
+2025-07-09 15:13:39:158 MCU   @[X] min: -32.01
+2025-07-09 15:13:39:360 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:13:40:594 MCU   @[Y] motor reached max pos
+2025-07-09 15:13:40:797 MCU   @[P] motor cleared
+2025-07-09 15:13:40:798 MCU   @[P] min: -165.08
+2025-07-09 15:13:40:999 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:13:48:235 MCU   @[H] motor cleared
+2025-07-09 15:13:48:235 MCU   @[H] min: -49.01
+2025-07-09 15:13:48:436 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:13:49:050 MCU   @[X] motor reached max pos
+2025-07-09 15:13:50:656 MCU   @[P] motor homed
+2025-07-09 15:13:50:657 MCU   @[R] start searching reference
+2025-07-09 15:13:52:973 MCU   @[H] motor homed
+2025-07-09 15:13:52:974 MCU   @[V] start searching reference
+2025-07-09 15:13:55:509 MCU   @[Z] motor cleared
+2025-07-09 15:13:55:509 MCU   @[Z] min: -50.01
+2025-07-09 15:13:55:711 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:13:57:335 MCU   @[N] motor cleared
+2025-07-09 15:13:57:335 MCU   @[N] max: 69.51
+2025-07-09 15:13:57:536 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:13:58:749 MCU   @[V] stopped by sensor L
+2025-07-09 15:13:58:750 MCU   @[V] reset physical position to 0
+2025-07-09 15:13:58:951 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:13:58:953 MCU   @[V] max: 0.00
+2025-07-09 15:13:58:977 MCU   @[V] start clearing: -49.00
+2025-07-09 15:13:59:021 MCU   @[R] stopped by sensor R
+2025-07-09 15:13:59:065 MCU   @[R] reset physical position to 0
+2025-07-09 15:13:59:087 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:13:59:088 MCU   @[R] max: 0.00
+2025-07-09 15:13:59:110 MCU   @[R] start clearing: -119.00
+2025-07-09 15:14:03:272 MCU   @[Z] motor homed
+2025-07-09 15:14:07:685 MCU   @[V] motor cleared
+2025-07-09 15:14:07:685 MCU   @[V] min: -49.03
+2025-07-09 15:14:07:886 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:14:13:316 MCU   @[R] motor cleared
+2025-07-09 15:14:13:316 MCU   @[R] min: -119.03
+2025-07-09 15:14:13:518 MCU   @[V] motor homed
+2025-07-09 15:14:13:519 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:14:13:541 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:14:13:562 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:14:17:394 MCU   @[Y] motor homed
+2025-07-09 15:14:18:801 MCU   @[N] motor homed
+2025-07-09 15:14:19:203 MCU   @[X] motor homed
+2025-07-09 15:14:21:211 MCU   @[R] motor homed
+2025-07-09 15:14:21:212 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:14:21:212 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:14:21:213 MCU   @robot initialization done (66562ms)
+2025-07-09 15:14:21:217 Info  @system actual [32.95,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:14:21:218 Info  @switch LED light to Green
+2025-07-09 15:14:31:722 Info  @... init robot (4) (motion control)
+2025-07-09 15:14:31:722 Info  @switch LED light to Red
+2025-07-09 15:14:31:922 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:14:31:922 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:14:31:947 MCU   @[X] start searching reference
+2025-07-09 15:14:32:295 MCU   @[Y] start searching reference
+2025-07-09 15:14:32:640 MCU   @[Z] start searching reference
+2025-07-09 15:14:40:342 MCU   @[Y] stopped by sensor L
+2025-07-09 15:14:40:343 MCU   @[Y] reset physical position to 0
+2025-07-09 15:14:40:544 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:14:40:545 MCU   @[Y] max: 0.00
+2025-07-09 15:14:40:546 MCU   @[P] start searching reference
+2025-07-09 15:14:40:892 MCU   @[N] start searching reference
+2025-07-09 15:14:41:679 MCU   @[P] stopped by sensor L
+2025-07-09 15:14:41:723 MCU   @[P] reset physical position to 0
+2025-07-09 15:14:41:925 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:14:41:926 MCU   @[P] max: 0.00
+2025-07-09 15:14:41:926 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:14:42:845 MCU   @[X] stopped by sensor L
+2025-07-09 15:14:42:846 MCU   @[X] reset physical position to 0
+2025-07-09 15:14:43:047 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:14:43:048 MCU   @[X] max: 0.00
+2025-07-09 15:14:46:021 MCU   @[N] stopped by sensor L
+2025-07-09 15:14:46:022 MCU   @[N] reset physical position to 0
+2025-07-09 15:14:46:223 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:14:46:224 MCU   @[N] min: 0.00
+2025-07-09 15:14:48:602 MCU   @[Y] motor cleared
+2025-07-09 15:14:48:603 MCU   @[Y] min: -29.51
+2025-07-09 15:14:48:603 MCU   @[P] start clearing: -165.00
+2025-07-09 15:14:48:604 MCU   @[Z] stopped by sensor L
+2025-07-09 15:14:48:626 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:14:48:627 MCU   @[Z] reset physical position to 0
+2025-07-09 15:14:48:650 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:14:48:651 MCU   @[Z] max: 0.00
+2025-07-09 15:14:48:652 MCU   @[N] start clearing: 69.50
+2025-07-09 15:14:48:675 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:14:48:699 MCU   @[X] start clearing: -22.00
+2025-07-09 15:14:48:721 MCU   @[H] start searching reference
+2025-07-09 15:14:54:993 MCU   @[H] stopped by sensor L
+2025-07-09 15:14:54:994 MCU   @[H] reset physical position to 0
+2025-07-09 15:14:55:195 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:14:55:197 MCU   @[H] max: 0.00
+2025-07-09 15:14:55:219 MCU   @[H] start clearing: -49.00
+2025-07-09 15:14:56:392 MCU   @[X] motor cleared
+2025-07-09 15:14:56:395 MCU   @[X] min: -32.01
+2025-07-09 15:14:56:596 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:14:57:631 MCU   @[Y] motor reached max pos
+2025-07-09 15:14:58:033 MCU   @[P] motor cleared
+2025-07-09 15:14:58:034 MCU   @[P] min: -165.08
+2025-07-09 15:14:58:235 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:15:05:276 MCU   @[H] motor cleared
+2025-07-09 15:15:05:276 MCU   @[H] min: -49.01
+2025-07-09 15:15:05:477 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:15:06:113 MCU   @[X] motor reached max pos
+2025-07-09 15:15:07:921 MCU   @[P] motor homed
+2025-07-09 15:15:07:922 MCU   @[R] start searching reference
+2025-07-09 15:15:10:045 MCU   @[H] motor homed
+2025-07-09 15:15:10:045 MCU   @[V] start searching reference
+2025-07-09 15:15:12:736 MCU   @[Z] motor cleared
+2025-07-09 15:15:12:736 MCU   @[Z] min: -50.01
+2025-07-09 15:15:12:937 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:15:14:535 MCU   @[N] motor cleared
+2025-07-09 15:15:14:535 MCU   @[N] max: 69.51
+2025-07-09 15:15:14:736 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:15:15:750 MCU   @[V] stopped by sensor L
+2025-07-09 15:15:15:751 MCU   @[V] reset physical position to 0
+2025-07-09 15:15:15:953 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:15:15:954 MCU   @[V] max: 0.00
+2025-07-09 15:15:15:977 MCU   @[V] start clearing: -49.00
+2025-07-09 15:15:16:272 MCU   @[R] stopped by sensor R
+2025-07-09 15:15:16:336 MCU   @[R] reset physical position to 0
+2025-07-09 15:15:16:366 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:15:16:367 MCU   @[R] max: 0.00
+2025-07-09 15:15:16:390 MCU   @[R] start clearing: -119.00
+2025-07-09 15:15:20:462 MCU   @[Z] motor homed
+2025-07-09 15:15:24:678 MCU   @[V] motor cleared
+2025-07-09 15:15:24:679 MCU   @[V] min: -49.03
+2025-07-09 15:15:24:880 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:15:30:513 MCU   @[V] motor homed
+2025-07-09 15:15:30:514 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:15:30:538 MCU   @[R] motor cleared
+2025-07-09 15:15:30:539 MCU   @[R] min: -119.03
+2025-07-09 15:15:30:539 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:15:30:561 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:15:34:393 MCU   @[Y] motor homed
+2025-07-09 15:15:36:000 MCU   @[N] motor homed
+2025-07-09 15:15:36:202 MCU   @[X] motor homed
+2025-07-09 15:15:38:611 MCU   @[R] motor homed
+2025-07-09 15:15:38:612 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:15:38:612 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:15:38:612 MCU   @robot initialization done (66687ms)
+2025-07-09 15:15:38:618 Info  @system actual [32.94,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:15:38:618 Info  @switch LED light to Green
+2025-07-09 15:15:49:116 Info  @... init robot (3) (motion control)
+2025-07-09 15:15:49:117 Info  @switch LED light to Red
+2025-07-09 15:15:49:146 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:15:49:147 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:15:49:171 MCU   @[X] start searching reference
+2025-07-09 15:15:49:524 MCU   @[Y] start searching reference
+2025-07-09 15:15:49:870 MCU   @[Z] start searching reference
+2025-07-09 15:15:57:560 MCU   @[Y] stopped by sensor L
+2025-07-09 15:15:57:561 MCU   @[Y] reset physical position to 0
+2025-07-09 15:15:57:762 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:15:57:764 MCU   @[Y] max: 0.00
+2025-07-09 15:15:57:767 MCU   @[P] start searching reference
+2025-07-09 15:15:58:116 MCU   @[N] start searching reference
+2025-07-09 15:15:58:924 MCU   @[P] stopped by sensor L
+2025-07-09 15:15:58:968 MCU   @[P] reset physical position to 0
+2025-07-09 15:15:59:170 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:15:59:170 MCU   @[P] max: 0.00
+2025-07-09 15:15:59:171 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:16:00:091 MCU   @[X] stopped by sensor L
+2025-07-09 15:16:00:092 MCU   @[X] reset physical position to 0
+2025-07-09 15:16:00:294 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:16:00:296 MCU   @[X] max: 0.00
+2025-07-09 15:16:03:115 MCU   @[N] stopped by sensor L
+2025-07-09 15:16:03:116 MCU   @[N] reset physical position to 0
+2025-07-09 15:16:03:318 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:16:03:318 MCU   @[N] min: 0.00
+2025-07-09 15:16:05:914 MCU   @[Y] motor cleared
+2025-07-09 15:16:05:915 MCU   @[Y] min: -29.51
+2025-07-09 15:16:05:916 MCU   @[P] start clearing: -165.00
+2025-07-09 15:16:05:916 MCU   @[Z] stopped by sensor L
+2025-07-09 15:16:05:916 MCU   @[Z] reset physical position to 0
+2025-07-09 15:16:05:939 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:16:05:940 MCU   @[Z] max: 0.00
+2025-07-09 15:16:05:940 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:16:05:963 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:16:05:985 MCU   @[N] start clearing: 69.50
+2025-07-09 15:16:06:008 MCU   @[X] start clearing: -22.00
+2025-07-09 15:16:06:035 MCU   @[H] start searching reference
+2025-07-09 15:16:12:294 MCU   @[H] stopped by sensor L
+2025-07-09 15:16:12:295 MCU   @[H] reset physical position to 0
+2025-07-09 15:16:12:497 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:16:12:501 MCU   @[H] max: 0.00
+2025-07-09 15:16:12:525 MCU   @[H] start clearing: -49.00
+2025-07-09 15:16:13:736 MCU   @[X] motor cleared
+2025-07-09 15:16:13:736 MCU   @[X] min: -32.01
+2025-07-09 15:16:13:937 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:16:14:953 MCU   @[Y] motor reached max pos
+2025-07-09 15:16:15:356 MCU   @[P] motor cleared
+2025-07-09 15:16:15:356 MCU   @[P] min: -165.08
+2025-07-09 15:16:15:558 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:16:22:590 MCU   @[H] motor cleared
+2025-07-09 15:16:22:591 MCU   @[H] min: -49.01
+2025-07-09 15:16:22:792 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:16:23:423 MCU   @[X] motor reached max pos
+2025-07-09 15:16:25:231 MCU   @[P] motor homed
+2025-07-09 15:16:25:232 MCU   @[R] start searching reference
+2025-07-09 15:16:27:340 MCU   @[H] motor homed
+2025-07-09 15:16:27:341 MCU   @[V] start searching reference
+2025-07-09 15:16:30:053 MCU   @[Z] motor cleared
+2025-07-09 15:16:30:054 MCU   @[Z] min: -50.01
+2025-07-09 15:16:30:256 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:16:31:890 MCU   @[N] motor cleared
+2025-07-09 15:16:31:896 MCU   @[N] max: 69.51
+2025-07-09 15:16:32:098 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:16:33:109 MCU   @[V] stopped by sensor L
+2025-07-09 15:16:33:110 MCU   @[V] reset physical position to 0
+2025-07-09 15:16:33:311 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:16:33:312 MCU   @[V] max: 0.00
+2025-07-09 15:16:33:334 MCU   @[V] start clearing: -49.00
+2025-07-09 15:16:33:583 MCU   @[R] stopped by sensor R
+2025-07-09 15:16:33:606 MCU   @[R] reset physical position to 0
+2025-07-09 15:16:33:628 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:16:33:628 MCU   @[R] max: 0.00
+2025-07-09 15:16:33:652 MCU   @[R] start clearing: -119.00
+2025-07-09 15:16:37:907 MCU   @[Z] motor homed
+2025-07-09 15:16:42:120 MCU   @[V] motor cleared
+2025-07-09 15:16:42:121 MCU   @[V] min: -49.03
+2025-07-09 15:16:42:322 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:16:47:753 MCU   @[R] motor cleared
+2025-07-09 15:16:47:754 MCU   @[R] min: -119.03
+2025-07-09 15:16:47:956 MCU   @[V] motor homed
+2025-07-09 15:16:47:956 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:16:47:979 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:16:48:004 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:16:51:834 MCU   @[Y] motor homed
+2025-07-09 15:16:53:441 MCU   @[N] motor homed
+2025-07-09 15:16:53:642 MCU   @[X] motor homed
+2025-07-09 15:16:55:651 MCU   @[R] motor homed
+2025-07-09 15:16:55:651 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:16:55:651 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:16:55:652 MCU   @robot initialization done (66500ms)
+2025-07-09 15:16:55:656 Info  @system actual [32.95,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:16:55:656 Info  @switch LED light to Green
+2025-07-09 15:17:06:161 Info  @... init robot (2) (motion control)
+2025-07-09 15:17:06:162 Info  @switch LED light to Red
+2025-07-09 15:17:06:188 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:17:06:188 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:17:06:212 MCU   @[X] start searching reference
+2025-07-09 15:17:06:559 MCU   @[Y] start searching reference
+2025-07-09 15:17:06:904 MCU   @[Z] start searching reference
+2025-07-09 15:17:14:618 MCU   @[Y] stopped by sensor L
+2025-07-09 15:17:14:621 MCU   @[Y] reset physical position to 0
+2025-07-09 15:17:14:823 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:17:14:825 MCU   @[Y] max: 0.00
+2025-07-09 15:17:14:826 MCU   @[P] start searching reference
+2025-07-09 15:17:15:172 MCU   @[N] start searching reference
+2025-07-09 15:17:15:967 MCU   @[P] stopped by sensor L
+2025-07-09 15:17:16:011 MCU   @[P] reset physical position to 0
+2025-07-09 15:17:16:214 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:17:16:215 MCU   @[P] max: 0.00
+2025-07-09 15:17:16:216 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:17:17:145 MCU   @[X] stopped by sensor L
+2025-07-09 15:17:17:147 MCU   @[X] reset physical position to 0
+2025-07-09 15:17:17:349 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:17:17:349 MCU   @[X] max: 0.00
+2025-07-09 15:17:20:173 MCU   @[N] stopped by sensor L
+2025-07-09 15:17:20:175 MCU   @[N] reset physical position to 0
+2025-07-09 15:17:20:377 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:17:20:377 MCU   @[N] min: 0.00
+2025-07-09 15:17:22:975 MCU   @[Y] motor cleared
+2025-07-09 15:17:22:976 MCU   @[Y] min: -29.51
+2025-07-09 15:17:22:976 MCU   @[P] start clearing: -165.00
+2025-07-09 15:17:22:977 MCU   @[Z] stopped by sensor L
+2025-07-09 15:17:22:977 MCU   @[Z] reset physical position to 0
+2025-07-09 15:17:22:999 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:17:23:000 MCU   @[Z] max: 0.00
+2025-07-09 15:17:23:000 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:17:23:023 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:17:23:047 MCU   @[N] start clearing: 69.50
+2025-07-09 15:17:23:070 MCU   @[X] start clearing: -22.00
+2025-07-09 15:17:23:097 MCU   @[H] start searching reference
+2025-07-09 15:17:29:355 MCU   @[H] stopped by sensor L
+2025-07-09 15:17:29:355 MCU   @[H] reset physical position to 0
+2025-07-09 15:17:29:556 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:17:29:558 MCU   @[H] max: 0.00
+2025-07-09 15:17:29:580 MCU   @[H] start clearing: -49.00
+2025-07-09 15:17:30:782 MCU   @[X] motor cleared
+2025-07-09 15:17:30:783 MCU   @[X] min: -32.01
+2025-07-09 15:17:30:983 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:17:32:198 MCU   @[Y] motor reached max pos
+2025-07-09 15:17:32:401 MCU   @[P] motor cleared
+2025-07-09 15:17:32:402 MCU   @[P] min: -165.08
+2025-07-09 15:17:32:603 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:17:39:660 MCU   @[H] motor cleared
+2025-07-09 15:17:39:660 MCU   @[H] min: -49.01
+2025-07-09 15:17:39:861 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:17:40:681 MCU   @[X] motor reached max pos
+2025-07-09 15:17:42:291 MCU   @[P] motor homed
+2025-07-09 15:17:42:291 MCU   @[R] start searching reference
+2025-07-09 15:17:44:405 MCU   @[H] motor homed
+2025-07-09 15:17:44:406 MCU   @[V] start searching reference
+2025-07-09 15:17:47:125 MCU   @[Z] motor cleared
+2025-07-09 15:17:47:126 MCU   @[Z] min: -50.01
+2025-07-09 15:17:47:327 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:17:48:942 MCU   @[N] motor cleared
+2025-07-09 15:17:48:945 MCU   @[N] max: 69.51
+2025-07-09 15:17:49:148 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:17:50:166 MCU   @[V] stopped by sensor L
+2025-07-09 15:17:50:166 MCU   @[V] reset physical position to 0
+2025-07-09 15:17:50:368 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:17:50:369 MCU   @[V] max: 0.00
+2025-07-09 15:17:50:391 MCU   @[V] start clearing: -49.00
+2025-07-09 15:17:50:705 MCU   @[R] stopped by sensor R
+2025-07-09 15:17:50:752 MCU   @[R] reset physical position to 0
+2025-07-09 15:17:50:773 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:17:50:774 MCU   @[R] max: 0.00
+2025-07-09 15:17:50:795 MCU   @[R] start clearing: -119.00
+2025-07-09 15:17:54:913 MCU   @[Z] motor homed
+2025-07-09 15:17:59:130 MCU   @[V] motor cleared
+2025-07-09 15:17:59:131 MCU   @[V] min: -49.03
+2025-07-09 15:17:59:332 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:18:04:961 MCU   @[V] motor homed
+2025-07-09 15:18:04:962 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:18:04:986 MCU   @[R] motor cleared
+2025-07-09 15:18:04:987 MCU   @[R] min: -119.03
+2025-07-09 15:18:04:987 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:18:05:011 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:18:08:865 MCU   @[Y] motor homed
+2025-07-09 15:18:10:474 MCU   @[N] motor homed
+2025-07-09 15:18:10:676 MCU   @[X] motor homed
+2025-07-09 15:18:13:083 MCU   @[R] motor homed
+2025-07-09 15:18:13:084 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:18:13:084 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:18:13:084 MCU   @robot initialization done (66890ms)
+2025-07-09 15:18:13:088 Info  @system actual [32.95,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:18:13:089 Info  @switch LED light to Green
+2025-07-09 15:18:23:585 Info  @... init robot (1) (motion control)
+2025-07-09 15:18:23:586 Info  @switch LED light to Red
+2025-07-09 15:18:23:794 MCU   @set motor P sensors to 'stop'
+2025-07-09 15:18:23:794 MCU   @set motor R sensors to 'stop'
+2025-07-09 15:18:23:821 MCU   @[X] start searching reference
+2025-07-09 15:18:24:167 MCU   @[Y] start searching reference
+2025-07-09 15:18:24:513 MCU   @[Z] start searching reference
+2025-07-09 15:18:32:196 MCU   @[Y] stopped by sensor L
+2025-07-09 15:18:32:197 MCU   @[Y] reset physical position to 0
+2025-07-09 15:18:32:399 MCU   @[Y] reference found (SENSOR)
+2025-07-09 15:18:32:399 MCU   @[Y] max: 0.00
+2025-07-09 15:18:32:400 MCU   @[P] start searching reference
+2025-07-09 15:18:32:747 MCU   @[N] start searching reference
+2025-07-09 15:18:33:551 MCU   @[P] stopped by sensor L
+2025-07-09 15:18:33:595 MCU   @[P] reset physical position to 0
+2025-07-09 15:18:33:796 MCU   @[P] reference found (SENSOR)
+2025-07-09 15:18:33:796 MCU   @[P] max: 0.00
+2025-07-09 15:18:33:797 MCU   @[Y] start clearing: -19.50
+2025-07-09 15:18:34:716 MCU   @[X] stopped by sensor L
+2025-07-09 15:18:34:717 MCU   @[X] reset physical position to 0
+2025-07-09 15:18:34:918 MCU   @[X] reference found (SENSOR)
+2025-07-09 15:18:34:919 MCU   @[X] max: 0.00
+2025-07-09 15:18:37:738 MCU   @[N] stopped by sensor L
+2025-07-09 15:18:37:940 MCU   @[N] reset physical position to 0
+2025-07-09 15:18:38:142 MCU   @[N] reference found (SENSOR)
+2025-07-09 15:18:38:142 MCU   @[N] min: 0.00
+2025-07-09 15:18:40:538 MCU   @[Y] motor cleared
+2025-07-09 15:18:40:538 MCU   @[Y] min: -29.51
+2025-07-09 15:18:40:539 MCU   @[P] start clearing: -165.00
+2025-07-09 15:18:40:539 MCU   @[Z] stopped by sensor L
+2025-07-09 15:18:40:540 MCU   @[Z] reset physical position to 0
+2025-07-09 15:18:40:563 MCU   @[Z] reference found (SENSOR)
+2025-07-09 15:18:40:564 MCU   @[Z] max: 0.00
+2025-07-09 15:18:40:566 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 15:18:40:588 MCU   @[Z] start clearing: -50.00
+2025-07-09 15:18:40:610 MCU   @[N] start clearing: 69.50
+2025-07-09 15:18:40:633 MCU   @[X] start clearing: -22.00
+2025-07-09 15:18:40:657 MCU   @[H] start searching reference
+2025-07-09 15:18:46:918 MCU   @[H] stopped by sensor L
+2025-07-09 15:18:46:922 MCU   @[H] reset physical position to 0
+2025-07-09 15:18:47:125 MCU   @[H] reference found (SENSOR)
+2025-07-09 15:18:47:125 MCU   @[H] max: 0.00
+2025-07-09 15:18:47:147 MCU   @[H] start clearing: -49.00
+2025-07-09 15:18:48:324 MCU   @[X] motor cleared
+2025-07-09 15:18:48:325 MCU   @[X] min: -32.01
+2025-07-09 15:18:48:526 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 15:18:49:542 MCU   @[Y] motor reached max pos
+2025-07-09 15:18:49:947 MCU   @[P] motor cleared
+2025-07-09 15:18:49:947 MCU   @[P] min: -165.08
+2025-07-09 15:18:50:148 MCU   @[P] start moving to home: -1.00
+2025-07-09 15:18:57:161 MCU   @[H] motor cleared
+2025-07-09 15:18:57:162 MCU   @[H] min: -49.01
+2025-07-09 15:18:57:362 MCU   @[H] start moving to home: -24.54
+2025-07-09 15:18:58:196 MCU   @[X] motor reached max pos
+2025-07-09 15:18:59:803 MCU   @[P] motor homed
+2025-07-09 15:18:59:804 MCU   @[R] start searching reference
+2025-07-09 15:19:01:927 MCU   @[H] motor homed
+2025-07-09 15:19:01:928 MCU   @[V] start searching reference
+2025-07-09 15:19:04:634 MCU   @[Z] motor cleared
+2025-07-09 15:19:04:635 MCU   @[Z] min: -50.01
+2025-07-09 15:19:04:837 MCU   @[Z] start moving to home: -33.30
+2025-07-09 15:19:06:432 MCU   @[N] motor cleared
+2025-07-09 15:19:06:435 MCU   @[N] max: 69.51
+2025-07-09 15:19:06:637 MCU   @[N] start moving to home: 11.47
+2025-07-09 15:19:07:651 MCU   @[V] stopped by sensor L
+2025-07-09 15:19:07:652 MCU   @[V] reset physical position to 0
+2025-07-09 15:19:07:854 MCU   @[V] reference found (SENSOR)
+2025-07-09 15:19:07:854 MCU   @[V] max: 0.00
+2025-07-09 15:19:07:877 MCU   @[V] start clearing: -49.00
+2025-07-09 15:19:08:088 MCU   @[R] stopped by sensor R
+2025-07-09 15:19:08:131 MCU   @[R] reset physical position to 0
+2025-07-09 15:19:08:154 MCU   @[R] reference found (SENSOR)
+2025-07-09 15:19:08:155 MCU   @[R] max: 0.00
+2025-07-09 15:19:08:179 MCU   @[R] start clearing: -119.00
+2025-07-09 15:19:12:416 MCU   @[Z] motor homed
+2025-07-09 15:19:16:628 MCU   @[V] motor cleared
+2025-07-09 15:19:16:629 MCU   @[V] min: -49.03
+2025-07-09 15:19:16:829 MCU   @[V] start moving to home: -25.07
+2025-07-09 15:19:22:462 MCU   @[V] motor homed
+2025-07-09 15:19:22:463 MCU   @[R] motor cleared
+2025-07-09 15:19:22:463 MCU   @[R] min: -119.03
+2025-07-09 15:19:22:464 MCU   @[X] start moving to home: -19.63
+2025-07-09 15:19:22:486 MCU   @[R] start moving to home: -60.00
+2025-07-09 15:19:22:517 MCU   @[Y] start moving to home: -13.19
+2025-07-09 15:19:26:351 MCU   @[Y] motor homed
+2025-07-09 15:19:27:958 MCU   @[N] motor homed
+2025-07-09 15:19:27:958 MCU   @[X] motor homed
+2025-07-09 15:19:30:166 MCU   @[R] motor homed
+2025-07-09 15:19:30:167 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 15:19:30:168 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 15:19:30:168 MCU   @robot initialization done (66375ms)
+2025-07-09 15:19:30:172 Info  @system actual [32.95,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:19:30:173 Info  @switch LED light to Green
+2025-07-09 15:19:30:674 DEBUG @S.SC state (5, 20)
+2025-07-09 15:19:30:674 DEBUG @E.SC state (5, 20)
+2025-07-09 15:19:30:675 DEBUG @S.VE state (5, 20)
+2025-07-09 15:19:30:675 DEBUG @E.VE state (5, 20)
+2025-07-09 15:19:30:675 DEBUG @S.MW state (5, 20)
+2025-07-09 15:19:30:837 DEBUG @E.MW state (5, 20)
+2025-07-09 15:19:30:838 Info  @Done (motion control)
+
+2025-07-09 15:24:10:679 User  @screen unlocked by user 'Service'
+2025-07-09 15:29:32:556 Info  @screen auto locked (Service)
+
+2025-07-09 15:56:18:148 User  @screen unlocked by user 'Service'
+
+2025-07-09 15:58:55:017 User  @on_emcBack_clicked
+2025-07-09 15:58:55:018 DEBUG @S.SC state (7, 24)
+2025-07-09 15:58:55:018 DEBUG @E.SC state (7, 24)
+2025-07-09 15:58:55:018 DEBUG @S.VE state (7, 24)
+2025-07-09 15:58:55:019 DEBUG @E.VE state (7, 24)
+2025-07-09 15:58:55:019 DEBUG @S.MW state (7, 24)
+2025-07-09 15:58:55:036 DEBUG @E.MW state (7, 24)
+
+2025-07-09 15:58:57:182 User  @system menu selected (Exit)
+2025-07-09 15:58:58:382 Info  @open needle guide command sent
+2025-07-09 15:58:58:383 Info  @switch LED light to Red
+2025-07-09 15:58:58:383 DEBUG @S.SC state (6, 23)
+2025-07-09 15:58:58:383 DEBUG @E.SC state (6, 23)
+2025-07-09 15:58:58:383 DEBUG @S.VE state (6, 23)
+2025-07-09 15:58:58:384 DEBUG @E.VE state (6, 23)
+2025-07-09 15:58:58:384 DEBUG @S.MW state (6, 23)
+2025-07-09 15:58:58:446 DEBUG @E.MW state (6, 23)
+2025-07-09 15:58:59:106 Info  @needle guide opened
+2025-07-09 15:59:02:101 MCU   @robot moving (finalization) done (3485ms)
+2025-07-09 15:59:02:107 Info  @system actual [32.95,-3.92,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 15:59:02:108 Info  @switch LED light to Green
+2025-07-09 15:59:03:256 Info  @switch LED light off
+2025-07-09 15:59:03:281 Frame @frame grabber stopped
+2025-07-09 15:59:03:315 MCU   @robot moving stopped
+2025-07-09 15:59:04:437 MCU   @mcu controller stopped
+2025-07-09 15:59:04:753 Info  @UroBiopsy exited 
+
+
+
+2025-07-09 16:19:22:979 Info  @UtlLogger instance created
+2025-07-09 16:19:22:980 Info  @starting UroBiopsy (SVN 858)
+2025-07-09 16:19:23:416 Info  @MainWindow instance created
+
+2025-07-09 16:19:33:695 User  @user 'service' login
+2025-07-09 16:19:33:745 Info  @UroBiopsy launched
+2025-07-09 16:19:33:746 Info  @SurgeryController instance created
+2025-07-09 16:19:33:748 Info  @Robot Unit: TX-05-00
+2025-07-09 16:19:33:808 Info  @VisualEngine instance created
+2025-07-09 16:19:35:970 MCU   @firmware version (Master): 1.0.0_004
+2025-07-09 16:19:35:971 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-09 16:19:36:119 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-09 16:19:36:243 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-09 16:19:36:327 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-09 16:19:36:430 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-09 16:19:36:534 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-09 16:19:36:617 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-09 16:19:36:741 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-09 16:19:36:826 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-09 16:19:36:929 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-09 16:19:36:960 DEBUG @S.SC state (7, 24)
+2025-07-09 16:19:36:961 DEBUG @E.SC state (7, 24)
+2025-07-09 16:19:36:963 DEBUG @S.VE state (7, 24)
+2025-07-09 16:19:36:964 DEBUG @E.VE state (7, 24)
+2025-07-09 16:19:36:964 DEBUG @S.MW state (7, 24)
+2025-07-09 16:19:37:033 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-09 16:19:37:137 MCU   @firmware operation mode (Node 3): 1
+2025-07-09 16:19:37:220 MCU   @firmware operation mode (Node 4): 1
+2025-07-09 16:19:37:221 MCU   @firmware support speed control
+2025-07-09 16:19:37:309 DEBUG @E.MW state (7, 24)
+2025-07-09 16:19:37:324 MCU   @firmware operation mode (Node 5): 1
+2025-07-09 16:19:37:427 MCU   @firmware operation mode (Node 6): 1
+2025-07-09 16:19:37:530 MCU   @firmware operation mode (Node 7): 1
+2025-07-09 16:19:37:633 MCU   @firmware operation mode (Node 8): 1
+2025-07-09 16:19:37:736 MCU   @firmware operation mode (Node 9): 1
+2025-07-09 16:19:37:819 MCU   @firmware operation mode (Node 10): 1
+2025-07-09 16:19:38:047 MCU   @firmware operation mode (Node 12): 1
+2025-07-09 16:19:38:150 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-09 16:19:38:151 MCU   @[X] error range replaced with local set: 11741
+2025-07-09 16:19:38:234 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-09 16:19:38:235 MCU   @[Y] error range replaced with local set: 11741
+2025-07-09 16:19:38:358 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-09 16:19:38:359 MCU   @[V] error range replaced with local set: 6154
+2025-07-09 16:19:38:441 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-09 16:19:38:442 MCU   @[H] error range replaced with local set: 6154
+2025-07-09 16:19:38:545 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-09 16:19:38:546 MCU   @[N] error range replaced with local set: 19376
+2025-07-09 16:19:38:648 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-09 16:19:38:649 MCU   @[R] error range replaced with local set: 4097
+2025-07-09 16:19:38:733 Info  @needle guide opened
+2025-07-09 16:19:38:752 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-09 16:19:38:753 MCU   @[P] error range replaced with local set: 4097
+2025-07-09 16:19:38:760 Frame @frame grabber UVC device: AV.io HD+
+2025-07-09 16:19:38:836 MCU   @firmware operation mode (Node 11): 1
+2025-07-09 16:19:38:857 Frame @frame grabber connected
+2025-07-09 16:19:38:858 Frame @frame grabber started
+2025-07-09 16:19:38:939 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-09 16:19:38:941 MCU   @[Z] error range replaced with local set: 17615
+2025-07-09 16:19:39:873 Frame @frame grabber screen size updated: 1920 x 1080
+
+2025-07-09 16:19:49:476 User  @on_startInitRobot_clicked
+2025-07-09 16:19:54:310 Info  @switch LED light to Red
+2025-07-09 16:19:54:311 DEBUG @S.SC state (7, 25)
+2025-07-09 16:19:54:312 DEBUG @E.SC state (7, 25)
+2025-07-09 16:19:54:312 DEBUG @S.VE state (7, 25)
+2025-07-09 16:19:54:313 DEBUG @E.VE state (7, 25)
+2025-07-09 16:19:54:313 DEBUG @S.MW state (7, 25)
+2025-07-09 16:19:54:370 DEBUG @E.MW state (7, 25)
+2025-07-09 16:19:54:408 MCU   @set motor P sensors to 'stop'
+2025-07-09 16:19:54:410 MCU   @set motor R sensors to 'stop'
+2025-07-09 16:19:54:432 MCU   @[X] start searching reference
+2025-07-09 16:19:54:780 MCU   @[Y] start searching reference
+2025-07-09 16:19:55:127 MCU   @[Z] start searching reference
+2025-07-09 16:20:02:840 MCU   @[Y] stopped by sensor L
+2025-07-09 16:20:02:840 MCU   @[Y] reset physical position to 0
+2025-07-09 16:20:03:042 MCU   @[Y] reference found (SENSOR)
+2025-07-09 16:20:03:042 MCU   @[Y] max: 0.00
+2025-07-09 16:20:03:043 MCU   @[P] start searching reference
+2025-07-09 16:20:03:389 MCU   @[N] start searching reference
+2025-07-09 16:20:04:183 MCU   @[P] stopped by sensor L
+2025-07-09 16:20:04:226 MCU   @[P] reset physical position to 0
+2025-07-09 16:20:04:429 MCU   @[P] reference found (SENSOR)
+2025-07-09 16:20:04:430 MCU   @[P] max: 0.00
+2025-07-09 16:20:04:430 MCU   @[Y] start clearing: -19.50
+2025-07-09 16:20:05:345 MCU   @[X] stopped by sensor L
+2025-07-09 16:20:05:346 MCU   @[X] reset physical position to 0
+2025-07-09 16:20:05:549 MCU   @[X] reference found (SENSOR)
+2025-07-09 16:20:05:549 MCU   @[X] max: 0.00
+2025-07-09 16:20:08:550 MCU   @[Z] stopped by sensor L
+2025-07-09 16:20:08:756 MCU   @[Z] reset physical position to 0
+2025-07-09 16:20:08:958 MCU   @[Z] reference found (SENSOR)
+2025-07-09 16:20:08:958 MCU   @[Z] max: 0.00
+2025-07-09 16:20:11:160 MCU   @[Y] motor cleared
+2025-07-09 16:20:11:160 MCU   @[Y] min: -29.51
+2025-07-09 16:20:11:161 MCU   @[Z] start clearing: -50.00
+2025-07-09 16:20:11:186 MCU   @[Y] start moving to max pos: -3.00
+2025-07-09 16:20:11:209 MCU   @[P] start clearing: -165.00
+2025-07-09 16:20:11:232 MCU   @[X] start clearing: -22.00
+2025-07-09 16:20:11:255 MCU   @[H] start searching reference
+2025-07-09 16:20:17:288 MCU   @[H] stopped by sensor L
+2025-07-09 16:20:17:289 MCU   @[H] reset physical position to 0
+2025-07-09 16:20:17:490 MCU   @[H] reference found (SENSOR)
+2025-07-09 16:20:17:491 MCU   @[H] max: 0.00
+2025-07-09 16:20:17:513 MCU   @[H] start clearing: -49.00
+2025-07-09 16:20:19:069 MCU   @[X] motor cleared
+2025-07-09 16:20:19:070 MCU   @[X] min: -32.01
+2025-07-09 16:20:19:271 MCU   @[X] start moving to max pos: -3.00
+2025-07-09 16:20:20:064 MCU   @[Y] motor reached max pos
+2025-07-09 16:20:21:069 MCU   @[P] motor cleared
+2025-07-09 16:20:21:072 MCU   @[P] min: -165.07
+2025-07-09 16:20:21:275 MCU   @[P] start moving to home: -1.00
+2025-07-09 16:20:27:510 MCU   @[H] motor cleared
+2025-07-09 16:20:27:510 MCU   @[H] min: -49.01
+2025-07-09 16:20:27:711 MCU   @[H] start moving to home: -24.54
+2025-07-09 16:20:28:747 MCU   @[X] motor reached max pos
+2025-07-09 16:20:30:153 MCU   @[N] stopped by sensor L
+2025-07-09 16:20:30:355 MCU   @[N] reset physical position to 0
+2025-07-09 16:20:30:556 MCU   @[N] reference found (SENSOR)
+2025-07-09 16:20:30:557 MCU   @[N] min: 0.00
+2025-07-09 16:20:30:580 MCU   @[N] start clearing: 69.50
+2025-07-09 16:20:30:705 MCU   @[P] motor homed
+2025-07-09 16:20:30:706 MCU   @[R] start searching reference
+2025-07-09 16:20:32:340 MCU   @[H] motor homed
+2025-07-09 16:20:32:341 MCU   @[V] start searching reference
+2025-07-09 16:20:34:256 MCU   @[Z] motor cleared
+2025-07-09 16:20:34:256 MCU   @[Z] min: -50.01
+2025-07-09 16:20:34:457 MCU   @[Z] start moving to home: -33.30
+2025-07-09 16:20:38:283 MCU   @[V] stopped by sensor L
+2025-07-09 16:20:38:485 MCU   @[V] reset physical position to 0
+2025-07-09 16:20:38:687 MCU   @[V] reference found (SENSOR)
+2025-07-09 16:20:38:687 MCU   @[V] max: 0.00
+2025-07-09 16:20:38:711 MCU   @[V] start clearing: -49.00
+2025-07-09 16:20:39:210 MCU   @[R] stopped by sensor R
+2025-07-09 16:20:39:252 MCU   @[R] reset physical position to 0
+2025-07-09 16:20:39:279 MCU   @[R] reference found (SENSOR)
+2025-07-09 16:20:39:280 MCU   @[R] max: 0.00
+2025-07-09 16:20:39:302 MCU   @[R] start clearing: -119.00
+2025-07-09 16:20:42:088 MCU   @[Z] motor homed
+2025-07-09 16:20:47:518 MCU   @[V] motor cleared
+2025-07-09 16:20:47:523 MCU   @[V] min: -49.03
+2025-07-09 16:20:47:724 MCU   @[V] start moving to home: -25.07
+2025-07-09 16:20:53:379 MCU   @[V] motor homed
+2025-07-09 16:20:53:382 MCU   @[X] start moving to home: -19.63
+2025-07-09 16:20:53:408 MCU   @[R] motor cleared
+2025-07-09 16:20:53:410 MCU   @[R] min: -119.03
+2025-07-09 16:20:53:412 MCU   @[Y] start moving to home: -13.19
+2025-07-09 16:20:53:436 MCU   @[R] start moving to home: -60.00
+2025-07-09 16:20:56:467 MCU   @[N] motor cleared
+2025-07-09 16:20:56:469 MCU   @[N] max: 69.51
+2025-07-09 16:20:56:671 MCU   @[N] start moving to home: 11.47
+2025-07-09 16:20:57:303 MCU   @[Y] motor homed
+2025-07-09 16:20:58:915 MCU   @[X] motor homed
+2025-07-09 16:21:01:528 MCU   @[R] motor homed
+2025-07-09 16:21:18:004 MCU   @[N] motor homed
+2025-07-09 16:21:18:004 MCU   @set motor P sensors to 'nonstop'
+2025-07-09 16:21:18:005 MCU   @set motor R sensors to 'nonstop'
+2025-07-09 16:21:18:005 MCU   @robot initialization done (83594ms)
+2025-07-09 16:21:18:009 Info  @system actual [32.95,-9.99,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 16:21:18:009 Info  @switch LED light to Green
+2025-07-09 16:21:18:510 DEBUG @S.SC state (7, 26)
+2025-07-09 16:21:18:511 DEBUG @E.SC state (7, 26)
+2025-07-09 16:21:18:511 DEBUG @S.VE state (7, 26)
+2025-07-09 16:21:18:511 DEBUG @E.VE state (7, 26)
+2025-07-09 16:21:18:512 DEBUG @S.MW state (7, 26)
+2025-07-09 16:21:18:629 DEBUG @E.MW state (7, 26)
+
+2025-07-09 16:21:18:661 User  @on_startCreateCase_clicked
+2025-07-09 16:24:54:286 Info  @screen auto locked (Service)
+
+2025-07-09 16:26:29:668 User  @screen unlocked by user 'Service'
+2025-07-09 16:26:31:560 MCU   @hardware SW2 button pushed
+2025-07-09 16:26:31:561 MCU   @[R] position update enabled
+2025-07-09 16:26:31:581 Info  @switch LED light to HW1 color
+2025-07-09 16:26:31:582 MCU   @[P] position update enabled
+2025-07-09 16:26:31:583 MCU   @[R] position update disabled
+2025-07-09 16:26:33:063 MCU   @hardware SW1 button pushed
+2025-07-09 16:26:33:069 Info  @switch LED light to HW2 color
+2025-07-09 16:26:33:069 MCU   @[P] position update disabled
+2025-07-09 16:26:33:070 MCU   @[R] position update enabled
+2025-07-09 16:26:34:380 MCU   @hardware SW2 button pushed
+2025-07-09 16:26:34:383 Info  @switch LED light to HW1 color
+2025-07-09 16:26:34:383 MCU   @[P] position update enabled
+2025-07-09 16:26:34:384 MCU   @[R] position update disabled
+2025-07-09 16:26:49:539 MCU   @hardware SW1 button pushed
+2025-07-09 16:26:49:542 Info  @switch LED light to HW2 color
+2025-07-09 16:26:49:543 MCU   @[P] position update disabled
+2025-07-09 16:26:49:543 MCU   @[R] position update enabled
+2025-07-09 16:27:03:707 MCU   @hardware SW2 button pushed
+2025-07-09 16:27:03:710 Info  @switch LED light to HW1 color
+2025-07-09 16:27:03:710 MCU   @[P] position update enabled
+2025-07-09 16:27:03:710 MCU   @[R] position update disabled
+2025-07-09 16:27:28:304 MCU   @hardware SW1 button pushed
+2025-07-09 16:27:28:309 Info  @switch LED light to HW2 color
+2025-07-09 16:27:28:310 MCU   @[P] position update disabled
+2025-07-09 16:27:28:311 MCU   @[R] position update enabled
+2025-07-09 16:27:31:426 MCU   @hardware SW2 button pushed
+2025-07-09 16:27:31:429 Info  @switch LED light to HW1 color
+2025-07-09 16:27:31:429 MCU   @[P] position update enabled
+2025-07-09 16:27:31:429 MCU   @[R] position update disabled
+2025-07-09 16:27:34:183 MCU   @hardware SW1 button pushed
+2025-07-09 16:27:34:186 Info  @switch LED light to HW2 color
+2025-07-09 16:27:34:186 MCU   @[P] position update disabled
+2025-07-09 16:27:34:187 MCU   @[R] position update enabled
+2025-07-09 16:27:35:901 MCU   @hardware SW2 button pushed
+2025-07-09 16:27:35:906 Info  @switch LED light to HW1 color
+2025-07-09 16:27:35:908 MCU   @[P] position update enabled
+2025-07-09 16:27:35:908 MCU   @[R] position update disabled
+2025-07-09 16:27:40:646 MCU   @hardware SW1 button pushed
+2025-07-09 16:27:40:648 Info  @switch LED light to HW2 color
+2025-07-09 16:27:40:649 MCU   @[P] position update disabled
+2025-07-09 16:27:40:649 MCU   @[R] position update enabled
+2025-07-09 16:27:41:538 MCU   @hardware SW1 button pushed
+2025-07-09 16:27:41:545 Info  @switch LED light to Green
+2025-07-09 16:27:41:546 MCU   @[R] position update disabled
+2025-07-09 16:27:50:707 MCU   @hardware SW1 button pushed
+2025-07-09 16:27:50:709 MCU   @[P] position update enabled
+2025-07-09 16:27:50:717 Info  @switch LED light to HW2 color
+2025-07-09 16:27:50:718 MCU   @[P] position update disabled
+2025-07-09 16:27:50:719 MCU   @[R] position update enabled
+2025-07-09 16:27:52:825 MCU   @hardware SW2 button pushed
+2025-07-09 16:27:52:827 Info  @switch LED light to HW1 color
+2025-07-09 16:27:52:827 MCU   @[P] position update enabled
+2025-07-09 16:27:52:828 MCU   @[R] position update disabled
+2025-07-09 16:27:55:780 MCU   @hardware SW1 button pushed
+2025-07-09 16:27:55:787 Info  @switch LED light to HW2 color
+2025-07-09 16:27:55:788 MCU   @[P] position update disabled
+2025-07-09 16:27:55:789 MCU   @[R] position update enabled
+2025-07-09 16:27:57:491 MCU   @hardware SW2 button pushed
+2025-07-09 16:27:57:493 Info  @switch LED light to HW1 color
+2025-07-09 16:27:57:494 MCU   @[P] position update enabled
+2025-07-09 16:27:57:494 MCU   @[R] position update disabled
+2025-07-09 16:27:58:823 MCU   @hardware SW2 button pushed
+2025-07-09 16:27:58:824 MCU   @[R] position update enabled
+2025-07-09 16:27:58:826 Info  @switch LED light to Green
+2025-07-09 16:27:58:827 MCU   @[P] position update disabled
+2025-07-09 16:27:58:827 MCU   @[R] position update disabled
+
+2025-07-09 16:30:49:135 User  @system menu selected (Exit)
+2025-07-09 16:30:50:619 Info  @open needle guide command sent
+2025-07-09 16:30:50:620 Info  @switch LED light to Red
+2025-07-09 16:30:50:620 DEBUG @S.SC state (6, 23)
+2025-07-09 16:30:50:620 DEBUG @E.SC state (6, 23)
+2025-07-09 16:30:50:621 DEBUG @S.VE state (6, 23)
+2025-07-09 16:30:50:621 DEBUG @E.VE state (6, 23)
+2025-07-09 16:30:50:621 DEBUG @S.MW state (6, 23)
+2025-07-09 16:30:50:677 DEBUG @E.MW state (6, 23)
+2025-07-09 16:30:51:099 Info  @needle guide opened
+2025-07-09 16:30:54:177 MCU   @robot moving (finalization) done (3469ms)
+2025-07-09 16:30:54:198 Info  @system actual [32.95,-3.92,-0,39.94,0.01,0.03,79.98,0.02]
+2025-07-09 16:30:54:199 Info  @switch LED light to Green
+2025-07-09 16:30:55:603 Info  @switch LED light off
+2025-07-09 16:30:55:648 Frame @frame grabber stopped
+2025-07-09 16:30:55:789 MCU   @robot moving stopped
+2025-07-09 16:30:56:908 MCU   @mcu controller stopped
+2025-07-09 16:30:57:157 Info  @UroBiopsy exited 
+
+
+
+2025-07-09 16:32:45:459 Info  @UtlLogger instance created
+2025-07-09 16:32:45:460 Info  @starting UroBiopsy (SVN 858)
+2025-07-09 16:32:45:894 Info  @MainWindow instance created
+
+2025-07-09 16:33:08:549 User  @user 'Service' login
+2025-07-09 16:33:08:604 Info  @UroBiopsy launched
+2025-07-09 16:33:08:605 Info  @SurgeryController instance created
+2025-07-09 16:33:08:608 Info  @Robot Unit: TX-05-00
+2025-07-09 16:33:08:670 Info  @VisualEngine instance created
+2025-07-09 16:33:10:831 MCU   @firmware version (Master): 1.0.0_004
+2025-07-09 16:33:10:832 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-09 16:33:11:000 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-09 16:33:11:082 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-09 16:33:11:184 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-09 16:33:11:287 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-09 16:33:11:389 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-09 16:33:11:493 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-09 16:33:11:596 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-09 16:33:11:700 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-09 16:33:11:784 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-09 16:33:11:856 DEBUG @S.SC state (7, 24)
+2025-07-09 16:33:11:857 DEBUG @E.SC state (7, 24)
+2025-07-09 16:33:11:857 DEBUG @S.VE state (7, 24)
+2025-07-09 16:33:11:858 DEBUG @E.VE state (7, 24)
+2025-07-09 16:33:11:858 DEBUG @S.MW state (7, 24)
+2025-07-09 16:33:11:887 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-09 16:33:11:971 MCU   @firmware operation mode (Node 3): 1
+2025-07-09 16:33:12:095 MCU   @firmware operation mode (Node 4): 1
+2025-07-09 16:33:12:096 MCU   @firmware support speed control
+2025-07-09 16:33:12:178 MCU   @firmware operation mode (Node 5): 1
+2025-07-09 16:33:12:209 DEBUG @E.MW state (7, 24)
+2025-07-09 16:33:12:302 MCU   @firmware operation mode (Node 6): 1
+2025-07-09 16:33:12:406 MCU   @firmware operation mode (Node 7): 1
+2025-07-09 16:33:12:488 MCU   @firmware operation mode (Node 8): 1
+2025-07-09 16:33:12:592 MCU   @firmware operation mode (Node 9): 1
+2025-07-09 16:33:12:674 MCU   @firmware operation mode (Node 10): 1
+2025-07-09 16:33:12:902 MCU   @firmware operation mode (Node 12): 1
+2025-07-09 16:33:13:005 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-09 16:33:13:006 MCU   @[X] error range replaced with local set: 11741
+2025-07-09 16:33:13:089 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-09 16:33:13:089 MCU   @[Y] error range replaced with local set: 11741
+2025-07-09 16:33:13:214 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-09 16:33:13:215 MCU   @[V] error range replaced with local set: 6154
+2025-07-09 16:33:13:298 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-09 16:33:13:299 MCU   @[H] error range replaced with local set: 6154
+2025-07-09 16:33:13:425 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-09 16:33:13:426 MCU   @[N] error range replaced with local set: 19376
+2025-07-09 16:33:13:510 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-09 16:33:13:512 MCU   @[R] error range replaced with local set: 4097
+2025-07-09 16:33:13:616 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-09 16:33:13:617 MCU   @[P] error range replaced with local set: 4097
+2025-07-09 16:33:13:619 Frame @frame grabber UVC device: AV.io HD+
+2025-07-09 16:33:13:695 Frame @frame grabber connected
+2025-07-09 16:33:13:696 Frame @frame grabber started
+2025-07-09 16:33:13:699 MCU   @firmware operation mode (Node 11): 1
+2025-07-09 16:33:13:803 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-09 16:33:13:804 MCU   @[Z] error range replaced with local set: 17615
+2025-07-09 16:33:14:705 Frame @frame grabber screen size updated: 1920 x 1080
+
+2025-07-09 16:33:18:334 User  @factory menu selected (System Settings)
+
+2025-07-09 16:35:29:191 User  @system menu selected (Exit)
+2025-07-09 16:35:30:508 Info  @open needle guide command sent
+2025-07-09 16:35:31:525 Frame @frame grabber stopped
+2025-07-09 16:35:31:593 MCU   @robot moving stopped
+2025-07-09 16:35:32:695 MCU   @mcu controller stopped
+2025-07-09 16:35:32:941 Info  @UroBiopsy exited 
+
+

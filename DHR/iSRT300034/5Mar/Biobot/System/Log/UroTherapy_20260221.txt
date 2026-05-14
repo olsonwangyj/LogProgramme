@@ -1,0 +1,125 @@
+
+2026-02-21 13:44:29:737 Info  @UtlLogger instance created
+2026-02-21 13:44:29:737 Info  @starting UroTherapy (SVN 1003)
+2026-02-21 13:44:30:175 Info  @MainWindow instance created
+
+2026-02-21 13:45:07:300 User  @user 'Service' login
+2026-02-21 13:45:07:352 Info  @UroTherapy launched
+2026-02-21 13:45:07:353 Info  @SurgeryController instance created
+2026-02-21 13:45:07:368 Info  @Robot Unit: TX-05-07
+2026-02-21 13:45:07:446 Info  @VisualEngine instance created
+2026-02-21 13:45:11:501 MCU   @[ERR] failed to connect com port: COM11 (baudrate: 115200)
+2026-02-21 13:45:11:952 DEBUG @S.SC state (7, 24)
+2026-02-21 13:45:11:953 DEBUG @E.SC state (7, 24)
+2026-02-21 13:45:11:954 DEBUG @S.VE state (7, 24)
+2026-02-21 13:45:11:954 DEBUG @E.VE state (7, 24)
+2026-02-21 13:45:11:954 DEBUG @S.MW state (7, 24)
+2026-02-21 13:45:12:376 Frame @frame grabber UVC device: USB Video
+2026-02-21 13:45:13:017 Frame @frame grabber connected
+2026-02-21 13:45:13:018 Frame @frame grabber started
+2026-02-21 13:45:14:027 Frame @frame grabber screen size updated: 1920 x 1080
+2026-02-21 13:45:16:402 DEBUG @E.MW state (7, 24)
+
+2026-02-21 13:47:16:488 Info  @UtlLogger instance created
+2026-02-21 13:47:16:489 Info  @starting UroTherapy (SVN 1003)
+2026-02-21 13:47:16:919 Info  @MainWindow instance created
+
+2026-02-21 13:47:40:457 User  @user 'Service' login
+2026-02-21 13:47:40:508 Info  @UroTherapy launched
+2026-02-21 13:47:40:509 Info  @SurgeryController instance created
+2026-02-21 13:47:40:512 Info  @Robot Unit: TX-05-07
+2026-02-21 13:47:40:568 Info  @VisualEngine instance created
+2026-02-21 13:47:43:867 DEBUG @S.SC state (7, 24)
+2026-02-21 13:47:43:867 DEBUG @E.SC state (7, 24)
+2026-02-21 13:47:43:868 DEBUG @S.VE state (7, 24)
+2026-02-21 13:47:43:868 DEBUG @E.VE state (7, 24)
+2026-02-21 13:47:43:868 DEBUG @S.MW state (7, 24)
+2026-02-21 13:47:44:191 DEBUG @E.MW state (7, 24)
+2026-02-21 13:47:44:645 MCU   @[ERR] failed to connect com port: COM11 (baudrate: 115200)
+2026-02-21 13:47:45:527 Frame @frame grabber UVC device: USB Video
+2026-02-21 13:47:45:581 Frame @frame grabber connected
+2026-02-21 13:47:45:581 Frame @frame grabber started
+2026-02-21 13:47:46:587 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-21 13:50:52:064 Info  @UtlLogger instance created
+2026-02-21 13:50:52:064 Info  @starting UroTherapy (SVN 1003)
+2026-02-21 13:50:52:499 Info  @MainWindow instance created
+
+2026-02-21 13:59:09:415 User  @user 'Service' login
+2026-02-21 13:59:09:467 Info  @UroTherapy launched
+2026-02-21 13:59:09:468 Info  @SurgeryController instance created
+2026-02-21 13:59:09:470 Info  @Robot Unit: TX-05-07
+2026-02-21 13:59:09:524 Info  @VisualEngine instance created
+2026-02-21 13:59:12:826 DEBUG @S.SC state (7, 24)
+2026-02-21 13:59:12:826 DEBUG @E.SC state (7, 24)
+2026-02-21 13:59:12:827 DEBUG @S.VE state (7, 24)
+2026-02-21 13:59:12:827 DEBUG @E.VE state (7, 24)
+2026-02-21 13:59:12:827 DEBUG @S.MW state (7, 24)
+2026-02-21 13:59:13:147 DEBUG @E.MW state (7, 24)
+2026-02-21 13:59:13:604 MCU   @[ERR] failed to connect com port: COM11 (baudrate: 115200)
+2026-02-21 13:59:14:485 Frame @frame grabber UVC device: USB Video
+2026-02-21 13:59:14:548 Frame @frame grabber connected
+2026-02-21 13:59:14:549 Frame @frame grabber started
+2026-02-21 13:59:15:559 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-21 13:59:46:622 User  @factory menu selected (System Settings)
+
+2026-02-21 14:00:17:055 User  @on_startInitRobot_clicked
+2026-02-21 14:00:28:450 Info  @switch LED light to Red
+2026-02-21 14:00:30:326 DEBUG @S.SC state (7, 25)
+2026-02-21 14:00:30:326 DEBUG @E.SC state (7, 25)
+2026-02-21 14:00:30:327 DEBUG @S.VE state (7, 25)
+2026-02-21 14:00:30:327 DEBUG @E.VE state (7, 25)
+2026-02-21 14:00:30:327 DEBUG @S.MW state (7, 25)
+2026-02-21 14:00:33:295 DEBUG @E.MW state (7, 25)
+
+2026-02-21 14:02:59:787 User  @on_functionAbortMotor_clicked
+2026-02-21 14:03:01:875 Info  @switch LED light to Green
+2026-02-21 14:03:01:875 DEBUG @S.SC state (7, 27)
+2026-02-21 14:03:01:876 DEBUG @E.SC state (7, 27)
+2026-02-21 14:03:01:876 DEBUG @S.VE state (7, 27)
+2026-02-21 14:03:01:876 DEBUG @E.VE state (7, 27)
+2026-02-21 14:03:01:876 DEBUG @S.MW state (7, 27)
+2026-02-21 14:03:04:538 DEBUG @E.MW state (7, 27)
+2026-02-21 14:09:19:907 Info  @screen auto locked (Service)
+
+2026-02-21 14:35:28:837 User  @screen unlocked by user 'Service'
+
+2026-02-21 14:36:01:583 User  @factory menu selected (System Settings)
+
+2026-02-21 14:36:36:675 User  @system menu selected (System Status Check)
+
+2026-02-21 14:37:34:873 User  @system menu selected (Exit)
+2026-02-21 14:37:48:591 Info  @open needle guide command sent
+2026-02-21 14:37:49:593 Info  @switch LED light off
+2026-02-21 14:37:50:942 Frame @frame grabber stopped
+2026-02-21 14:37:55:788 MCU   @mcu controller stopped
+2026-02-21 14:37:56:072 Info  @UroTherapy exited 
+
+
+
+2026-02-21 14:38:38:519 Info  @UtlLogger instance created
+2026-02-21 14:38:38:519 Info  @starting UroTherapy (SVN 1003)
+2026-02-21 14:38:38:969 Info  @MainWindow instance created
+
+2026-02-21 14:39:32:592 User  @user 'Service' login
+2026-02-21 14:39:32:647 Info  @UroTherapy launched
+2026-02-21 14:39:32:648 Info  @SurgeryController instance created
+2026-02-21 14:39:32:650 Info  @Robot Unit: TX-05-07
+2026-02-21 14:39:32:711 Info  @VisualEngine instance created
+2026-02-21 14:39:36:068 DEBUG @S.SC state (7, 24)
+2026-02-21 14:39:36:069 DEBUG @E.SC state (7, 24)
+2026-02-21 14:39:36:069 DEBUG @S.VE state (7, 24)
+2026-02-21 14:39:36:070 DEBUG @E.VE state (7, 24)
+2026-02-21 14:39:36:070 DEBUG @S.MW state (7, 24)
+2026-02-21 14:39:36:415 DEBUG @E.MW state (7, 24)
+2026-02-21 14:39:36:783 MCU   @[ERR] failed to connect com port: COM11 (baudrate: 115200)
+2026-02-21 14:39:37:663 Frame @frame grabber UVC device: USB Video
+2026-02-21 14:39:37:718 Frame @frame grabber connected
+2026-02-21 14:39:37:719 Frame @frame grabber started
+2026-02-21 14:39:38:729 Frame @frame grabber screen size updated: 1920 x 1080
+
+2026-02-21 14:40:07:292 User  @system menu selected (System Status Check)
+2026-02-21 14:50:01:496 Info  @screen auto locked (Service)
+
+2026-02-23 09:50:59:512 User  @screen unlocked by user 'Service'

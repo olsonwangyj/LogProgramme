@@ -1,0 +1,934 @@
+
+2025-07-01 10:32:47:008 Info  @UtlLogger instance created
+2025-07-01 10:32:47:009 Info  @starting UroBiopsy (SVN 858)
+2025-07-01 10:32:47:553 Info  @MainWindow instance created
+
+2025-07-01 10:33:04:463 User  @user 'Service' login
+2025-07-01 10:33:04:522 Info  @UroBiopsy launched
+2025-07-01 10:33:04:522 Info  @SurgeryController instance created
+2025-07-01 10:33:04:560 Info  @Robot Unit: TX-05-00
+2025-07-01 10:33:04:748 Info  @VisualEngine instance created
+2025-07-01 10:33:06:782 MCU   @firmware version (Master): 1.0.0_004
+2025-07-01 10:33:06:783 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-01 10:33:06:930 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-01 10:33:07:034 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-01 10:33:07:157 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-01 10:33:07:240 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-01 10:33:07:363 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-01 10:33:07:445 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-01 10:33:07:549 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-01 10:33:07:651 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-01 10:33:07:754 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-01 10:33:07:857 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-01 10:33:07:870 DEBUG @S.SC state (7, 24)
+2025-07-01 10:33:07:871 DEBUG @E.SC state (7, 24)
+2025-07-01 10:33:07:871 DEBUG @S.VE state (7, 24)
+2025-07-01 10:33:07:872 DEBUG @E.VE state (7, 24)
+2025-07-01 10:33:07:872 DEBUG @S.MW state (7, 24)
+2025-07-01 10:33:07:939 MCU   @firmware operation mode (Node 3): 1
+2025-07-01 10:33:08:042 MCU   @firmware operation mode (Node 4): 1
+2025-07-01 10:33:08:043 MCU   @firmware support speed control
+2025-07-01 10:33:08:146 MCU   @firmware operation mode (Node 5): 1
+2025-07-01 10:33:08:249 MCU   @firmware operation mode (Node 6): 1
+2025-07-01 10:33:08:254 DEBUG @E.MW state (7, 24)
+2025-07-01 10:33:08:352 MCU   @firmware operation mode (Node 7): 1
+2025-07-01 10:33:08:433 MCU   @firmware operation mode (Node 8): 1
+2025-07-01 10:33:08:536 MCU   @firmware operation mode (Node 9): 1
+2025-07-01 10:33:08:658 MCU   @firmware operation mode (Node 10): 1
+2025-07-01 10:33:08:883 MCU   @firmware operation mode (Node 12): 1
+2025-07-01 10:33:08:966 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-01 10:33:08:966 MCU   @[X] error range replaced with local set: 11741
+2025-07-01 10:33:09:069 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-01 10:33:09:069 MCU   @[Y] error range replaced with local set: 11741
+2025-07-01 10:33:09:172 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-01 10:33:09:173 MCU   @[V] error range replaced with local set: 6154
+2025-07-01 10:33:09:275 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-01 10:33:09:276 MCU   @[H] error range replaced with local set: 6154
+2025-07-01 10:33:09:357 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-01 10:33:09:358 MCU   @[N] error range replaced with local set: 19376
+2025-07-01 10:33:09:462 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-01 10:33:09:463 MCU   @[R] error range replaced with local set: 4097
+2025-07-01 10:33:09:465 Info  @needle guide closed
+2025-07-01 10:33:09:566 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-01 10:33:09:567 MCU   @[P] error range replaced with local set: 4097
+2025-07-01 10:33:09:589 Frame @frame grabber UVC device: AV.io HD+
+2025-07-01 10:33:09:670 MCU   @firmware operation mode (Node 11): 1
+2025-07-01 10:33:09:774 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-01 10:33:09:774 MCU   @[Z] error range replaced with local set: 17615
+2025-07-01 10:33:10:087 Frame @frame grabber connected
+2025-07-01 10:33:10:087 Frame @frame grabber started
+2025-07-01 10:33:11:102 Frame @frame grabber screen size updated: 1920 x 1080
+
+2025-07-01 10:33:16:792 User  @on_startInitRobot_clicked
+2025-07-01 10:33:18:429 Info  @switch LED light to Red
+2025-07-01 10:33:18:430 DEBUG @S.SC state (7, 25)
+2025-07-01 10:33:18:430 DEBUG @E.SC state (7, 25)
+2025-07-01 10:33:18:430 DEBUG @S.VE state (7, 25)
+2025-07-01 10:33:18:431 DEBUG @E.VE state (7, 25)
+2025-07-01 10:33:18:431 DEBUG @S.MW state (7, 25)
+2025-07-01 10:33:18:468 DEBUG @E.MW state (7, 25)
+2025-07-01 10:33:18:616 MCU   @set motor P sensors to 'stop'
+2025-07-01 10:33:18:617 MCU   @set motor R sensors to 'stop'
+2025-07-01 10:33:18:642 MCU   @[X] start searching reference
+2025-07-01 10:33:18:987 MCU   @[Y] start searching reference
+2025-07-01 10:33:19:332 MCU   @[Z] start searching reference
+2025-07-01 10:33:27:454 MCU   @[Y] stopped by sensor L
+2025-07-01 10:33:27:455 MCU   @[Y] reset physical position to 0
+2025-07-01 10:33:27:656 MCU   @[Y] reference found (SENSOR)
+2025-07-01 10:33:27:658 MCU   @[Y] max: 0.00
+2025-07-01 10:33:27:660 MCU   @[P] start searching reference
+2025-07-01 10:33:28:005 MCU   @[N] start searching reference
+2025-07-01 10:33:28:821 MCU   @[P] stopped by sensor L
+2025-07-01 10:33:29:025 MCU   @[P] reset physical position to 0
+2025-07-01 10:33:29:226 MCU   @[P] reference found (SENSOR)
+2025-07-01 10:33:29:227 MCU   @[P] max: 0.00
+2025-07-01 10:33:29:228 MCU   @[Y] start clearing: -19.50
+2025-07-01 10:33:31:148 MCU   @[X] stopped by sensor L
+2025-07-01 10:33:31:149 MCU   @[X] reset physical position to 0
+2025-07-01 10:33:31:351 MCU   @[X] reference found (SENSOR)
+2025-07-01 10:33:31:352 MCU   @[X] max: 0.00
+2025-07-01 10:33:32:944 MCU   @[N] stopped by sensor L
+2025-07-01 10:33:32:945 MCU   @[N] reset physical position to 0
+2025-07-01 10:33:33:146 MCU   @[N] reference found (SENSOR)
+2025-07-01 10:33:33:147 MCU   @[N] min: 0.00
+2025-07-01 10:33:35:944 MCU   @[Z] stopped by sensor L
+2025-07-01 10:33:35:945 MCU   @[Z] reset physical position to 0
+2025-07-01 10:33:36:147 MCU   @[Z] reference found (SENSOR)
+2025-07-01 10:33:36:147 MCU   @[Z] max: 0.00
+2025-07-01 10:33:36:148 MCU   @[Y] motor cleared
+2025-07-01 10:33:36:148 MCU   @[Y] min: -29.51
+2025-07-01 10:33:36:148 MCU   @[P] start clearing: -165.00
+2025-07-01 10:33:36:170 MCU   @[Y] start moving to max pos: -3.00
+2025-07-01 10:33:36:192 MCU   @[Z] start clearing: -50.00
+2025-07-01 10:33:36:217 MCU   @[N] start clearing: 69.50
+2025-07-01 10:33:36:239 MCU   @[X] start clearing: -22.00
+2025-07-01 10:33:36:388 MCU   @[V] start searching reference
+2025-07-01 10:33:42:907 MCU   @[V] stopped by sensor L
+2025-07-01 10:33:42:908 MCU   @[V] reset physical position to 0
+2025-07-01 10:33:43:109 MCU   @[V] reference found (SENSOR)
+2025-07-01 10:33:43:110 MCU   @[V] max: 0.00
+2025-07-01 10:33:43:132 MCU   @[V] start clearing: -49.00
+2025-07-01 10:33:44:506 MCU   @[X] motor cleared
+2025-07-01 10:33:44:507 MCU   @[X] min: -32.01
+2025-07-01 10:33:44:708 MCU   @[X] start moving to max pos: -3.00
+2025-07-01 10:33:45:923 MCU   @[Y] motor reached max pos
+2025-07-01 10:33:46:927 MCU   @[P] motor cleared
+2025-07-01 10:33:46:929 MCU   @[P] min: -165.03
+2025-07-01 10:33:47:132 MCU   @[P] start moving to home: -1.00
+2025-07-01 10:33:51:978 MCU   @[V] motor cleared
+2025-07-01 10:33:51:979 MCU   @[V] min: -49.03
+2025-07-01 10:33:52:181 MCU   @[V] start moving to home: -25.00
+2025-07-01 10:33:55:825 MCU   @[X] motor reached max pos
+2025-07-01 10:33:57:834 MCU   @[V] motor homed
+2025-07-01 10:33:57:835 MCU   @[X] start moving to home: -20.44
+2025-07-01 10:33:57:863 MCU   @[P] motor homed
+2025-07-01 10:33:57:864 MCU   @[R] start searching reference
+2025-07-01 10:33:58:217 MCU   @[Y] start moving to home: -13.69
+2025-07-01 10:34:02:246 MCU   @[Y] motor homed
+2025-07-01 10:34:02:853 MCU   @[N] motor cleared
+2025-07-01 10:34:02:855 MCU   @[N] max: 69.51
+2025-07-01 10:34:03:056 MCU   @[N] start moving to home: 10.47
+2025-07-01 10:34:04:072 MCU   @[X] motor homed
+2025-07-01 10:34:05:221 MCU   @[R] stopped by sensor R
+2025-07-01 10:34:05:221 MCU   @[R] reset physical position to 0
+2025-07-01 10:34:05:422 MCU   @[R] reference found (SENSOR)
+2025-07-01 10:34:05:423 MCU   @[R] max: 0.00
+2025-07-01 10:34:05:445 MCU   @[R] start clearing: -119.00
+2025-07-01 10:34:06:370 MCU   @[ERR] [Z] cannot reach the target (30 seconds timeout). initialization failed.
+2025-07-01 10:34:06:374 Info  @open needle guide command sent
+2025-07-01 10:34:06:375 DEBUG @S.SC state (7, 28)
+2025-07-01 10:34:06:375 DEBUG @E.SC state (7, 28)
+2025-07-01 10:34:06:375 DEBUG @S.VE state (7, 28)
+2025-07-01 10:34:06:375 DEBUG @E.VE state (7, 28)
+2025-07-01 10:34:06:376 DEBUG @S.MW state (7, 28)
+2025-07-01 10:34:49:972 DEBUG @E.MW state (7, 28)
+
+2025-07-01 10:34:57:533 User  @on_startInitRobot_clicked
+2025-07-01 10:34:58:576 DEBUG @S.SC state (7, 25)
+2025-07-01 10:34:58:576 DEBUG @E.SC state (7, 25)
+2025-07-01 10:34:58:577 DEBUG @S.VE state (7, 25)
+2025-07-01 10:34:58:577 DEBUG @E.VE state (7, 25)
+2025-07-01 10:34:58:577 DEBUG @S.MW state (7, 25)
+2025-07-01 10:34:58:627 DEBUG @E.MW state (7, 25)
+2025-07-01 10:34:58:664 MCU   @set motor P sensors to 'stop'
+2025-07-01 10:34:58:665 MCU   @set motor R sensors to 'stop'
+2025-07-01 10:34:58:689 MCU   @[X] start searching reference
+2025-07-01 10:34:59:035 MCU   @[Y] start searching reference
+2025-07-01 10:34:59:380 MCU   @[Z] start searching reference
+
+2025-07-01 10:35:03:266 User  @on_functionAbortMotor_clicked
+2025-07-01 10:35:03:266 Info  @switch LED light to Green
+2025-07-01 10:35:03:266 DEBUG @S.SC state (7, 27)
+2025-07-01 10:35:03:267 DEBUG @E.SC state (7, 27)
+2025-07-01 10:35:03:267 DEBUG @S.VE state (7, 27)
+2025-07-01 10:35:03:267 DEBUG @E.VE state (7, 27)
+2025-07-01 10:35:03:268 DEBUG @S.MW state (7, 27)
+2025-07-01 10:35:03:289 DEBUG @E.MW state (7, 27)
+2025-07-01 10:35:03:357 MCU   @robot moving stopped
+
+2025-07-01 10:35:07:711 User  @factory menu selected (Motion Control)
+2025-07-01 10:35:07:713 DEBUG @S.SC state (5, 20)
+2025-07-01 10:35:07:714 DEBUG @E.SC state (5, 20)
+2025-07-01 10:35:07:714 DEBUG @S.VE state (5, 20)
+2025-07-01 10:35:07:715 DEBUG @E.VE state (5, 20)
+2025-07-01 10:35:07:715 DEBUG @S.MW state (5, 20)
+2025-07-01 10:35:07:755 DEBUG @E.MW state (5, 20)
+
+2025-07-01 10:35:10:992 User  @on_emcBack_clicked
+2025-07-01 10:35:10:993 DEBUG @S.SC state (7, 27)
+2025-07-01 10:35:10:994 DEBUG @E.SC state (7, 27)
+2025-07-01 10:35:10:995 DEBUG @S.VE state (7, 27)
+2025-07-01 10:35:10:996 DEBUG @E.VE state (7, 27)
+2025-07-01 10:35:10:997 DEBUG @S.MW state (7, 27)
+2025-07-01 10:35:11:012 DEBUG @E.MW state (7, 27)
+
+2025-07-01 10:35:14:828 User  @factory menu selected (System Settings)
+2025-07-01 10:35:20:982 MCU   @mcu controller stopped
+2025-07-01 10:35:22:345 DEBUG @S.SC state (7, 24)
+2025-07-01 10:35:22:345 DEBUG @E.SC state (7, 24)
+2025-07-01 10:35:22:346 DEBUG @S.VE state (7, 24)
+2025-07-01 10:35:22:346 DEBUG @E.VE state (7, 24)
+2025-07-01 10:35:22:346 DEBUG @S.MW state (7, 24)
+2025-07-01 10:35:22:390 DEBUG @E.MW state (7, 24)
+2025-07-01 10:35:22:390 Info  @system setting apply
+2025-07-01 10:35:23:003 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-01 10:35:23:149 MCU   @firmware version (Master): 1.0.0_004
+
+2025-07-01 10:35:24:166 User  @on_startInitRobot_clicked
+2025-07-01 10:35:25:205 Info  @switch LED light to Red
+2025-07-01 10:35:25:206 DEBUG @S.SC state (7, 25)
+2025-07-01 10:35:25:207 DEBUG @E.SC state (7, 25)
+2025-07-01 10:35:25:208 DEBUG @S.VE state (7, 25)
+2025-07-01 10:35:25:208 DEBUG @E.VE state (7, 25)
+2025-07-01 10:35:25:208 DEBUG @S.MW state (7, 25)
+2025-07-01 10:35:25:256 DEBUG @E.MW state (7, 25)
+2025-07-01 10:35:25:341 MCU   @set motor P sensors to 'stop'
+2025-07-01 10:35:25:342 MCU   @set motor R sensors to 'stop'
+2025-07-01 10:35:25:364 MCU   @[X] start searching reference
+2025-07-01 10:35:25:710 MCU   @[Y] start searching reference
+2025-07-01 10:35:26:055 MCU   @[Z] start searching reference
+2025-07-01 10:35:31:166 MCU   @[Y] stopped by sensor L
+2025-07-01 10:35:31:167 MCU   @[Y] reset physical position to 0
+2025-07-01 10:35:31:368 MCU   @[Y] reference found (SENSOR)
+2025-07-01 10:35:31:368 MCU   @[Y] max: 0.00
+2025-07-01 10:35:31:369 MCU   @[P] start searching reference
+2025-07-01 10:35:31:719 MCU   @[N] start searching reference
+2025-07-01 10:35:32:525 MCU   @[P] stopped by sensor L
+2025-07-01 10:35:32:569 MCU   @[P] reset physical position to 0
+2025-07-01 10:35:32:771 MCU   @[P] reference found (SENSOR)
+2025-07-01 10:35:32:774 MCU   @[P] max: 0.00
+2025-07-01 10:35:32:775 MCU   @[Y] start clearing: -19.50
+2025-07-01 10:35:34:496 MCU   @[X] stopped by sensor L
+2025-07-01 10:35:34:496 MCU   @[X] reset physical position to 0
+2025-07-01 10:35:34:697 MCU   @[X] reference found (SENSOR)
+2025-07-01 10:35:34:698 MCU   @[X] max: 0.00
+2025-07-01 10:35:39:706 MCU   @[Y] motor cleared
+2025-07-01 10:35:39:707 MCU   @[Y] min: -29.51
+2025-07-01 10:35:39:707 MCU   @[P] start clearing: -165.00
+2025-07-01 10:35:39:729 MCU   @[Y] start moving to max pos: -3.00
+2025-07-01 10:35:39:752 MCU   @[X] start clearing: -22.00
+2025-07-01 10:35:39:775 MCU   @[H] start searching reference
+2025-07-01 10:35:48:026 MCU   @[X] motor cleared
+2025-07-01 10:35:48:028 MCU   @[X] min: -32.01
+2025-07-01 10:35:48:230 MCU   @[X] start moving to max pos: -3.00
+2025-07-01 10:35:49:648 MCU   @[Y] motor reached max pos
+2025-07-01 10:35:50:653 MCU   @[P] motor cleared
+2025-07-01 10:35:50:654 MCU   @[P] min: -165.03
+2025-07-01 10:35:50:855 MCU   @[P] start moving to home: -1.00
+2025-07-01 10:35:53:253 MCU   @[Z] stopped by sensor L
+2025-07-01 10:35:53:455 MCU   @[Z] reset physical position to 0
+2025-07-01 10:35:53:656 MCU   @[Z] reference found (SENSOR)
+2025-07-01 10:35:53:657 MCU   @[Z] max: 0.00
+2025-07-01 10:35:53:680 MCU   @[Z] start clearing: -50.00
+2025-07-01 10:35:55:456 MCU   @[N] stopped by sensor L
+2025-07-01 10:35:55:660 MCU   @[N] reset physical position to 0
+2025-07-01 10:35:55:862 MCU   @[N] reference found (SENSOR)
+2025-07-01 10:35:55:863 MCU   @[N] min: 0.00
+2025-07-01 10:35:55:884 MCU   @[N] start clearing: 69.50
+2025-07-01 10:35:59:266 MCU   @[X] motor reached max pos
+2025-07-01 10:36:01:875 MCU   @[P] motor homed
+2025-07-01 10:36:01:876 MCU   @[R] start searching reference
+2025-07-01 10:36:03:617 MCU   @[R] stopped by sensor R
+2025-07-01 10:36:03:618 MCU   @[R] reset physical position to 0
+2025-07-01 10:36:03:819 MCU   @[R] reference found (SENSOR)
+2025-07-01 10:36:03:820 MCU   @[R] max: 0.00
+2025-07-01 10:36:03:844 MCU   @[R] start clearing: -119.00
+2025-07-01 10:36:10:433 MCU   @[ERR] [H] cannot reach the target (30 seconds timeout). initialization failed.
+2025-07-01 10:36:10:435 Info  @open needle guide command sent
+2025-07-01 10:36:10:436 DEBUG @S.SC state (7, 28)
+2025-07-01 10:36:10:436 DEBUG @E.SC state (7, 28)
+2025-07-01 10:36:10:436 DEBUG @S.VE state (7, 28)
+2025-07-01 10:36:10:437 DEBUG @E.VE state (7, 28)
+2025-07-01 10:36:10:437 DEBUG @S.MW state (7, 28)
+2025-07-01 10:36:14:105 DEBUG @E.MW state (7, 28)
+
+2025-07-01 10:36:19:697 User  @system menu selected (Exit)
+2025-07-01 10:36:21:064 Info  @open needle guide command sent
+2025-07-01 10:36:22:066 Info  @switch LED light off
+2025-07-01 10:36:22:072 Frame @frame grabber stopped
+2025-07-01 10:36:22:206 MCU   @robot moving stopped
+2025-07-01 10:36:23:342 MCU   @mcu controller stopped
+2025-07-01 10:36:23:565 Info  @UroBiopsy exited 
+
+
+
+2025-07-01 10:57:20:210 Info  @UtlLogger instance created
+2025-07-01 10:57:20:215 Info  @starting UroBiopsy (SVN 729)
+2025-07-01 10:57:20:622 Info  @MainWindow instance created
+
+2025-07-01 10:57:37:056 User  @user 'Service' login
+2025-07-01 10:57:37:123 Info  @UroBiopsy launched
+2025-07-01 10:57:37:124 Info  @SurgeryController instance created
+2025-07-01 10:57:37:188 Info  @VisualEngine instance created
+2025-07-01 10:57:39:128 MCU   @[ERR] failed to connect com port:  (baudrate: 115200)
+2025-07-01 10:57:42:129 Frame @[ERR] failed to connect frame grabber
+
+2025-07-01 10:57:45:105 User  @factory menu selected (System Settings)
+2025-07-01 10:58:01:366 MCU   @mcu controller stopped
+2025-07-01 10:58:01:371 Info  @system setting apply
+
+2025-07-01 10:58:03:424 User  @on_startInitRobot_clicked
+2025-07-01 10:58:03:589 MCU   @firmware version (Master): 1.0.0_004
+2025-07-01 10:58:03:590 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-01 10:58:03:757 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-01 10:58:03:861 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-01 10:58:03:943 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-01 10:58:04:046 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-01 10:58:04:149 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-01 10:58:04:253 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-01 10:58:04:355 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-01 10:58:04:458 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-01 10:58:04:541 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-01 10:58:04:575 Info  @switch LED light to Red
+2025-07-01 10:58:04:603 MCU   @set motor P sensors to 'stop'
+2025-07-01 10:58:04:604 MCU   @set motor R sensors to 'stop'
+2025-07-01 10:58:04:625 MCU   @[X] start searching reference
+2025-07-01 10:58:04:927 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-01 10:58:04:928 MCU   @firmware operation mode (Node 3): 1
+2025-07-01 10:58:04:929 MCU   @firmware operation mode (Node 4): 1
+2025-07-01 10:58:04:930 MCU   @firmware support speed control
+2025-07-01 10:58:05:233 MCU   @firmware operation mode (Node 5): 1
+2025-07-01 10:58:05:234 MCU   @firmware operation mode (Node 6): 1
+2025-07-01 10:58:05:235 MCU   @firmware operation mode (Node 7): 1
+2025-07-01 10:58:05:538 MCU   @firmware operation mode (Node 8): 1
+2025-07-01 10:58:05:539 MCU   @firmware operation mode (Node 9): 1
+2025-07-01 10:58:05:540 MCU   @firmware operation mode (Node 10): 1
+2025-07-01 10:58:05:864 MCU   @[Y] start searching reference
+2025-07-01 10:58:06:165 MCU   @firmware operation mode (Node 11): 1
+2025-07-01 10:58:06:188 MCU   @[Z] start searching reference
+2025-07-01 10:58:06:876 MCU   @firmware operation mode (Node 12): 1
+2025-07-01 10:58:07:000 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-01 10:58:07:002 MCU   @[X] error range replaced with local set: 11741
+2025-07-01 10:58:07:086 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-01 10:58:07:087 MCU   @[Y] error range replaced with local set: 11741
+2025-07-01 10:58:07:191 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-01 10:58:07:192 MCU   @[V] error range replaced with local set: 6154
+2025-07-01 10:58:07:274 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-01 10:58:07:275 MCU   @[H] error range replaced with local set: 6154
+2025-07-01 10:58:07:400 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-01 10:58:07:402 MCU   @[N] error range replaced with local set: 19376
+2025-07-01 10:58:08:026 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-01 10:58:08:027 MCU   @[P] error range replaced with local set: 4097
+2025-07-01 10:58:08:150 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-01 10:58:08:151 MCU   @[R] error range replaced with local set: 4097
+2025-07-01 10:58:08:584 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-01 10:58:08:585 MCU   @[Z] error range replaced with local set: 17615
+2025-07-01 10:58:09:790 MCU   @[X] reset physical position to 0
+2025-07-01 10:58:09:993 MCU   @[X] reference found (SENSOR)
+2025-07-01 10:58:09:994 MCU   @[X] max: 0.00
+2025-07-01 10:58:10:058 MCU   @[Y] reset physical position to 0
+2025-07-01 10:58:10:080 MCU   @[Y] reference found (SENSOR)
+2025-07-01 10:58:10:081 MCU   @[Y] max: 0.00
+2025-07-01 10:58:10:081 MCU   @[P] start searching reference
+2025-07-01 10:58:10:405 MCU   @[N] start searching reference
+2025-07-01 10:58:11:404 MCU   @[P] reset physical position to 0
+2025-07-01 10:58:11:605 MCU   @[P] reference found (SENSOR)
+2025-07-01 10:58:11:605 MCU   @[P] max: 0.00
+2025-07-01 10:58:11:606 MCU   @[Y] start clearing: -19.50
+2025-07-01 10:58:18:550 MCU   @[Y] motor cleared
+2025-07-01 10:58:18:551 MCU   @[Y] min: -29.51
+2025-07-01 10:58:18:552 MCU   @[P] start clearing: -165.00
+2025-07-01 10:58:18:574 MCU   @[Y] start moving to max pos: -3.00
+2025-07-01 10:58:18:596 MCU   @[X] start clearing: -22.50
+2025-07-01 10:58:18:619 MCU   @[H] start searching reference
+2025-07-01 10:58:27:028 MCU   @[X] motor cleared
+2025-07-01 10:58:27:029 MCU   @[X] min: -32.51
+2025-07-01 10:58:27:230 MCU   @[X] start moving to max pos: -3.00
+2025-07-01 10:58:28:440 MCU   @[Y] motor reached max pos
+2025-07-01 10:58:29:443 MCU   @[P] motor cleared
+2025-07-01 10:58:29:444 MCU   @[P] min: -165.03
+2025-07-01 10:58:29:645 MCU   @[P] start moving to home: -1.00
+2025-07-01 10:58:31:456 MCU   @[Z] reset physical position to 0
+2025-07-01 10:58:31:659 MCU   @[Z] reference found (SENSOR)
+2025-07-01 10:58:31:660 MCU   @[Z] max: 0.00
+2025-07-01 10:58:31:683 MCU   @[Z] start clearing: -50.00
+2025-07-01 10:58:34:276 MCU   @[N] reset physical position to 0
+2025-07-01 10:58:34:478 MCU   @[N] reference found (SENSOR)
+2025-07-01 10:58:34:478 MCU   @[N] min: 0.00
+2025-07-01 10:58:34:500 MCU   @[N] start clearing: 69.50
+2025-07-01 10:58:38:279 MCU   @[X] motor reached max pos
+2025-07-01 10:58:40:685 MCU   @[P] motor homed
+2025-07-01 10:58:40:686 MCU   @[R] start searching reference
+2025-07-01 10:58:41:782 MCU   @[R] reset physical position to 0
+2025-07-01 10:58:41:983 MCU   @[R] reference found (SENSOR)
+2025-07-01 10:58:41:984 MCU   @[R] max: 0.00
+2025-07-01 10:58:42:005 MCU   @[R] start clearing: -119.00
+2025-07-01 10:58:49:390 MCU   @[ERR] [H] cannot reach the target (30 seconds timeout). initialization failed.
+2025-07-01 10:58:49:392 Info  @open needle guide command sent
+2025-07-01 10:58:50:733 Info  @needle guide closed
+
+2025-07-01 10:59:35:864 User  @tool menu selected (Application Settings)
+
+2025-07-01 10:59:45:376 User  @factory menu selected (Motion Control)
+
+2025-07-01 10:59:46:917 User  @on_emcShowDebugDialog_clicked
+2025-07-01 11:01:20:191 Frame @frame grabber stopped
+2025-07-01 11:01:25:193 Frame @frame grabber started
+
+2025-07-01 11:01:57:907 User  @on_emcBack_clicked
+
+2025-07-01 11:02:02:693 User  @system menu selected (Log Viewer)
+
+2025-07-01 11:04:03:627 User  @factory menu selected (Motion Control)
+
+2025-07-01 11:04:08:408 User  @on_emcAxisH_clicked
+2025-07-01 11:04:08:410 Info  @Motor H selected (motion control)
+
+2025-07-01 11:04:12:488 User  @on_emcShowDebugDialog_clicked
+
+2025-07-01 11:06:57:734 User  @on_emcBack_clicked
+
+2025-07-01 11:07:02:251 User  @factory menu selected (Motion Control)
+
+2025-07-01 11:07:04:932 User  @on_emcBack_clicked
+
+2025-07-01 11:07:09:381 User  @factory menu selected (System Settings)
+
+2025-07-01 11:07:35:704 User  @system menu selected (Exit)
+2025-07-01 11:07:37:103 Info  @open needle guide command sent
+2025-07-01 11:07:38:106 Info  @switch LED light off
+2025-07-01 11:07:38:138 Frame @frame grabber stopped
+2025-07-01 11:07:38:307 MCU   @robot moving stopped
+2025-07-01 11:07:39:428 MCU   @mcu controller stopped
+2025-07-01 11:07:39:645 Info  @UroBiopsy exited
+
+2025-07-01 17:18:14:496 Info  @UtlLogger instance created
+2025-07-01 17:18:14:496 Info  @starting UroBiopsy (SVN 858)
+2025-07-01 17:18:15:451 Info  @MainWindow instance created
+
+2025-07-01 17:18:29:788 User  @user 'Service' login
+2025-07-01 17:18:29:845 Info  @UroBiopsy launched
+2025-07-01 17:18:29:846 Info  @SurgeryController instance created
+2025-07-01 17:18:29:881 Info  @Robot Unit: TX-05-00
+2025-07-01 17:18:30:056 Info  @VisualEngine instance created
+2025-07-01 17:18:32:103 MCU   @firmware version (Master): 1.0.0_004
+2025-07-01 17:18:32:103 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-01 17:18:32:270 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-01 17:18:32:373 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-01 17:18:32:476 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-01 17:18:32:559 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-01 17:18:32:661 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-01 17:18:32:763 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-01 17:18:32:866 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-01 17:18:32:969 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-01 17:18:33:071 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-01 17:18:33:155 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-01 17:18:33:199 DEBUG @S.SC state (7, 24)
+2025-07-01 17:18:33:200 DEBUG @E.SC state (7, 24)
+2025-07-01 17:18:33:201 DEBUG @S.VE state (7, 24)
+2025-07-01 17:18:33:202 DEBUG @E.VE state (7, 24)
+2025-07-01 17:18:33:204 DEBUG @S.MW state (7, 24)
+2025-07-01 17:18:33:278 MCU   @firmware operation mode (Node 3): 1
+2025-07-01 17:18:33:361 MCU   @firmware operation mode (Node 4): 1
+2025-07-01 17:18:33:361 MCU   @firmware support speed control
+2025-07-01 17:18:33:463 MCU   @firmware operation mode (Node 5): 1
+2025-07-01 17:18:33:559 DEBUG @E.MW state (7, 24)
+2025-07-01 17:18:33:566 MCU   @firmware operation mode (Node 6): 1
+2025-07-01 17:18:33:670 MCU   @firmware operation mode (Node 7): 1
+2025-07-01 17:18:33:754 MCU   @firmware operation mode (Node 8): 1
+2025-07-01 17:18:33:876 MCU   @firmware operation mode (Node 9): 1
+2025-07-01 17:18:33:980 MCU   @firmware operation mode (Node 10): 1
+2025-07-01 17:18:34:183 MCU   @firmware operation mode (Node 12): 1
+2025-07-01 17:18:34:287 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-01 17:18:34:287 MCU   @[X] error range replaced with local set: 11741
+2025-07-01 17:18:34:389 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-01 17:18:34:390 MCU   @[Y] error range replaced with local set: 11741
+2025-07-01 17:18:34:473 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-01 17:18:34:474 MCU   @[V] error range replaced with local set: 6154
+2025-07-01 17:18:34:576 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-01 17:18:34:577 MCU   @[H] error range replaced with local set: 6154
+2025-07-01 17:18:34:618 Info  @needle guide closed
+2025-07-01 17:18:34:699 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-01 17:18:34:701 MCU   @[N] error range replaced with local set: 19376
+2025-07-01 17:18:34:784 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-01 17:18:34:785 MCU   @[R] error range replaced with local set: 4097
+2025-07-01 17:18:34:883 Frame @[ERR] failed to connect frame grabber
+2025-07-01 17:18:34:908 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-01 17:18:34:909 MCU   @[P] error range replaced with local set: 4097
+2025-07-01 17:18:34:991 MCU   @firmware operation mode (Node 11): 1
+2025-07-01 17:18:35:073 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-01 17:18:35:073 MCU   @[Z] error range replaced with local set: 17615
+
+2025-07-01 17:18:43:233 User  @factory menu selected (Motion Control)
+2025-07-01 17:18:43:238 DEBUG @S.SC state (5, 20)
+2025-07-01 17:18:43:238 DEBUG @E.SC state (5, 20)
+2025-07-01 17:18:43:239 DEBUG @S.VE state (5, 20)
+2025-07-01 17:18:43:239 DEBUG @E.VE state (5, 20)
+2025-07-01 17:18:43:239 DEBUG @S.MW state (5, 20)
+2025-07-01 17:18:43:273 DEBUG @E.MW state (5, 20)
+
+2025-07-01 17:18:45:874 User  @on_emcAxisH_clicked
+2025-07-01 17:18:45:877 Info  @Motor H selected (motion control)
+
+2025-07-01 17:18:47:497 User  @on_emcShowDebugDialog_clicked
+2025-07-01 17:20:28:132 MCU   @stop periodic event 'LOGFLAGS' (node 11)
+2025-07-01 17:21:30:371 MCU   @stop periodic event 'LOGFLAGS' (node 6)
+
+2025-07-01 17:22:20:587 User  @on_emcStartInitRobot_clicked
+2025-07-01 17:22:21:843 Info  @start emc robot initialization
+2025-07-01 17:22:21:844 Info  @Start Robot Initialization (motion control)
+2025-07-01 17:22:21:845 Info  @... init robot (1) (motion control)
+2025-07-01 17:22:21:845 Info  @switch LED light to Red
+2025-07-01 17:22:21:845 DEBUG @S.SC state (5, 21)
+2025-07-01 17:22:21:846 DEBUG @E.SC state (5, 21)
+2025-07-01 17:22:21:846 DEBUG @S.VE state (5, 21)
+2025-07-01 17:22:21:846 DEBUG @E.VE state (5, 21)
+2025-07-01 17:22:21:847 DEBUG @S.MW state (5, 21)
+2025-07-01 17:22:21:874 MCU   @set motor P sensors to 'stop'
+2025-07-01 17:22:21:874 MCU   @set motor R sensors to 'stop'
+2025-07-01 17:22:21:886 DEBUG @E.MW state (5, 21)
+2025-07-01 17:22:21:898 MCU   @[X] start searching reference
+2025-07-01 17:22:22:244 MCU   @[Y] start searching reference
+2025-07-01 17:22:22:589 MCU   @[Z] start searching reference
+2025-07-01 17:22:25:087 MCU   @[X] stopped by sensor L
+2025-07-01 17:22:25:088 MCU   @[X] reset physical position to 0
+2025-07-01 17:22:25:290 MCU   @[X] reference found (SENSOR)
+2025-07-01 17:22:25:291 MCU   @[X] max: 0.00
+2025-07-01 17:22:25:292 MCU   @[Y] stopped by sensor L
+2025-07-01 17:22:25:293 MCU   @[Y] reset physical position to 0
+2025-07-01 17:22:25:316 MCU   @[Y] reference found (SENSOR)
+2025-07-01 17:22:25:316 MCU   @[Y] max: 0.00
+2025-07-01 17:22:25:317 MCU   @[P] start searching reference
+2025-07-01 17:22:25:662 MCU   @[N] start searching reference
+2025-07-01 17:22:26:481 MCU   @[P] stopped by sensor L
+2025-07-01 17:22:26:704 MCU   @[P] reset physical position to 0
+2025-07-01 17:22:26:906 MCU   @[P] reference found (SENSOR)
+2025-07-01 17:22:26:907 MCU   @[P] max: 0.00
+2025-07-01 17:22:26:908 MCU   @[Y] start clearing: -19.50
+2025-07-01 17:22:33:830 MCU   @[Y] motor cleared
+2025-07-01 17:22:33:831 MCU   @[Y] min: -29.51
+2025-07-01 17:22:33:831 MCU   @[P] start clearing: -165.00
+2025-07-01 17:22:33:853 MCU   @[Y] start moving to max pos: -3.00
+2025-07-01 17:22:33:876 MCU   @[X] start clearing: -22.50
+2025-07-01 17:22:33:898 MCU   @[H] start searching reference
+2025-07-01 17:22:34:522 MCU   @[H] already at sensor position. Set to 0
+2025-07-01 17:22:34:544 MCU   @[H] reference found (SENSOR)
+2025-07-01 17:22:34:545 MCU   @[H] max: 0.00
+2025-07-01 17:22:34:566 MCU   @[H] start clearing: -49.00
+2025-07-01 17:22:41:132 MCU   @[Z] stopped by sensor L
+2025-07-01 17:22:41:133 MCU   @[Z] reset physical position to 0
+2025-07-01 17:22:41:335 MCU   @[Z] reference found (SENSOR)
+2025-07-01 17:22:41:336 MCU   @[Z] max: 0.00
+2025-07-01 17:22:41:358 MCU   @[Z] start clearing: -50.00
+2025-07-01 17:22:41:605 MCU   @[N] stopped by sensor L
+2025-07-01 17:22:41:626 MCU   @[N] reset physical position to 0
+2025-07-01 17:22:41:647 MCU   @[N] reference found (SENSOR)
+2025-07-01 17:22:41:648 MCU   @[N] min: 0.00
+2025-07-01 17:22:41:671 MCU   @[N] start clearing: 69.50
+2025-07-01 17:22:41:962 MCU   @[X] motor cleared
+2025-07-01 17:22:41:962 MCU   @[X] min: -32.50
+2025-07-01 17:22:41:983 MCU   @[X] start moving to max pos: -3.00
+2025-07-01 17:22:43:416 MCU   @[Y] motor reached max pos
+2025-07-01 17:22:44:820 MCU   @[P] motor cleared
+2025-07-01 17:22:44:821 MCU   @[P] min: -165.03
+2025-07-01 17:22:45:022 MCU   @[P] start moving to home: -1.00
+2025-07-01 17:22:53:058 MCU   @[X] motor reached max pos
+2025-07-01 17:22:56:065 MCU   @[P] motor homed
+2025-07-01 17:22:56:066 MCU   @[R] start searching reference
+2025-07-01 17:23:01:366 MCU   @hardware STOP button pushed
+2025-07-01 17:23:04:573 MCU   @[ERR] [H] cannot reach the target (30 seconds timeout). initialization failed.
+2025-07-01 17:23:04:576 DEBUG @S.SC state (5, 20)
+2025-07-01 17:23:04:577 DEBUG @E.SC state (5, 20)
+2025-07-01 17:23:04:577 DEBUG @S.VE state (5, 20)
+2025-07-01 17:23:04:578 DEBUG @E.VE state (5, 20)
+2025-07-01 17:23:04:578 DEBUG @S.MW state (5, 20)
+2025-07-01 17:23:04:620 DEBUG @E.MW state (5, 20)
+2025-07-01 17:23:04:621 Info  @Done (motion control)
+2025-07-01 17:23:06:620 MCU   @[WRN] Node 12 (BRAKEMOTOR) response timeout (2031). Try again.
+2025-07-01 17:23:06:642 MCU   @[WRN] Node 7 (BRAKEMOTOR) response timeout (2016). Try again.
+2025-07-01 17:23:06:662 MCU   @[WRN] Node 8 (BRAKEMOTOR) response timeout (2016). Try again.
+2025-07-01 17:23:08:637 MCU   @[ERR] Node 12 (BRAKEMOTOR) response timeout (2016). Check connection.
+2025-07-01 17:23:08:659 MCU   @[ERR] Node 7 (BRAKEMOTOR) response timeout (2016). Check connection.
+2025-07-01 17:23:08:680 MCU   @[ERR] Node 8 (BRAKEMOTOR) response timeout (2031). Check connection.
+2025-07-01 17:23:09:764 Info  @switch LED light off
+2025-07-01 17:23:10:036 Frame @frame grabber stopped
+2025-07-01 17:23:10:044 MCU   @robot moving stopped
+2025-07-01 17:23:11:152 MCU   @mcu controller stopped
+2025-07-01 17:23:11:372 Info  @UroBiopsy exited by restart
+
+
+
+2025-07-01 17:23:12:012 Info  @UtlLogger instance created
+2025-07-01 17:23:12:012 Info  @starting UroBiopsy (SVN 858)
+2025-07-01 17:23:12:402 Info  @MainWindow instance created
+2025-07-01 17:23:13:296 Info  @UroBiopsy launched
+2025-07-01 17:23:13:296 Info  @SurgeryController instance created
+2025-07-01 17:23:13:299 Info  @Robot Unit: TX-05-00
+2025-07-01 17:23:13:352 Info  @VisualEngine instance created
+2025-07-01 17:23:15:520 MCU   @firmware version (Master): 1.0.0_004
+2025-07-01 17:23:15:521 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-01 17:23:16:531 DEBUG @S.SC state (7, 24)
+2025-07-01 17:23:16:531 DEBUG @E.SC state (7, 24)
+2025-07-01 17:23:16:532 DEBUG @S.VE state (7, 24)
+2025-07-01 17:23:16:532 DEBUG @E.VE state (7, 24)
+2025-07-01 17:23:16:532 DEBUG @S.MW state (7, 24)
+2025-07-01 17:23:16:866 DEBUG @E.MW state (7, 24)
+2025-07-01 17:23:17:543 MCU   @[WRN] Node 3 (GETVER) response timeout (2015). Try again.
+2025-07-01 17:23:17:565 MCU   @[WRN] Node 4 (GETVER) response timeout (2016). Try again.
+2025-07-01 17:23:17:586 MCU   @[WRN] Node 5 (GETVER) response timeout (2031). Try again.
+2025-07-01 17:23:17:607 MCU   @[WRN] Node 6 (GETVER) response timeout (2016). Try again.
+2025-07-01 17:23:17:629 MCU   @[WRN] Node 7 (GETVER) response timeout (2015). Try again.
+2025-07-01 17:23:17:650 MCU   @[WRN] Node 8 (GETVER) response timeout (2032). Try again.
+2025-07-01 17:23:17:651 MCU   @[WRN] Node 9 (GETVER) response timeout (2016). Try again.
+2025-07-01 17:23:17:693 MCU   @[WRN] Node 10 (GETVER) response timeout (2016). Try again.
+2025-07-01 17:23:17:714 MCU   @[WRN] Node 11 (GETVER) response timeout (2031). Try again.
+2025-07-01 17:23:17:715 MCU   @[WRN] Node 12 (GETVER) response timeout (2015). Try again.
+2025-07-01 17:23:18:300 Frame @[ERR] failed to connect frame grabber
+2025-07-01 17:23:19:554 MCU   @[ERR] Node 3 (GETVER) response timeout (2016). Check connection.
+2025-07-01 17:23:19:574 MCU   @[ERR] Node 4 (GETVER) response timeout (2016). Check connection.
+2025-07-01 17:23:19:616 MCU   @[ERR] Node 5 (GETVER) response timeout (2031). Check connection.
+2025-07-01 17:23:19:617 MCU   @[ERR] Node 6 (GETVER) response timeout (2015). Check connection.
+2025-07-01 17:23:19:638 MCU   @[ERR] Node 7 (GETVER) response timeout (2016). Check connection.
+2025-07-01 17:23:19:680 MCU   @[ERR] Node 8 (GETVER) response timeout (2031). Check connection.
+2025-07-01 17:23:19:680 MCU   @[ERR] Node 9 (GETVER) response timeout (2031). Check connection.
+2025-07-01 17:23:19:701 MCU   @[ERR] Node 10 (GETVER) response timeout (2016). Check connection.
+2025-07-01 17:23:19:742 MCU   @[ERR] Node 11 (GETVER) response timeout (2031). Check connection.
+2025-07-01 17:23:19:743 MCU   @[ERR] Node 12 (GETVER) response timeout (2031). Check connection.
+2025-07-01 17:23:21:761 MCU   @[WRN] Node 11 (LOG_NGSW) response timeout (2016). Try again.
+2025-07-01 17:23:23:779 MCU   @[ERR] Node 11 (LOG_NGSW) response timeout (2016). Check connection.
+
+2025-07-01 17:24:26:572 User  @system menu selected (System Status Check)
+2025-07-01 17:24:31:476 MCU   @[WRN] Node 3 (NODEIDref) response timeout (2031). Try again.
+2025-07-01 17:24:31:498 MCU   @[WRN] Node 4 (NODEIDref) response timeout (2015). Try again.
+2025-07-01 17:24:31:519 MCU   @[WRN] Node 5 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:24:31:540 MCU   @[WRN] Node 6 (NODEIDref) response timeout (2015). Try again.
+2025-07-01 17:24:31:562 MCU   @[WRN] Node 7 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:24:31:584 MCU   @[WRN] Node 8 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:24:31:605 MCU   @[WRN] Node 9 (NODEIDref) response timeout (2031). Try again.
+2025-07-01 17:24:31:627 MCU   @[WRN] Node 10 (NODEIDref) response timeout (2015). Try again.
+2025-07-01 17:24:31:649 MCU   @[WRN] Node 11 (NODEIDref) response timeout (2032). Try again.
+2025-07-01 17:24:31:650 MCU   @[WRN] Node 12 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:24:33:501 MCU   @[ERR] Node 3 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:24:33:521 MCU   @[ERR] Node 4 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:24:33:542 MCU   @[ERR] Node 5 (NODEIDref) response timeout (2031). Check connection.
+2025-07-01 17:24:33:564 MCU   @[ERR] Node 6 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:24:33:585 MCU   @[ERR] Node 7 (NODEIDref) response timeout (2031). Check connection.
+2025-07-01 17:24:33:585 MCU   @[ERR] Node 8 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:24:33:627 MCU   @[ERR] Node 9 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:24:33:649 MCU   @[ERR] Node 10 (NODEIDref) response timeout (2032). Check connection.
+2025-07-01 17:24:33:670 MCU   @[ERR] Node 11 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:24:33:671 MCU   @[ERR] Node 12 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:27:09:881 MCU   @[WRN] Node 3 (NODEIDref) response timeout (2015). Try again.
+2025-07-01 17:27:09:882 MCU   @[WRN] Node 4 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:27:09:924 MCU   @[WRN] Node 5 (NODEIDref) response timeout (2015). Try again.
+2025-07-01 17:27:09:945 MCU   @[WRN] Node 6 (NODEIDref) response timeout (2032). Try again.
+2025-07-01 17:27:09:946 MCU   @[WRN] Node 7 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:27:09:989 MCU   @[WRN] Node 8 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:27:10:010 MCU   @[WRN] Node 9 (NODEIDref) response timeout (2031). Try again.
+2025-07-01 17:27:10:011 MCU   @[WRN] Node 10 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:27:10:053 MCU   @[WRN] Node 11 (NODEIDref) response timeout (2015). Try again.
+2025-07-01 17:27:10:074 MCU   @[WRN] Node 12 (NODEIDref) response timeout (2032). Try again.
+2025-07-01 17:27:11:887 MCU   @[ERR] Node 3 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:11:909 MCU   @[ERR] Node 4 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:11:930 MCU   @[ERR] Node 5 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:11:972 MCU   @[ERR] Node 6 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:27:11:972 MCU   @[ERR] Node 7 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:27:11:993 MCU   @[ERR] Node 8 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:27:12:035 MCU   @[ERR] Node 9 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:12:036 MCU   @[ERR] Node 10 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:12:058 MCU   @[ERR] Node 11 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:12:099 MCU   @[ERR] Node 12 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:27:17:723 MCU   @[WRN] Node 3 (NODEIDref) response timeout (2015). Try again.
+2025-07-01 17:27:17:745 MCU   @[WRN] Node 4 (NODEIDref) response timeout (2015). Try again.
+2025-07-01 17:27:17:766 MCU   @[WRN] Node 5 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:27:17:788 MCU   @[WRN] Node 6 (NODEIDref) response timeout (2031). Try again.
+2025-07-01 17:27:17:811 MCU   @[WRN] Node 7 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:27:17:832 MCU   @[WRN] Node 8 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:27:17:852 MCU   @[WRN] Node 9 (NODEIDref) response timeout (2031). Try again.
+2025-07-01 17:27:17:875 MCU   @[WRN] Node 10 (NODEIDref) response timeout (2015). Try again.
+2025-07-01 17:27:17:896 MCU   @[WRN] Node 11 (NODEIDref) response timeout (2016). Try again.
+2025-07-01 17:27:17:918 MCU   @[WRN] Node 12 (NODEIDref) response timeout (2031). Try again.
+2025-07-01 17:27:19:734 MCU   @[ERR] Node 3 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:19:775 MCU   @[ERR] Node 4 (NODEIDref) response timeout (2032). Check connection.
+2025-07-01 17:27:19:776 MCU   @[ERR] Node 5 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:19:817 MCU   @[ERR] Node 6 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:19:838 MCU   @[ERR] Node 7 (NODEIDref) response timeout (2031). Check connection.
+2025-07-01 17:27:19:840 MCU   @[ERR] Node 8 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:27:19:881 MCU   @[ERR] Node 9 (NODEIDref) response timeout (2015). Check connection.
+2025-07-01 17:27:19:882 MCU   @[ERR] Node 10 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:19:903 MCU   @[ERR] Node 11 (NODEIDref) response timeout (2016). Check connection.
+2025-07-01 17:27:19:946 MCU   @[ERR] Node 12 (NODEIDref) response timeout (2032). Check connection.
+2025-07-01 17:28:08:622 Info  @needle guide closed
+2025-07-01 17:28:09:019 MCU   @stop periodic event 'LOGFLAGS' (node 3)
+2025-07-01 17:28:09:346 MCU   @stop periodic event 'LOGFLAGS' (node 4)
+2025-07-01 17:28:09:347 MCU   @stop periodic event 'LOGFLAGS' (node 5)
+2025-07-01 17:28:09:531 MCU   @stop periodic event 'LOGFLAGS' (node 6)
+2025-07-01 17:28:09:714 MCU   @stop periodic event 'LOGFLAGS' (node 7)
+2025-07-01 17:28:09:857 MCU   @stop periodic event 'LOGFLAGS' (node 8)
+2025-07-01 17:28:10:042 MCU   @stop periodic event 'LOGFLAGS' (node 9)
+2025-07-01 17:28:10:226 MCU   @stop periodic event 'LOGFLAGS' (node 10)
+2025-07-01 17:28:10:429 MCU   @[AMD] AMX partially corrupted [ 25 A5 0B 01 31 04 D8 3A 01 01 ]
+2025-07-01 17:28:10:532 MCU   @[AMD] [N11] partial AMX amended [ 25 A5 0B 01 31 04 D8 3A 01 01 4D 31 ]
+2025-07-01 17:28:10:532 MCU   @stop periodic event 'LOGFLAGS' (node 11)
+2025-07-01 17:28:10:532 MCU   @stop periodic event 'LOGFLAGS' (node 12)
+2025-07-01 17:28:11:062 MCU   @[WRN] Node 3 (LOGFLAGS) response timeout (2016). Try again.
+2025-07-01 17:28:11:389 MCU   @[WRN] Node 4 (LOGFLAGS) response timeout (2016). Try again.
+2025-07-01 17:28:11:410 MCU   @[WRN] Node 5 (LOGFLAGS) response timeout (2016). Try again.
+2025-07-01 17:28:11:555 MCU   @[WRN] Node 6 (LOGFLAGS) response timeout (2016). Try again.
+2025-07-01 17:28:11:761 MCU   @[WRN] Node 7 (LOGFLAGS) response timeout (2031). Try again.
+2025-07-01 17:28:11:884 MCU   @[WRN] Node 8 (LOGFLAGS) response timeout (2016). Try again.
+2025-07-01 17:28:12:089 MCU   @[WRN] Node 9 (LOGFLAGS) response timeout (2031). Try again.
+2025-07-01 17:28:12:559 MCU   @[WRN] Node 11 (LOGFLAGS) response timeout (2016). Try again.
+2025-07-01 17:28:12:601 MCU   @[WRN] Node 12 (LOGFLAGS) response timeout (2031). Try again.
+2025-07-01 17:28:13:072 MCU   @[ERR] Node 3 (LOGFLAGS) response timeout (2016). Check connection.
+2025-07-01 17:28:13:421 MCU   @[ERR] Node 5 (LOGFLAGS) response timeout (2015). Check connection.
+2025-07-01 17:28:13:585 MCU   @[ERR] Node 6 (LOGFLAGS) response timeout (2031). Check connection.
+2025-07-01 17:28:13:790 MCU   @[ERR] Node 7 (LOGFLAGS) response timeout (2031). Check connection.
+2025-07-01 17:28:13:914 MCU   @[ERR] Node 8 (LOGFLAGS) response timeout (2031). Check connection.
+2025-07-01 17:28:14:119 MCU   @[ERR] Node 9 (LOGFLAGS) response timeout (2031). Check connection.
+2025-07-01 17:28:14:630 MCU   @[ERR] Node 12 (LOGFLAGS) response timeout (2015). Check connection.
+
+2025-07-01 17:28:35:683 User  @factory menu selected (Motion Control)
+2025-07-01 17:28:35:687 DEBUG @S.SC state (5, 20)
+2025-07-01 17:28:35:688 DEBUG @E.SC state (5, 20)
+2025-07-01 17:28:35:689 DEBUG @S.VE state (5, 20)
+2025-07-01 17:28:35:691 DEBUG @E.VE state (5, 20)
+2025-07-01 17:28:35:692 DEBUG @S.MW state (5, 20)
+2025-07-01 17:28:35:722 DEBUG @E.MW state (5, 20)
+
+2025-07-01 17:28:37:960 User  @on_emcShowDebugDialog_clicked
+
+2025-07-01 17:28:52:962 User  @on_emcBack_clicked
+2025-07-01 17:28:52:963 DEBUG @S.SC state (7, 24)
+2025-07-01 17:28:52:964 DEBUG @E.SC state (7, 24)
+2025-07-01 17:28:52:965 DEBUG @S.VE state (7, 24)
+2025-07-01 17:28:52:965 DEBUG @E.VE state (7, 24)
+2025-07-01 17:28:52:966 DEBUG @S.MW state (7, 24)
+2025-07-01 17:28:52:975 DEBUG @E.MW state (7, 24)
+
+2025-07-01 17:28:54:891 User  @system menu selected (Exit)
+2025-07-01 17:28:56:039 Info  @open needle guide command sent
+2025-07-01 17:28:57:489 Frame @frame grabber stopped
+2025-07-01 17:28:57:679 MCU   @robot moving stopped
+2025-07-01 17:28:58:789 MCU   @mcu controller stopped
+2025-07-01 17:28:59:006 Info  @UroBiopsy exited 
+
+
+
+2025-07-01 17:43:48:502 Info  @UtlLogger instance created
+2025-07-01 17:43:48:502 Info  @starting UroBiopsy (SVN 858)
+2025-07-01 17:43:48:965 Info  @MainWindow instance created
+
+2025-07-01 17:44:06:683 User  @user 'Service' login
+2025-07-01 17:44:06:735 Info  @UroBiopsy launched
+2025-07-01 17:44:06:735 Info  @SurgeryController instance created
+2025-07-01 17:44:06:769 Info  @Robot Unit: TX-05-00
+2025-07-01 17:44:06:871 Info  @VisualEngine instance created
+2025-07-01 17:44:08:990 MCU   @firmware version (Master): 1.0.0_004
+2025-07-01 17:44:08:991 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-07-01 17:44:09:158 MCU   @firmware version (Node 3): 1.0.0.14
+2025-07-01 17:44:09:262 MCU   @firmware version (Node 4): 1.0.0.14
+2025-07-01 17:44:09:365 MCU   @firmware version (Node 5): 1.0.0.14
+2025-07-01 17:44:09:448 MCU   @firmware version (Node 6): 1.0.0.14
+2025-07-01 17:44:09:571 MCU   @firmware version (Node 7): 1.0.0.14
+2025-07-01 17:44:09:654 MCU   @firmware version (Node 8): 1.0.0.14
+2025-07-01 17:44:09:757 MCU   @firmware version (Node 9): 1.0.0.14
+2025-07-01 17:44:09:859 MCU   @firmware version (Node 10): 1.0.0.14
+2025-07-01 17:44:09:942 MCU   @firmware version (Node 11): 1.0.0.16
+2025-07-01 17:44:09:981 DEBUG @S.SC state (7, 24)
+2025-07-01 17:44:09:981 DEBUG @E.SC state (7, 24)
+2025-07-01 17:44:09:982 DEBUG @S.VE state (7, 24)
+2025-07-01 17:44:09:983 DEBUG @E.VE state (7, 24)
+2025-07-01 17:44:09:983 DEBUG @S.MW state (7, 24)
+2025-07-01 17:44:10:066 MCU   @firmware version (Node 12): 1.0.0.14
+2025-07-01 17:44:10:171 MCU   @firmware operation mode (Node 3): 1
+2025-07-01 17:44:10:253 MCU   @firmware operation mode (Node 4): 1
+2025-07-01 17:44:10:253 MCU   @firmware support speed control
+2025-07-01 17:44:10:300 DEBUG @E.MW state (7, 24)
+2025-07-01 17:44:10:356 MCU   @firmware operation mode (Node 5): 1
+2025-07-01 17:44:10:459 MCU   @firmware operation mode (Node 6): 1
+2025-07-01 17:44:10:563 MCU   @firmware operation mode (Node 7): 1
+2025-07-01 17:44:10:666 MCU   @firmware operation mode (Node 8): 1
+2025-07-01 17:44:10:749 MCU   @firmware operation mode (Node 9): 1
+2025-07-01 17:44:10:852 MCU   @firmware operation mode (Node 10): 1
+2025-07-01 17:44:11:078 MCU   @firmware operation mode (Node 12): 1
+2025-07-01 17:44:11:201 MCU   @firmware acceptable error range (Node 3): 512
+2025-07-01 17:44:11:202 MCU   @[X] error range replaced with local set: 11741
+2025-07-01 17:44:11:285 MCU   @firmware acceptable error range (Node 4): 512
+2025-07-01 17:44:11:286 MCU   @[Y] error range replaced with local set: 11741
+2025-07-01 17:44:11:368 MCU   @firmware acceptable error range (Node 5): 512
+2025-07-01 17:44:11:369 MCU   @[V] error range replaced with local set: 6154
+2025-07-01 17:44:11:473 MCU   @firmware acceptable error range (Node 6): 512
+2025-07-01 17:44:11:474 MCU   @[H] error range replaced with local set: 6154
+2025-07-01 17:44:11:576 MCU   @firmware acceptable error range (Node 7): 512
+2025-07-01 17:44:11:576 MCU   @[N] error range replaced with local set: 19376
+2025-07-01 17:44:11:700 MCU   @firmware acceptable error range (Node 8): 512
+2025-07-01 17:44:11:701 MCU   @[R] error range replaced with local set: 4097
+2025-07-01 17:44:11:763 MCU   @firmware acceptable error range (Node 9): 512
+2025-07-01 17:44:11:764 MCU   @[P] error range replaced with local set: 4097
+2025-07-01 17:44:11:770 Frame @[ERR] failed to connect frame grabber
+2025-07-01 17:44:11:787 Info  @needle guide closed
+2025-07-01 17:44:11:887 MCU   @firmware operation mode (Node 11): 1
+
+2025-07-01 17:44:11:935 User  @on_startInitRobot_clicked
+2025-07-01 17:44:11:970 MCU   @firmware acceptable error range (Node 12): 512
+2025-07-01 17:44:11:971 MCU   @[Z] error range replaced with local set: 17615
+2025-07-01 17:44:13:398 Info  @switch LED light to Red
+2025-07-01 17:44:13:399 DEBUG @S.SC state (7, 25)
+2025-07-01 17:44:13:399 DEBUG @E.SC state (7, 25)
+2025-07-01 17:44:13:399 DEBUG @S.VE state (7, 25)
+2025-07-01 17:44:13:400 DEBUG @E.VE state (7, 25)
+2025-07-01 17:44:13:400 DEBUG @S.MW state (7, 25)
+2025-07-01 17:44:13:435 DEBUG @E.MW state (7, 25)
+2025-07-01 17:44:13:595 MCU   @set motor P sensors to 'stop'
+2025-07-01 17:44:13:596 MCU   @set motor R sensors to 'stop'
+2025-07-01 17:44:13:618 MCU   @[X] start searching reference
+2025-07-01 17:44:13:962 MCU   @[Y] start searching reference
+2025-07-01 17:44:14:308 MCU   @[Z] start searching reference
+2025-07-01 17:44:16:785 MCU   @[X] stopped by sensor L
+2025-07-01 17:44:16:786 MCU   @[X] reset physical position to 0
+2025-07-01 17:44:16:989 MCU   @[X] reference found (SENSOR)
+2025-07-01 17:44:16:989 MCU   @[X] max: 0.00
+2025-07-01 17:44:16:990 MCU   @[Y] stopped by sensor L
+2025-07-01 17:44:16:991 MCU   @[Y] reset physical position to 0
+2025-07-01 17:44:17:014 MCU   @[Y] reference found (SENSOR)
+2025-07-01 17:44:17:014 MCU   @[Y] max: 0.00
+2025-07-01 17:44:17:014 MCU   @[P] start searching reference
+2025-07-01 17:44:17:359 MCU   @[N] start searching reference
+2025-07-01 17:44:18:177 MCU   @[P] stopped by sensor L
+2025-07-01 17:44:18:219 MCU   @[P] reset physical position to 0
+2025-07-01 17:44:18:420 MCU   @[P] reference found (SENSOR)
+2025-07-01 17:44:18:421 MCU   @[P] max: 0.00
+2025-07-01 17:44:18:422 MCU   @[Y] start clearing: -19.50
+2025-07-01 17:44:25:169 MCU   @[Y] motor cleared
+2025-07-01 17:44:25:170 MCU   @[Y] min: -29.51
+2025-07-01 17:44:25:171 MCU   @[P] start clearing: -165.00
+2025-07-01 17:44:25:194 MCU   @[Y] start moving to max pos: -3.00
+2025-07-01 17:44:25:217 MCU   @[X] start clearing: -22.50
+2025-07-01 17:44:25:238 MCU   @[H] start searching reference
+2025-07-01 17:44:33:651 MCU   @[X] motor cleared
+2025-07-01 17:44:33:652 MCU   @[X] min: -32.51
+2025-07-01 17:44:33:853 MCU   @[X] start moving to max pos: -3.00
+2025-07-01 17:44:34:459 MCU   @[N] stopped by sensor L
+2025-07-01 17:44:34:460 MCU   @[N] reset physical position to 0
+2025-07-01 17:44:34:461 MCU   @[Z] stopped by sensor L
+2025-07-01 17:44:34:461 MCU   @[Z] reset physical position to 0
+2025-07-01 17:44:34:664 MCU   @[Z] reference found (SENSOR)
+2025-07-01 17:44:34:665 MCU   @[Z] max: 0.00
+2025-07-01 17:44:34:665 MCU   @[N] reference found (SENSOR)
+2025-07-01 17:44:34:666 MCU   @[N] min: 0.00
+2025-07-01 17:44:34:689 MCU   @[Y] motor reached max pos
+2025-07-01 17:44:34:690 MCU   @[Z] start clearing: -50.00
+2025-07-01 17:44:34:711 MCU   @[N] start clearing: 69.50
+2025-07-01 17:44:36:029 MCU   @[P] motor cleared
+2025-07-01 17:44:36:030 MCU   @[P] min: -165.03
+2025-07-01 17:44:36:232 MCU   @[P] start moving to home: -1.00
+2025-07-01 17:44:44:858 MCU   @[X] motor reached max pos
+2025-07-01 17:44:47:266 MCU   @[P] motor homed
+2025-07-01 17:44:47:267 MCU   @[R] start searching reference
+2025-07-01 17:44:51:569 MCU   @[R] stopped by sensor R
+2025-07-01 17:44:51:570 MCU   @[R] reset physical position to 0
+2025-07-01 17:44:51:772 MCU   @[R] reference found (SENSOR)
+2025-07-01 17:44:51:773 MCU   @[R] max: 0.00
+2025-07-01 17:44:51:797 MCU   @[R] start clearing: -119.00
+2025-07-01 17:44:55:975 MCU   @[ERR] [H] cannot reach the target (30 seconds timeout). initialization failed.
+2025-07-01 17:44:55:982 Info  @open needle guide command sent
+2025-07-01 17:44:55:982 DEBUG @S.SC state (7, 28)
+2025-07-01 17:44:55:983 DEBUG @E.SC state (7, 28)
+2025-07-01 17:44:55:983 DEBUG @S.VE state (7, 28)
+2025-07-01 17:44:55:983 DEBUG @E.VE state (7, 28)
+2025-07-01 17:44:55:984 DEBUG @S.MW state (7, 28)
+2025-07-01 17:45:18:188 DEBUG @E.MW state (7, 28)
+
+2025-07-01 17:45:23:492 User  @on_startInitRobot_clicked
+2025-07-01 17:45:25:175 DEBUG @S.SC state (7, 25)
+2025-07-01 17:45:25:175 DEBUG @E.SC state (7, 25)
+2025-07-01 17:45:25:176 DEBUG @S.VE state (7, 25)
+2025-07-01 17:45:25:176 DEBUG @E.VE state (7, 25)
+2025-07-01 17:45:25:176 DEBUG @S.MW state (7, 25)
+2025-07-01 17:45:25:213 DEBUG @E.MW state (7, 25)
+2025-07-01 17:45:25:375 MCU   @set motor P sensors to 'stop'
+2025-07-01 17:45:25:376 MCU   @set motor R sensors to 'stop'
+2025-07-01 17:45:25:399 MCU   @[X] start searching reference
+2025-07-01 17:45:25:745 MCU   @[Y] start searching reference
+2025-07-01 17:45:26:089 MCU   @[Z] start searching reference
+2025-07-01 17:45:28:462 MCU   @[X] stopped by sensor L
+2025-07-01 17:45:28:463 MCU   @[X] reset physical position to 0
+2025-07-01 17:45:28:665 MCU   @[X] reference found (SENSOR)
+2025-07-01 17:45:28:666 MCU   @[X] max: 0.00
+2025-07-01 17:45:28:667 MCU   @[Y] stopped by sensor L
+2025-07-01 17:45:28:691 MCU   @[Y] reset physical position to 0
+2025-07-01 17:45:28:712 MCU   @[Y] reference found (SENSOR)
+2025-07-01 17:45:28:712 MCU   @[Y] max: 0.00
+2025-07-01 17:45:28:713 MCU   @[P] start searching reference
+2025-07-01 17:45:29:057 MCU   @[N] start searching reference
+2025-07-01 17:45:29:880 MCU   @[P] stopped by sensor L
+2025-07-01 17:45:29:901 MCU   @[P] reset physical position to 0
+2025-07-01 17:45:30:102 MCU   @[P] reference found (SENSOR)
+2025-07-01 17:45:30:103 MCU   @[P] max: 0.00
+2025-07-01 17:45:30:104 MCU   @[Y] start clearing: -19.50
+2025-07-01 17:45:37:053 MCU   @[Y] motor cleared
+2025-07-01 17:45:37:054 MCU   @[Y] min: -29.51
+2025-07-01 17:45:37:054 MCU   @[P] start clearing: -165.00
+2025-07-01 17:45:37:077 MCU   @[Y] start moving to max pos: -3.00
+2025-07-01 17:45:37:100 MCU   @[X] start clearing: -22.50
+2025-07-01 17:45:37:121 MCU   @[H] start searching reference
+2025-07-01 17:45:45:553 MCU   @[X] motor cleared
+2025-07-01 17:45:45:554 MCU   @[X] min: -32.51
+2025-07-01 17:45:45:756 MCU   @[X] start moving to max pos: -3.00
+2025-07-01 17:45:46:966 MCU   @[Y] motor reached max pos
+2025-07-01 17:45:47:971 MCU   @[P] motor cleared
+2025-07-01 17:45:47:972 MCU   @[P] min: -165.03
+2025-07-01 17:45:48:173 MCU   @[P] start moving to home: -1.00
+2025-07-01 17:45:48:196 MCU   @[Z] stopped by sensor L
+2025-07-01 17:45:48:237 MCU   @[Z] reset physical position to 0
+2025-07-01 17:45:48:259 MCU   @[Z] reference found (SENSOR)
+2025-07-01 17:45:48:259 MCU   @[Z] max: 0.00
+2025-07-01 17:45:48:282 MCU   @[Z] start clearing: -50.00
+2025-07-01 17:45:51:301 MCU   @[N] stopped by sensor L
+2025-07-01 17:45:51:503 MCU   @[N] reset physical position to 0
+2025-07-01 17:45:51:705 MCU   @[N] reference found (SENSOR)
+2025-07-01 17:45:51:706 MCU   @[N] min: 0.00
+2025-07-01 17:45:51:729 MCU   @[N] start clearing: 69.50
+2025-07-01 17:45:57:112 MCU   @[X] motor reached max pos
+2025-07-01 17:45:59:318 MCU   @[P] motor homed
+2025-07-01 17:45:59:319 MCU   @[R] start searching reference
+2025-07-01 17:46:04:626 MCU   @[R] stopped by sensor R
+2025-07-01 17:46:04:627 MCU   @[R] reset physical position to 0
+2025-07-01 17:46:04:829 MCU   @[R] reference found (SENSOR)
+2025-07-01 17:46:04:830 MCU   @[R] max: 0.00
+2025-07-01 17:46:04:853 MCU   @[R] start clearing: -119.00
+2025-07-01 17:46:07:851 MCU   @[ERR] [H] cannot reach the target (30 seconds timeout). initialization failed.
+2025-07-01 17:46:07:856 Info  @open needle guide command sent
+2025-07-01 17:46:07:857 DEBUG @S.SC state (7, 28)
+2025-07-01 17:46:07:857 DEBUG @E.SC state (7, 28)
+2025-07-01 17:46:07:858 DEBUG @S.VE state (7, 28)
+2025-07-01 17:46:07:858 DEBUG @E.VE state (7, 28)
+2025-07-01 17:46:07:858 DEBUG @S.MW state (7, 28)
+2025-07-01 17:50:48:320 Info  @screen auto locked (Service)
+
+2025-07-01 17:51:17:858 User  @screen unlocked by user 'Service'
+2025-07-01 17:56:19:520 Info  @screen auto locked (Service)
+
+2025-07-01 18:21:54:884 User  @screen unlocked by user 'Service'
+2025-07-01 18:21:58:131 DEBUG @E.MW state (7, 28)
+
+2025-07-01 18:22:00:771 User  @system menu selected (Exit)
+2025-07-01 18:22:02:013 Info  @open needle guide command sent
+2025-07-01 18:22:03:016 Info  @switch LED light off
+2025-07-01 18:22:03:137 Frame @frame grabber stopped
+2025-07-01 18:22:03:149 MCU   @robot moving stopped
+2025-07-01 18:22:04:266 MCU   @mcu controller stopped
+2025-07-01 18:22:04:482 Info  @UroBiopsy exited 
+
+

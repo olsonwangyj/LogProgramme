@@ -1,0 +1,73 @@
+
+2025-11-25 15:28:51:443 Info  @UtlLogger instance created
+2025-11-25 15:28:51:443 Info  @starting UroTherapy (SVN 858)
+2025-11-25 15:28:51:915 Info  @MainWindow instance created
+
+2025-11-25 15:29:18:505 User  @user 'Service' login
+2025-11-25 15:29:18:569 Info  @UroTherapy launched
+2025-11-25 15:29:18:569 Info  @SurgeryController instance created
+2025-11-25 15:29:18:584 Info  @Robot Unit: TX-05-07
+2025-11-25 15:29:18:662 Info  @VisualEngine instance created
+2025-11-25 15:29:20:806 MCU   @firmware version (Master): 1.0.0_004
+2025-11-25 15:29:20:807 MCU   @mcu controller connected: COM11 (baudrate: 115200)
+2025-11-25 15:29:20:956 MCU   @firmware version (Node 3): 1.0.0.14
+2025-11-25 15:29:21:060 MCU   @firmware version (Node 4): 1.0.0.14
+2025-11-25 15:29:21:164 MCU   @firmware version (Node 5): 1.0.0.14
+2025-11-25 15:29:21:191 Info  @needle guide opened
+2025-11-25 15:29:21:249 MCU   @firmware version (Node 6): 1.0.0.14
+2025-11-25 15:29:21:372 MCU   @firmware version (Node 7): 1.0.0.14
+2025-11-25 15:29:21:455 MCU   @firmware version (Node 8): 1.0.0.14
+2025-11-25 15:29:21:579 MCU   @firmware version (Node 9): 1.0.0.14
+2025-11-25 15:29:21:663 MCU   @firmware version (Node 10): 1.0.0.14
+2025-11-25 15:29:21:788 MCU   @firmware version (Node 11): 1.0.0.16
+2025-11-25 15:29:21:798 DEBUG @S.SC state (7, 24)
+2025-11-25 15:29:21:799 DEBUG @E.SC state (7, 24)
+2025-11-25 15:29:21:801 DEBUG @S.VE state (7, 24)
+2025-11-25 15:29:21:801 DEBUG @E.VE state (7, 24)
+2025-11-25 15:29:21:802 DEBUG @S.MW state (7, 24)
+2025-11-25 15:29:21:852 MCU   @firmware version (Node 12): 1.0.0.14
+2025-11-25 15:29:21:978 MCU   @firmware operation mode (Node 3): 1
+2025-11-25 15:29:22:062 MCU   @firmware operation mode (Node 4): 1
+2025-11-25 15:29:22:062 MCU   @firmware support speed control
+2025-11-25 15:29:22:133 DEBUG @E.MW state (7, 24)
+2025-11-25 15:29:22:166 MCU   @firmware operation mode (Node 5): 1
+2025-11-25 15:29:22:248 MCU   @firmware operation mode (Node 6): 1
+2025-11-25 15:29:22:374 MCU   @firmware operation mode (Node 7): 1
+2025-11-25 15:29:22:457 MCU   @firmware operation mode (Node 8): 1
+2025-11-25 15:29:22:561 MCU   @firmware operation mode (Node 9): 1
+2025-11-25 15:29:22:664 MCU   @firmware operation mode (Node 10): 1
+2025-11-25 15:29:22:890 MCU   @firmware operation mode (Node 12): 1
+2025-11-25 15:29:22:994 MCU   @firmware acceptable error range (Node 3): 512
+2025-11-25 15:29:22:994 MCU   @[X] error range replaced with local set: 11741
+2025-11-25 15:29:23:097 MCU   @firmware acceptable error range (Node 4): 512
+2025-11-25 15:29:23:097 MCU   @[Y] error range replaced with local set: 11741
+2025-11-25 15:29:23:180 MCU   @firmware acceptable error range (Node 5): 512
+2025-11-25 15:29:23:181 MCU   @[V] error range replaced with local set: 6154
+2025-11-25 15:29:23:284 MCU   @firmware acceptable error range (Node 6): 512
+2025-11-25 15:29:23:285 MCU   @[H] error range replaced with local set: 6154
+2025-11-25 15:29:23:368 MCU   @firmware acceptable error range (Node 7): 512
+2025-11-25 15:29:23:369 MCU   @[N] error range replaced with local set: 19376
+2025-11-25 15:29:23:493 MCU   @firmware acceptable error range (Node 8): 512
+2025-11-25 15:29:23:493 MCU   @[R] error range replaced with local set: 4097
+2025-11-25 15:29:23:576 MCU   @firmware acceptable error range (Node 9): 512
+2025-11-25 15:29:23:576 MCU   @[P] error range replaced with local set: 4097
+2025-11-25 15:29:23:604 Frame @frame grabber UVC device: USB Video
+2025-11-25 15:29:23:695 Frame @frame grabber connected
+2025-11-25 15:29:23:696 Frame @frame grabber started
+2025-11-25 15:29:23:702 MCU   @firmware operation mode (Node 11): 1
+2025-11-25 15:29:23:766 MCU   @firmware acceptable error range (Node 12): 512
+2025-11-25 15:29:23:768 MCU   @[Z] error range replaced with local set: 17615
+
+2025-11-25 15:29:24:684 User  @system menu selected (About)
+2025-11-25 15:29:24:719 Frame @frame grabber screen size updated: 1920 x 1080
+
+2025-11-25 15:29:38:638 User  @factory menu selected (System Settings)
+
+2025-11-25 15:30:07:743 User  @system menu selected (Exit)
+2025-11-25 15:30:09:151 Info  @open needle guide command sent
+2025-11-25 15:30:10:223 Frame @frame grabber stopped
+2025-11-25 15:30:10:509 MCU   @robot moving stopped
+2025-11-25 15:30:11:613 MCU   @mcu controller stopped
+2025-11-25 15:30:11:871 Info  @UroTherapy exited 
+
+

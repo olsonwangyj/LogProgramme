@@ -1,0 +1,10 @@
+
+2025-05-06 16:53:30:422 Info  @UtlLogger instance created
+2025-05-06 16:53:30:422 Info  @starting UroTherapy (SVN 858)
+2025-05-06 16:53:31:015 Info  @MainWindow instance created
+
+2025-05-06 16:53:36:187 User  @user cancelled Login dialog
+2025-05-06 16:53:36:187 Info  @SurgeryController instance created
+2025-05-06 16:53:36:202 Info  @UroTherapy exited 
+
+

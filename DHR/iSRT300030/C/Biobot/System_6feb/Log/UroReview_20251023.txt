@@ -1,0 +1,28 @@
+
+2025-10-23 16:43:13:359 Info  @UtlLogger instance created
+2025-10-23 16:43:13:360 Info  @starting UroReview (SVN 820)
+2025-10-23 16:43:13:677 Info  @ReviewMainWindow instance created
+
+2025-10-23 16:43:32:523 User  @user 'Service' login
+2025-10-23 16:43:32:616 Info  @UroReview launched
+2025-10-23 16:43:32:617 Info  @ReviewController instance created
+
+2025-10-23 16:43:47:122 User  @system menu selected (About)
+
+2025-10-23 16:44:07:710 User  @on_startOpenCase_clicked
+
+2025-10-23 16:45:25:292 User  @system menu selected (Exit)
+2025-10-23 16:45:25:403 Info  @UroReview exited
+
+2025-10-23 16:56:00:642 Info  @UtlLogger instance created
+2025-10-23 16:56:00:643 Info  @starting UroReview (SVN 820)
+2025-10-23 16:56:00:976 Info  @ReviewMainWindow instance created
+
+2025-10-23 16:56:29:627 User  @user 'Doctor' login
+2025-10-23 16:56:29:709 Info  @UroReview launched
+2025-10-23 16:56:29:709 Info  @ReviewController instance created
+
+2025-10-23 16:56:35:880 User  @on_startOpenCase_clicked
+
+2025-10-23 16:56:45:726 User  @system menu selected (About)
+2025-10-23 16:56:51:662 Info  @UroReview exited
