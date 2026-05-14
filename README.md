@@ -361,9 +361,33 @@ Each eligible group can get a histogram of `Duration (s)` when there are at leas
 
 Low-variance groups are rendered with sample dots/rug marks, mean and median lines, and a mean +/- 1 SD band instead of a misleading spike. The threshold is `LOW_VARIANCE_STD_THRESHOLD_S`. By default, ordinary IQR outlier reporting is disabled for low-variance groups (`DISABLE_IQR_OUTLIERS_FOR_LOW_VARIANCE_GROUPS = True`) so small timing jitter is not mislabeled as real outliers. Higher-variance groups with IQR outliers keep the raw values in the data sheets and record `Outlier Count` / `Outlier Values`; charts may trim the visible x-axis for readability and annotate that outliers were detected.
 
-### Distribution Image Gallery Workbook
+### Output Workbooks
 
-When distribution analysis is enabled, the tool also writes a separate image-focused workbook by default:
+After a normal run, the tool writes the main workbook plus two focused companion artifacts:
+
+```text
+<output>.xlsx
+<output stem>_summary.xlsx
+<output stem>_distribution_image_gallery.xlsx
+<output stem>_distribution_charts/
+```
+
+The main workbook is the detailed analysis artifact. It contains detail rows, raw/debug sheets, distribution tables, and embedded chart sheets when chart embedding is enabled.
+
+The summary workbook is a clean one-sheet final report. By default it is written as `<main output stem>_summary.xlsx`; for example, `april30-analysis.xlsx` creates `april30-analysis_summary.xlsx`. Choose the path explicitly with `--summary-output`:
+
+```powershell
+python -m app.log_activity_tool ^
+  --txt-file "D:\LogProgramme\Log\UroBiopsy_20260410.txt" ^
+  --log-folder "D:\LogProgramme\Log\RobotMovingValues\20260410" ^
+  --output "D:\LogProgramme\output\april10-analysis.xlsx" ^
+  --summary-output "D:\LogProgramme\output\april10-summary.xlsx" ^
+  --no-file-picker
+```
+
+The summary workbook contains only `Overall Axis Action Summary` with `Axis`, `Action`, `n`, `Mean (s)`, `SD (s)`, `Var (s²)`, `Median (s)`, `IQR (s)`, `Min–Max (s)`, and `CV (%)`. `Move to Home` is intentionally excluded from this standalone summary report. Gallery sheets, image statistics, chart images, raw data, debug metadata, full paths, and detailed records are not included.
+
+When distribution analysis is enabled, the tool also writes a separate image-focused chart/statistics workbook by default:
 
 ```text
 <main output stem>_distribution_image_gallery.xlsx
@@ -380,17 +404,15 @@ python -m app.log_activity_tool ^
   --no-file-picker
 ```
 
-The main analysis workbook is exported first. The separate gallery workbook is written only after the main workbook succeeds, so a gallery file is not treated as proof that the whole analysis completed. The main workbook records the intended gallery path and a note that final gallery insertion counts are produced after the main workbook is saved; the CLI output and the gallery workbook contain the final image counts. Choose a denser image-first layout with `--distribution-image-gallery-layout compact_grid`; the default `vertical` layout keeps one compact horizontal summary row above each inserted image.
+The main analysis workbook is exported first. The standalone summary workbook and separate gallery workbook are written only after the main workbook succeeds. Choose a denser image-first layout with `--distribution-image-gallery-layout compact_grid`; the default `vertical` layout keeps one compact horizontal summary row above each inserted image.
 
-The gallery workbook is intentionally user-facing and does not expose full local paths, raw output folders, or temporary implementation paths. Chart file columns show filenames only; the workbook uses the chart output folder internally when it needs to embed images.
+The gallery workbook is intentionally chart/statistics-focused and does not include the standalone overall summary table. It also avoids full local paths, raw output folders, or temporary implementation paths. Chart file columns show filenames only; the workbook uses the chart output folder internally when it needs to embed images.
 
 The gallery workbook contains:
 
-- `Overall Axis Action Summary`: the first sheet in the gallery workbook. It is one consolidated user-facing table with `Axis`, `Action`, `n`, `Mean (s)`, `SD (s)`, `Var (s²)`, `Median (s)`, `IQR (s)`, `Min–Max (s)`, and `CV (%)`, including both motion actions and validated `Search Reference` rows.
 - `Image Gallery`: generated motion and reference chart PNGs. Each chart has a compact row with image number, chart type, axis, action, n, mean, SD, variance, median, min-max, CV, PWM, and distance. Motion rows show hardware actual distance; reference rows show `Distance = Not Applicable` plus reference evidence status. Debug-only fields such as group ID, chart file paths, grouping mode, and insertion status stay out of this visual sheet.
 - `Image Statistics`: one row per motion or reference distribution group, including skipped/no-image groups, with extracted statistics such as mean, median, sample SD, sample variance, normal fit mean/SD/variance, population SD/variance, min/max, percentiles, coefficient of variation, outlier count/values, distribution status, chart status, and notes. It also shows `Chart Type`, `Action`, `Distance`, `Reference Evidence Status`, `Selected Group Distance`, `PWM Raw Values Seen`, `PWM Directions Seen`, `PWM Direction Mixed`, `Hardware Actual Distance Group Display`, grouping mode, bin size, hardware raw distance example, hardware distance min/max, and whether position values were mixed inside the group.
 - `Image Index`: a compact lookup table with image number, group ID, chart filename, Excel anchor, chart type, axis, action, PWM, hardware actual grouped distance, reference evidence status, normal fit mean/SD/variance, outlier summary, gallery image status, and any image insertion error.
-- `Axis Action Summary`: a compatibility copy of the axis/action table using the same internal column labels as the main workbook. The front `Overall Axis Action Summary` is the preferred user-facing summary.
 
 The gallery reuses PNG files generated by the normal chart generator; it does not regenerate charts. If a group has too few samples, it still appears in `Image Statistics`, but it does not create a large block in `Image Gallery` unless `DISTRIBUTION_IMAGE_GALLERY_INCLUDE_SKIPPED_GROUPS = True`. If no images are inserted, `Image Gallery` shows an `Image Gallery Summary` with statistics-row count, groups with chart paths, existing chart files, inserted images, groups without charts, image-limit skips, missing chart files, embedding-unavailable count, insert failures, and a reason such as insufficient samples or image limit. If a chart path is missing, the workbook records `Chart File Missing` instead of failing. If image embedding is unavailable, the status is `ImageEmbeddingUnavailable`. If one image file is corrupt or cannot be inserted, that row is marked `ImageInsertFailed`, the exception appears in `Image Insert Error`, and remaining images still export. If more than `DISTRIBUTION_IMAGE_MAX_IMAGES` charts are available, statistics are exported for every group and extra image insertions are counted as images skipped due to the image limit. Groups that never produced chart files are reported separately as groups without charts.
 

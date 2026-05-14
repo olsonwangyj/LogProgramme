@@ -440,6 +440,7 @@ class AnalysisRunResult:
     matched_missing_hardware_distance_count: int = 0
     matched_hardware_warning_count: int = 0
     distribution_excluded_multiple_reasons_count: int = 0
+    summary_output_path: Path | None = None
     distribution_image_gallery_path: Path | None = None
     distribution_image_count: int = 0
     distribution_image_statistics_count: int = 0

@@ -55,6 +55,7 @@ from backend.log_axis_activity_analyzer.matcher import EventMatcher
 from backend.log_axis_activity_analyzer.models import ActivityRecord, DutyCycleLogFileResult, HardwareMotionSegment
 from backend.log_axis_activity_analyzer.service import LogAnalysisService
 from backend.log_axis_activity_analyzer.summary import SummaryGenerator
+from backend.log_axis_activity_analyzer.summary_workbook_exporter import SummaryWorkbookExporter
 from backend.log_axis_activity_analyzer.validation import ActivityValidator
 
 
@@ -2341,8 +2342,8 @@ def test_axis_action_summary_conditional_formatting_rules(tmp_path: Path) -> Non
     assert "$J2" not in formula_text
 
 
-def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_path: Path) -> None:
-    """The chart/statistics workbook should include the clean axis/action table."""
+def test_summary_workbook_includes_axis_action_summary_with_reference_rows(tmp_path: Path) -> None:
+    """The standalone summary workbook should contain the clean user-facing table."""
 
     motion_records = [
         _record(seconds=value, txt_offset=index * 20, axis="X", rule_id="clear_motor", movement_distance=22.01)
@@ -2360,26 +2361,10 @@ def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_p
         distribution_result=distribution_result,
         reference_duration_result=reference_result,
     )
-    combined = DistributionAnalysisResult(
-        input_rows=[*distribution_result.input_rows, *reference_result.input_rows],
-        grouped_rows={**distribution_result.grouped_rows, **reference_result.grouped_rows},
-        stats=[*distribution_result.stats, *reference_result.stats],
-    )
+    summary_path = SummaryWorkbookExporter().export(tmp_path / "axis-summary.xlsx", frames.axis_action_summary)
+    workbook = load_workbook(summary_path)
 
-    export_result = DistributionImageGalleryExporter().export(
-        tmp_path / "gallery-axis-summary.xlsx",
-        combined,
-        axis_action_summary=frames.axis_action_summary,
-    )
-    workbook = load_workbook(export_result.output_path)
-
-    assert workbook.sheetnames[:4] == [
-        "Overall Axis Action Summary",
-        "Image Gallery",
-        "Image Statistics",
-        "Image Index",
-    ]
-    assert "Axis Action Summary" in workbook.sheetnames
+    assert workbook.sheetnames == ["Overall Axis Action Summary"]
     sheet = workbook["Overall Axis Action Summary"]
     headers = [cell.value for cell in sheet[1]]
     assert headers == [
@@ -2394,31 +2379,18 @@ def test_gallery_workbook_includes_axis_action_summary_with_reference_rows(tmp_p
         "Min–Max (s)",
         "CV (%)",
     ]
-    axis_action_sheet = workbook["Axis Action Summary"]
-    axis_action_headers = [cell.value for cell in axis_action_sheet[1]]
-    assert axis_action_headers == [
-        "Axis",
-        "Action",
-        "n",
-        "Mean (s)",
-        "SD (s)",
-        "Var (s^2)",
-        "Median (s)",
-        "IQR (s)",
-        "Min-Max (s)",
-        "CV (%)",
-    ]
     rows = list(sheet.iter_rows(min_row=2, values_only=True))
     ref_row = next(row for row in rows if row[headers.index("Action")] == "Search Reference")
     assert ref_row[headers.index("n")] == 3
     assert ref_row[headers.index("Mean (s)")] == pytest.approx(12.0)
     assert ref_row[headers.index("IQR (s)")] == pytest.approx(2.0)
     assert "–" in ref_row[headers.index("Min–Max (s)")]
+    assert all(row[headers.index("Action")] != "Move to Home" for row in rows if row[0] is not None)
     assert len(sheet.conditional_formatting) > 0
 
 
-def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_action_rows(tmp_path: Path) -> None:
-    """The gallery workbook should add one front summary sheet while preserving existing sheets."""
+def test_summary_workbook_front_overall_summary_contains_consolidated_axis_action_rows(tmp_path: Path) -> None:
+    """The standalone summary workbook should exclude Move to Home and format Mean only."""
 
     axis_action_summary = [
         {
@@ -2493,25 +2465,24 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
             "Min-Max (s)": "21.019-21.467",
             "CV (%)": 0.65,
         },
+        {
+            "Axis": "N",
+            "Action": "Move to Max",
+            "n": 32,
+            "Mean (s)": 21.187,
+            "SD (s)": 0.1375,
+            "Var (s^2)": 0.0189,
+            "Median (s)": 21.162,
+            "IQR (s)": 0.211,
+            "Min-Max (s)": "21.019-21.467",
+            "CV (%)": 0.65,
+        },
     ]
 
-    export_result = DistributionImageGalleryExporter().export(
-        tmp_path / "overall-summary-gallery.xlsx",
-        DistributionAnalysisResult(),
-        axis_action_summary=axis_action_summary,
-    )
-    workbook = load_workbook(export_result.output_path)
+    summary_path = SummaryWorkbookExporter().export(tmp_path / "overall-summary.xlsx", axis_action_summary)
+    workbook = load_workbook(summary_path)
 
-    assert workbook.sheetnames[:4] == [
-        "Overall Axis Action Summary",
-        "Image Gallery",
-        "Image Statistics",
-        "Image Index",
-    ]
-    assert "Axis Action Summary" in workbook.sheetnames
-    assert workbook["Image Gallery"].max_row > 1
-    assert workbook["Image Statistics"].max_row == 1
-    assert workbook["Image Index"].max_row == 1
+    assert workbook.sheetnames == ["Overall Axis Action Summary"]
 
     sheet = workbook["Overall Axis Action Summary"]
     headers = [cell.value for cell in sheet[1]]
@@ -2535,12 +2506,13 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
     for key in [
         ("P", "Search Reference"),
         ("P", "Clear Motor"),
-        ("P", "Move to Home"),
         ("N", "Search Reference"),
         ("N", "Clear Motor"),
-        ("N", "Move to Home"),
+        ("N", "Move to Max"),
     ]:
         assert key in rows
+    assert ("P", "Move to Home") not in rows
+    assert ("N", "Move to Home") not in rows
     assert rows[("P", "Search Reference")][headers.index("IQR (s)")] == pytest.approx(0.141)
     assert rows[("P", "Search Reference")][headers.index("Min–Max (s)")] == "1.182–1.406"
     assert rows[("N", "Clear Motor")][headers.index("Mean (s)")] == pytest.approx(26.027)
@@ -2556,6 +2528,38 @@ def test_gallery_workbook_front_overall_summary_contains_consolidated_axis_actio
     assert "$H2" not in formula_text
     assert "$I2" not in formula_text
     assert "$J2" not in formula_text
+    conditional_ranges = [str(conditional_range.sqref) for conditional_range in sheet.conditional_formatting]
+    assert conditional_ranges == [f"D2:D{sheet.max_row}"]
+
+
+def test_gallery_workbook_omits_overall_and_duplicate_axis_action_summary(tmp_path: Path) -> None:
+    """The chart/statistics workbook should focus on image gallery, statistics, and index sheets."""
+
+    axis_action_summary = [
+        {
+            "Axis": "P",
+            "Action": "Move to Home",
+            "n": 3,
+            "Mean (s)": 21.187,
+            "SD (s)": 0.1375,
+            "Var (s^2)": 0.0189,
+            "Median (s)": 21.162,
+            "IQR (s)": 0.211,
+            "Min-Max (s)": "21.019-21.467",
+            "CV (%)": 0.65,
+        }
+    ]
+
+    export_result = DistributionImageGalleryExporter().export(
+        tmp_path / "gallery.xlsx",
+        DistributionAnalysisResult(),
+        axis_action_summary=axis_action_summary,
+    )
+    workbook = load_workbook(export_result.output_path)
+
+    assert workbook.sheetnames == ["Image Gallery", "Image Statistics", "Image Index"]
+    assert "Overall Axis Action Summary" not in workbook.sheetnames
+    assert "Axis Action Summary" not in workbook.sheetnames
 
 
 def test_distribution_image_gallery_workbook_creation_inserts_images(tmp_path: Path) -> None:
@@ -2592,28 +2596,7 @@ def test_distribution_image_gallery_workbook_creation_inserts_images(tmp_path: P
     assert export_result.statistics_count == 3
     assert export_result.groups_without_charts_count == 0
     assert export_result.image_limit_skipped_count == 0
-    assert {"Overall Axis Action Summary", "Image Gallery", "Axis Action Summary", "Image Statistics", "Image Index"} <= set(workbook.sheetnames)
-    assert workbook.sheetnames[:4] == ["Overall Axis Action Summary", "Image Gallery", "Image Statistics", "Image Index"]
-    overall_sheet = workbook["Overall Axis Action Summary"]
-    overall_headers = [cell.value for cell in overall_sheet[1]]
-    assert overall_headers == [
-        "Axis",
-        "Action",
-        "n",
-        "Mean (s)",
-        "SD (s)",
-        "Var (s²)",
-        "Median (s)",
-        "IQR (s)",
-        "Min–Max (s)",
-        "CV (%)",
-    ]
-    iqr_values = [
-        row[overall_headers.index("IQR (s)")]
-        for row in overall_sheet.iter_rows(min_row=2, values_only=True)
-        if row[overall_headers.index("Axis")] is not None
-    ]
-    assert any(isinstance(value, (int, float)) for value in iqr_values)
+    assert workbook.sheetnames == ["Image Gallery", "Image Statistics", "Image Index"]
     assert len(workbook["Image Gallery"]._images) == 3
     gallery_sheet = workbook["Image Gallery"]
     gallery_headers = [cell.value for cell in gallery_sheet[1] if cell.value is not None]
@@ -3222,7 +3205,28 @@ def test_excel_export_includes_distribution_sheets_and_chart_paths(tmp_path: Pat
     assert (chart_dir / chart_file).stat().st_size > 0
     gallery = load_workbook(result.distribution_image_gallery_path, data_only=True)
     assert {"Image Gallery", "Image Statistics", "Image Index"} <= set(gallery.sheetnames)
+    assert "Overall Axis Action Summary" not in gallery.sheetnames
+    assert "Axis Action Summary" not in gallery.sheetnames
     assert len(gallery["Image Gallery"]._images) == 1
+    assert result.summary_output_path is not None
+    assert result.summary_output_path == (tmp_path / "analysis_summary.xlsx").resolve()
+    summary_workbook = load_workbook(result.summary_output_path, data_only=True)
+    assert summary_workbook.sheetnames == ["Overall Axis Action Summary"]
+    summary_sheet = summary_workbook["Overall Axis Action Summary"]
+    summary_headers = [cell.value for cell in summary_sheet[1]]
+    assert summary_headers == [
+        "Axis",
+        "Action",
+        "n",
+        "Mean (s)",
+        "SD (s)",
+        "Var (s²)",
+        "Median (s)",
+        "IQR (s)",
+        "Min–Max (s)",
+        "CV (%)",
+    ]
+    assert all(row[summary_headers.index("Action")] != "Move to Home" for row in summary_sheet.iter_rows(min_row=2, values_only=True))
     summary_keys = [cell.value for cell in workbook["Summary"]["A"] if cell.value]
     assert "Distribution Images Inserted Into Gallery" not in summary_keys
     assert "Distribution Image Gallery Metadata Note" in summary_keys
@@ -3321,11 +3325,14 @@ def test_synthetic_multi_image_end_to_end_gallery_exports_images_and_sign_audits
 
     workbook = load_workbook(output_path, data_only=True)
     gallery = load_workbook(result.distribution_image_gallery_path, data_only=True)
-    assert {"Image Gallery", "Image Statistics", "Image Index", "Axis Action Summary"} <= set(gallery.sheetnames)
+    assert gallery.sheetnames == ["Image Gallery", "Image Statistics", "Image Index"]
     assert len(gallery["Image Gallery"]._images) == 3
     assert gallery["Image Statistics"].max_row == 4
     assert gallery["Image Index"].max_row == 4
-    axis_action_sheet = gallery["Axis Action Summary"]
+    assert result.summary_output_path is not None
+    summary_workbook = load_workbook(result.summary_output_path, data_only=True)
+    assert summary_workbook.sheetnames == ["Overall Axis Action Summary"]
+    axis_action_sheet = summary_workbook["Overall Axis Action Summary"]
     axis_action_headers = [cell.value for cell in axis_action_sheet[1]]
     assert axis_action_headers == [
         "Axis",
@@ -3333,15 +3340,27 @@ def test_synthetic_multi_image_end_to_end_gallery_exports_images_and_sign_audits
         "n",
         "Mean (s)",
         "SD (s)",
-        "Var (s^2)",
+        "Var (s²)",
         "Median (s)",
         "IQR (s)",
-        "Min-Max (s)",
+        "Min–Max (s)",
         "CV (%)",
     ]
-    assert axis_action_sheet.max_row == 4
+    summary_actions = [
+        row[axis_action_headers.index("Action")]
+        for row in axis_action_sheet.iter_rows(min_row=2, values_only=True)
+        if row[0] is not None
+    ]
+    assert "Move to Max" in summary_actions
+    assert "Move to Home" not in summary_actions
     stats_sheet = gallery["Image Statistics"]
     headers = [cell.value for cell in stats_sheet[1]]
+    gallery_actions = [
+        row[headers.index("Action")]
+        for row in stats_sheet.iter_rows(min_row=2, values_only=True)
+        if row[headers.index("Action")] is not None
+    ]
+    assert "Move to Home" in gallery_actions
     z_row = next(row for row in stats_sheet.iter_rows(min_row=2, values_only=True) if row[headers.index("Axis")] == "Z")
     assert z_row[headers.index("PWM (%)")] == 80
     assert z_row[headers.index("PWM Raw Values Seen")] == "-80; 80"
@@ -3429,6 +3448,81 @@ def test_distribution_image_gallery_output_adds_xlsx_suffix(tmp_path: Path) -> N
     assert result.distribution_image_gallery_path == (tmp_path / "custom-gallery.xlsx").resolve()
     assert result.distribution_image_gallery_path.exists()
     load_workbook(result.distribution_image_gallery_path, data_only=True)
+
+
+def test_summary_output_adds_xlsx_suffix_and_exports_report_only(tmp_path: Path) -> None:
+    """A custom summary path should be normalized and contain only the report sheet."""
+
+    start = datetime(2026, 1, 1, 0, 0, 1)
+    end = start + timedelta(seconds=5)
+    txt_path = _write_lines(
+        tmp_path / "summary.txt",
+        [
+            "2026-01-01 00:00:00:000 MCU   @[Z] min: -50.00",
+            f"{start.strftime('%Y-%m-%d %H:%M:%S')}:000 MCU   @[Z] start clearing: -30.00",
+            f"{end.strftime('%Y-%m-%d %H:%M:%S')}:000 MCU   @[Z] motor cleared",
+        ],
+    )
+    log_folder = tmp_path / "logs"
+    log_folder.mkdir()
+    _write_lines(
+        log_folder / "z.log",
+        [
+            "2026-01-01 00:00:00:000 [OUT] sample",
+            "                              [N12:Z] RUN 0 80 (80)",
+            *_tpos_lines("Z", start, end, 20.0),
+            "2026-01-01 00:10:00:000 [OUT] sample",
+        ],
+    )
+
+    result = LogAnalysisService().run_analysis(
+        txt_file_path=txt_path,
+        log_folder_path=log_folder,
+        output_path=tmp_path / "analysis.xlsx",
+        summary_output=tmp_path / "custom-summary",
+        export_distribution_image_gallery=False,
+    )
+
+    assert result.summary_output_path == (tmp_path / "custom-summary.xlsx").resolve()
+    workbook = load_workbook(result.summary_output_path, data_only=True)
+    assert workbook.sheetnames == ["Overall Axis Action Summary"]
+    sheet = workbook["Overall Axis Action Summary"]
+    headers = [cell.value for cell in sheet[1]]
+    rows = list(sheet.iter_rows(min_row=2, values_only=True))
+    assert any(row[headers.index("Action")] == "Clear Motor" for row in rows)
+    assert all(row[headers.index("Action")] != "Move to Home" for row in rows if row[0] is not None)
+
+
+def test_summary_output_cannot_overwrite_main_workbook(tmp_path: Path) -> None:
+    """Service should reject a summary path that equals the main workbook path."""
+
+    txt_path = _write_lines(
+        tmp_path / "collision.txt",
+        [
+            "2026-01-01 00:00:00:000 MCU   @[Z] start clearing: -30.00",
+            "2026-01-01 00:00:05:000 MCU   @[Z] motor cleared",
+        ],
+    )
+    log_folder = tmp_path / "logs"
+    log_folder.mkdir()
+    _write_lines(
+        log_folder / "z.log",
+        [
+            "2026-01-01 00:00:00:000 [OUT] sample",
+            "                              [N12:Z] RUN 0 80 (80)",
+            "2026-01-01 00:10:00:000 [OUT] sample",
+        ],
+    )
+    output_path = tmp_path / "analysis.xlsx"
+
+    with pytest.raises(ValueError, match="Summary output path must be different"):
+        LogAnalysisService().run_analysis(
+            txt_file_path=txt_path,
+            log_folder_path=log_folder,
+            output_path=output_path,
+            summary_output=output_path,
+        )
+    assert not output_path.exists()
 
 
 def test_distribution_image_gallery_is_not_exported_when_main_workbook_fails(tmp_path: Path, monkeypatch) -> None:
@@ -4022,6 +4116,46 @@ def test_no_file_picker_requires_cli_paths_without_prompt(monkeypatch, tmp_path:
 
     with pytest.raises(ValueError, match="File picker dialogs are disabled"):
         log_activity_tool._resolve_paths(args)
+
+
+def test_cli_passes_summary_output_to_service(monkeypatch, tmp_path: Path) -> None:
+    """--summary-output should flow through to the analysis service."""
+
+    from app import log_activity_tool
+
+    txt_path = tmp_path / "sample.txt"
+    log_folder = tmp_path / "logs"
+    output_path = tmp_path / "analysis.xlsx"
+    summary_path = tmp_path / "custom-summary.xlsx"
+    txt_path.write_text("", encoding="utf-8")
+    log_folder.mkdir()
+    calls: dict[str, object] = {}
+
+    class FakeService:
+        def __init__(self, _logger):
+            pass
+
+        def run_analysis(self, **kwargs):
+            calls["run_kwargs"] = kwargs
+            return SimpleNamespace(output_path=output_path, summary_output_path=summary_path)
+
+    monkeypatch.setattr(log_activity_tool, "LogAnalysisService", FakeService)
+    monkeypatch.setattr(log_activity_tool, "_print_summary", lambda result: calls.setdefault("printed", result))
+
+    assert log_activity_tool.main(
+        [
+            "--txt-file",
+            str(txt_path),
+            "--log-folder",
+            str(log_folder),
+            "--output",
+            str(output_path),
+            "--summary-output",
+            str(summary_path),
+            "--no-file-picker",
+        ]
+    ) == 0
+    assert calls["run_kwargs"]["summary_output"] == str(summary_path)
 
 
 def test_file_picker_mode_resolves_paths_and_shows_completion(monkeypatch, tmp_path: Path) -> None:

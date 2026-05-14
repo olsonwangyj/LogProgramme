@@ -80,6 +80,7 @@ from .log_folder_scanner import LogFolderScanner
 from .matcher import EventMatcher
 from .models import ActivityRecord, AnalysisRunResult, DiagnosticEvent, DutyCycleFolderParseResult, ParseWarning
 from .summary import SummaryGenerator
+from .summary_workbook_exporter import SummaryWorkbookExporter
 from .time_utils import format_log_timestamp
 from .validation import ActivityValidator
 
@@ -101,6 +102,7 @@ class LogAnalysisService:
         self._validator = ActivityValidator(self._logger.getChild("validator"))
         self._summary_generator = SummaryGenerator(self._logger.getChild("summary"))
         self._exporter = ExcelExporter(self._logger.getChild("excel_exporter"))
+        self._summary_workbook_exporter = SummaryWorkbookExporter(self._logger.getChild("summary_workbook_exporter"))
 
     def run_analysis(
         self,
@@ -128,6 +130,7 @@ class LogAnalysisService:
         export_distribution_image_gallery: bool | None = EXPORT_DISTRIBUTION_IMAGE_GALLERY,
         distribution_image_gallery_output: Path | str | None = None,
         distribution_image_gallery_layout: str = DISTRIBUTION_IMAGE_GALLERY_LAYOUT,
+        summary_output: Path | str | None = None,
         **legacy_kwargs,
     ) -> AnalysisRunResult:
         """Run the full analysis workflow and return a concise execution summary."""
@@ -144,6 +147,7 @@ class LogAnalysisService:
             recursive = bool(legacy_kwargs["recursive_log_folder"])
 
         normalized_paths = self._validate_paths(txt_file_path, log_folder_path, output_path)
+        summary_output_path = self._resolve_summary_output(normalized_paths["output"], summary_output)
         should_export_image_gallery = (
             bool(enable_distribution_analysis)
             and (
@@ -157,6 +161,8 @@ class LogAnalysisService:
             distribution_image_gallery_output,
             enabled=should_export_image_gallery,
         )
+        if gallery_output_path is not None and gallery_output_path == summary_output_path:
+            raise ValueError("Summary output path must be different from the distribution image gallery output path.")
         main_result = self._main_log_parser.parse(normalized_paths["txt_file"], encoding_txt)
         folder_result = self._log_folder_scanner.scan(
             normalized_paths["log_folder"],
@@ -241,6 +247,7 @@ class LogAnalysisService:
             distribution_enabled=enable_distribution_analysis,
             distribution_result=distribution_result,
             reference_duration_result=reference_duration_result,
+            summary_output_path=summary_output_path,
             distribution_image_gallery_path=gallery_output_path,
             hardware_duplicate_segment_counts=self._hardware_duplicate_segment_counts(folder_result.files),
         )
@@ -322,6 +329,10 @@ class LogAnalysisService:
                 "movement_distance_bin_size": movement_distance_bin_size,
             },
         )
+        run_result.summary_output_path = self._summary_workbook_exporter.export(
+            summary_output_path,
+            getattr(report_frames, "axis_action_summary", None),
+        )
         gallery_source_result = self._combined_gallery_result(distribution_result, reference_duration_result)
         if gallery_source_result is not None and gallery_output_path is not None:
             try:
@@ -332,7 +343,6 @@ class LogAnalysisService:
                 ).export(
                     gallery_output_path,
                     gallery_source_result,
-                    axis_action_summary=getattr(report_frames, "axis_action_summary", None),
                 )
                 run_result.distribution_image_gallery_path = gallery_result.output_path
                 run_result.distribution_image_count = gallery_result.image_inserted_count
@@ -572,6 +582,23 @@ class LogAnalysisService:
         if gallery_path == output_path.resolve():
             raise ValueError("Distribution image gallery output path must be different from the main output workbook path.")
         return gallery_path
+
+    def _resolve_summary_output(
+        self,
+        output_path: Path,
+        summary_output: Path | str | None,
+    ) -> Path:
+        """Resolve the required standalone summary workbook path."""
+
+        if summary_output is not None:
+            summary_path = Path(summary_output).expanduser().resolve()
+        else:
+            summary_path = (output_path.parent / f"{output_path.stem}_summary.xlsx").resolve()
+        if summary_path.suffix.lower() != ".xlsx":
+            summary_path = summary_path.with_suffix(".xlsx")
+        if summary_path == output_path.resolve():
+            raise ValueError("Summary output path must be different from the main output workbook path.")
+        return summary_path
 
     def _prepare_distribution_chart_output_dir(self, chart_output_dir: Path) -> None:
         """Create and optionally clear the current run's distribution chart folder."""
@@ -1002,6 +1029,7 @@ class LogAnalysisService:
         distribution_enabled: bool = False,
         distribution_result: DistributionAnalysisResult | None = None,
         reference_duration_result: ReferenceDurationAnalysisResult | None = None,
+        summary_output_path: Path | None = None,
         distribution_image_gallery_path: Path | None = None,
         hardware_duplicate_segment_counts: tuple[int, int] = (0, 0),
     ) -> AnalysisRunResult:
@@ -1091,6 +1119,7 @@ class LogAnalysisService:
             distribution_excluded_unreliable_hardware_count=exclusion_breakdown["unreliable_hardware"],
             distribution_excluded_multiple_reasons_count=exclusion_breakdown["multiple_reasons"],
             distribution_exclusion_reason_counts=dict(distribution_exclusions),
+            summary_output_path=summary_output_path,
             distribution_image_gallery_path=distribution_image_gallery_path,
         )
 

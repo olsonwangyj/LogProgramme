@@ -8,14 +8,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from openpyxl import Workbook
-from openpyxl.formatting.rule import FormulaRule
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 from .config import (
-    AXIS_ACTION_SUMMARY_COLUMNS,
-    AXIS_SUMMARY_MEAN_RED_THRESHOLD,
-    AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD,
     DISTRIBUTION_IMAGE_BLOCK_HEIGHT_ROWS,
     DISTRIBUTION_IMAGE_GALLERY_LAYOUT,
     DISTRIBUTION_IMAGE_GALLERY_LAYOUT_OPTIONS,
@@ -31,8 +27,6 @@ from .config import (
     DISTRIBUTION_IMAGE_STATISTICS_COLUMNS,
     DISTRIBUTION_IMAGE_STATISTICS_SHEET_NAME,
     DISTRIBUTION_IMAGE_WIDTH_PX,
-    OVERALL_AXIS_ACTION_SUMMARY_COLUMNS,
-    OVERALL_AXIS_ACTION_SUMMARY_SHEET_NAME,
 )
 from .distribution import (
     DistributionAnalysisResult,
@@ -104,17 +98,16 @@ class DistributionImageGalleryExporter:
     ) -> DistributionImageGalleryExportResult:
         """Create the image gallery workbook and return export counts."""
 
+        _ = axis_action_summary  # Retained for backward-compatible callers; summaries export separately.
         path = Path(output_path).expanduser().resolve()
         path.parent.mkdir(parents=True, exist_ok=True)
         self._logger.info("Exporting distribution image gallery workbook to %s", path)
 
         workbook = Workbook()
-        overall_sheet = workbook.active
-        overall_sheet.title = OVERALL_AXIS_ACTION_SUMMARY_SHEET_NAME
-        gallery_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_GALLERY_SHEET_NAME)
+        gallery_sheet = workbook.active
+        gallery_sheet.title = DISTRIBUTION_IMAGE_GALLERY_SHEET_NAME
         statistics_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_STATISTICS_SHEET_NAME)
         index_sheet = workbook.create_sheet(DISTRIBUTION_IMAGE_INDEX_SHEET_NAME)
-        axis_action_sheet = workbook.create_sheet("Axis Action Summary")
 
         rows_by_group = distribution_result.grouped_rows
         gallery_rows, index_rows, counts = self._build_gallery_and_index(
@@ -128,13 +121,9 @@ class DistributionImageGalleryExporter:
         ]
         self._write_table(statistics_sheet, DISTRIBUTION_IMAGE_STATISTICS_COLUMNS, statistics_rows)
         self._write_table(index_sheet, DISTRIBUTION_IMAGE_INDEX_COLUMNS, index_rows)
-        self._write_overall_axis_action_summary(overall_sheet, axis_action_summary)
-        self._write_axis_action_summary(axis_action_sheet, axis_action_summary)
         self._format_gallery_sheet(gallery_sheet)
         self._format_table_sheet(statistics_sheet)
         self._format_table_sheet(index_sheet)
-        self._format_axis_action_summary_sheet(overall_sheet)
-        self._format_axis_action_summary_sheet(axis_action_sheet)
 
         workbook.save(path)
         self._logger.info(
@@ -608,58 +597,6 @@ class DistributionImageGalleryExporter:
             for column_index, column_name in enumerate(columns, start=1):
                 sheet.cell(row=row_index, column=column_index, value=row.get(column_name))
 
-    def _write_axis_action_summary(self, sheet, axis_action_summary) -> None:
-        """Write the clean axis/action summary into the chart/statistics workbook."""
-
-        for column_index, column_name in enumerate(AXIS_ACTION_SUMMARY_COLUMNS, start=1):
-            cell = sheet.cell(row=1, column=column_index, value=column_name)
-            cell.font = Font(bold=True)
-        rows = []
-        if axis_action_summary is not None:
-            if hasattr(axis_action_summary, "to_dict"):
-                rows = axis_action_summary.to_dict(orient="records")
-            else:
-                rows = list(axis_action_summary)
-        for row_index, row in enumerate(rows, start=2):
-            for column_index, column_name in enumerate(AXIS_ACTION_SUMMARY_COLUMNS, start=1):
-                sheet.cell(row=row_index, column=column_index, value=row.get(column_name))
-
-    def _write_overall_axis_action_summary(self, sheet, axis_action_summary) -> None:
-        """Write the consolidated front summary sheet with final report labels."""
-
-        for column_index, column_name in enumerate(OVERALL_AXIS_ACTION_SUMMARY_COLUMNS, start=1):
-            cell = sheet.cell(row=1, column=column_index, value=column_name)
-            cell.font = Font(bold=True)
-        rows = []
-        if axis_action_summary is not None:
-            if hasattr(axis_action_summary, "to_dict"):
-                rows = axis_action_summary.to_dict(orient="records")
-            else:
-                rows = list(axis_action_summary)
-        if not rows:
-            sheet.cell(row=2, column=1, value="No axis/action summary data was available.")
-            return
-        for row_index, row in enumerate(rows, start=2):
-            normalized = self._overall_axis_action_row(row)
-            for column_index, column_name in enumerate(OVERALL_AXIS_ACTION_SUMMARY_COLUMNS, start=1):
-                sheet.cell(row=row_index, column=column_index, value=normalized.get(column_name))
-
-    def _overall_axis_action_row(self, row: dict[str, object]) -> dict[str, object]:
-        """Map internal ASCII summary columns to user-facing front-summary labels."""
-
-        return {
-            "Axis": row.get("Axis"),
-            "Action": row.get("Action"),
-            "n": row.get("n"),
-            "Mean (s)": row.get("Mean (s)"),
-            "SD (s)": row.get("SD (s)"),
-            "Var (s²)": row.get("Var (s^2)", row.get("Var (s²)")),
-            "Median (s)": row.get("Median (s)"),
-            "IQR (s)": row.get("IQR (s)"),
-            "Min–Max (s)": self._display_min_max(row.get("Min-Max (s)", row.get("Min–Max (s)"))),
-            "CV (%)": row.get("CV (%)"),
-        }
-
     def _format_gallery_sheet(self, sheet) -> None:
         """Apply readable gallery worksheet sizing."""
 
@@ -695,64 +632,6 @@ class DistributionImageGalleryExporter:
             values = [str(cell.value) for cell in column if cell.value is not None]
             width = min(max((len(value) for value in values), default=10) + 2, 72)
             sheet.column_dimensions[get_column_letter(column[0].column)].width = width
-
-    def _format_axis_action_summary_sheet(self, sheet) -> None:
-        """Apply summary table styling and Mean-only conditional formatting."""
-
-        sheet.freeze_panes = "A2"
-        sheet.auto_filter.ref = sheet.dimensions
-        header_fill = PatternFill("solid", fgColor="1F2937")
-        header_font = Font(color="FFFFFF", bold=True)
-        alternate_fill = PatternFill("solid", fgColor="F3F4F6")
-        for cell in sheet[1]:
-            cell.fill = header_fill
-            cell.font = header_font
-            cell.alignment = Alignment(horizontal="center")
-        headers = {cell.value: cell.column for cell in sheet[1]}
-        for row_index in range(2, sheet.max_row + 1):
-            if row_index % 2 == 0:
-                for column in range(1, sheet.max_column + 1):
-                    sheet.cell(row=row_index, column=column).fill = alternate_fill
-            for header in ("n", "Mean (s)", "SD (s)", "Var (s^2)", "Var (s²)", "Median (s)", "IQR (s)", "CV (%)"):
-                if header in headers:
-                    sheet.cell(row=row_index, column=headers[header]).alignment = Alignment(horizontal="center")
-            for header, number_format in {
-                "Mean (s)": "0.000",
-                "SD (s)": "0.0000",
-                "Var (s^2)": "0.0000",
-                "Var (s²)": "0.0000",
-                "Median (s)": "0.000",
-                "IQR (s)": "0.0000",
-                "CV (%)": "0.00",
-            }.items():
-                if header in headers:
-                    sheet.cell(row=row_index, column=headers[header]).number_format = number_format
-        self._apply_axis_action_conditional_formatting(sheet, headers)
-        self._format_table_sheet(sheet)
-
-    def _apply_axis_action_conditional_formatting(self, sheet, headers: dict[str, int]) -> None:
-        """Highlight only Mean cells based on the latest report thresholds."""
-
-        if "Mean (s)" not in headers:
-            return
-        if sheet.max_row < 2:
-            return
-        mean_col = headers["Mean (s)"]
-        mean_letter = sheet.cell(row=1, column=mean_col).column_letter
-        target_range = f"{mean_letter}2:{mean_letter}{sheet.max_row}"
-        red_formula = f"${mean_letter}2>={AXIS_SUMMARY_MEAN_RED_THRESHOLD}"
-        yellow_formula = (
-            f"AND(${mean_letter}2>={AXIS_SUMMARY_MEAN_YELLOW_THRESHOLD},"
-            f"${mean_letter}2<{AXIS_SUMMARY_MEAN_RED_THRESHOLD})"
-        )
-        sheet.conditional_formatting.add(
-            target_range,
-            FormulaRule(formula=[red_formula], fill=PatternFill("solid", fgColor="FFC7CE"), stopIfTrue=True),
-        )
-        sheet.conditional_formatting.add(
-            target_range,
-            FormulaRule(formula=[yellow_formula], fill=PatternFill("solid", fgColor="FFEB9C")),
-        )
 
     def _first_row(
         self,
@@ -900,13 +779,6 @@ class DistributionImageGalleryExporter:
         if min_s is None or max_s is None:
             return ""
         return f"{float(min_s):.3f}-{float(max_s):.3f}"
-
-    def _display_min_max(self, value: object) -> object:
-        """Return min-max display text with the report-facing en dash."""
-
-        if value is None:
-            return None
-        return str(value).replace("-", "–")
 
     def _chart_file_display(self, chart_file: str | Path | None) -> str:
         """Return a user-facing chart image filename."""

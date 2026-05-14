@@ -68,6 +68,7 @@ def main(argv: list[str] | None = None) -> int:
             export_distribution_image_gallery=args.distribution_image_gallery,
             distribution_image_gallery_output=args.distribution_image_gallery_output,
             distribution_image_gallery_layout=args.distribution_image_gallery_layout,
+            summary_output=args.summary_output,
         )
         _print_summary(result)
         if file_picker_mode:
@@ -126,6 +127,10 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
         help=argparse.SUPPRESS,
     )
     parser.add_argument("--output", help="Destination .xlsx workbook path.")
+    parser.add_argument(
+        "--summary-output",
+        help="Optional path for the standalone one-sheet summary workbook.",
+    )
     parser.add_argument(
         "--encoding-txt",
         "--encoding-a",
@@ -411,6 +416,9 @@ def _completion_message(result) -> str:
         "Main workbook:",
         str(result.output_path),
     ]
+    summary_path = getattr(result, "summary_output_path", None)
+    if summary_path:
+        lines.extend(["", "Summary workbook:", str(summary_path)])
     gallery_path = getattr(result, "distribution_image_gallery_path", None)
     if gallery_path:
         lines.extend(["", "Distribution image gallery:", str(gallery_path)])
@@ -424,6 +432,8 @@ def _print_summary(result) -> None:
     """Print the finished run summary to stdout."""
 
     print(f"Workbook: {result.output_path}")
+    if getattr(result, "summary_output_path", None):
+        print(f"Summary workbook: {result.summary_output_path}")
     print(f"TXT axis events parsed: {result.txt_axis_event_count}")
     print(f"TXT boundary events parsed: {result.boundary_event_count}")
     print(f"Log files scanned: {result.log_file_count}")
