@@ -2342,7 +2342,7 @@ def test_axis_action_summary_conditional_formatting_rules(tmp_path: Path) -> Non
     assert "$J2" not in formula_text
 
 
-def test_summary_workbook_includes_axis_action_summary_with_reference_rows(tmp_path: Path) -> None:
+def test_summary_workbook_excludes_search_reference_rows(tmp_path: Path) -> None:
     """The standalone summary workbook should contain the clean user-facing table."""
 
     motion_records = [
@@ -2380,17 +2380,17 @@ def test_summary_workbook_includes_axis_action_summary_with_reference_rows(tmp_p
         "CV (%)",
     ]
     rows = list(sheet.iter_rows(min_row=2, values_only=True))
-    ref_row = next(row for row in rows if row[headers.index("Action")] == "Search Reference")
-    assert ref_row[headers.index("n")] == 3
-    assert ref_row[headers.index("Mean (s)")] == pytest.approx(12.0)
-    assert ref_row[headers.index("IQR (s)")] == pytest.approx(2.0)
-    assert "–" in ref_row[headers.index("Min–Max (s)")]
-    assert all(row[headers.index("Action")] != "Move to Home" for row in rows if row[0] is not None)
+    assert all(row[headers.index("Action")] != "Search Reference" for row in rows if row[0] is not None)
+    clear_row = next(row for row in rows if row[headers.index("Action")] == "Clear Motor")
+    assert clear_row[headers.index("n")] == 3
+    assert clear_row[headers.index("Mean (s)")] == pytest.approx(25.0)
+    assert clear_row[headers.index("IQR (s)")] == pytest.approx(3.0)
+    assert "–" in clear_row[headers.index("Min–Max (s)")]
     assert len(sheet.conditional_formatting) > 0
 
 
 def test_summary_workbook_front_overall_summary_contains_consolidated_axis_action_rows(tmp_path: Path) -> None:
-    """The standalone summary workbook should exclude Move to Home and format Mean only."""
+    """The standalone summary workbook should exclude Search Reference and format Mean only."""
 
     axis_action_summary = [
         {
@@ -2504,17 +2504,17 @@ def test_summary_workbook_front_overall_summary_contains_consolidated_axis_actio
         if row[0] is not None
     }
     for key in [
-        ("P", "Search Reference"),
         ("P", "Clear Motor"),
-        ("N", "Search Reference"),
+        ("P", "Move to Home"),
         ("N", "Clear Motor"),
+        ("N", "Move to Home"),
         ("N", "Move to Max"),
     ]:
         assert key in rows
-    assert ("P", "Move to Home") not in rows
-    assert ("N", "Move to Home") not in rows
-    assert rows[("P", "Search Reference")][headers.index("IQR (s)")] == pytest.approx(0.141)
-    assert rows[("P", "Search Reference")][headers.index("Min–Max (s)")] == "1.182–1.406"
+    assert ("P", "Search Reference") not in rows
+    assert ("N", "Search Reference") not in rows
+    assert rows[("P", "Move to Home")][headers.index("IQR (s)")] == pytest.approx(0.124)
+    assert rows[("P", "Move to Home")][headers.index("Min–Max (s)")] == "10.347–10.568"
     assert rows[("N", "Clear Motor")][headers.index("Mean (s)")] == pytest.approx(26.027)
 
     formula_text = "\n".join(
@@ -2530,6 +2530,44 @@ def test_summary_workbook_front_overall_summary_contains_consolidated_axis_actio
     assert "$J2" not in formula_text
     conditional_ranges = [str(conditional_range.sqref) for conditional_range in sheet.conditional_formatting]
     assert conditional_ranges == [f"D2:D{sheet.max_row}"]
+
+
+def test_summary_workbook_keeps_move_to_home_after_filter_correction(tmp_path: Path) -> None:
+    """Move to Home must remain in the standalone summary workbook."""
+
+    axis_action_summary = [
+        {
+            "Axis": "Z",
+            "Action": "Search Reference",
+            "n": 25,
+            "Mean (s)": 1.2,
+            "SD (s)": 0.1,
+            "Var (s^2)": 0.01,
+            "Median (s)": 1.2,
+            "IQR (s)": 0.1,
+            "Min-Max (s)": "1.0-1.4",
+            "CV (%)": 8.33,
+        },
+        {
+            "Axis": "Z",
+            "Action": "Move to Home",
+            "n": 25,
+            "Mean (s)": 21.187,
+            "SD (s)": 0.1375,
+            "Var (s^2)": 0.0189,
+            "Median (s)": 21.162,
+            "IQR (s)": 0.211,
+            "Min-Max (s)": "21.019-21.467",
+            "CV (%)": 0.65,
+        },
+    ]
+
+    summary_path = SummaryWorkbookExporter().export(tmp_path / "summary.xlsx", axis_action_summary)
+    sheet = load_workbook(summary_path, data_only=True)["Overall Axis Action Summary"]
+    headers = [cell.value for cell in sheet[1]]
+    actions = [row[headers.index("Action")] for row in sheet.iter_rows(min_row=2, values_only=True) if row[0]]
+
+    assert actions == ["Move to Home"]
 
 
 def test_gallery_workbook_omits_overall_and_duplicate_axis_action_summary(tmp_path: Path) -> None:
@@ -3226,7 +3264,13 @@ def test_excel_export_includes_distribution_sheets_and_chart_paths(tmp_path: Pat
         "Min–Max (s)",
         "CV (%)",
     ]
-    assert all(row[summary_headers.index("Action")] != "Move to Home" for row in summary_sheet.iter_rows(min_row=2, values_only=True))
+    summary_actions = [
+        row[summary_headers.index("Action")]
+        for row in summary_sheet.iter_rows(min_row=2, values_only=True)
+        if row[0] is not None
+    ]
+    assert "Search Reference" not in summary_actions
+    assert "Move to Home" in summary_actions
     summary_keys = [cell.value for cell in workbook["Summary"]["A"] if cell.value]
     assert "Distribution Images Inserted Into Gallery" not in summary_keys
     assert "Distribution Image Gallery Metadata Note" in summary_keys
@@ -3352,7 +3396,8 @@ def test_synthetic_multi_image_end_to_end_gallery_exports_images_and_sign_audits
         if row[0] is not None
     ]
     assert "Move to Max" in summary_actions
-    assert "Move to Home" not in summary_actions
+    assert "Search Reference" not in summary_actions
+    assert "Move to Home" in summary_actions
     stats_sheet = gallery["Image Statistics"]
     headers = [cell.value for cell in stats_sheet[1]]
     gallery_actions = [
@@ -3490,7 +3535,7 @@ def test_summary_output_adds_xlsx_suffix_and_exports_report_only(tmp_path: Path)
     headers = [cell.value for cell in sheet[1]]
     rows = list(sheet.iter_rows(min_row=2, values_only=True))
     assert any(row[headers.index("Action")] == "Clear Motor" for row in rows)
-    assert all(row[headers.index("Action")] != "Move to Home" for row in rows if row[0] is not None)
+    assert all(row[headers.index("Action")] != "Search Reference" for row in rows if row[0] is not None)
 
 
 def test_summary_output_cannot_overwrite_main_workbook(tmp_path: Path) -> None:

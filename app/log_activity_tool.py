@@ -7,8 +7,10 @@ import logging
 from pathlib import Path
 
 try:
+    from backend.log_axis_activity_analyzer.batch_runner import DHRBatchProcessor
     from backend.log_axis_activity_analyzer.service import LogAnalysisService
 except ModuleNotFoundError as exc:  # pragma: no cover - exercised only without dependencies installed.
+    DHRBatchProcessor = None
     LogAnalysisService = None
     IMPORT_ERROR = exc
 else:
@@ -31,7 +33,7 @@ def main(argv: list[str] | None = None) -> int:
         if file_picker_mode:
             _show_messagebox("Analysis Error", message, kind="error")
         return 1
-    if IMPORT_ERROR is not None or LogAnalysisService is None:
+    if IMPORT_ERROR is not None or LogAnalysisService is None or DHRBatchProcessor is None:
         message = (
             f"Missing dependency {getattr(IMPORT_ERROR, 'name', 'unknown')}. "
             "Install packages with `pip install -r requirements.txt`."
@@ -41,6 +43,10 @@ def main(argv: list[str] | None = None) -> int:
             _show_messagebox("Analysis Error", message, kind="error")
         return 1
     try:
+        if args.dhr_root:
+            batch_result = _run_batch(args)
+            _print_batch_summary(batch_result)
+            return 0
         resolved = _resolve_paths(args)
         service = LogAnalysisService(logging.getLogger("log_activity_tool.service"))
         result = service.run_analysis(
@@ -127,6 +133,20 @@ def _parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
         help=argparse.SUPPRESS,
     )
     parser.add_argument("--output", help="Destination .xlsx workbook path.")
+    parser.add_argument(
+        "--dhr-root",
+        help="Run batch mode over a DHR root folder. Batch mode creates one output set per valid iSRT case.",
+    )
+    parser.add_argument(
+        "--batch-output",
+        help="Output root folder for --dhr-root batch mode. Defaults to <dhr-root>_output next to the DHR folder.",
+    )
+    parser.add_argument(
+        "--min-initialization-count",
+        type=int,
+        default=20,
+        help="Minimum completed initialization cycles required for batch TXT selection.",
+    )
     parser.add_argument(
         "--summary-output",
         help="Optional path for the standalone one-sheet summary workbook.",
@@ -329,9 +349,51 @@ def _resolve_paths(args: argparse.Namespace) -> dict[str, Path]:
     return resolved
 
 
+def _run_batch(args: argparse.Namespace):
+    """Run DHR batch mode and return the batch result."""
+
+    mixed_single_paths = [name for name in ("txt_file", "log_folder", "legacy_log_b", "output") if getattr(args, name)]
+    if mixed_single_paths:
+        labels = ", ".join(f"--{name.replace('_', '-')}" for name in mixed_single_paths)
+        raise ValueError(f"Do not mix --dhr-root batch mode with single-case paths: {labels}.")
+    if args.summary_output:
+        raise ValueError("--summary-output is only valid for single-case mode.")
+    if args.distribution_output_dir:
+        raise ValueError("--distribution-output-dir is only valid for single-case mode; batch mode creates per-case chart folders.")
+    if args.distribution_image_gallery_output:
+        raise ValueError("--distribution-image-gallery-output is only valid for single-case mode.")
+    processor = DHRBatchProcessor(logger=logging.getLogger("log_activity_tool.batch"))
+    return processor.run(
+        dhr_root=args.dhr_root,
+        batch_output=args.batch_output,
+        min_initialization_count=args.min_initialization_count,
+        encoding_txt=args.encoding_txt,
+        encoding_logs=args.encoding_logs,
+        association_strategy=args.association_strategy,
+        recursive=True,
+        enable_distribution_analysis=not args.no_distribution,
+        max_distribution_charts=args.max_distribution_charts,
+        embed_distribution_charts=not args.no_embed_distribution_charts,
+        movement_distance_round_digits=args.movement_distance_round_digits,
+        distribution_distance_source=args.distribution_distance_source,
+        distribution_distance_grouping_mode=args.distribution_distance_grouping_mode,
+        movement_distance_bin_size=args.movement_distance_bin_size,
+        distribution_allow_nearest_pwm=args.distribution_allow_nearest_pwm,
+        distribution_allow_latest_before_pwm=args.distribution_allow_latest_before_pwm,
+        distribution_allow_carry_forward_pwm=args.distribution_allow_carry_forward_pwm,
+        distribution_allow_nearest_hardware_segment=args.distribution_allow_nearest_hardware_segment,
+        distribution_allow_ambiguous_hardware_segment=args.distribution_allow_ambiguous_hardware_segment,
+        allow_pwm_carry_forward=args.pwm_carry_forward,
+        export_distribution_image_gallery=args.distribution_image_gallery,
+        distribution_image_gallery_layout=args.distribution_image_gallery_layout,
+    )
+
+
 def _should_use_file_picker(args: argparse.Namespace) -> bool:
     """Return whether this invocation may use file-picker dialogs."""
 
+    if getattr(args, "dhr_root", None):
+        return False
     if getattr(args, "no_file_picker", False):
         return False
     return not (args.txt_file and (args.log_folder or args.legacy_log_b) and args.output)
@@ -511,6 +573,28 @@ def _print_summary(result) -> None:
             )
             print(f"Distribution rows excluded unreliable PWM: {result.distribution_excluded_unreliable_pwm_count}")
     print(f"TXT encoding: {result.txt_encoding}")
+
+
+def _print_batch_summary(result) -> None:
+    """Print the finished DHR batch summary to stdout."""
+
+    print(f"DHR root: {result.dhr_root}")
+    print(f"Batch output root: {result.output_root}")
+    print(f"Discovered case folders: {result.discovered_count}")
+    print(f"Processed cases: {result.processed_count}")
+    print(f"Skipped cases: {result.skipped_count}")
+    print(f"Failed cases: {result.failed_count}")
+    print(f"Cross-iSRT summary workbook: {result.cross_summary_path}")
+    skip_reasons: dict[str, int] = {}
+    for record in result.records:
+        if record.processing_status == "Processed":
+            continue
+        reason = record.processing_status if not record.skip_reason else f"{record.processing_status}: {record.skip_reason}"
+        skip_reasons[reason] = skip_reasons.get(reason, 0) + 1
+    if skip_reasons:
+        print("Skip/failure reasons:")
+        for reason, count in sorted(skip_reasons.items()):
+            print(f"  {count}: {reason}")
 
 
 if __name__ == "__main__":  # pragma: no cover - CLI entrypoint.

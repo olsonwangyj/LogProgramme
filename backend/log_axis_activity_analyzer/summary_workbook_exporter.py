@@ -19,7 +19,7 @@ from .config import (
 )
 
 
-DEFAULT_EXCLUDED_SUMMARY_ACTIONS = {"Move to Home", "move_to_home"}
+DEFAULT_EXCLUDED_SUMMARY_ACTIONS = {"Search Reference", "search_reference"}
 
 
 class SummaryWorkbookExporter:
@@ -80,11 +80,11 @@ class SummaryWorkbookExporter:
         if any(self._normalize_action(value) in excluded for value in action_candidates):
             return True
         action = self._normalize_action(row.get("Action"))
-        if action == "start moving to home -> motor homed":
+        if action == "start searching reference -> reference found":
             return True
         start_event = self._normalize_action(row.get("Start Event") or row.get("Event Type / Start Event"))
         end_event = self._normalize_action(row.get("End Event"))
-        return start_event.startswith("start moving to home") and end_event == "motor homed"
+        return start_event == "start searching reference" and end_event.startswith("reference found")
 
     def _overall_axis_action_row(self, row: dict[str, object]) -> dict[str, object]:
         """Map internal ASCII summary columns to final report-facing labels."""
