@@ -6,5 +6,6 @@ output/
 *.xlsx
 Log/
 *.tmp
+.DS_Store
 build/
 dist/
